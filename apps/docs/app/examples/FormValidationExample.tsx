@@ -5,11 +5,11 @@ import {
   FormResetButton,
   FormSubmitButton,
   TextField,
-} from '@/components';
+} from '@umami/react-zen';
 
 export function FormValidationExample() {
   const validateAge = (value: number) => {
-    if (isNaN(Number(value))) return 'Must enter a number';
+    if (Number.isNaN(Number(value))) return 'Must enter a number';
     if (value <= 18) return 'You must be older than 18';
     if (value >= 100) return 'Age must be less than 100';
     return true;

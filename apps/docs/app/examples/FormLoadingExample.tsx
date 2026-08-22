@@ -1,5 +1,5 @@
 'use client';
-import { Form, FormButtons, FormField, FormSubmitButton, TextField } from '@/components';
+import { Form, FormButtons, FormField, FormSubmitButton, TextField } from '@umami/react-zen';
 
 export function FormLoadingExample() {
   const handleSubmit = async (values: any) => {

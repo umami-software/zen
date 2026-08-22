@@ -1,5 +1,5 @@
+import { Calendar, Column, TextField } from '@umami/react-zen';
 import { useState } from 'react';
-import { Calendar, Column, TextField } from '@/components';
 
 export function CalendarExample() {
   const [date, setDate] = useState(new Date());

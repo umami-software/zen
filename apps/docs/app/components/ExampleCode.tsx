@@ -1,6 +1,6 @@
 'use client';
+import { Box } from '@umami/react-zen';
 import type { ReactNode } from 'react';
-import { Box } from '@/components';
 
 interface ExampleCodeProps {
   children: ReactNode;

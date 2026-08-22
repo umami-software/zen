@@ -2,31 +2,21 @@
   "name": "react-zen-docs",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "next dev -p 9001 --turbo",
-    "build": "next build",
-    "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind",
-    "start": "next start"
-  },
-  "devDependencies": {
-    "pagefind": "^1.3.0",
-    "postcss": "^8.5.6"
+    "dev": "shiso dev --port 9001",
+    "check": "shiso check",
+    "build": "shiso build",
+    "preview": "shiso preview --outDir dist/client",
+    "start": "shiso preview --outDir dist/client --port 9001"
   },
   "dependencies": {
-    "@fontsource/jetbrains-mono": "^5.2.8",
-    "@tailwindcss/postcss": "^4.1.18",
     "@umami/react-zen": "workspace:*",
-    "classnames": "^2.5.1",
-    "glob": "^13.0.0",
-    "highlight.js": "^11.11.1",
+    "@umami/shiso": "^1.5.0",
     "lucide-react": "^0.555.0",
-    "next": "^16.0.7",
-    "nextra": "^4.6.1",
-    "nextra-theme-docs": "^4.6.1",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
     "react-hook-form": "^7.66.1",
-    "tailwindcss": "^4.1.18",
     "thenby": "^1.3.4",
     "zustand": "^5.0.8"
   }

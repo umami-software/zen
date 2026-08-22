@@ -5,3 +5,5 @@ allowBuilds:
   '@parcel/watcher': true
   esbuild: true
   sharp: true
+minimumReleaseAgeExclude:
+  - '@umami/shiso@1.5.0'

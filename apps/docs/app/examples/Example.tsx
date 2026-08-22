@@ -1,7 +1,7 @@
 'use client';
 
+import { Box, Button, Flexbox, type FlexboxProps } from '@umami/react-zen';
 import { Children, isValidElement, type ReactNode, useState } from 'react';
-import { Box, Button, Flexbox, type FlexboxProps } from '@/components';
 import { ExampleCode } from '../components/ExampleCode';
 
 function isCodeBlock(child: ReactNode): boolean {
@@ -19,7 +19,7 @@ function isCodeBlock(child: ReactNode): boolean {
   // Check if it has a 'data-rehype-pretty-code-figure' or similar attribute
   if (child.props?.['data-rehype-pretty-code-figure'] !== undefined) return true;
 
-  // Check for figure element (nextra wraps code in figure)
+  // Check for wrappers used by documentation code blocks.
   if (type === 'figure') return true;
 
   // Check className for code-related classes

@@ -1,4 +1,4 @@
-import { ListItem, Row, Select, Text } from '@/components';
+import { ListItem, Row, Select, Text } from '@umami/react-zen';
 
 const items = ['One', 'Two', 'Three', 'Four', 'Five'];
 

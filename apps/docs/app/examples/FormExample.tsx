@@ -8,7 +8,7 @@ import {
   FormSubmitButton,
   PasswordField,
   TextField,
-} from '@/components';
+} from '@umami/react-zen';
 
 const defaultValues = { username: '', password: '', remember_password: false };
 

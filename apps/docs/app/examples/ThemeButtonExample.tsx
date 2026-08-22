@@ -1,7 +1,7 @@
 'use client';
 
+import { Box, Row, Text, ThemeButton } from '@umami/react-zen';
 import { useRef } from 'react';
-import { Box, Row, Text, ThemeButton } from '@/components';
 
 export function ThemeButtonExample() {
   const containerRef = useRef<HTMLDivElement>(null);

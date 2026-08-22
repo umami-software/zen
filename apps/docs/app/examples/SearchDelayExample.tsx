@@ -1,5 +1,5 @@
+import { Column, SearchField, TextField } from '@umami/react-zen';
 import { useState } from 'react';
-import { Column, SearchField, TextField } from '@/components';
 
 export function SearchDelayExample() {
   const [value, setValue] = useState('abc');

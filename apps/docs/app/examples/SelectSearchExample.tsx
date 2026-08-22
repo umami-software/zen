@@ -1,5 +1,5 @@
+import { ListItem, Select } from '@umami/react-zen';
 import { useState } from 'react';
-import { ListItem, Select } from '@/components';
 
 const valuesPredefined = [
   'One',

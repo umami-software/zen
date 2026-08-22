@@ -1,5 +1,5 @@
-import { Box } from '@/components';
-import type { BoxProps } from '@/components/Box';
+import type { BoxProps } from '@umami/react-zen';
+import { Box } from '@umami/react-zen';
 
 const SIZES = {
   sm: '25px',

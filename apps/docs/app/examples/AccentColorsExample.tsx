@@ -1,5 +1,5 @@
-import { Box, Column, Text } from '@/components';
-import { ACCENT_COLORS } from '@/lib/constants';
+import { Box, Column, Text } from '@umami/react-zen';
+import { ACCENT_COLORS } from '../../../../packages/react-zen/src/lib/constants';
 
 export function AccentColorsExample() {
   return ACCENT_COLORS.map(color => (

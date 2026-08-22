@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, DialogTrigger, Row, Sheet, SheetHeader, Text } from '@/components';
+import { Button, DialogTrigger, Row, Sheet, SheetHeader, Text } from '@umami/react-zen';
 
 const sides = ['left', 'right', 'top', 'bottom'] as const;
 

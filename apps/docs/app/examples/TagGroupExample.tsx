@@ -1,5 +1,5 @@
 'use client';
-import { Tag, TagGroup } from '@/components';
+import { Tag, TagGroup } from '@umami/react-zen';
 
 export function RemovableTagGroupExample() {
   return (

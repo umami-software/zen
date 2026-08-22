@@ -1,6 +1,6 @@
 'use client';
 
-import { ComboBox, Text } from '@/components';
+import { ComboBox, Text } from '@umami/react-zen';
 
 export function ComboBoxEmptyExample() {
   return (

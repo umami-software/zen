@@ -1,4 +1,4 @@
-import { Button, useToast } from '@/components';
+import { Button, useToast } from '@umami/react-zen';
 
 export function ToastExample() {
   const { toast } = useToast();

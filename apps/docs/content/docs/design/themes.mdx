@@ -2,7 +2,9 @@
 title: Themes
 ---
 
-# Themes
+import { DataColumn, DataTable, Example, PaletteSwatchesExample, ThemeButton, ThemeButtonExample, ZenProvider } from '../../../mdx-components';
+
+<ZenProvider>
 
 Zen supports light and dark themes out of the box. Themes are applied using CSS custom properties that automatically adjust colors, backgrounds, and borders based on the active theme.
 
@@ -165,3 +167,5 @@ setPalette('zinc');
 ### Palette persistence
 
 Palette preference is automatically saved to `localStorage` under the key `zen.palette`. The `data-palette` attribute is applied to the root element.
+
+</ZenProvider>

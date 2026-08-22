@@ -10,7 +10,7 @@ import {
   FormSubmitButton,
   Row,
   TextField,
-} from '@/components';
+} from '@umami/react-zen';
 
 const defaultValues = { items: [{ name: 'Item 1' }] };
 

@@ -2,7 +2,9 @@
 title: Usage Guide
 ---
 
-# Usage Guide
+import { Box, Button, Column, Example, Grid, Heading, Lucide, Row, Text, TextField, ZenProvider } from '../../mdx-components';
+
+<ZenProvider>
 
 This guide covers the core components and conventions used to build interfaces with Zen.
 
@@ -372,7 +374,7 @@ Use semantic color tokens that adapt to the theme:
 ```
 
 <Example>
-  <Row justifyContent="space-between" alignItems="center" gap="4" padding="4" border borderRadius="lg">
+  <Row justifyContent="space-between" alignItems="center" marginBottom="8">
     <Column gap="1">
       <Heading size="2xl">Dashboard</Heading>
       <Text color="muted">Welcome back, here's what's happening.</Text>
@@ -424,3 +426,5 @@ Use semantic color tokens that adapt to the theme:
 4. **Think responsive** - Use responsive objects for props that should adapt
 5. **Leverage semantics** - Use semantic colors and tokens for theme compatibility
 6. **Keep it simple** - Compose simple components rather than configuring complex ones
+
+</ZenProvider>

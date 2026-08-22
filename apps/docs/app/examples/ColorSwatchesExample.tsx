@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Column, Row, Text } from '@/components';
+import { Box, Column, Row, Text } from '@umami/react-zen';
 
 const COLORS = [
   'slate',

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const defaultMode = '__SHISO_APPEARANCE_DEFAULT__';
+        const strict = '__SHISO_APPEARANCE_STRICT__' === 'true';
+        let theme = defaultMode === 'dark' ? 'dark' : 'light';
+        try {
+          const stored = strict ? null : localStorage.getItem('shiso-theme');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const fallback =
+            defaultMode === 'system' ? (prefersDark ? 'dark' : 'light') : defaultMode;
+          theme = stored === 'dark' || stored === 'light' ? stored : fallback;
+        } catch {
+          // Fall back to the configured default.
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+    <script>
+      if (location.hostname === 'zen.umami.is') {
+        const script = document.createElement('script');
+        script.defer = true;
+        script.src = 'https://cloud.umami.is/script.js';
+        script.dataset.websiteId = 'b2cbcc3e-7a67-4232-9619-4e2b4d3b87e4';
+        script.dataset.domains = 'zen.umami.is';
+        document.head.appendChild(script);
+      }
+    </script>
+    <!--app-head-->
+  </head>
+  <body>
+    <div id="root"><!--app-html--></div>
+    <script type="module" src="/entry-client.tsx"></script>
+  </body>
+</html>

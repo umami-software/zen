@@ -1,32 +1,6 @@
-import {
-  AlertDialog,
-  Button,
-  DialogTrigger,
-  Menu,
-  MenuItem,
-  MenuSection,
-  Modal,
-  Text,
-} from '@/components';
+import { AlertDialog, Button, DialogTrigger, Modal, Text } from '@umami/react-zen';
 
 export function AlertDialogExample() {
-  const items = [
-    {
-      heading: 'Fruits',
-      items: [
-        { id: 'apple', name: 'Apple' },
-        { id: 'orange', name: 'Orange' },
-      ],
-    },
-    {
-      heading: 'Vegetables',
-      items: [
-        { id: 'carrot', name: 'Carrot' },
-        { id: 'broccoli', name: 'Broccoli' },
-      ],
-    },
-  ];
-
   return (
     <DialogTrigger overlayType="alert-dialog">
       <Button variant="primary">Delete account</Button>

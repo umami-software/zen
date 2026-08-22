@@ -1,0 +1,446 @@
+{
+	"$schema": "./node_modules/@umami/shiso/docs.schema.json",
+	"name": "zen",
+	"description": "The design system and React components used by Umami.",
+	"colors": { "primary": "#262626" },
+	"logo": "/favicon-32x32.png",
+	"favicon": "/favicon.ico",
+	"search": { "provider": "pagefind" },
+	"appearance": { "default": "system" },
+	"pages": [{
+		"path": "/playground",
+		"page": "playground"
+	}],
+	"navbar": { "links": [{
+		"label": "Playground",
+		"href": "/playground"
+	}, {
+		"icon": "github",
+		"ariaLabel": "GitHub",
+		"href": "https://github.com/umami-software/react-zen"
+	}] },
+	"footer": { "socials": [{
+		"icon": "github",
+		"ariaLabel": "GitHub",
+		"href": "https://github.com/umami-software/react-zen"
+	}] },
+	"metadata": { "timestamp": false },
+	"redirects": [
+		{
+			"source": "/patterns/data-display/empty-state",
+			"destination": "/docs/components/empty"
+		},
+		{
+			"source": "/patterns/feedback/skeleton-loader",
+			"destination": "/docs/components/skeleton"
+		},
+		{
+			"source": "/patterns/layout/page-header",
+			"destination": "/docs/layout/page-header"
+		},
+		{
+			"source": "/docs/typography/kbd",
+			"destination": "/docs/components/kbd"
+		},
+		{
+			"source": "/docs/feedback-status/alert-banner",
+			"destination": "/docs/components/alert"
+		},
+		{
+			"source": "/docs/feedback-status/empty-state",
+			"destination": "/docs/components/empty"
+		},
+		{
+			"source": "/docs/components/page-header",
+			"destination": "/docs/layout/page-header"
+		},
+		{
+			"source": "/docs/form-inputs/checkbox",
+			"destination": "/docs/components/checkbox"
+		},
+		{
+			"source": "/docs/form-inputs/checkbox-group",
+			"destination": "/docs/components/checkbox-group"
+		},
+		{
+			"source": "/docs/form-inputs/combobox",
+			"destination": "/docs/components/combobox"
+		},
+		{
+			"source": "/docs/form-inputs/date-picker",
+			"destination": "/docs/components/date-picker"
+		},
+		{
+			"source": "/docs/form-inputs/input-group",
+			"destination": "/docs/components/input-group"
+		},
+		{
+			"source": "/docs/form-inputs/number-field",
+			"destination": "/docs/components/number-field"
+		},
+		{
+			"source": "/docs/form-inputs/otp-field",
+			"destination": "/docs/components/otp-field"
+		},
+		{
+			"source": "/docs/form-inputs/password-field",
+			"destination": "/docs/components/password-field"
+		},
+		{
+			"source": "/docs/form-inputs/radio-group",
+			"destination": "/docs/components/radio-group"
+		},
+		{
+			"source": "/docs/form-inputs/search-field",
+			"destination": "/docs/components/search-field"
+		},
+		{
+			"source": "/docs/form-inputs/select",
+			"destination": "/docs/components/select"
+		},
+		{
+			"source": "/docs/form-inputs/slider",
+			"destination": "/docs/components/slider"
+		},
+		{
+			"source": "/docs/form-inputs/switch",
+			"destination": "/docs/components/switch"
+		},
+		{
+			"source": "/docs/form-inputs/text-field",
+			"destination": "/docs/components/text-field"
+		},
+		{
+			"source": "/docs/form-inputs/toggle",
+			"destination": "/docs/components/toggle"
+		},
+		{
+			"source": "/docs/form-inputs/toggle-group",
+			"destination": "/docs/components/toggle-group"
+		},
+		{
+			"source": "/docs/actions-navigation/breadcrumbs",
+			"destination": "/docs/components/breadcrumbs"
+		},
+		{
+			"source": "/docs/actions-navigation/button",
+			"destination": "/docs/components/button"
+		},
+		{
+			"source": "/docs/actions-navigation/button-group",
+			"destination": "/docs/components/button-group"
+		},
+		{
+			"source": "/docs/actions-navigation/command",
+			"destination": "/docs/components/command"
+		},
+		{
+			"source": "/docs/actions-navigation/context-menu",
+			"destination": "/docs/components/context-menu"
+		},
+		{
+			"source": "/docs/actions-navigation/hover-trigger",
+			"destination": "/docs/components/hover-trigger"
+		},
+		{
+			"source": "/docs/actions-navigation/loading-button",
+			"destination": "/docs/components/loading-button"
+		},
+		{
+			"source": "/docs/actions-navigation/menu",
+			"destination": "/docs/components/menu"
+		},
+		{
+			"source": "/docs/actions-navigation/menubar",
+			"destination": "/docs/components/menubar"
+		},
+		{
+			"source": "/docs/actions-navigation/navbar",
+			"destination": "/docs/components/navbar"
+		},
+		{
+			"source": "/docs/actions-navigation/pagination",
+			"destination": "/docs/components/pagination"
+		},
+		{
+			"source": "/docs/actions-navigation/tabs",
+			"destination": "/docs/components/tabs"
+		},
+		{
+			"source": "/docs/actions-navigation/toolbar",
+			"destination": "/docs/components/toolbar"
+		},
+		{
+			"source": "/docs/actions-navigation/theme-button",
+			"destination": "/docs/components/theme-button"
+		},
+		{
+			"source": "/docs/actions-navigation/theme-switcher",
+			"destination": "/docs/components/theme-switcher"
+		},
+		{
+			"source": "/docs/feedback-status/alert",
+			"destination": "/docs/components/alert"
+		},
+		{
+			"source": "/docs/feedback-status/alert-dialog",
+			"destination": "/docs/components/alert-dialog"
+		},
+		{
+			"source": "/docs/feedback-status/confirmation-dialog",
+			"destination": "/docs/components/confirmation-dialog"
+		},
+		{
+			"source": "/docs/feedback-status/dialog",
+			"destination": "/docs/components/dialog"
+		},
+		{
+			"source": "/docs/feedback-status/empty",
+			"destination": "/docs/components/empty"
+		},
+		{
+			"source": "/docs/feedback-status/loading",
+			"destination": "/docs/components/loading"
+		},
+		{
+			"source": "/docs/feedback-status/meter",
+			"destination": "/docs/components/meter"
+		},
+		{
+			"source": "/docs/feedback-status/modal",
+			"destination": "/docs/components/modal"
+		},
+		{
+			"source": "/docs/feedback-status/popover",
+			"destination": "/docs/components/popover"
+		},
+		{
+			"source": "/docs/feedback-status/progress-bar",
+			"destination": "/docs/components/progress-bar"
+		},
+		{
+			"source": "/docs/feedback-status/progress-circle",
+			"destination": "/docs/components/progress-circle"
+		},
+		{
+			"source": "/docs/feedback-status/sheet",
+			"destination": "/docs/components/sheet"
+		},
+		{
+			"source": "/docs/feedback-status/skeleton",
+			"destination": "/docs/components/skeleton"
+		},
+		{
+			"source": "/docs/feedback-status/status-light",
+			"destination": "/docs/components/status-light"
+		},
+		{
+			"source": "/docs/feedback-status/toast",
+			"destination": "/docs/components/toast"
+		},
+		{
+			"source": "/docs/feedback-status/tooltip",
+			"destination": "/docs/components/tooltip"
+		},
+		{
+			"source": "/docs/data-display/accordion",
+			"destination": "/docs/components/accordion"
+		},
+		{
+			"source": "/docs/data-display/avatar",
+			"destination": "/docs/components/avatar"
+		},
+		{
+			"source": "/docs/data-display/badge",
+			"destination": "/docs/components/badge"
+		},
+		{
+			"source": "/docs/data-display/calendar",
+			"destination": "/docs/components/calendar"
+		},
+		{
+			"source": "/docs/data-display/carousel",
+			"destination": "/docs/components/carousel"
+		},
+		{
+			"source": "/docs/data-display/collapsible",
+			"destination": "/docs/components/collapsible"
+		},
+		{
+			"source": "/docs/data-display/data-card",
+			"destination": "/docs/components/data-card"
+		},
+		{
+			"source": "/docs/data-display/data-table",
+			"destination": "/docs/components/data-table"
+		},
+		{
+			"source": "/docs/data-display/icon",
+			"destination": "/docs/components/icon"
+		},
+		{
+			"source": "/docs/data-display/image",
+			"destination": "/docs/components/image"
+		},
+		{
+			"source": "/docs/data-display/kbd",
+			"destination": "/docs/components/kbd"
+		},
+		{
+			"source": "/docs/data-display/list",
+			"destination": "/docs/components/list"
+		},
+		{
+			"source": "/docs/data-display/table",
+			"destination": "/docs/components/table"
+		},
+		{
+			"source": "/docs/data-display/tag-group",
+			"destination": "/docs/components/tag-group"
+		}
+	],
+	"navigation": { "groups": [
+		{
+			"group": "Getting started",
+			"collapsible": false,
+			"pages": [
+				{
+					"page": "index",
+					"title": "Introduction"
+				},
+				{
+					"page": "install",
+					"title": "Installation"
+				},
+				{
+					"page": "usage",
+					"title": "Usage Guide"
+				}
+			]
+		},
+		{
+			"group": "Design",
+			"pages": [
+				"design/colors",
+				"design/fonts",
+				"design/spacing",
+				"design/borders",
+				"design/shadows",
+				"design/breakpoints",
+				"design/themes",
+				"design/customization"
+			]
+		},
+		{
+			"group": "Layout",
+			"pages": [
+				"layout/box",
+				"layout/flexbox",
+				"layout/grid",
+				"layout/container",
+				"layout/page-header",
+				"layout/aspect-ratio",
+				"layout/resizable",
+				"layout/scroll-area",
+				"layout/separator"
+			]
+		},
+		{
+			"group": "Typography",
+			"pages": [
+				"typography/text",
+				"typography/heading",
+				"typography/code",
+				"typography/blockquote"
+			]
+		},
+		{
+			"group": "Forms",
+			"pages": [{
+				"page": "forms/overview",
+				"title": "Overview"
+			}]
+		},
+		{
+			"group": "Form Inputs",
+			"pages": [
+				"components/checkbox",
+				"components/checkbox-group",
+				"components/combobox",
+				"components/date-picker",
+				"components/input-group",
+				"components/number-field",
+				"components/otp-field",
+				"components/password-field",
+				"components/radio-group",
+				"components/search-field",
+				"components/select",
+				"components/slider",
+				"components/switch",
+				"components/text-field",
+				"components/toggle",
+				"components/toggle-group"
+			]
+		},
+		{
+			"group": "Actions & Navigation",
+			"pages": [
+				"components/breadcrumbs",
+				"components/button",
+				"components/button-group",
+				"components/command",
+				"components/context-menu",
+				"components/hover-trigger",
+				"components/loading-button",
+				"components/menu",
+				"components/menubar",
+				"components/navbar",
+				"components/pagination",
+				"components/tabs",
+				"components/toolbar",
+				"components/theme-button",
+				"components/theme-switcher"
+			]
+		},
+		{
+			"group": "Feedback & Status",
+			"pages": [
+				"components/alert",
+				"components/alert-dialog",
+				"components/confirmation-dialog",
+				"components/dialog",
+				"components/empty",
+				"components/loading",
+				"components/meter",
+				"components/modal",
+				"components/popover",
+				"components/progress-bar",
+				"components/progress-circle",
+				"components/sheet",
+				"components/skeleton",
+				"components/status-light",
+				"components/toast",
+				"components/tooltip"
+			]
+		},
+		{
+			"group": "Data Display",
+			"pages": [
+				"components/accordion",
+				"components/avatar",
+				"components/badge",
+				"components/calendar",
+				"components/carousel",
+				"components/collapsible",
+				"components/data-card",
+				"components/data-table",
+				"components/icon",
+				"components/image",
+				"components/kbd",
+				"components/list",
+				"components/table",
+				"components/tag-group"
+			]
+		}
+	] }
+}

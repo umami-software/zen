@@ -8,7 +8,7 @@ import {
   FormField,
   Modal,
   TextField,
-} from '@/components';
+} from '@umami/react-zen';
 
 export function DialogExample() {
   return (

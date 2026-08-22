@@ -267,7 +267,7 @@
 }
 
 
-/* src/components/Dots.css */
+/* src\components\Dots.css */
 .zen-dot {
   border-radius: 100%;
   background: currentColor;
@@ -300,7 +300,7 @@
 }
 
 
-/* src/components/Modal.css */
+/* src\components\Modal.css */
 .zen-modal-overlay {
   transition: opacity 200ms ease-out;
 }
@@ -393,7 +393,7 @@
 }
 
 
-/* src/components/Overlay.css */
+/* src\components\Overlay.css */
 :root {
   --zen-layer-backdrop: 9998;
   --zen-layer-modal: 9999;
@@ -418,7 +418,7 @@
 }
 
 
-/* src/components/Popover.css */
+/* src\components\Popover.css */
 .zen-popover {
   transition:
     transform 200ms ease-out,
@@ -474,7 +474,7 @@
 }
 
 
-/* src/components/Skeleton.css */
+/* src\components\Skeleton.css */
 .zen-skeleton {
   position: relative;
   overflow: hidden;
@@ -515,7 +515,7 @@
 }
 
 
-/* src/components/Spinner.css */
+/* src\components\Spinner.css */
 .zen-spinner-svg {
   fill: none;
   stroke-width: 0.15em;

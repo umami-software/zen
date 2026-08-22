@@ -1,6 +1,6 @@
 'use client';
+import { Column, Pagination, Text } from '@umami/react-zen';
 import { useState } from 'react';
-import { Column, Pagination, Text } from '@/components';
 
 export function PaginationExample() {
   const [page, setPage] = useState(1);

@@ -1,4 +1,4 @@
-import { Button, ConfirmationDialog, DialogTrigger, Modal, Text } from '@/components';
+import { Button, ConfirmationDialog, DialogTrigger, Modal, Text } from '@umami/react-zen';
 
 export function ConfirmationDialogExample() {
   return (

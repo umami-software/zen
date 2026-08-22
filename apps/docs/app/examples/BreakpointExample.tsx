@@ -1,6 +1,6 @@
 'use client';
 
-import { Column, Text, useBreakpoint } from '@/components';
+import { Column, Text, useBreakpoint } from '@umami/react-zen';
 
 export function BreakpointExample() {
   const breakpoint = useBreakpoint();

@@ -1,7 +1,7 @@
 'use client';
 
+import { Column, OTPField, Text } from '@umami/react-zen';
 import { useState } from 'react';
-import { Column, OTPField, Text } from '@/components';
 
 export function OTPFieldExample() {
   const [value, setValue] = useState('');
@@ -14,8 +14,15 @@ export function OTPFieldExample() {
 
   return (
     <Column alignItems="center" gap>
-      <OTPField label="Verification code" value={value} onChange={handleChange} onComplete={() => setIsComplete(true)} />
-      <Text color="muted">{isComplete ? `Code entered: ${value}` : `Value: ${value || '(empty)'}`}</Text>
+      <OTPField
+        label="Verification code"
+        value={value}
+        onChange={handleChange}
+        onComplete={() => setIsComplete(true)}
+      />
+      <Text color="muted">
+        {isComplete ? `Code entered: ${value}` : `Value: ${value || '(empty)'}`}
+      </Text>
     </Column>
   );
 }

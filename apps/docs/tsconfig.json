@@ -1,36 +1,28 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "ES2022",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
     "noEmit": true,
-    "incremental": true,
+    "allowImportingTsExtensions": true,
     "module": "esnext",
     "esModuleInterop": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react-jsx",
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "baseUrl": ".",
-    "paths": {
-      "@/app/*": ["./app/*"],
-      "@/*": ["../../packages/react-zen/src/*"]
-    }
+    "jsx": "react-jsx"
   },
   "include": [
-    "next-env.d.ts",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts",
+    "declarations.d.ts",
+    "entry-client.tsx",
+    "shiso.config.ts",
+    "app/**/*.ts",
+    "app/**/*.tsx",
     "**/*.mts",
     "**/*.ts",
     "**/*.tsx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }

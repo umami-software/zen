@@ -17,7 +17,7 @@ import {
   Switch,
   TextField,
   Toggle,
-} from '@/components';
+} from '@umami/react-zen';
 
 const defaultValues = {
   name: '',

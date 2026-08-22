@@ -1,7 +1,7 @@
 'use client';
 
+import { Column, DatePicker, TextField } from '@umami/react-zen';
 import { useState } from 'react';
-import { Column, DatePicker, TextField } from '@/components';
 
 export function DatePickerExample() {
   const [date, setDate] = useState<Date | undefined>(undefined);

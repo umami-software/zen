@@ -2,13 +2,14 @@
 title: Playground
 ---
 
-import { PlaygroundExample } from '../app/examples/PlaygroundExample';
-import { PaletteSwitcher } from '../app/components/PaletteSwitcher';
+import { Box, Column, Heading, PaletteSwitcher, PlaygroundExample, Row, Text, ThemeButton, ZenProvider } from '../../mdx-components';
+
+<ZenProvider>
 
 <Box paddingY="8">
   <Column gap="6">
     <Column gap="2">
-      <Heading size="4xl">Playground</Heading>
+      <Heading as="h1" size="4xl">Playground</Heading>
       <Text color="muted">
         Experiment with CSS variables to customize the look and feel of Zen components.
         Changes are applied in real-time to the preview panel.
@@ -27,3 +28,5 @@ import { PaletteSwitcher } from '../app/components/PaletteSwitcher';
     <PlaygroundExample />
   </Column>
 </Box>
+
+</ZenProvider>

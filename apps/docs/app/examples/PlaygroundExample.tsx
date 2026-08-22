@@ -1,7 +1,5 @@
 'use client';
 
-import { FileArchive, Inbox, Layers, Sparkles, Users } from 'lucide-react';
-import { useRef, useState } from 'react';
 import {
   Accordion,
   AccordionItem,
@@ -69,7 +67,9 @@ import {
   ToggleGroup,
   ToggleGroupItem,
   useToast,
-} from '@/components';
+} from '@umami/react-zen';
+import { FileArchive, Inbox, Layers, Sparkles, Users } from 'lucide-react';
+import { useRef, useState } from 'react';
 
 // Tailwind color palette
 const tailwindColors = [

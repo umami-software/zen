@@ -1,6 +1,4 @@
 'use client';
-import { useState } from 'react';
-import { Calendar, Search, Settings, Smile, User } from 'lucide-react';
 import {
   Box,
   Button,
@@ -12,7 +10,9 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@/components';
+} from '@umami/react-zen';
+import { Calendar, Search, Settings, Smile, User } from 'lucide-react';
+import { useState } from 'react';
 
 export function CommandExample() {
   return (

@@ -1,6 +1,6 @@
 'use client';
+import { Form, FormButtons, FormField, FormSubmitButton, TextField } from '@umami/react-zen';
 import { useState } from 'react';
-import { Form, FormButtons, FormField, FormSubmitButton, TextField } from '@/components';
 
 export function FormErrorExample() {
   const [error, setError] = useState<string | null>('Invalid credentials. Please try again.');

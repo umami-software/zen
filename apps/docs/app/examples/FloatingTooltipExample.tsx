@@ -1,7 +1,5 @@
+import { Box, FloatingTooltip, Text } from '@umami/react-zen';
 import { useState } from 'react';
-import { Text, TooltipBubble } from '@/components';
-import { Box } from '@/components/Box';
-import { FloatingTooltip } from '@/components/FloatingTooltip';
 
 export function FloatingTooltipExample() {
   const [show, setShow] = useState(false);

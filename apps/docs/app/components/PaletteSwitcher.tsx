@@ -1,8 +1,7 @@
 'use client';
 
+import { cn, PALETTES, type Palette, useTheme } from '@umami/react-zen';
 import { useEffect, useState } from 'react';
-import { PALETTES, type Palette, useTheme } from '@/components/hooks/useTheme';
-import { cn } from '@/components/lib/tailwind';
 
 interface PaletteSwitcherProps {
   className?: string;

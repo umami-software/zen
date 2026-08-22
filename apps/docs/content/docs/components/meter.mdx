@@ -2,7 +2,9 @@
 title: Meter
 ---
 
-# Meter
+import { Box, DataColumn, DataTable, Example, Meter, ZenProvider } from '../../../mdx-components';
+
+<ZenProvider>
 
 A meter represents a measured value within a known range, such as disk usage or battery level.
 
@@ -61,3 +63,5 @@ Values are formatted with `Intl.NumberFormat` using the `formatOptions` prop.
     <DataColumn id="description" label="Description" />
   </DataTable>
 </Example>
+
+</ZenProvider>
