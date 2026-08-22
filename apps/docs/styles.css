@@ -28,11 +28,14 @@
 @source inline("{hover:,focus:,active:}border-edge{,-muted,-strong}");
 @source inline("{hover:,focus:,active:}opacity-{0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100}");
 
-:root,
-html[data-theme='light'],
-html[data-theme='dark'] {
+:root {
   --primary: #404040;
-  --sidebar-primary: #404040;
+  --sidebar-primary: #404040;  
+}
+
+html[data-theme='dark'] {
+  --primary: #f5f5f5;
+  --sidebar-primary: #f5f5f5;
 }
 
 body {

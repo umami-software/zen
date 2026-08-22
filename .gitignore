@@ -15,12 +15,11 @@ node_modules
 _pagefind/
 
 # build
-/dist
+dist/
 /build
 /types
 /styles.css
 /styles.full.css
-/apps/docs/dist/
 /apps/docs/.shiso/
 
 # misc
