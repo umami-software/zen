@@ -37,7 +37,7 @@ export function Switch({
   const fieldId = useFieldId(id);
 
   return (
-    <Column>
+    <Column gap="1">
       {label && <Label htmlFor={fieldId}>{label}</Label>}
       <BaseSwitch.Root
         {...props}

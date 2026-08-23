@@ -48,46 +48,54 @@ export function SearchField({
     }
   }, [searchValue, delay, onSearch]);
 
-  return (
-    <>
-      {label && <Label htmlFor={props.id}>{label}</Label>}
-      <InputGroup role="search" className={className}>
-        <InputGroupInput
-          aria-label="Search"
-          {...props}
-          type="search"
-          placeholder={placeholder}
-          value={search}
-          className="[&::-webkit-search-cancel-button]:hidden"
-          onChange={event => handleChange(event.target.value)}
-          onKeyDown={event => {
-            props.onKeyDown?.(event);
-            if (event.key === 'Enter') {
-              onSearch?.(search);
-            }
-          }}
-        />
-        <InputGroupAddon align="inline-start">
-          <Icon color="muted">
-            <Search />
-          </Icon>
+  const input = (
+    <InputGroup role="search" className={className}>
+      <InputGroupInput
+        aria-label="Search"
+        {...props}
+        type="search"
+        placeholder={placeholder}
+        value={search}
+        className="[&::-webkit-search-cancel-button]:hidden"
+        onChange={event => handleChange(event.target.value)}
+        onKeyDown={event => {
+          props.onKeyDown?.(event);
+          if (event.key === 'Enter') {
+            onSearch?.(search);
+          }
+        }}
+      />
+      <InputGroupAddon align="inline-start">
+        <Icon color="muted">
+          <Search />
+        </Icon>
+      </InputGroupAddon>
+      {search && (
+        <InputGroupAddon align="inline-end">
+          <InputGroupButton
+            size="icon-xs"
+            isDisabled={props.disabled}
+            aria-label="Clear search"
+            className="text-foreground-muted"
+            onClick={() => handleChange('')}
+          >
+            <Icon size="sm">
+              <X />
+            </Icon>
+          </InputGroupButton>
         </InputGroupAddon>
-        {search && (
-          <InputGroupAddon align="inline-end">
-            <InputGroupButton
-              size="icon-xs"
-              isDisabled={props.disabled}
-              aria-label="Clear search"
-              className="text-foreground-muted"
-              onClick={() => handleChange('')}
-            >
-              <Icon size="sm">
-                <X />
-              </Icon>
-            </InputGroupButton>
-          </InputGroupAddon>
-        )}
-      </InputGroup>
-    </>
+      )}
+    </InputGroup>
   );
+
+  if (label) {
+    return (
+      <div className="flex flex-col gap-1">
+        <Label htmlFor={props.id}>{label}</Label>
+        {input}
+      </div>
+    );
+  }
+
+  return input;
 }

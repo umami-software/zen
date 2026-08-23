@@ -123,23 +123,31 @@ export function List({
     );
   }
 
-  return (
-    <>
-      {label && <Label htmlFor={fieldId}>{label}</Label>}
-      <ListContext.Provider value={{ kind: 'native', selected, toggle }}>
-        <div
-          id={fieldId}
-          role="listbox"
-          aria-multiselectable={selectionMode === 'multiple' || undefined}
-          {...props}
-          className={classes}
-          style={{ ...style, ...getHighlightColor(highlightColor) }}
-        >
-          {children || renderEmptyState?.({})}
-        </div>
-      </ListContext.Provider>
-    </>
+  const listbox = (
+    <ListContext.Provider value={{ kind: 'native', selected, toggle }}>
+      <div
+        id={fieldId}
+        role="listbox"
+        aria-multiselectable={selectionMode === 'multiple' || undefined}
+        {...props}
+        className={classes}
+        style={{ ...style, ...getHighlightColor(highlightColor) }}
+      >
+        {children || renderEmptyState?.({})}
+      </div>
+    </ListContext.Provider>
   );
+
+  if (label) {
+    return (
+      <div className="flex flex-col gap-1">
+        <Label htmlFor={fieldId}>{label}</Label>
+        {listbox}
+      </div>
+    );
+  }
+
+  return listbox;
 }
 
 export interface ListItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'id'> {

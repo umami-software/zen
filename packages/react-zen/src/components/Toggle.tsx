@@ -28,25 +28,33 @@ export function Toggle({
 }: ToggleProps) {
   const labelId = useId();
 
-  return (
-    <>
-      {label && <Label id={labelId}>{label}</Label>}
-      <BaseToggle
-        {...props}
-        aria-labelledby={label ? labelId : props['aria-labelledby']}
-        pressed={isSelected}
-        defaultPressed={defaultSelected}
-        disabled={isDisabled}
-        onPressedChange={onChange}
-        className={cn(
-          'flex items-center justify-center whitespace-nowrap gap-3 font-medium bg-interactive border border-transparent rounded p-2 relative cursor-pointer',
-          'hover:bg-interactive-hover',
-          'data-[pressed]:text-primary-foreground data-[pressed]:bg-primary',
-          className,
-        )}
-      >
-        {children}
-      </BaseToggle>
-    </>
+  const toggle = (
+    <BaseToggle
+      {...props}
+      aria-labelledby={label ? labelId : props['aria-labelledby']}
+      pressed={isSelected}
+      defaultPressed={defaultSelected}
+      disabled={isDisabled}
+      onPressedChange={onChange}
+      className={cn(
+        'flex items-center justify-center whitespace-nowrap gap-3 font-medium bg-interactive border border-transparent rounded p-2 relative cursor-pointer',
+        'hover:bg-interactive-hover',
+        'data-[pressed]:text-primary-foreground data-[pressed]:bg-primary',
+        className,
+      )}
+    >
+      {children}
+    </BaseToggle>
   );
+
+  if (label) {
+    return (
+      <div className="inline-flex flex-col gap-1">
+        <Label id={labelId}>{label}</Label>
+        {toggle}
+      </div>
+    );
+  }
+
+  return toggle;
 }

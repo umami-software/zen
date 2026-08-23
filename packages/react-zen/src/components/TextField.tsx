@@ -60,9 +60,8 @@ export function TextField({
 
   const inputClasses = cn(resize && resizeClasses[resize]);
 
-  return (
+  const input = (
     <>
-      {label && <Label>{label}</Label>}
       <InputGroup
         variant={variant === 'quiet' ? 'quiet' : 'default'}
         className={cn(
@@ -111,4 +110,15 @@ export function TextField({
       </InputGroup>
     </>
   );
+
+  if (label) {
+    return (
+      <div className="flex flex-col gap-1">
+        <Label>{label}</Label>
+        {input}
+      </div>
+    );
+  }
+
+  return input;
 }

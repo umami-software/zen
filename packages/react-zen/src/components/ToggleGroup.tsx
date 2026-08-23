@@ -48,29 +48,37 @@ export function ToggleGroup({
     onChange?.(keys);
   };
 
-  return (
-    <>
-      {label && <Label id={labelId}>{label}</Label>}
-      <ToggleGroupVariantContext.Provider value={variant}>
-        <BaseToggleGroup
-          {...props}
-          aria-labelledby={label ? labelId : props['aria-labelledby']}
-          value={value || (selectedKeys ? Array.from(selectedKeys) : undefined)}
-          defaultValue={
-            defaultValue || (defaultSelectedKeys ? Array.from(defaultSelectedKeys) : undefined)
-          }
-          multiple={selectionMode === 'multiple'}
-          onValueChange={handleChange}
-          className={cn(
-            'inline-flex bg-surface-base shadow-sm border border-edge rounded overflow-hidden',
-            className,
-          )}
-        >
-          {children}
-        </BaseToggleGroup>
-      </ToggleGroupVariantContext.Provider>
-    </>
+  const group = (
+    <ToggleGroupVariantContext.Provider value={variant}>
+      <BaseToggleGroup
+        {...props}
+        aria-labelledby={label ? labelId : props['aria-labelledby']}
+        value={value || (selectedKeys ? Array.from(selectedKeys) : undefined)}
+        defaultValue={
+          defaultValue || (defaultSelectedKeys ? Array.from(defaultSelectedKeys) : undefined)
+        }
+        multiple={selectionMode === 'multiple'}
+        onValueChange={handleChange}
+        className={cn(
+          'inline-flex bg-surface-base shadow-sm border border-edge rounded overflow-hidden',
+          className,
+        )}
+      >
+        {children}
+      </BaseToggleGroup>
+    </ToggleGroupVariantContext.Provider>
   );
+
+  if (label) {
+    return (
+      <div className="inline-flex flex-col gap-1">
+        <Label id={labelId}>{label}</Label>
+        {group}
+      </div>
+    );
+  }
+
+  return group;
 }
 
 export interface ToggleGroupItemProps extends Omit<BaseToggleProps<string>, 'disabled'> {

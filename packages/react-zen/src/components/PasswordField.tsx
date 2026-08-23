@@ -21,28 +21,36 @@ export function PasswordField({
 }: PasswordFieldProps) {
   const [show, setShow] = useState(false);
 
-  return (
-    <>
-      {label && <Label htmlFor={props.id}>{label}</Label>}
-      <InputGroup className={className}>
-        <InputGroupInput
-          aria-label="Password"
-          {...props}
-          type={show ? 'text' : 'password'}
-          disabled={isDisabled}
-          readOnly={isReadOnly}
-        />
-        <InputGroupAddon align="inline-end">
-          <InputGroupButton
-            size="icon-xs"
-            isDisabled={isDisabled}
-            aria-label={show ? 'Hide password' : 'Show password'}
-            onClick={() => setShow(state => !state)}
-          >
-            <Icon>{show ? <EyeSlash /> : <Eye />}</Icon>
-          </InputGroupButton>
-        </InputGroupAddon>
-      </InputGroup>
-    </>
+  const input = (
+    <InputGroup className={className}>
+      <InputGroupInput
+        aria-label="Password"
+        {...props}
+        type={show ? 'text' : 'password'}
+        disabled={isDisabled}
+        readOnly={isReadOnly}
+      />
+      <InputGroupAddon align="inline-end">
+        <InputGroupButton
+          size="icon-xs"
+          isDisabled={isDisabled}
+          aria-label={show ? 'Hide password' : 'Show password'}
+          onClick={() => setShow(state => !state)}
+        >
+          <Icon>{show ? <EyeSlash /> : <Eye />}</Icon>
+        </InputGroupButton>
+      </InputGroupAddon>
+    </InputGroup>
   );
+
+  if (label) {
+    return (
+      <div className="flex flex-col gap-1">
+        <Label htmlFor={props.id}>{label}</Label>
+        {input}
+      </div>
+    );
+  }
+
+  return input;
 }
