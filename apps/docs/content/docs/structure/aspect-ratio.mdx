@@ -2,7 +2,7 @@
 title: Aspect Ratio
 ---
 
-import { AspectRatio, Box, DataColumn, DataTable, Example } from '../../../mdx-components';
+import { AspectRatio, Box, Column, DataColumn, DataTable, Example, Flexbox, Grid, Label, Text } from '../../../mdx-components';
 
 Aspect ratio constrains its content to a fixed width-to-height ratio.
 
@@ -17,6 +17,105 @@ Aspect ratio constrains its content to a fixed width-to-height ratio.
   <AspectRatio ratio={16 / 9}>
     <img src="/images/sample.jpg" alt="Sample" />
   </AspectRatio>
+  ```
+</Example>
+
+## Common ratios
+
+Pass any width-to-height ratio. The default is `1` (square).
+
+<Example>
+  <Grid gap="3" columns="3" width="600px">
+    <Column gap="2">
+      <Label>1 / 1</Label>
+      <AspectRatio ratio={1}>
+        <Flexbox alignItems="center" justifyContent="center" backgroundColor="interactive" borderRadius>
+          <Text color="muted">Square</Text>
+        </Flexbox>
+      </AspectRatio>
+    </Column>
+    <Column gap="2">
+      <Label>4 / 3</Label>
+      <AspectRatio ratio={4 / 3}>
+        <Flexbox alignItems="center" justifyContent="center" backgroundColor="interactive" borderRadius>
+          <Text color="muted">Standard</Text>
+        </Flexbox>
+      </AspectRatio>
+    </Column>
+    <Column gap="2">
+      <Label>16 / 9</Label>
+      <AspectRatio ratio={16 / 9}>
+        <Flexbox alignItems="center" justifyContent="center" backgroundColor="interactive" borderRadius>
+          <Text color="muted">Widescreen</Text>
+        </Flexbox>
+      </AspectRatio>
+    </Column>
+  </Grid>
+
+  ```jsx
+  <Grid gap="3" columns="3">
+    <AspectRatio ratio={1}>
+      <Flexbox alignItems="center" justifyContent="center">Square</Flexbox>
+    </AspectRatio>
+    <AspectRatio ratio={4 / 3}>
+      <Flexbox alignItems="center" justifyContent="center">Standard</Flexbox>
+    </AspectRatio>
+    <AspectRatio ratio={16 / 9}>
+      <Flexbox alignItems="center" justifyContent="center">Widescreen</Flexbox>
+    </AspectRatio>
+  </Grid>
+  ```
+</Example>
+
+## Portrait
+
+Ratios below `1` produce portrait orientation, useful for posters and profile cards.
+
+<Example>
+  <Box width="200px">
+    <AspectRatio ratio={3 / 4}>
+      <img src="/images/sample.jpg" alt="Sample" style={{ borderRadius: '8px' }} />
+    </AspectRatio>
+  </Box>
+
+  ```jsx
+  <Box width="200px">
+    <AspectRatio ratio={3 / 4}>
+      <img src="/images/sample.jpg" alt="Sample" />
+    </AspectRatio>
+  </Box>
+  ```
+</Example>
+
+## Image grid
+
+Images are cropped with `object-cover`, so mixed-size images stay uniform in a grid.
+
+<Example>
+  <Grid gap="3" columns="3" width="600px">
+    <AspectRatio>
+      <img src="/images/sample.jpg" alt="Sample" style={{ borderRadius: '8px' }} />
+    </AspectRatio>
+    <AspectRatio>
+      <img src="/images/sample.jpg" alt="Sample" style={{ borderRadius: '8px' }} />
+    </AspectRatio>
+    <AspectRatio>
+      <img src="/images/sample.jpg" alt="Sample" style={{ borderRadius: '8px' }} />
+    </AspectRatio>
+  </Grid>
+
+  ```jsx
+  <Grid gap="3" columns="3">
+    <AspectRatio>
+      <img src="/images/sample.jpg" alt="Sample" />
+    </AspectRatio>
+    <AspectRatio>
+      <img src="/images/sample.jpg" alt="Sample" />
+    </AspectRatio>
+    <AspectRatio>
+      <img src="/images/sample.jpg" alt="Sample" />
+    </AspectRatio>
+  </Grid>
   ```
 </Example>
 
