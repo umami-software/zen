@@ -19,11 +19,25 @@
 		"ariaLabel": "GitHub",
 		"href": "https://github.com/umami-software/react-zen"
 	}] },
-	"footer": { "socials": [{
-		"icon": "github",
-		"ariaLabel": "GitHub",
-		"href": "https://github.com/umami-software/react-zen"
-	}] },
+    "footer": {
+      "socials": [
+        {
+          "icon": "github",
+          "ariaLabel": "Umami on GitHub",
+          "href": "https://github.com/umami-software/react-zen"
+        },
+        {
+          "icon": "x",
+          "ariaLabel": "Umami on X",
+          "href": "https://x.com/umami_software"
+        },
+        {
+          "icon": "discord",
+          "ariaLabel": "Umami on Discord",
+          "href": "https://umami.is/discord"
+        }
+      ]
+    },
 	"metadata": { "timestamp": false },
 	"redirects": [
 		{
@@ -477,7 +491,7 @@
 		]
 	}, {
 		"tab": "Playground",
-		"icon": "layout-dashboard",
+		"icon": "panels-top-left",
 		"href": "/playground"
 	}] }
 }

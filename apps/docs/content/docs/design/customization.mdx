@@ -13,19 +13,19 @@ To customize Zen, override the CSS variables in your stylesheet. Variables defin
 ```css
 :root {
   /* Override for both light and dark themes */
-  --font-family: 'Inter', sans-serif;
+  --zen-font-family: 'Inter', sans-serif;
 }
 
 /* Override only in light mode */
 [data-theme="light"] {
-  --surface-base: #fafafa;
-  --text-primary: #1a1a1a;
+  --zen-surface-base: #fafafa;
+  --zen-text-primary: #1a1a1a;
 }
 
 /* Override only in dark mode */
 [data-theme="dark"] {
-  --surface-base: #0a0a0a;
-  --text-primary: #fafafa;
+  --zen-surface-base: #0a0a0a;
+  --zen-text-primary: #fafafa;
 }
 ```
 
@@ -36,16 +36,16 @@ Here's an example of creating a custom branded theme with a blue accent:
 ```css
 [data-theme="light"] {
   /* Primary button and accent color */
-  --primary: oklch(0.55 0.2 250);
-  --primary-foreground: #ffffff;
-  --focus-ring: oklch(0.7 0.15 250);
+  --zen-primary: oklch(0.55 0.2 250);
+  --zen-primary-foreground: #ffffff;
+  --zen-focus-ring: oklch(0.7 0.15 250);
 }
 
 [data-theme="dark"] {
   /* Lighter primary for dark mode */
-  --primary: oklch(0.7 0.15 250);
-  --primary-foreground: oklch(0.2 0 0);
-  --focus-ring: var(--primary);
+  --zen-primary: oklch(0.7 0.15 250);
+  --zen-primary-foreground: oklch(0.2 0 0);
+  --zen-focus-ring: var(--zen-primary);
 }
 ```
 
@@ -58,8 +58,8 @@ The primary accent color used for primary buttons and branded elements.
 <Example>
   <DataTable
     data={[
-      { variable: '--primary', description: 'Primary/brand accent color (button backgrounds)' },
-      { variable: '--primary-foreground', description: 'Text color on primary backgrounds' },
+      { variable: '--zen-primary', description: 'Primary/brand accent color (button backgrounds)' },
+      { variable: '--zen-primary-foreground', description: 'Text color on primary backgrounds' },
     ]}
   >
     <DataColumn id="variable" label="Variable" />
@@ -74,12 +74,12 @@ Background colors for different elevation levels.
 <Example>
   <DataTable
     data={[
-      { variable: '--surface-base', description: 'Primary background (page level)' },
-      { variable: '--surface-raised', description: 'Elevated surfaces (cards, modals)' },
-      { variable: '--surface-sunken', description: 'Recessed areas (inputs, wells)' },
-      { variable: '--surface-overlay', description: 'Overlays (dropdowns, popovers)' },
-      { variable: '--surface-inverted', description: 'Inverted background (tooltips)' },
-      { variable: '--surface-disabled', description: 'Disabled element background' },
+      { variable: '--zen-surface-base', description: 'Primary background (page level)' },
+      { variable: '--zen-surface-raised', description: 'Elevated surfaces (cards, modals)' },
+      { variable: '--zen-surface-sunken', description: 'Recessed areas (inputs, wells)' },
+      { variable: '--zen-surface-overlay', description: 'Overlays (dropdowns, popovers)' },
+      { variable: '--zen-surface-inverted', description: 'Inverted background (tooltips)' },
+      { variable: '--zen-surface-disabled', description: 'Disabled element background' },
     ]}
   >
     <DataColumn id="variable" label="Variable" />
@@ -94,9 +94,9 @@ Text colors for different emphasis levels.
 <Example>
   <DataTable
     data={[
-      { variable: '--text-primary', description: 'Primary text (headings, body)' },
-      { variable: '--text-muted', description: 'Muted text (labels, placeholders, hints)' },
-      { variable: '--text-disabled', description: 'Disabled text' },
+      { variable: '--zen-text-primary', description: 'Primary text (headings, body)' },
+      { variable: '--zen-text-muted', description: 'Muted text (labels, placeholders, hints)' },
+      { variable: '--zen-text-disabled', description: 'Disabled text' },
     ]}
   >
     <DataColumn id="variable" label="Variable" />
@@ -111,9 +111,9 @@ Border colors for different emphasis levels.
 <Example>
   <DataTable
     data={[
-      { variable: '--border-default', description: 'Default border (inputs, cards)' },
-      { variable: '--border-muted', description: 'Subtle borders (dividers)' },
-      { variable: '--border-strong', description: 'Emphasized borders (focus, active)' },
+      { variable: '--zen-border-default', description: 'Default border (inputs, cards)' },
+      { variable: '--zen-border-muted', description: 'Subtle borders (dividers)' },
+      { variable: '--zen-border-strong', description: 'Emphasized borders (focus, active)' },
     ]}
   >
     <DataColumn id="variable" label="Variable" />
@@ -128,9 +128,9 @@ Colors for interactive elements like buttons, checkboxes, and list items.
 <Example>
   <DataTable
     data={[
-      { variable: '--interactive-bg', description: 'Default interactive background' },
-      { variable: '--interactive-bg-hover', description: 'Hover state background' },
-      { variable: '--interactive-bg-pressed', description: 'Pressed/active state background' },
+      { variable: '--zen-interactive-bg', description: 'Default interactive background' },
+      { variable: '--zen-interactive-bg-hover', description: 'Hover state background' },
+      { variable: '--zen-interactive-bg-pressed', description: 'Pressed/active state background' },
     ]}
   >
     <DataColumn id="variable" label="Variable" />
@@ -145,8 +145,8 @@ Focus ring styles for accessibility.
 <Example>
   <DataTable
     data={[
-      { variable: '--focus-ring', description: 'Focus ring color' },
-      { variable: '--focus-ring-offset', description: 'Focus ring offset color (gap)' },
+      { variable: '--zen-focus-ring', description: 'Focus ring color' },
+      { variable: '--zen-focus-ring-offset', description: 'Focus ring offset color (gap)' },
     ]}
   >
     <DataColumn id="variable" label="Variable" />
@@ -161,18 +161,18 @@ Colors for feedback states (info, success, warning, error).
 <Example>
   <DataTable
     data={[
-      { variable: '--status-info', description: 'Info accent color' },
-      { variable: '--status-info-bg', description: 'Info background' },
-      { variable: '--status-info-text', description: 'Info text color' },
-      { variable: '--status-success', description: 'Success accent color' },
-      { variable: '--status-success-bg', description: 'Success background' },
-      { variable: '--status-success-text', description: 'Success text color' },
-      { variable: '--status-warning', description: 'Warning accent color' },
-      { variable: '--status-warning-bg', description: 'Warning background' },
-      { variable: '--status-warning-text', description: 'Warning text color' },
-      { variable: '--status-error', description: 'Error accent color' },
-      { variable: '--status-error-bg', description: 'Error background' },
-      { variable: '--status-error-text', description: 'Error text color' },
+      { variable: '--zen-status-info', description: 'Info accent color' },
+      { variable: '--zen-status-info-bg', description: 'Info background' },
+      { variable: '--zen-status-info-text', description: 'Info text color' },
+      { variable: '--zen-status-success', description: 'Success accent color' },
+      { variable: '--zen-status-success-bg', description: 'Success background' },
+      { variable: '--zen-status-success-text', description: 'Success text color' },
+      { variable: '--zen-status-warning', description: 'Warning accent color' },
+      { variable: '--zen-status-warning-bg', description: 'Warning background' },
+      { variable: '--zen-status-warning-text', description: 'Warning text color' },
+      { variable: '--zen-status-error', description: 'Error accent color' },
+      { variable: '--zen-status-error-bg', description: 'Error background' },
+      { variable: '--zen-status-error-text', description: 'Error text color' },
     ]}
   >
     <DataColumn id="variable" label="Variable" />
@@ -187,8 +187,8 @@ Font family variables.
 <Example>
   <DataTable
     data={[
-      { variable: '--font-family', description: 'Default font stack' },
-      { variable: '--font-family-mono', description: 'Monospace font stack' },
+      { variable: '--zen-font-family', description: 'Default font stack' },
+      { variable: '--zen-font-family-mono', description: 'Monospace font stack' },
     ]}
   >
     <DataColumn id="variable" label="Variable" />

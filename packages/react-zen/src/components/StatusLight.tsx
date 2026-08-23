@@ -36,7 +36,15 @@ export function StatusLight(props: StatusLightProps) {
   const { color, variant = 'inactive', children, className, ...domProps } = props;
 
   return (
-    <Row {...domProps} alignItems="center" gap="2" className={className}>
+    <Row
+      {...domProps}
+      alignItems="center"
+      gap="2"
+      className={cn(
+        'text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)]',
+        className,
+      )}
+    >
       <StatusDot color={color} variant={variant} />
       {children}
     </Row>

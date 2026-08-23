@@ -252,49 +252,49 @@ interface CSSVariable {
 // Defaults - affects borderRadius={true}, shadow={true}, padding={true}, gap={true}
 const defaultsVariables: CSSVariable[] = [
   {
-    name: '--radius-default',
+    name: '--zen-radius-default',
     label: 'Border Radius',
     defaultValue: '0.375rem',
     type: 'select',
     options: radiusOptions,
   },
   {
-    name: '--shadow-default',
+    name: '--zen-shadow-default',
     label: 'Shadow',
     defaultValue: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
     type: 'select',
     options: shadowOptions,
   },
   {
-    name: '--padding-x-default',
+    name: '--zen-padding-x-default',
     label: 'Padding X',
     defaultValue: '0.75rem',
     type: 'select',
     options: spacingOptions,
   },
   {
-    name: '--padding-y-default',
+    name: '--zen-padding-y-default',
     label: 'Padding Y',
     defaultValue: '0.5rem',
     type: 'select',
     options: spacingOptions,
   },
   {
-    name: '--gap-default',
+    name: '--zen-gap-default',
     label: 'Gap',
     defaultValue: '0.75rem',
     type: 'select',
     options: spacingOptions,
   },
   {
-    name: '--font-family',
+    name: '--zen-font-family',
     label: 'Font Family',
     defaultValue: 'system-ui, sans-serif',
     type: 'select',
     options: fontOptions,
   },
   {
-    name: '--font-family-mono',
+    name: '--zen-font-family-mono',
     label: 'Font Mono',
     defaultValue: 'ui-monospace, monospace',
     type: 'select',
@@ -305,42 +305,42 @@ const defaultsVariables: CSSVariable[] = [
 // Surface variables - affects backgrounds
 const surfaceVariables: CSSVariable[] = [
   {
-    name: '--surface-base',
+    name: '--zen-surface-base',
     label: 'Base',
     defaultValue: '#ffffff',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--surface-raised',
+    name: '--zen-surface-raised',
     label: 'Raised',
     defaultValue: '#fafafa',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--surface-sunken',
+    name: '--zen-surface-sunken',
     label: 'Sunken',
     defaultValue: '#f5f5f5',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--surface-overlay',
+    name: '--zen-surface-overlay',
     label: 'Overlay',
     defaultValue: '#ffffff',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--surface-inverted',
+    name: '--zen-surface-inverted',
     label: 'Inverted',
     defaultValue: '#171717',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--surface-disabled',
+    name: '--zen-surface-disabled',
     label: 'Disabled',
     defaultValue: '#fafafa',
     type: 'color',
@@ -351,21 +351,21 @@ const surfaceVariables: CSSVariable[] = [
 // Text variables - affects text colors
 const textVariables: CSSVariable[] = [
   {
-    name: '--text-primary',
+    name: '--zen-text-primary',
     label: 'Primary',
     defaultValue: '#171717',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--text-muted',
+    name: '--zen-text-muted',
     label: 'Muted',
     defaultValue: '#737373',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--text-disabled',
+    name: '--zen-text-disabled',
     label: 'Disabled',
     defaultValue: '#a3a3a3',
     type: 'color',
@@ -376,14 +376,14 @@ const textVariables: CSSVariable[] = [
 // Primary variables - accent/brand color for buttons, links, etc.
 const primaryVariables: CSSVariable[] = [
   {
-    name: '--primary',
+    name: '--zen-primary',
     label: 'Primary',
     defaultValue: '#171717',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--primary-foreground',
+    name: '--zen-primary-foreground',
     label: 'Foreground',
     defaultValue: '#ffffff',
     type: 'color',
@@ -394,21 +394,21 @@ const primaryVariables: CSSVariable[] = [
 // Border variables - affects borders
 const borderVariables: CSSVariable[] = [
   {
-    name: '--border-default',
+    name: '--zen-border-default',
     label: 'Default',
     defaultValue: '#d4d4d4',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--border-muted',
+    name: '--zen-border-muted',
     label: 'Muted',
     defaultValue: '#e5e5e5',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--border-strong',
+    name: '--zen-border-strong',
     label: 'Strong',
     defaultValue: '#a3a3a3',
     type: 'color',
@@ -419,21 +419,21 @@ const borderVariables: CSSVariable[] = [
 // Interactive variables - affects buttons, toggles, checkboxes
 const interactiveVariables: CSSVariable[] = [
   {
-    name: '--interactive-bg',
+    name: '--zen-interactive-bg',
     label: 'Background',
     defaultValue: '#f5f5f5',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--interactive-bg-hover',
+    name: '--zen-interactive-bg-hover',
     label: 'Hover',
     defaultValue: '#e5e5e5',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--interactive-bg-pressed',
+    name: '--zen-interactive-bg-pressed',
     label: 'Pressed',
     defaultValue: '#d4d4d4',
     type: 'color',
@@ -444,14 +444,14 @@ const interactiveVariables: CSSVariable[] = [
 // Focus variables - affects focus rings
 const focusVariables: CSSVariable[] = [
   {
-    name: '--focus-ring',
+    name: '--zen-focus-ring',
     label: 'Ring',
     defaultValue: '#a3a3a3',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--focus-ring-offset',
+    name: '--zen-focus-ring-offset',
     label: 'Offset',
     defaultValue: '#ffffff',
     type: 'color',
@@ -462,84 +462,84 @@ const focusVariables: CSSVariable[] = [
 // Status variables - affects alerts, status lights
 const statusVariables: CSSVariable[] = [
   {
-    name: '--status-info',
+    name: '--zen-status-info',
     label: 'Info',
     defaultValue: '#3b82f6',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--status-info-bg',
+    name: '--zen-status-info-bg',
     label: 'Info BG',
     defaultValue: '#eff6ff',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--status-info-text',
+    name: '--zen-status-info-text',
     label: 'Info Text',
     defaultValue: '#1e3a8a',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--status-success',
+    name: '--zen-status-success',
     label: 'Success',
     defaultValue: '#22c55e',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--status-success-bg',
+    name: '--zen-status-success-bg',
     label: 'Success BG',
     defaultValue: '#f0fdf4',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--status-success-text',
+    name: '--zen-status-success-text',
     label: 'Success Text',
     defaultValue: '#14532d',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--status-warning',
+    name: '--zen-status-warning',
     label: 'Warning',
     defaultValue: '#eab308',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--status-warning-bg',
+    name: '--zen-status-warning-bg',
     label: 'Warning BG',
     defaultValue: '#fefce8',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--status-warning-text',
+    name: '--zen-status-warning-text',
     label: 'Warning Text',
     defaultValue: '#713f12',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--status-error',
+    name: '--zen-status-error',
     label: 'Error',
     defaultValue: '#ef4444',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--status-error-bg',
+    name: '--zen-status-error-bg',
     label: 'Error BG',
     defaultValue: '#fef2f2',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--status-error-text',
+    name: '--zen-status-error-text',
     label: 'Error Text',
     defaultValue: '#7f1d1d',
     type: 'color',
@@ -639,7 +639,7 @@ function VariableInput({
   return (
     <Column gap="1">
       <Label>{variable.label}</Label>
-      <Text size="sm" color="muted" style={{ fontFamily: 'var(--font-family-mono)' }}>
+      <Text size="sm" color="muted" style={{ fontFamily: 'var(--zen-font-family-mono)' }}>
         {value}
       </Text>
     </Column>
@@ -716,7 +716,7 @@ export function PlaygroundExample() {
     setValues(prev => ({ ...prev, [name]: value }));
 
     // Load Google Font if it's a font-family change
-    if (name === '--font-family' || name === '--font-family-mono') {
+    if (name === '--zen-font-family' || name === '--zen-font-family-mono') {
       loadGoogleFont(value);
     }
 
@@ -754,7 +754,7 @@ export function PlaygroundExample() {
       border
       overflow="hidden"
       style={{
-        fontFamily: 'var(--font-family)',
+        fontFamily: 'var(--zen-font-family)',
       }}
     >
       <Row alignItems="stretch">
@@ -899,7 +899,7 @@ export function PlaygroundExample() {
                 Muted text provides supporting context and secondary information.
               </Text>
               <Text>
-                Inline values such as <Code>--surface-raised</Code> use the monospace font.
+                Inline values such as <Code>--zen-surface-raised</Code> use the monospace font.
               </Text>
               <Blockquote>
                 Good design makes the relationship between content and action feel obvious.
@@ -1161,7 +1161,7 @@ export function PlaygroundExample() {
               <Text size="xs" weight="semibold" color="muted">
                 PROGRESS & LOADING
               </Text>
-              <Grid columns={{ base: '1', xl: '2' }} gap="5">
+              <Grid columns="1" gap="5">
                 <Box border borderRadius="lg" padding="5">
                   <Column gap="4">
                     <Row gap="3" alignItems="center">
@@ -1213,7 +1213,7 @@ export function PlaygroundExample() {
                   </Row>
                 </Box>
               </Grid>
-              <Grid columns={{ base: '1', xl: '2' }} gap="5">
+              <Grid columns="1" gap="5">
                 <Box border borderRadius="lg" padding="4">
                   <Row gap="3" alignItems="center">
                     <SkeletonAvatar />

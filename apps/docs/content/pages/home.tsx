@@ -1,5 +1,4 @@
-import { Column, Heading, Text } from '@umami/react-zen';
-import { Button } from '@umami/shiso/components';
+import { Column, Heading, Text, Button } from '@umami/react-zen';
 
 export const frontmatter = {
   title: 'Zen',
@@ -8,15 +7,15 @@ export const frontmatter = {
 
 export default function HomePage() {
   return (
-    <Column alignItems="center" gap="6" paddingY="24" paddingX="6">
-      <Heading as="h1" size="6xl" align="center">
-        Design, at peace.
+    <Column alignItems="center" gap="6" paddingY="24" paddingX="6" maxWidth="980px" marginX="auto">
+      <Heading as="h1" size="4xl" align="center">
+        Build beautiful, consistent UI
       </Heading>
       <Text size="lg" color="muted" align="center" style={{ maxWidth: '600px' }}>
-        Zen is the design system and React component library behind Umami — accessible components,
-        layout primitives, and design tokens that stay out of your way.
+        Zen is the complete design system and component library — accessible components,
+        layout primitives, and design tokens.
       </Text>
-      <Button href="/docs" size="lg">
+      <Button href="/docs" variant="primary">
         Get Started
       </Button>
     </Column>

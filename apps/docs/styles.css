@@ -28,6 +28,7 @@
 @source inline("{hover:,focus:,active:}border-edge{,-muted,-strong}");
 @source inline("{hover:,focus:,active:}opacity-{0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100}");
 
+/* Shiso chrome (tabs, sidebar, buttons) — shiso's token namespace. */
 :root {
   --primary: #262626;
   --sidebar-primary: #262626;
@@ -36,6 +37,15 @@
 html[data-theme='dark'] {
   --primary: #f5f5f5;
   --sidebar-primary: #f5f5f5;
+}
+
+/* Zen components — zen's isolated token namespace. */
+:root {
+  --zen-primary: #262626;
+}
+
+html[data-theme='dark'] {
+  --zen-primary: #f5f5f5;
 }
 
 /* Two Tailwind builds share this page (shiso's and ours). Ours loads last, so
@@ -58,16 +68,17 @@ html[data-theme='dark'] .dark\:hidden {
 }
 
 body {
-  --font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-family-mono: var(--font-mono), ui-monospace, monospace;
-  font-family: var(--font-family);
+  /* Feed shiso's site fonts into zen's isolated font tokens. */
+  --zen-font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --zen-font-family-mono: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--zen-font-family);
 }
 
 code,
 kbd,
 samp,
 pre {
-  font-family: var(--font-family-mono);
+  font-family: var(--zen-font-family-mono);
 }
 
 /* Remove border radius from code blocks inside Example */

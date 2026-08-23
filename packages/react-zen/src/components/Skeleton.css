@@ -1,25 +1,25 @@
 .zen-skeleton {
   position: relative;
   overflow: hidden;
-  background-color: var(--gray-300);
+  background-color: var(--zen-gray-300);
 }
 
 .zen-skeleton::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent, var(--gray-100), transparent);
+  background: linear-gradient(90deg, transparent, var(--zen-gray-100), transparent);
   animation: zen-skeleton-shimmer 1.5s ease-in-out infinite;
 }
 
 [data-theme="dark"] .zen-skeleton,
 .dark .zen-skeleton {
-  background-color: var(--gray-600);
+  background-color: var(--zen-gray-600);
 }
 
 [data-theme="dark"] .zen-skeleton::after,
 .dark .zen-skeleton::after {
-  background: linear-gradient(90deg, transparent, var(--gray-400), transparent);
+  background: linear-gradient(90deg, transparent, var(--zen-gray-400), transparent);
 }
 
 @keyframes zen-skeleton-shimmer {

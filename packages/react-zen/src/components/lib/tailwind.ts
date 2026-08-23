@@ -47,7 +47,7 @@ const paddingMap: Record<string, string> = {
   '72': 'p-72',
   '80': 'p-80',
   '96': 'p-96',
-  true: 'px-[var(--padding-x-default)] py-[var(--padding-y-default)]',
+  true: 'px-[var(--zen-padding-x-default)] py-[var(--zen-padding-y-default)]',
 };
 const pxMap: Record<string, string> = {
   '0': 'px-0',
@@ -85,7 +85,7 @@ const pxMap: Record<string, string> = {
   '72': 'px-72',
   '80': 'px-80',
   '96': 'px-96',
-  true: 'px-[var(--padding-x-default)]',
+  true: 'px-[var(--zen-padding-x-default)]',
 };
 const pyMap: Record<string, string> = {
   '0': 'py-0',
@@ -123,7 +123,7 @@ const pyMap: Record<string, string> = {
   '72': 'py-72',
   '80': 'py-80',
   '96': 'py-96',
-  true: 'py-[var(--padding-y-default)]',
+  true: 'py-[var(--zen-padding-y-default)]',
 };
 const ptMap: Record<string, string> = {
   '0': 'pt-0',
@@ -600,7 +600,7 @@ const gapMap: Record<string, string> = {
   '72': 'gap-72',
   '80': 'gap-80',
   '96': 'gap-96',
-  true: 'gap-[var(--gap-default)]',
+  true: 'gap-[var(--zen-gap-default)]',
 };
 const gapXMap: Record<string, string> = {
   '0': 'gap-x-0',
@@ -627,7 +627,7 @@ const gapXMap: Record<string, string> = {
   '24': 'gap-x-24',
   '28': 'gap-x-28',
   '32': 'gap-x-32',
-  true: 'gap-x-[var(--gap-default)]',
+  true: 'gap-x-[var(--zen-gap-default)]',
 };
 const gapYMap: Record<string, string> = {
   '0': 'gap-y-0',
@@ -654,7 +654,7 @@ const gapYMap: Record<string, string> = {
   '24': 'gap-y-24',
   '28': 'gap-y-28',
   '32': 'gap-y-32',
-  true: 'gap-y-[var(--gap-default)]',
+  true: 'gap-y-[var(--zen-gap-default)]',
 };
 
 // Space-between maps (for child spacing utilities)
@@ -789,7 +789,7 @@ const borderRadiusMap: Record<string, string> = {
   '2xl': 'rounded-2xl',
   '3xl': 'rounded-3xl',
   full: 'rounded-full',
-  true: 'rounded-[var(--radius-default)]',
+  true: 'rounded-[var(--zen-radius-default)]',
 };
 
 // Border width mapping - sm=1, md=2, lg=4, xl=8
@@ -809,7 +809,7 @@ const shadowMap: Record<string, string> = {
   xl: 'shadow-xl',
   '2xl': 'shadow-2xl',
   inner: 'shadow-inner',
-  true: 'shadow-[var(--shadow-default)]',
+  true: 'shadow-[var(--zen-shadow-default)]',
 };
 
 // Semantic color mapping
@@ -1472,9 +1472,9 @@ export function mapBorderColor(value: string | undefined): string {
 
 // Semantic CSS color values for SVG stroke/fill
 const semanticCssColorValues: Record<string, string> = {
-  primary: 'var(--text-primary)',
-  muted: 'var(--text-muted)',
-  disabled: 'var(--text-disabled)',
+  primary: 'var(--zen-text-primary)',
+  muted: 'var(--zen-text-muted)',
+  disabled: 'var(--zen-text-disabled)',
 };
 
 // Tailwind color hex values (500 shade as default)

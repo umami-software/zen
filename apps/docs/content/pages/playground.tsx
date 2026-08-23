@@ -11,11 +11,11 @@ export default function PlaygroundPage() {
   return (
     <Box paddingY="8">
       <Column gap="6" maxWidth="980px" marginX="auto">
-        <Column gap="2">
-          <Heading as="h1" size="6xl" weight="bold">
+        <Column gap="2" maxWidth="600px">
+          <Heading as="h1" size="4xl" weight="bold">
             Playground
           </Heading>
-          <Text color="muted">
+          <Text size="lg" color="muted">
             Experiment with CSS variables to customize the look and feel of Zen components. Changes
             are applied in real-time to the preview panel.
           </Text>
