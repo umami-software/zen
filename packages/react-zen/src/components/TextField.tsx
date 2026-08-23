@@ -1,5 +1,5 @@
 import type { InputHTMLAttributes, TextareaHTMLAttributes } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CopyButton } from './CopyButton';
 import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupTextarea } from './InputGroup';
 import { Label } from './Label';
@@ -46,6 +46,7 @@ export function TextField({
   ...props
 }: TextFieldProps) {
   const [inputValue, setInputValue] = useState(defaultValue ?? value ?? '');
+  const wasControlled = useRef(value !== undefined);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const nextValue = event.target.value;
     setInputValue(nextValue);
@@ -54,9 +55,13 @@ export function TextField({
 
   useEffect(() => {
     if (value !== undefined) {
+      wasControlled.current = true;
       setInputValue(value);
+    } else if (wasControlled.current) {
+      // Value was cleared externally (e.g. form reset)
+      setInputValue(defaultValue ?? '');
     }
-  }, [value]);
+  }, [value, defaultValue]);
 
   const inputClasses = cn(resize && resizeClasses[resize]);
 

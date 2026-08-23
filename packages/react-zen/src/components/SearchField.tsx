@@ -1,5 +1,5 @@
 import type { InputHTMLAttributes } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Search, X } from '@/components/icons';
 import { useDebounce } from './hooks/useDebounce';
 import { Icon } from './Icon';
@@ -26,6 +26,7 @@ export function SearchField({
   ...props
 }: SearchFieldProps) {
   const [search, setSearch] = useState(String(value ?? defaultValue));
+  const wasControlled = useRef(value !== undefined);
   const searchValue = useDebounce(search, delay);
 
   const handleChange = (nextValue: string) => {
@@ -38,9 +39,13 @@ export function SearchField({
 
   useEffect(() => {
     if (value !== undefined) {
+      wasControlled.current = true;
       setSearch(String(value));
+    } else if (wasControlled.current) {
+      // Value was cleared externally (e.g. form reset)
+      setSearch(String(defaultValue));
     }
-  }, [value]);
+  }, [value, defaultValue]);
 
   useEffect(() => {
     if (delay > 0) {

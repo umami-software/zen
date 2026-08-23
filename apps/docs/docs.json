@@ -36,7 +36,7 @@
 		},
 		{
 			"source": "/patterns/layout/page-header",
-			"destination": "/docs/layout/page-header"
+			"destination": "/docs/structure/page-header"
 		},
 		{
 			"source": "/docs/typography/kbd",
@@ -52,7 +52,7 @@
 		},
 		{
 			"source": "/docs/components/page-header",
-			"destination": "/docs/layout/page-header"
+			"destination": "/docs/structure/page-header"
 		},
 		{
 			"source": "/docs/form-inputs/checkbox",
@@ -297,6 +297,26 @@
 		{
 			"source": "/docs/data-display/tag-group",
 			"destination": "/docs/components/tag-group"
+		},
+		{
+			"source": "/docs/layout/page-header",
+			"destination": "/docs/structure/page-header"
+		},
+		{
+			"source": "/docs/layout/aspect-ratio",
+			"destination": "/docs/structure/aspect-ratio"
+		},
+		{
+			"source": "/docs/layout/resizable",
+			"destination": "/docs/structure/resizable"
+		},
+		{
+			"source": "/docs/layout/scroll-area",
+			"destination": "/docs/structure/scroll-area"
+		},
+		{
+			"source": "/docs/layout/separator",
+			"destination": "/docs/structure/separator"
 		}
 	],
 	"navigation": { "groups": [
@@ -337,12 +357,7 @@
 				"layout/box",
 				"layout/flexbox",
 				"layout/grid",
-				"layout/container",
-				"layout/page-header",
-				"layout/aspect-ratio",
-				"layout/resizable",
-				"layout/scroll-area",
-				"layout/separator"
+				"layout/container"
 			]
 		},
 		{
@@ -352,6 +367,16 @@
 				"typography/heading",
 				"typography/code",
 				"typography/blockquote"
+			]
+		},
+		{
+			"group": "Structure",
+			"pages": [
+				"structure/page-header",
+				"structure/aspect-ratio",
+				"structure/resizable",
+				"structure/scroll-area",
+				"structure/separator"
 			]
 		},
 		{
