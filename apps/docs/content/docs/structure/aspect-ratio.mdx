@@ -2,7 +2,7 @@
 title: Aspect Ratio
 ---
 
-import { AspectRatio, Box, Column, DataColumn, DataTable, Example, Flexbox, Grid, Label, Text } from '../../../mdx-components';
+import { AspectRatio, Box, Column, Example, Flexbox, Grid, Label, Text } from '../../../mdx-components';
 
 Aspect ratio constrains its content to a fixed width-to-height ratio.
 
@@ -121,14 +121,6 @@ Images are cropped with `object-cover`, so mixed-size images stay uniform in a g
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'ratio', value: 'number', description: 'Width-to-height ratio, e.g. 16 / 9 (default: 1)' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="ratio" type="number">Width-to-height ratio, e.g. 16 / 9 (default: 1)</ResponseField>
+</PropertiesTable>

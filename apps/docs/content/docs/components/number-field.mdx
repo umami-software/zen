@@ -2,7 +2,7 @@
 title: Number Field
 ---
 
-import { Box, DataColumn, DataTable, Example, NumberField } from '../../../mdx-components';
+import { Box, Example, NumberField } from '../../../mdx-components';
 
 A number field allows a user to enter a numeric value with stepper buttons for incrementing and decrementing.
 
@@ -52,25 +52,17 @@ Values are formatted with `Intl.NumberFormat` using the `formatOptions` prop.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'label', value: 'string', description: 'Label text displayed above the field' },
-      { name: 'placeholder', value: 'string', description: 'Placeholder text' },
-      { name: 'value', value: 'number', description: 'Controlled value' },
-      { name: 'defaultValue', value: 'number', description: 'Default value' },
-      { name: 'minValue', value: 'number', description: 'Minimum value' },
-      { name: 'maxValue', value: 'number', description: 'Maximum value' },
-      { name: 'step', value: 'number', description: 'Amount to increment or decrement' },
-      { name: 'formatOptions', value: 'Intl.NumberFormatOptions', description: 'Number format options' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the field' },
-      { name: 'isReadOnly', value: 'boolean', description: 'Prevents changing the value' },
-      { name: 'isRequired', value: 'boolean', description: 'Marks the field as required' },
-      { name: 'onChange', value: '(value: number | null) => void', description: 'Called when the value changes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="label" type="string">Label text displayed above the field</ResponseField>
+  <ResponseField name="placeholder" type="string">Placeholder text</ResponseField>
+  <ResponseField name="value" type="number">Controlled value</ResponseField>
+  <ResponseField name="defaultValue" type="number">Default value</ResponseField>
+  <ResponseField name="minValue" type="number">Minimum value</ResponseField>
+  <ResponseField name="maxValue" type="number">Maximum value</ResponseField>
+  <ResponseField name="step" type="number">Amount to increment or decrement</ResponseField>
+  <ResponseField name="formatOptions" type="Intl.NumberFormatOptions">Number format options</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the field</ResponseField>
+  <ResponseField name="isReadOnly" type="boolean">Prevents changing the value</ResponseField>
+  <ResponseField name="isRequired" type="boolean">Marks the field as required</ResponseField>
+  <ResponseField name="onChange" type="(value: number | null) => void">Called when the value changes</ResponseField>
+</PropertiesTable>

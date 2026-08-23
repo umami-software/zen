@@ -2,7 +2,7 @@
 title: Accordion
 ---
 
-import { Accordion, AccordionItem, DataColumn, DataTable, Example } from '../../../mdx-components';
+import { Accordion, AccordionItem, Example } from '../../../mdx-components';
 
 A vertically stacked set of interactive headings that each reveal an associated section of content.
 
@@ -124,32 +124,16 @@ A vertically stacked set of interactive headings that each reveal an associated 
 
 ### Accordion
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'allowsMultipleExpanded', value: 'boolean', description: 'Allows multiple items to be expanded' },
-      { name: 'expandedKeys', value: 'string[]', description: 'Controlled expanded keys' },
-      { name: 'defaultExpandedKeys', value: 'string[]', description: 'Default expanded keys' },
-      { name: 'onExpandedChange', value: '(keys: Set<string>) => void', description: 'Called when expansion changes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="allowsMultipleExpanded" type="boolean">Allows multiple items to be expanded</ResponseField>
+  <ResponseField name="expandedKeys" type="string[]">Controlled expanded keys</ResponseField>
+  <ResponseField name="defaultExpandedKeys" type="string[]">Default expanded keys</ResponseField>
+  <ResponseField name="onExpandedChange" type="(keys: Set<string>) => void">Called when expansion changes</ResponseField>
+</PropertiesTable>
 
 ### AccordionItem
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'id', value: 'string', description: 'Unique item identifier (required)' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the item' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="id" type="string">Unique item identifier (required)</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the item</ResponseField>
+</PropertiesTable>

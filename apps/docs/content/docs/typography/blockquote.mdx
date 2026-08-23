@@ -2,7 +2,7 @@
 title: Blockquote
 ---
 
-import { Blockquote, DataColumn, DataTable, Example } from '../../../mdx-components';
+import { Blockquote, Example } from '../../../mdx-components';
 
 The blockquote element represents a section that is quoted from another source.
 
@@ -26,14 +26,6 @@ The blockquote element represents a section that is quoted from another source.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'children', value: 'ReactNode', description: 'Quote content' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="children" type="ReactNode">Quote content</ResponseField>
+</PropertiesTable>

@@ -2,7 +2,7 @@
 title: Breadcrumbs
 ---
 
-import { Breadcrumb, Breadcrumbs, DataColumn, DataTable, Example } from '../../../mdx-components';
+import { Breadcrumb, Breadcrumbs, Example } from '../../../mdx-components';
 
 Breadcrumbs display a hierarchy of links to the current page or resource in an application.
 
@@ -34,31 +34,15 @@ Breadcrumbs display a hierarchy of links to the current page or resource in an a
 
 ### Breadcrumbs
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'isDisabled', value: 'boolean', description: 'Disables all breadcrumbs' },
-      { name: 'onAction', value: '(key: string) => void', description: 'Called when a breadcrumb is clicked' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="isDisabled" type="boolean">Disables all breadcrumbs</ResponseField>
+  <ResponseField name="onAction" type="(key: string) => void">Called when a breadcrumb is clicked</ResponseField>
+</PropertiesTable>
 
 ### Breadcrumb
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'id', value: 'string', description: 'Unique breadcrumb identifier' },
-      { name: 'href', value: 'string', description: 'Link URL' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the breadcrumb' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="id" type="string">Unique breadcrumb identifier</ResponseField>
+  <ResponseField name="href" type="string">Link URL</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the breadcrumb</ResponseField>
+</PropertiesTable>

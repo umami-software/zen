@@ -109,32 +109,16 @@ A declarative table component for displaying structured data with minimal config
 
 ### DataTable
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'data', value: 'object[]', description: 'Array of data objects to display' },
-      { name: 'displayMode', value: 'DisplayMode', description: '"table" | "cards"' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="data" type="object[]">Array of data objects to display</ResponseField>
+  <ResponseField name="displayMode" type="DisplayMode">"table" | "cards"</ResponseField>
+</PropertiesTable>
 
 ### DataColumn
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'id', value: 'string', description: 'Column key matching data property (required)' },
-      { name: 'label', value: 'string', description: 'Column header text' },
-      { name: 'width', value: 'string', description: 'Column width (e.g., "100px", "2fr")' },
-      { name: 'align', value: 'Alignment', description: '"start" | "center" | "end"' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="id" type="string">Column key matching data property (required)</ResponseField>
+  <ResponseField name="label" type="string">Column header text</ResponseField>
+  <ResponseField name="width" type="string">Column width (e.g., "100px", "2fr")</ResponseField>
+  <ResponseField name="align" type="Alignment">"start" | "center" | "end"</ResponseField>
+</PropertiesTable>

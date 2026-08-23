@@ -2,7 +2,7 @@
 title: Loading
 ---
 
-import { Column, DataColumn, DataTable, Dots, Example, Label, Row, Spinner } from '../../../mdx-components';
+import { Column, Dots, Example, Label, Row, Spinner } from '../../../mdx-components';
 
 An element that indicates content is loading.
 
@@ -57,16 +57,8 @@ An element that indicates content is loading.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'size', value: 'LoadingSize', description: '"sm" | "md" | "lg"' },
-      { name: 'icon', value: 'LoadingIcon', description: '"dots" | "spinner" (default: "spinner")' },
-      { name: 'placement', value: 'LoadingPlacement', description: '"absolute" | "center" | "inline" (default: "inline")' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="size" type="LoadingSize">"sm" | "md" | "lg"</ResponseField>
+  <ResponseField name="icon" type="LoadingIcon">"dots" | "spinner" (default: "spinner")</ResponseField>
+  <ResponseField name="placement" type="LoadingPlacement">"absolute" | "center" | "inline" (default: "inline")</ResponseField>
+</PropertiesTable>

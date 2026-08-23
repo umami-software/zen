@@ -2,7 +2,7 @@
 title: Icon
 ---
 
-import { DataColumn, DataTable, Example, Icon, Lucide } from '../../../mdx-components';
+import { Example, Icon, Lucide } from '../../../mdx-components';
 
 A wrapper around SVG elements to help control size, color and rotation.
 
@@ -118,19 +118,11 @@ Control SVG fill and stroke colors using the `fillColor` and `strokeColor` props
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'size', value: 'IconSize', description: '"xs" | "sm" | "md" | "lg" | "xl" (default: "sm")' },
-      { name: 'color', value: 'FontColor', description: 'Icon color' },
-      { name: 'rotate', value: 'number', description: 'Rotation in degrees' },
-      { name: 'strokeWidth', value: 'StrokeWidth', description: '"0.5" | "1" | "1.5" | "2" | "3" | "4"' },
-      { name: 'strokeColor', value: 'StrokeColor', description: 'SVG stroke color (semantic, Tailwind color, or color-shade)' },
-      { name: 'fillColor', value: 'FillColor', description: 'SVG fill color (semantic, Tailwind color, or color-shade)' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="size" type="IconSize">"xs" | "sm" | "md" | "lg" | "xl" (default: "sm")</ResponseField>
+  <ResponseField name="color" type="FontColor">Icon color</ResponseField>
+  <ResponseField name="rotate" type="number">Rotation in degrees</ResponseField>
+  <ResponseField name="strokeWidth" type="StrokeWidth">"0.5" | "1" | "1.5" | "2" | "3" | "4"</ResponseField>
+  <ResponseField name="strokeColor" type="StrokeColor">SVG stroke color (semantic, Tailwind color, or color-shade)</ResponseField>
+  <ResponseField name="fillColor" type="FillColor">SVG fill color (semantic, Tailwind color, or color-shade)</ResponseField>
+</PropertiesTable>

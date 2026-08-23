@@ -2,7 +2,7 @@
 title: Table
 ---
 
-import { Checkbox, DataColumn, DataTable, Example, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '../../../mdx-components';
+import { Checkbox, Example, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '../../../mdx-components';
 
 A table displays data in rows and columns and enables a user to navigate its contents via
 directional navigation keys, and optionally supports row selection and sorting.
@@ -167,31 +167,15 @@ directional navigation keys, and optionally supports row selection and sorting.
 
 ### Table
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'selectionMode', value: 'SelectionMode', description: '"none" | "single" | "multiple"' },
-      { name: 'selectedKeys', value: 'string[]', description: 'Controlled selected row keys' },
-      { name: 'defaultSelectedKeys', value: 'string[]', description: 'Default selected row keys' },
-      { name: 'onSelectionChange', value: '(keys: Selection) => void', description: 'Called when selection changes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="selectionMode" type="SelectionMode">"none" | "single" | "multiple"</ResponseField>
+  <ResponseField name="selectedKeys" type="string[]">Controlled selected row keys</ResponseField>
+  <ResponseField name="defaultSelectedKeys" type="string[]">Default selected row keys</ResponseField>
+  <ResponseField name="onSelectionChange" type="(keys: Selection) => void">Called when selection changes</ResponseField>
+</PropertiesTable>
 
 ### TableColumn / TableCell
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'align', value: 'Alignment', description: '"start" | "center" | "end"' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="align" type="Alignment">"start" | "center" | "end"</ResponseField>
+</PropertiesTable>

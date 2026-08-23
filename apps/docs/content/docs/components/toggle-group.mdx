@@ -2,7 +2,7 @@
 title: Toggle Group
 ---
 
-import { DataColumn, DataTable, Example, Icon, Label, Lucide, ToggleGroup, ToggleGroupItem } from '../../../mdx-components';
+import { Example, Icon, Label, Lucide, ToggleGroup, ToggleGroupItem } from '../../../mdx-components';
 
 A set of two-state buttons that can be toggled on or off.
 
@@ -105,34 +105,18 @@ A set of two-state buttons that can be toggled on or off.
 
 ### ToggleGroup
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'label', value: 'string', description: 'Label text displayed above the group' },
-      { name: 'selectionMode', value: 'SelectionMode', description: '"single" | "multiple" (default: "single")' },
-      { name: 'value', value: 'string[]', description: 'Controlled selected values' },
-      { name: 'defaultValue', value: 'string[]', description: 'Default selected values' },
-      { name: 'variant', value: 'ToggleGroupVariant', description: '"primary"' },
-      { name: 'onChange', value: '(value: string[]) => void', description: 'Called when selection changes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="label" type="string">Label text displayed above the group</ResponseField>
+  <ResponseField name="selectionMode" type="SelectionMode">"single" | "multiple" (default: "single")</ResponseField>
+  <ResponseField name="value" type="string[]">Controlled selected values</ResponseField>
+  <ResponseField name="defaultValue" type="string[]">Default selected values</ResponseField>
+  <ResponseField name="variant" type="ToggleGroupVariant">"primary"</ResponseField>
+  <ResponseField name="onChange" type="(value: string[]) => void">Called when selection changes</ResponseField>
+</PropertiesTable>
 
 ### ToggleGroupItem
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'id', value: 'string', description: 'Unique item identifier (required)' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the item' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="id" type="string">Unique item identifier (required)</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the item</ResponseField>
+</PropertiesTable>

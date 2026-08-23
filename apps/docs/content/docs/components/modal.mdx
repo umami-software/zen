@@ -2,7 +2,7 @@
 title: Modal
 ---
 
-import { Button, DataColumn, DataTable, Dialog, DialogTrigger, Example, Flexbox, Heading, Modal } from '../../../mdx-components';
+import { Button, Dialog, DialogTrigger, Example, Flexbox, Heading, Modal } from '../../../mdx-components';
 
 A modal is an overlay element which blocks interaction with elements outside it.
 Use `Sheet` for panels that slide in from an edge of the viewport.
@@ -55,16 +55,8 @@ Use `Sheet` for panels that slide in from an edge of the viewport.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'placement', value: 'string', description: '"center" | "fullscreen" (default: "center")' },
-      { name: 'isDismissable', value: 'boolean', description: 'Can be dismissed by clicking outside (default: true)' },
-      { name: 'isKeyboardDismissDisabled', value: 'boolean', description: 'Disables Escape key dismissal' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="placement" type="string">"center" | "fullscreen" (default: "center")</ResponseField>
+  <ResponseField name="isDismissable" type="boolean">Can be dismissed by clicking outside (default: true)</ResponseField>
+  <ResponseField name="isKeyboardDismissDisabled" type="boolean">Disables Escape key dismissal</ResponseField>
+</PropertiesTable>

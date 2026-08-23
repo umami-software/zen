@@ -2,7 +2,7 @@
 title: Image
 ---
 
-import { Box, Column, DataColumn, DataTable, Example, Image, Label } from '../../../mdx-components';
+import { Box, Column, Example, Image, Label } from '../../../mdx-components';
 
 An image component with built-in support for responsive sizing, object-fit modes, and border radius. Handles common image display patterns while maintaining aspect ratios and proper scaling.
 
@@ -51,19 +51,11 @@ An image component with built-in support for responsive sizing, object-fit modes
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'src', value: 'string', description: 'Image source URL (required)' },
-      { name: 'alt', value: 'string', description: 'Alternative text' },
-      { name: 'objectFit', value: 'ObjectFit', description: '"fill" | "contain" | "cover" | "none" | "scale-down"' },
-      { name: 'isCentered', value: 'boolean', description: 'Centers the image horizontally' },
-      { name: 'borderRadius', value: 'BorderRadius', description: 'Border radius value' },
-      { name: 'shadow', value: 'BoxShadow', description: 'Box shadow value' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="src" type="string">Image source URL (required)</ResponseField>
+  <ResponseField name="alt" type="string">Alternative text</ResponseField>
+  <ResponseField name="objectFit" type="ObjectFit">"fill" | "contain" | "cover" | "none" | "scale-down"</ResponseField>
+  <ResponseField name="isCentered" type="boolean">Centers the image horizontally</ResponseField>
+  <ResponseField name="borderRadius" type="BorderRadius">Border radius value</ResponseField>
+  <ResponseField name="shadow" type="BoxShadow">Box shadow value</ResponseField>
+</PropertiesTable>

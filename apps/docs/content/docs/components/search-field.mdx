@@ -2,7 +2,7 @@
 title: Search Field
 ---
 
-import { Box, DataColumn, DataTable, Example, SearchDelayExample, SearchField } from '../../../mdx-components';
+import { Box, Example, SearchDelayExample, SearchField } from '../../../mdx-components';
 
 A specialized text input for search functionality, featuring a search icon and clear button. Provides familiar search UX patterns with keyboard support and accessible labeling.
 
@@ -42,20 +42,12 @@ A specialized text input for search functionality, featuring a search icon and c
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'label', value: 'string', description: 'Label text displayed above the field' },
-      { name: 'placeholder', value: 'string', description: 'Placeholder text' },
-      { name: 'value', value: 'string', description: 'Controlled value' },
-      { name: 'defaultValue', value: 'string', description: 'Default value (uncontrolled)' },
-      { name: 'delay', value: 'number', description: 'Debounce delay in ms before onSearch fires (default: 0)' },
-      { name: 'onChange', value: '(value: string) => void', description: 'Called on every change' },
-      { name: 'onSearch', value: '(value: string) => void', description: 'Called after delay (debounced)' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="label" type="string">Label text displayed above the field</ResponseField>
+  <ResponseField name="placeholder" type="string">Placeholder text</ResponseField>
+  <ResponseField name="value" type="string">Controlled value</ResponseField>
+  <ResponseField name="defaultValue" type="string">Default value (uncontrolled)</ResponseField>
+  <ResponseField name="delay" type="number">Debounce delay in ms before onSearch fires (default: 0)</ResponseField>
+  <ResponseField name="onChange" type="(value: string) => void">Called on every change</ResponseField>
+  <ResponseField name="onSearch" type="(value: string) => void">Called after delay (debounced)</ResponseField>
+</PropertiesTable>

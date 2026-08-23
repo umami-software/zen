@@ -2,7 +2,7 @@
 title: Navbar
 ---
 
-import { DataColumn, DataTable, Example, Menu, MenuItem, Navbar, NavbarItem } from '../../../mdx-components';
+import { Example, Menu, MenuItem, Navbar, NavbarItem } from '../../../mdx-components';
 
 A horizontal navigation bar for website headers. Built on an accessible navigation menu primitive, it supports dropdown menus, links, and nested navigation items with a shared animated dropdown, full keyboard navigation, and hover/focus interactions.
 
@@ -67,45 +67,21 @@ A horizontal navigation bar for website headers. Built on an accessible navigati
 
 ### Navbar
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'showArrow', value: 'boolean', description: 'Shows dropdown arrow on items (default: true)' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="showArrow" type="boolean">Shows dropdown arrow on items (default: true)</ResponseField>
+</PropertiesTable>
 
 ### NavbarItem
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'label', value: 'string', description: 'Item label. When set, the item becomes a trigger and its children render in the dropdown.' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="label" type="string">Item label. When set, the item becomes a trigger and its children render in the dropdown.</ResponseField>
+</PropertiesTable>
 
 ### NavbarLink
 
 A semantic navigation link that renders an `<a>` element and participates in keyboard navigation. Use it for direct links instead of a plain anchor.
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'href', value: 'string', description: 'The destination URL.' },
-      { name: 'active', value: 'boolean', description: 'Marks the link as the current page (default: false).' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="href" type="string">The destination URL.</ResponseField>
+  <ResponseField name="active" type="boolean">Marks the link as the current page (default: false).</ResponseField>
+</PropertiesTable>

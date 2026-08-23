@@ -2,7 +2,7 @@
 title: ComboBox
 ---
 
-import { ComboBox, ComboBoxEmptyExample, DataColumn, DataTable, Example, ListItem } from '../../../mdx-components';
+import { ComboBox, ComboBoxEmptyExample, Example, ListItem, Text } from '../../../mdx-components';
 
 A combo box combines a text input with a listbox, allowing users to filter a list of options to items matching a query.
 
@@ -49,21 +49,13 @@ When filtering returns no matches, the combo box displays a helpful empty state.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'inputValue', value: 'string', description: 'Controlled input value' },
-      { name: 'defaultInputValue', value: 'string', description: 'Default input value' },
-      { name: 'selectedKey', value: 'string', description: 'Controlled selected key' },
-      { name: 'defaultSelectedKey', value: 'string', description: 'Default selected key' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the combobox' },
-      { name: 'onInputChange', value: '(value: string) => void', description: 'Called when input changes' },
-      { name: 'onSelectionChange', value: '(key: string) => void', description: 'Called when selection changes' },
-      { name: 'renderEmptyState', value: 'Function', description: 'Replaces the default empty-state message' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="inputValue" type="string">Controlled input value</ResponseField>
+  <ResponseField name="defaultInputValue" type="string">Default input value</ResponseField>
+  <ResponseField name="selectedKey" type="string">Controlled selected key</ResponseField>
+  <ResponseField name="defaultSelectedKey" type="string">Default selected key</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the combobox</ResponseField>
+  <ResponseField name="onInputChange" type="(value: string) => void">Called when input changes</ResponseField>
+  <ResponseField name="onSelectionChange" type="(key: string) => void">Called when selection changes</ResponseField>
+  <ResponseField name="renderEmptyState" type="Function">Replaces the default empty-state message</ResponseField>
+</PropertiesTable>

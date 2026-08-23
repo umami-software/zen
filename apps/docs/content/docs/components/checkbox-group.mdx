@@ -2,7 +2,7 @@
 title: Checkbox Group
 ---
 
-import { Checkbox, CheckboxGroup, CheckboxGroupExample, DataColumn, DataTable, Example } from '../../../mdx-components';
+import { Checkbox, CheckboxGroup, CheckboxGroupExample, Example } from '../../../mdx-components';
 
 A checkbox group allows a user to select multiple items from a list of options.
 
@@ -74,20 +74,12 @@ A checkbox group allows a user to select multiple items from a list of options.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'label', value: 'string', description: 'Label text displayed above the group' },
-      { name: 'value', value: 'string[]', description: 'Controlled selected values' },
-      { name: 'defaultValue', value: 'string[]', description: 'Default selected values' },
-      { name: 'orientation', value: 'string', description: '"vertical" | "horizontal" (default: "vertical")' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables all checkboxes in the group' },
-      { name: 'onChange', value: '(value: string[]) => void', description: 'Called when the selection changes' },
-      { name: 'children', value: 'ReactNode', description: 'Checkbox components with value props' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="label" type="string">Label text displayed above the group</ResponseField>
+  <ResponseField name="value" type="string[]">Controlled selected values</ResponseField>
+  <ResponseField name="defaultValue" type="string[]">Default selected values</ResponseField>
+  <ResponseField name="orientation" type="string">"vertical" | "horizontal" (default: "vertical")</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables all checkboxes in the group</ResponseField>
+  <ResponseField name="onChange" type="(value: string[]) => void">Called when the selection changes</ResponseField>
+  <ResponseField name="children" type="ReactNode">Checkbox components with value props</ResponseField>
+</PropertiesTable>

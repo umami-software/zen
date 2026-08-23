@@ -2,7 +2,7 @@
 title: Borders
 ---
 
-import { DataColumn, DataTable, Example, ExampleBox, Label } from '../../../mdx-components';
+import { Example, ExampleBox, Label } from '../../../mdx-components';
 
 Borders are always solid with a default border color. You can control the `position`, `radius`, and `color` of borders.
 
@@ -95,17 +95,9 @@ Borders are always solid with a default border color. You can control the `posit
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'border', value: 'Responsive<Border>', description: 'true | "top" | "right" | "bottom" | "left" | "none"' },
-      { name: 'borderWidth', value: 'Responsive<BorderWidth>', description: '"sm" | "md" | "lg" | "xl"' },
-      { name: 'borderRadius', value: 'Responsive<BorderRadius>', description: 'true | "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full"' },
-      { name: 'borderColor', value: 'BorderColor', description: 'SemanticColor | ColorName | TailwindColor' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Values" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="border" type="Responsive<Border>">true | "top" | "right" | "bottom" | "left" | "none"</ResponseField>
+  <ResponseField name="borderWidth" type="Responsive<BorderWidth>">"sm" | "md" | "lg" | "xl"</ResponseField>
+  <ResponseField name="borderRadius" type="Responsive<BorderRadius>">true | "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full"</ResponseField>
+  <ResponseField name="borderColor" type="BorderColor">SemanticColor | ColorName | TailwindColor</ResponseField>
+</PropertiesTable>

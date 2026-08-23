@@ -2,7 +2,7 @@
 title: Colors
 ---
 
-import { AccentColorsExample, ColorSwatchesExample, Column, DataColumn, DataTable, Example, ExampleBox, Icon, Lucide, Text } from '../../../mdx-components';
+import { AccentColorsExample, ColorSwatchesExample, Column, Example, ExampleBox, Icon, Lucide, Text } from '../../../mdx-components';
 
 Our color system is based on Tailwind CSS colors. There are two categories of colors: semantic colors and accent colors.
 
@@ -67,7 +67,6 @@ You can use any Tailwind color with a specific shade (50-950). If no shade is sp
   ```
 </Example>
 
-
 ## Icon colors
 
 Icons support the same color props including shades.
@@ -88,19 +87,11 @@ Icons support the same color props including shades.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'color', value: 'FontColor', description: 'SemanticColor | ColorName | TailwindColor' },
-      { name: 'backgroundColor', value: 'BackgroundColor', description: 'SemanticColor | SurfaceColor | ColorName | TailwindColor' },
-      { name: 'borderColor', value: 'BorderColor', description: 'SemanticColor | ColorName | TailwindColor' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Values" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="color" type="FontColor">SemanticColor | ColorName | TailwindColor</ResponseField>
+  <ResponseField name="backgroundColor" type="BackgroundColor">SemanticColor | SurfaceColor | ColorName | TailwindColor</ResponseField>
+  <ResponseField name="borderColor" type="BorderColor">SemanticColor | ColorName | TailwindColor</ResponseField>
+</PropertiesTable>
 
 Where `ColorName` is a base Tailwind color (e.g., `blue`, `red`) and `TailwindColor` is a color with shade (e.g., `blue-500`, `red-300`).
 

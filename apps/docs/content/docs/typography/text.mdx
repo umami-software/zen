@@ -2,7 +2,7 @@
 title: Text
 ---
 
-import { Box, Column, DataColumn, DataTable, Example, Label, Row, Text } from '../../../mdx-components';
+import { Box, Column, Example, Label, Row, Text } from '../../../mdx-components';
 
 A text element with comprehensive typography controls including size, color, weight, spacing, and text decorations.
 
@@ -433,33 +433,25 @@ Indent the first line of text.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'color', value: 'FontColor', description: 'SemanticColor | ColorName | TailwindColor' },
-      { name: 'size', value: 'Responsive<FontSize>', description: '"xs" | "sm" | "base" | "lg" | "xl" | ... | "9xl"' },
-      { name: 'weight', value: 'Responsive<FontWeight>', description: '"thin" | "light" | "normal" | "medium" | "semibold" | "bold" | ...' },
-      { name: 'align', value: 'Responsive<TextAlign>', description: '"left" | "center" | "right"' },
-      { name: 'spacing', value: 'Responsive<LetterSpacing>', description: '"tighter" | "tight" | "normal" | "wide" | "wider" | "widest"' },
-      { name: 'lineHeight', value: 'Responsive<LineHeight>', description: '"none" | "tight" | "snug" | "normal" | "relaxed" | "loose" | "3"-"10"' },
-      { name: 'wrap', value: 'Responsive<TextWrap>', description: '"wrap" | "nowrap" | "balance" | "pretty"' },
-      { name: 'whitespace', value: 'Responsive<Whitespace>', description: '"normal" | "nowrap" | "pre" | "pre-line" | "pre-wrap" | "break-spaces"' },
-      { name: 'wordBreak', value: 'Responsive<WordBreak>', description: '"normal" | "words" | "all" | "keep"' },
-      { name: 'transform', value: 'Responsive<TextTransform>', description: '"capitalize" | "uppercase" | "lowercase" | "none"' },
-      { name: 'indent', value: 'Responsive<TextIndent>', description: '"0" | "px" | "0.5" | "1" | ... | "24"' },
-      { name: 'verticalAlign', value: 'Responsive<VerticalAlign>', description: '"baseline" | "top" | "middle" | "bottom" | "text-top" | "text-bottom" | "sub" | "super"' },
-      { name: 'truncate', value: 'Responsive<boolean>', description: 'Truncate text with ellipsis' },
-      { name: 'italic', value: 'Responsive<boolean>', description: 'Italic text style' },
-      { name: 'underline', value: 'Responsive<boolean>', description: 'Underline text decoration' },
-      { name: 'strikethrough', value: 'Responsive<boolean>', description: 'Line-through text decoration' },
-      { name: 'decorationStyle', value: 'Responsive<TextDecorationStyle>', description: '"solid" | "double" | "dotted" | "dashed" | "wavy"' },
-      { name: 'decorationColor', value: 'FontColor', description: 'SemanticColor | ColorName | TailwindColor' },
-      { name: 'as', value: 'TextElement', description: '"span" | "div" | "label" | "p" | "h1" | ... | "code" | "blockquote"' },
-      { name: 'render', value: 'RenderProp', description: 'Render prop for polymorphism' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Values" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="color" type="FontColor">SemanticColor | ColorName | TailwindColor</ResponseField>
+  <ResponseField name="size" type="Responsive<FontSize>">"xs" | "sm" | "base" | "lg" | "xl" | ... | "9xl"</ResponseField>
+  <ResponseField name="weight" type="Responsive<FontWeight>">"thin" | "light" | "normal" | "medium" | "semibold" | "bold" | ...</ResponseField>
+  <ResponseField name="align" type="Responsive<TextAlign>">"left" | "center" | "right"</ResponseField>
+  <ResponseField name="spacing" type="Responsive<LetterSpacing>">"tighter" | "tight" | "normal" | "wide" | "wider" | "widest"</ResponseField>
+  <ResponseField name="lineHeight" type="Responsive<LineHeight>">"none" | "tight" | "snug" | "normal" | "relaxed" | "loose" | "3"-"10"</ResponseField>
+  <ResponseField name="wrap" type="Responsive<TextWrap>">"wrap" | "nowrap" | "balance" | "pretty"</ResponseField>
+  <ResponseField name="whitespace" type="Responsive<Whitespace>">"normal" | "nowrap" | "pre" | "pre-line" | "pre-wrap" | "break-spaces"</ResponseField>
+  <ResponseField name="wordBreak" type="Responsive<WordBreak>">"normal" | "words" | "all" | "keep"</ResponseField>
+  <ResponseField name="transform" type="Responsive<TextTransform>">"capitalize" | "uppercase" | "lowercase" | "none"</ResponseField>
+  <ResponseField name="indent" type="Responsive<TextIndent>">"0" | "px" | "0.5" | "1" | ... | "24"</ResponseField>
+  <ResponseField name="verticalAlign" type="Responsive<VerticalAlign>">"baseline" | "top" | "middle" | "bottom" | "text-top" | "text-bottom" | "sub" | "super"</ResponseField>
+  <ResponseField name="truncate" type="Responsive<boolean>">Truncate text with ellipsis</ResponseField>
+  <ResponseField name="italic" type="Responsive<boolean>">Italic text style</ResponseField>
+  <ResponseField name="underline" type="Responsive<boolean>">Underline text decoration</ResponseField>
+  <ResponseField name="strikethrough" type="Responsive<boolean>">Line-through text decoration</ResponseField>
+  <ResponseField name="decorationStyle" type="Responsive<TextDecorationStyle>">"solid" | "double" | "dotted" | "dashed" | "wavy"</ResponseField>
+  <ResponseField name="decorationColor" type="FontColor">SemanticColor | ColorName | TailwindColor</ResponseField>
+  <ResponseField name="as" type="TextElement">"span" | "div" | "label" | "p" | "h1" | ... | "code" | "blockquote"</ResponseField>
+  <ResponseField name="render" type="RenderProp">Render prop for polymorphism</ResponseField>
+</PropertiesTable>

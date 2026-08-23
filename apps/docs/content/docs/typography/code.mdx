@@ -2,7 +2,7 @@
 title: Code
 ---
 
-import { Code, DataColumn, DataTable, Example, Text } from '../../../mdx-components';
+import { Code, Example, Text } from '../../../mdx-components';
 
 An inline code element for displaying code snippets, file names, commands, or technical terms within text. Styled with a monospace font and subtle background for visual distinction.
 
@@ -20,14 +20,6 @@ An inline code element for displaying code snippets, file names, commands, or te
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'children', value: 'ReactNode', description: 'Code content' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="children" type="ReactNode">Code content</ResponseField>
+</PropertiesTable>

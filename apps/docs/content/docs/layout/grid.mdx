@@ -2,7 +2,7 @@
 title: Grid
 ---
 
-import { DataColumn, DataTable, Example, ExampleBox, Grid } from '../../../mdx-components';
+import { Example, ExampleBox, Grid } from '../../../mdx-components';
 
 A CSS Grid layout component for creating two-dimensional layouts with rows and columns. Ideal for building responsive page layouts, card grids, dashboards, and any design requiring precise control over both horizontal and vertical alignment.
 
@@ -130,24 +130,16 @@ Custom CSS templates can also be responsive by passing an object with breakpoint
 
 Grid extends [Box](/docs/layout/box) and accepts all Box props.
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'display', value: 'Responsive<GridDisplay>', description: '"grid" | "inline-grid" | "none"' },
-      { name: 'columns', value: 'Responsive<GridColumns | string>', description: '"1"-"12" | "none" | "subgrid" | custom CSS template' },
-      { name: 'rows', value: 'Responsive<GridRows | string>', description: '"1"-"12" | "none" | "subgrid" | custom CSS template' },
-      { name: 'autoFlow', value: 'Responsive<GridAutoFlow>', description: '"row" | "column" | "dense" | "row-dense" | "column-dense"' },
-      { name: 'justifyContent', value: 'Responsive<JustifyContent>', description: '"center" | "start" | "end" | "space-between" | "space-around" | ...' },
-      { name: 'justifyItems', value: 'Responsive<JustifyItems>', description: '"center" | "start" | "end" | "stretch" | "baseline" | ...' },
-      { name: 'alignContent', value: 'Responsive<AlignContent>', description: '"center" | "start" | "end" | "space-between" | "stretch" | ...' },
-      { name: 'alignItems', value: 'Responsive<AlignItems>', description: '"center" | "start" | "end" | "stretch" | "baseline" | ...' },
-      { name: 'gap', value: 'Responsive<Gap>', description: 'true | Spacing scale' },
-      { name: 'gapX', value: 'Responsive<Gap>', description: 'true | Spacing scale' },
-      { name: 'gapY', value: 'Responsive<Gap>', description: 'true | Spacing scale' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Values" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="display" type="Responsive<GridDisplay>">"grid" | "inline-grid" | "none"</ResponseField>
+  <ResponseField name="columns" type="Responsive<GridColumns | string>">"1"-"12" | "none" | "subgrid" | custom CSS template</ResponseField>
+  <ResponseField name="rows" type="Responsive<GridRows | string>">"1"-"12" | "none" | "subgrid" | custom CSS template</ResponseField>
+  <ResponseField name="autoFlow" type="Responsive<GridAutoFlow>">"row" | "column" | "dense" | "row-dense" | "column-dense"</ResponseField>
+  <ResponseField name="justifyContent" type="Responsive<JustifyContent>">"center" | "start" | "end" | "space-between" | "space-around" | ...</ResponseField>
+  <ResponseField name="justifyItems" type="Responsive<JustifyItems>">"center" | "start" | "end" | "stretch" | "baseline" | ...</ResponseField>
+  <ResponseField name="alignContent" type="Responsive<AlignContent>">"center" | "start" | "end" | "space-between" | "stretch" | ...</ResponseField>
+  <ResponseField name="alignItems" type="Responsive<AlignItems>">"center" | "start" | "end" | "stretch" | "baseline" | ...</ResponseField>
+  <ResponseField name="gap" type="Responsive<Gap>">true | Spacing scale</ResponseField>
+  <ResponseField name="gapX" type="Responsive<Gap>">true | Spacing scale</ResponseField>
+  <ResponseField name="gapY" type="Responsive<Gap>">true | Spacing scale</ResponseField>
+</PropertiesTable>

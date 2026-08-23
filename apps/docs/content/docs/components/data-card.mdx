@@ -2,7 +2,7 @@
 title: Data Card
 ---
 
-import { DataCard, DataColumn, DataTable, Example } from '../../../mdx-components';
+import { DataCard, Example } from '../../../mdx-components';
 
 A structured display component for presenting key-value pairs in a vertical list format. Useful for profile cards, detail panels, summary views, or any context where labeled data needs clear presentation.
 
@@ -28,15 +28,7 @@ A structured display component for presenting key-value pairs in a vertical list
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'data', value: 'object[]', description: 'Array of { label, value } objects' },
-      { name: 'labelWidth', value: 'string', description: 'Width of label column (default: "auto")' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="data" type="object[]">{"Array of { label, value } objects"}</ResponseField>
+  <ResponseField name="labelWidth" type="string">Width of label column (default: "auto")</ResponseField>
+</PropertiesTable>

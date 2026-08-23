@@ -2,7 +2,7 @@
 title: Scroll Area
 ---
 
-import { Box, DataColumn, DataTable, Example, ScrollArea } from '../../../mdx-components';
+import { Box, Example, ScrollArea } from '../../../mdx-components';
 
 A scroll area provides scrollable content with custom styled scrollbars.
 
@@ -26,15 +26,7 @@ A scroll area provides scrollable content with custom styled scrollbars.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'maxHeight', value: 'string | number', description: 'Maximum height of the scrollable viewport' },
-      { name: 'orientation', value: 'string', description: '"vertical" | "horizontal" | "both" (default: "vertical")' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="maxHeight" type="string | number">Maximum height of the scrollable viewport</ResponseField>
+  <ResponseField name="orientation" type="string">"vertical" | "horizontal" | "both" (default: "vertical")</ResponseField>
+</PropertiesTable>

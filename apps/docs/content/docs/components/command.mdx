@@ -2,7 +2,7 @@
 title: Command
 ---
 
-import { CommandDialogExample, CommandExample, DataColumn, DataTable, Example } from '../../../mdx-components';
+import { Button, Calendar, Command, CommandDialog, CommandDialogExample, CommandEmpty, CommandExample, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, Example } from '../../../mdx-components';
 
 A command palette for searching and running actions with keyboard navigation.
 
@@ -72,81 +72,41 @@ with the `isOpen` and `onOpenChange` props.
 
 ### Command
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'value', value: 'string', description: 'Controlled value of the selected item' },
-      { name: 'onValueChange', value: '(value: string) => void', description: 'Called when the selected item changes' },
-      { name: 'filter', value: '(value, search, keywords) => number', description: 'Custom filter function for ranking items' },
-      { name: 'shouldFilter', value: 'boolean', description: 'Disable built-in filtering when false' },
-      { name: 'loop', value: 'boolean', description: 'Loop keyboard navigation from last item to first' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="value" type="string">Controlled value of the selected item</ResponseField>
+  <ResponseField name="onValueChange" type="(value: string) => void">Called when the selected item changes</ResponseField>
+  <ResponseField name="filter" type="(value, search, keywords) => number">Custom filter function for ranking items</ResponseField>
+  <ResponseField name="shouldFilter" type="boolean">Disable built-in filtering when false</ResponseField>
+  <ResponseField name="loop" type="boolean">Loop keyboard navigation from last item to first</ResponseField>
+</PropertiesTable>
 
 ### CommandInput
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'placeholder', value: 'string', description: 'Input placeholder text' },
-      { name: 'value', value: 'string', description: 'Controlled search value' },
-      { name: 'onValueChange', value: '(search: string) => void', description: 'Called when the search value changes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="placeholder" type="string">Input placeholder text</ResponseField>
+  <ResponseField name="value" type="string">Controlled search value</ResponseField>
+  <ResponseField name="onValueChange" type="(search: string) => void">Called when the search value changes</ResponseField>
+</PropertiesTable>
 
 ### CommandGroup
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'heading', value: 'ReactNode', description: 'Group heading displayed above items' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="heading" type="ReactNode">Group heading displayed above items</ResponseField>
+</PropertiesTable>
 
 ### CommandItem
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'icon', value: 'ReactNode', description: 'Icon displayed before the label' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the item' },
-      { name: 'value', value: 'string', description: 'Value used for filtering (defaults to text content)' },
-      { name: 'keywords', value: 'string[]', description: 'Additional keywords used when filtering' },
-      { name: 'onSelect', value: '(value: string) => void', description: 'Called when the item is selected' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="icon" type="ReactNode">Icon displayed before the label</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the item</ResponseField>
+  <ResponseField name="value" type="string">Value used for filtering (defaults to text content)</ResponseField>
+  <ResponseField name="keywords" type="string[]">Additional keywords used when filtering</ResponseField>
+  <ResponseField name="onSelect" type="(value: string) => void">Called when the item is selected</ResponseField>
+</PropertiesTable>
 
 ### CommandDialog
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'isOpen', value: 'boolean', description: 'Whether the dialog is open' },
-      { name: 'onOpenChange', value: '(open: boolean) => void', description: 'Called when the open state changes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="isOpen" type="boolean">Whether the dialog is open</ResponseField>
+  <ResponseField name="onOpenChange" type="(open: boolean) => void">Called when the open state changes</ResponseField>
+</PropertiesTable>

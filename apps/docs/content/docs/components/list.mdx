@@ -2,7 +2,7 @@
 title: List
 ---
 
-import { DataColumn, DataTable, Example, List, ListItem, ListSection, ListSeparator } from '../../../mdx-components';
+import { Example, List, ListItem, ListSection, ListSeparator } from '../../../mdx-components';
 
 A list displays a collection of items and allows a user to select one or more of them.
 
@@ -139,33 +139,17 @@ A list displays a collection of items and allows a user to select one or more of
 
 ### List
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'selectionMode', value: 'SelectionMode', description: '"none" | "single" | "multiple"' },
-      { name: 'selectedKeys', value: 'string[]', description: 'Controlled selected keys' },
-      { name: 'defaultSelectedKeys', value: 'string[]', description: 'Default selected keys' },
-      { name: 'onSelectionChange', value: '(keys: Selection) => void', description: 'Called when selection changes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="selectionMode" type="SelectionMode">"none" | "single" | "multiple"</ResponseField>
+  <ResponseField name="selectedKeys" type="string[]">Controlled selected keys</ResponseField>
+  <ResponseField name="defaultSelectedKeys" type="string[]">Default selected keys</ResponseField>
+  <ResponseField name="onSelectionChange" type="(keys: Selection) => void">Called when selection changes</ResponseField>
+</PropertiesTable>
 
 ### ListItem
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'id', value: 'string', description: 'Unique item identifier' },
-      { name: 'textValue', value: 'string', description: 'Text value for accessibility' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the item' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="id" type="string">Unique item identifier</ResponseField>
+  <ResponseField name="textValue" type="string">Text value for accessibility</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the item</ResponseField>
+</PropertiesTable>

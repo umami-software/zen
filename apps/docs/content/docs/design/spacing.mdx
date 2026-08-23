@@ -17,8 +17,8 @@ Spacing defines values that are used in `margin`, `padding` and `gap` properties
     <Column gap="2">
       <Label>Margin</Label>
       <Box border borderRadius>
-        <Box backgroundColor="primary" padding="2" margin="4">
-          <Text color="inverted">Box with margin="4"</Text>
+        <Box padding="2" margin="4" border borderRadius>
+          <Text >Box with margin="4"</Text>
         </Box>
       </Box>
     </Column>
@@ -119,16 +119,8 @@ All spacing props accept responsive values for adapting layouts across breakpoin
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'padding', value: 'Responsive<Padding>', description: 'true | Spacing' },
-      { name: 'margin', value: 'Responsive<Margin>', description: 'Spacing | "auto" (supports negative values)' },
-      { name: 'gap', value: 'Responsive<Gap>', description: 'true | Spacing' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Values" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="padding" type="Responsive<Padding>">true | Spacing</ResponseField>
+  <ResponseField name="margin" type="Responsive<Margin>">Spacing | "auto" (supports negative values)</ResponseField>
+  <ResponseField name="gap" type="Responsive<Gap>">true | Spacing</ResponseField>
+</PropertiesTable>

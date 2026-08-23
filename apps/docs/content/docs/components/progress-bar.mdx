@@ -2,7 +2,7 @@
 title: Progress Bar
 ---
 
-import { DataColumn, DataTable, Example, ProgressBar } from '../../../mdx-components';
+import { Example, ProgressBar } from '../../../mdx-components';
 
 A horizontal bar that visually represents the completion status of a task or process. Supports determinate progress with percentage values and optional value labels.
 
@@ -26,17 +26,9 @@ A horizontal bar that visually represents the completion status of a task or pro
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'value', value: 'number', description: 'Current progress value' },
-      { name: 'minValue', value: 'number', description: 'Minimum value (default: 0)' },
-      { name: 'maxValue', value: 'number', description: 'Maximum value (default: 100)' },
-      { name: 'showPercentage', value: 'boolean', description: 'Shows percentage text' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="value" type="number">Current progress value</ResponseField>
+  <ResponseField name="minValue" type="number">Minimum value (default: 0)</ResponseField>
+  <ResponseField name="maxValue" type="number">Maximum value (default: 100)</ResponseField>
+  <ResponseField name="showPercentage" type="boolean">Shows percentage text</ResponseField>
+</PropertiesTable>

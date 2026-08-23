@@ -2,7 +2,7 @@
 title: Separator
 ---
 
-import { Box, DataColumn, DataTable, Example, Flexbox, Separator, Text } from '../../../mdx-components';
+import { Box, Example, Flexbox, Separator, Text } from '../../../mdx-components';
 
 A separator visually divides content into groups.
 
@@ -42,14 +42,6 @@ A separator visually divides content into groups.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'orientation', value: 'string', description: '"horizontal" | "vertical" (default: "horizontal")' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="orientation" type="string">"horizontal" | "vertical" (default: "horizontal")</ResponseField>
+</PropertiesTable>

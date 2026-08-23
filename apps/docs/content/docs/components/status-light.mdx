@@ -2,7 +2,7 @@
 title: Status Light
 ---
 
-import { DataColumn, DataTable, Example, StatusLight } from '../../../mdx-components';
+import { Example, StatusLight } from '../../../mdx-components';
 
 Status lights are used to color code categories and labels commonly found in data visualization.
 
@@ -34,15 +34,7 @@ Status lights are used to color code categories and labels commonly found in dat
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'variant', value: 'StatusVariant', description: '"success" | "warning" | "error" | "active" | "inactive" | "none"' },
-      { name: 'color', value: 'string', description: 'Custom color (overrides variant)' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="variant" type="StatusVariant">"success" | "warning" | "error" | "active" | "inactive" | "none"</ResponseField>
+  <ResponseField name="color" type="string">Custom color (overrides variant)</ResponseField>
+</PropertiesTable>

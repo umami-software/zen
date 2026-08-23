@@ -2,7 +2,7 @@
 title: Alert Dialog
 ---
 
-import { AlertDialogExample, DataColumn, DataTable, Example } from '../../../mdx-components';
+import { AlertDialog, AlertDialogExample, Button, DialogTrigger, Example, Modal, Text } from '../../../mdx-components';
 
 Alert dialogs are a specific type of Dialog. They display important information that users need
 to acknowledge.
@@ -24,21 +24,13 @@ to acknowledge.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'title', value: 'ReactNode', description: 'Dialog title' },
-      { name: 'description', value: 'ReactNode', description: 'Dialog description' },
-      { name: 'isDanger', value: 'boolean', description: 'Shows confirm button as danger variant' },
-      { name: 'isConfirmDisabled', value: 'boolean', description: 'Disables the confirm button' },
-      { name: 'confirmLabel', value: 'ReactNode', description: 'Confirm button text (default: "Confirm")' },
-      { name: 'cancelLabel', value: 'ReactNode', description: 'Cancel button text (default: "Cancel")' },
-      { name: 'onConfirm', value: '() => void', description: 'Called when confirm is clicked' },
-      { name: 'onCancel', value: '() => void', description: 'Called when cancel is clicked' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="title" type="ReactNode">Dialog title</ResponseField>
+  <ResponseField name="description" type="ReactNode">Dialog description</ResponseField>
+  <ResponseField name="isDanger" type="boolean">Shows confirm button as danger variant</ResponseField>
+  <ResponseField name="isConfirmDisabled" type="boolean">Disables the confirm button</ResponseField>
+  <ResponseField name="confirmLabel" type="ReactNode">Confirm button text (default: "Confirm")</ResponseField>
+  <ResponseField name="cancelLabel" type="ReactNode">Cancel button text (default: "Cancel")</ResponseField>
+  <ResponseField name="onConfirm" type="() => void">Called when confirm is clicked</ResponseField>
+  <ResponseField name="onCancel" type="() => void">Called when cancel is clicked</ResponseField>
+</PropertiesTable>

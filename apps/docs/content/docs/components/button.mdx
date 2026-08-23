@@ -2,7 +2,7 @@
 title: Button
 ---
 
-import { Button, DataColumn, DataTable, Example, Icon, Lucide } from '../../../mdx-components';
+import { Button, Example, Icon, Lucide } from '../../../mdx-components';
 
 A button allows a user to perform an action, with mouse, touch, and keyboard interactions.
 
@@ -154,18 +154,10 @@ A button allows a user to perform an action, with mouse, touch, and keyboard int
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'variant', value: 'ButtonVariant', description: '"default" | "primary" | "outline" | "quiet" | "danger" | "zero"' },
-      { name: 'size', value: 'ButtonSize', description: '"xs" | "sm" | "md" | "lg" | "xl" (default: "md")' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the button' },
-      { name: 'render', value: 'RenderProp', description: 'Render prop for polymorphism (e.g., render as link)' },
-      { name: 'nativeButton', value: 'boolean', description: 'Overrides native button semantics for custom render functions or components' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="variant" type="ButtonVariant">"default" | "primary" | "outline" | "quiet" | "danger" | "zero"</ResponseField>
+  <ResponseField name="size" type="ButtonSize">"xs" | "sm" | "md" | "lg" | "xl" (default: "md")</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the button</ResponseField>
+  <ResponseField name="render" type="RenderProp">Render prop for polymorphism (e.g., render as link)</ResponseField>
+  <ResponseField name="nativeButton" type="boolean">Overrides native button semantics for custom render functions or components</ResponseField>
+</PropertiesTable>

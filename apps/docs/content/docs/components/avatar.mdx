@@ -2,7 +2,7 @@
 title: Avatar
 ---
 
-import { Avatar, DataColumn, DataTable, Example } from '../../../mdx-components';
+import { Avatar, Example } from '../../../mdx-components';
 
 An avatar displays a user's profile image with a fallback to their initials.
 
@@ -48,17 +48,9 @@ When no image is provided, the avatar shows the initials derived from `alt`, or 
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'src', value: 'string', description: 'Image source URL' },
-      { name: 'alt', value: 'string', description: 'Alt text (also used to generate initials)' },
-      { name: 'fallback', value: 'ReactNode', description: 'Custom fallback content (overrides initials)' },
-      { name: 'size', value: 'string', description: '"xs" | "sm" | "md" | "lg" | "xl" (default: "md")' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="src" type="string">Image source URL</ResponseField>
+  <ResponseField name="alt" type="string">Alt text (also used to generate initials)</ResponseField>
+  <ResponseField name="fallback" type="ReactNode">Custom fallback content (overrides initials)</ResponseField>
+  <ResponseField name="size" type="string">"xs" | "sm" | "md" | "lg" | "xl" (default: "md")</ResponseField>
+</PropertiesTable>

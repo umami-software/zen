@@ -2,7 +2,7 @@
 title: Heading
 ---
 
-import { DataColumn, DataTable, Example, Heading } from '../../../mdx-components';
+import { Example, Heading } from '../../../mdx-components';
 
 A semantic heading component for titles and section headers. Supports multiple sizes and semantic HTML levels (h1-h6) for proper document structure and accessibility.
 
@@ -50,15 +50,7 @@ A semantic heading component for titles and section headers. Supports multiple s
 
 Heading extends [Text](/docs/typography/text) and accepts all Text props. Default values are `size="2xl"`, `weight="semibold"`, and `spacing="tight"`.
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'size', value: 'Responsive<HeadingSize>', description: '"sm" | "base" | "lg" | "xl" | "2xl" | ... | "9xl"' },
-      { name: 'as', value: 'HeadingElement', description: '"h1" | "h2" | "h3" | "h4" | "h5" | "h6" (default: "h2")' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Values" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="size" type="Responsive<HeadingSize>">"sm" | "base" | "lg" | "xl" | "2xl" | ... | "9xl"</ResponseField>
+  <ResponseField name="as" type="HeadingElement">"h1" | "h2" | "h3" | "h4" | "h5" | "h6" (default: "h2")</ResponseField>
+</PropertiesTable>

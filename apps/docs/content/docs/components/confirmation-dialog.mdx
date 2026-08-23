@@ -2,7 +2,7 @@
 title: Confirmation Dialog
 ---
 
-import { ConfirmationDialogExample, DataColumn, DataTable, Example } from '../../../mdx-components';
+import { Button, ConfirmationDialog, ConfirmationDialogExample, DialogTrigger, Example, Modal, Text } from '../../../mdx-components';
 
 A high-friction dialog for dangerous or irreversible actions. Requires users to type a confirmation phrase before proceeding, preventing accidental deletions or critical changes.
 
@@ -28,21 +28,13 @@ A high-friction dialog for dangerous or irreversible actions. Requires users to 
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'value', value: 'string', description: 'Text the user must type to confirm (required)' },
-      { name: 'confirmMessage', value: 'ReactNode', description: 'Message shown above the confirmation input' },
-      { name: 'title', value: 'ReactNode', description: 'Dialog title' },
-      { name: 'isDanger', value: 'boolean', description: 'Shows confirm button as danger variant' },
-      { name: 'confirmLabel', value: 'ReactNode', description: 'Confirm button text' },
-      { name: 'cancelLabel', value: 'ReactNode', description: 'Cancel button text' },
-      { name: 'onConfirm', value: '() => void', description: 'Called when confirmed' },
-      { name: 'onCancel', value: '() => void', description: 'Called when cancelled' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="value" type="string">Text the user must type to confirm (required)</ResponseField>
+  <ResponseField name="confirmMessage" type="ReactNode">Message shown above the confirmation input</ResponseField>
+  <ResponseField name="title" type="ReactNode">Dialog title</ResponseField>
+  <ResponseField name="isDanger" type="boolean">Shows confirm button as danger variant</ResponseField>
+  <ResponseField name="confirmLabel" type="ReactNode">Confirm button text</ResponseField>
+  <ResponseField name="cancelLabel" type="ReactNode">Cancel button text</ResponseField>
+  <ResponseField name="onConfirm" type="() => void">Called when confirmed</ResponseField>
+  <ResponseField name="onCancel" type="() => void">Called when cancelled</ResponseField>
+</PropertiesTable>

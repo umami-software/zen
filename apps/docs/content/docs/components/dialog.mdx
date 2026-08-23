@@ -2,7 +2,7 @@
 title: Dialog
 ---
 
-import { DataColumn, DataTable, DialogExample, Example } from '../../../mdx-components';
+import { Button, Dialog, DialogExample, DialogTrigger, Example, Form, FormButtons, FormField, Modal, TextField } from '../../../mdx-components';
 
 A dialog is an overlay shown above other content in an application.
 
@@ -40,15 +40,7 @@ A dialog is an overlay shown above other content in an application.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'title', value: 'ReactNode', description: 'Dialog title displayed at the top' },
-      { name: 'variant', value: 'DialogVariant', description: '"sheet" - Full-width variant for side panels' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="title" type="ReactNode">Dialog title displayed at the top</ResponseField>
+  <ResponseField name="variant" type="DialogVariant">"sheet" - Full-width variant for side panels</ResponseField>
+</PropertiesTable>

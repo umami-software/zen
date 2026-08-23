@@ -2,7 +2,7 @@
 title: Menubar
 ---
 
-import { DataColumn, DataTable, Example, Menu, MenuItem, MenuSeparator, Menubar, MenubarMenu } from '../../../mdx-components';
+import { Example, Menu, MenuItem, MenuSeparator, Menubar, MenubarMenu } from '../../../mdx-components';
 
 A menubar displays a horizontal row of menus, like the menu bar found at the top of desktop applications.
 
@@ -71,30 +71,14 @@ A menubar displays a horizontal row of menus, like the menu bar found at the top
 
 ### Menubar
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the entire menubar' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="isDisabled" type="boolean">Disables the entire menubar</ResponseField>
+</PropertiesTable>
 
 ### MenubarMenu
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'label', value: 'ReactNode', description: 'Label shown on the menubar trigger button' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the menu' },
-      { name: 'children', value: 'ReactNode', description: 'A Menu containing MenuItems' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="label" type="ReactNode">Label shown on the menubar trigger button</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the menu</ResponseField>
+  <ResponseField name="children" type="ReactNode">A Menu containing MenuItems</ResponseField>
+</PropertiesTable>

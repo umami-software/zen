@@ -2,7 +2,7 @@
 title: Checkbox
 ---
 
-import { Checkbox, DataColumn, DataTable, Example } from '../../../mdx-components';
+import { Checkbox, Example } from '../../../mdx-components';
 
 A checkbox allows a user to select multiple items from a list of individual items, or to mark one individual item as selected.
 
@@ -36,19 +36,11 @@ A checkbox allows a user to select multiple items from a list of individual item
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'label', value: 'string', description: 'Label text (alternative to children)' },
-      { name: 'isSelected', value: 'boolean', description: 'Controlled selected state' },
-      { name: 'defaultSelected', value: 'boolean', description: 'Default selected state' },
-      { name: 'isIndeterminate', value: 'boolean', description: 'Shows indeterminate state' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the checkbox' },
-      { name: 'onChange', value: '(isSelected: boolean) => void', description: 'Called when state changes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="label" type="string">Label text (alternative to children)</ResponseField>
+  <ResponseField name="isSelected" type="boolean">Controlled selected state</ResponseField>
+  <ResponseField name="defaultSelected" type="boolean">Default selected state</ResponseField>
+  <ResponseField name="isIndeterminate" type="boolean">Shows indeterminate state</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the checkbox</ResponseField>
+  <ResponseField name="onChange" type="(isSelected: boolean) => void">Called when state changes</ResponseField>
+</PropertiesTable>

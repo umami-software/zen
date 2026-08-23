@@ -2,7 +2,7 @@
 title: Date Picker
 ---
 
-import { DataColumn, DataTable, DatePicker, DatePickerExample, Example } from '../../../mdx-components';
+import { DatePicker, DatePickerExample, Example } from '../../../mdx-components';
 
 A date picker allows a user to select a date from a popup calendar.
 
@@ -60,26 +60,18 @@ Dates are formatted with `Intl.DateTimeFormat` using the `locale` and `formatOpt
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'label', value: 'string', description: 'Label text displayed above the picker' },
-      { name: 'value', value: 'Date', description: 'Controlled date value' },
-      { name: 'defaultValue', value: 'Date', description: 'Default date value' },
-      { name: 'minValue', value: 'Date', description: 'Minimum selectable date' },
-      { name: 'maxValue', value: 'Date', description: 'Maximum selectable date' },
-      { name: 'placeholder', value: 'string', description: 'Text shown when no date is selected (default: "Select date")' },
-      { name: 'locale', value: 'string', description: 'Locale used to format the displayed date' },
-      { name: 'formatOptions', value: 'Intl.DateTimeFormatOptions', description: 'Date format options (default: { dateStyle: "medium" })' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the picker' },
-      { name: 'isReadOnly', value: 'boolean', description: 'Prevents changing the value' },
-      { name: 'onChange', value: '(date: Date) => void', description: 'Called when a date is selected' },
-      { name: 'buttonProps', value: 'ButtonProps', description: 'Props passed to the trigger button' },
-      { name: 'calendarProps', value: 'Partial<CalendarProps>', description: 'Props passed to the popup calendar' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="label" type="string">Label text displayed above the picker</ResponseField>
+  <ResponseField name="value" type="Date">Controlled date value</ResponseField>
+  <ResponseField name="defaultValue" type="Date">Default date value</ResponseField>
+  <ResponseField name="minValue" type="Date">Minimum selectable date</ResponseField>
+  <ResponseField name="maxValue" type="Date">Maximum selectable date</ResponseField>
+  <ResponseField name="placeholder" type="string">Text shown when no date is selected (default: "Select date")</ResponseField>
+  <ResponseField name="locale" type="string">Locale used to format the displayed date</ResponseField>
+  <ResponseField name="formatOptions" type="Intl.DateTimeFormatOptions">{"Date format options (default: { dateStyle: \"medium\" })"}</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the picker</ResponseField>
+  <ResponseField name="isReadOnly" type="boolean">Prevents changing the value</ResponseField>
+  <ResponseField name="onChange" type="(date: Date) => void">Called when a date is selected</ResponseField>
+  <ResponseField name="buttonProps" type="ButtonProps">Props passed to the trigger button</ResponseField>
+  <ResponseField name="calendarProps" type="Partial<CalendarProps>">Props passed to the popup calendar</ResponseField>
+</PropertiesTable>

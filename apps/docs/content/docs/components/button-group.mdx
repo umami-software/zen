@@ -2,7 +2,7 @@
 title: Button Group
 ---
 
-import { Button, ButtonGroup, ButtonGroupSeparator, ButtonGroupText, DataColumn, DataTable, Example, Icon, Label, Lucide, Menu, MenuItem, MenuSeparator, MenuTrigger, TextField } from '../../../mdx-components';
+import { Button, ButtonGroup, ButtonGroupSeparator, ButtonGroupText, Example, Icon, Label, Lucide, Menu, MenuItem, MenuSeparator, MenuTrigger, TextField } from '../../../mdx-components';
 
 A button group places related actions together with consistent spacing, borders, and focus
 behavior. Label each group with `aria-label` or `aria-labelledby`.
@@ -251,43 +251,19 @@ Nested button groups receive spacing while the actions inside each nested group 
 
 ### ButtonGroup
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'orientation', value: '"horizontal" | "vertical"', description: 'Layout direction (default: "horizontal")' },
-      { name: 'aria-label', value: 'string', description: 'Accessible label for the group' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="orientation" type="&quot;horizontal&quot; | &quot;vertical&quot;">Layout direction (default: "horizontal")</ResponseField>
+  <ResponseField name="aria-label" type="string">Accessible label for the group</ResponseField>
+</PropertiesTable>
 
 ### ButtonGroupSeparator
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'orientation', value: '"horizontal" | "vertical"', description: 'Separator direction (default: "vertical")' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="orientation" type="&quot;horizontal&quot; | &quot;vertical&quot;">Separator direction (default: "vertical")</ResponseField>
+</PropertiesTable>
 
 ### ButtonGroupText
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'render', value: 'RenderProp', description: 'Renders the text with a custom element' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="render" type="RenderProp">Renders the text with a custom element</ResponseField>
+</PropertiesTable>

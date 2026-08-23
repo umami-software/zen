@@ -2,7 +2,7 @@
 title: Carousel
 ---
 
-import { Box, Carousel, CarouselItem, DataColumn, DataTable, Example } from '../../../mdx-components';
+import { Box, Carousel, CarouselItem, Example } from '../../../mdx-components';
 
 A carousel displays a set of slides that users can scroll through.
 
@@ -66,22 +66,14 @@ A carousel displays a set of slides that users can scroll through.
 
 ### Carousel
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'orientation', value: 'string', description: '"horizontal" | "vertical" (default: "horizontal")' },
-      { name: 'loop', value: 'boolean', description: 'Loops back to the first slide' },
-      { name: 'showArrows', value: 'boolean', description: 'Shows previous/next arrows (default: true)' },
-      { name: 'showDots', value: 'boolean', description: 'Shows dot indicators' },
-      { name: 'opts', value: 'EmblaOptions', description: 'Additional Embla carousel options' },
-      { name: 'onIndexChange', value: '(index: number) => void', description: 'Called when the selected slide changes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="orientation" type="string">"horizontal" | "vertical" (default: "horizontal")</ResponseField>
+  <ResponseField name="loop" type="boolean">Loops back to the first slide</ResponseField>
+  <ResponseField name="showArrows" type="boolean">Shows previous/next arrows (default: true)</ResponseField>
+  <ResponseField name="showDots" type="boolean">Shows dot indicators</ResponseField>
+  <ResponseField name="opts" type="EmblaOptions">Additional Embla carousel options</ResponseField>
+  <ResponseField name="onIndexChange" type="(index: number) => void">Called when the selected slide changes</ResponseField>
+</PropertiesTable>
 
 ### CarouselItem
 

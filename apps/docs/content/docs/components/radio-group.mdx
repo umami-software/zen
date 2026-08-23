@@ -2,7 +2,7 @@
 title: Radio Group
 ---
 
-import { DataColumn, DataTable, Example, Radio, RadioGroup } from '../../../mdx-components';
+import { Example, Radio, RadioGroup } from '../../../mdx-components';
 
 A radio group allows a user to select a single item from a list of mutually exclusive options.
 
@@ -62,34 +62,18 @@ A radio group allows a user to select a single item from a list of mutually excl
 
 ### RadioGroup
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'label', value: 'string', description: 'Label text displayed above the group' },
-      { name: 'value', value: 'string', description: 'Controlled selected value' },
-      { name: 'defaultValue', value: 'string', description: 'Default selected value' },
-      { name: 'orientation', value: 'Orientation', description: '"horizontal" | "vertical"' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables all radios in the group' },
-      { name: 'onChange', value: '(value: string) => void', description: 'Called when selection changes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="label" type="string">Label text displayed above the group</ResponseField>
+  <ResponseField name="value" type="string">Controlled selected value</ResponseField>
+  <ResponseField name="defaultValue" type="string">Default selected value</ResponseField>
+  <ResponseField name="orientation" type="Orientation">"horizontal" | "vertical"</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables all radios in the group</ResponseField>
+  <ResponseField name="onChange" type="(value: string) => void">Called when selection changes</ResponseField>
+</PropertiesTable>
 
 ### Radio
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'value', value: 'string', description: 'Value of this radio option (required)' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables this radio option' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="value" type="string">Value of this radio option (required)</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables this radio option</ResponseField>
+</PropertiesTable>

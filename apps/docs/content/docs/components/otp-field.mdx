@@ -2,7 +2,7 @@
 title: OTP Field
 ---
 
-import { DataColumn, DataTable, Example, OTPField, OTPFieldExample } from '../../../mdx-components';
+import { Example, OTPField, OTPFieldExample } from '../../../mdx-components';
 
 An OTP field allows a user to enter a one-time password or verification code, one character per input slot.
 
@@ -64,25 +64,17 @@ An OTP field allows a user to enter a one-time password or verification code, on
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'length', value: 'number', description: 'Number of input slots (default: 6)' },
-      { name: 'label', value: 'string', description: 'Label text displayed above the field' },
-      { name: 'value', value: 'string', description: 'Controlled value' },
-      { name: 'defaultValue', value: 'string', description: 'Default value' },
-      { name: 'mask', value: 'boolean', description: 'Masks entered characters (default: false)' },
-      { name: 'autoSubmit', value: 'boolean', description: 'Submits the owning form when all slots are filled' },
-      { name: 'validationType', value: 'string', description: '"numeric" | "alpha" | "alphanumeric" | "none"' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the field' },
-      { name: 'isReadOnly', value: 'boolean', description: 'Prevents changing the value' },
-      { name: 'isRequired', value: 'boolean', description: 'Marks the field as required' },
-      { name: 'onChange', value: '(value: string) => void', description: 'Called when the value changes' },
-      { name: 'onComplete', value: '(value: string) => void', description: 'Called when all slots are filled' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="length" type="number">Number of input slots (default: 6)</ResponseField>
+  <ResponseField name="label" type="string">Label text displayed above the field</ResponseField>
+  <ResponseField name="value" type="string">Controlled value</ResponseField>
+  <ResponseField name="defaultValue" type="string">Default value</ResponseField>
+  <ResponseField name="mask" type="boolean">Masks entered characters (default: false)</ResponseField>
+  <ResponseField name="autoSubmit" type="boolean">Submits the owning form when all slots are filled</ResponseField>
+  <ResponseField name="validationType" type="string">"numeric" | "alpha" | "alphanumeric" | "none"</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the field</ResponseField>
+  <ResponseField name="isReadOnly" type="boolean">Prevents changing the value</ResponseField>
+  <ResponseField name="isRequired" type="boolean">Marks the field as required</ResponseField>
+  <ResponseField name="onChange" type="(value: string) => void">Called when the value changes</ResponseField>
+  <ResponseField name="onComplete" type="(value: string) => void">Called when all slots are filled</ResponseField>
+</PropertiesTable>

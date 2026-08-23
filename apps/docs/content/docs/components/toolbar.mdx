@@ -2,7 +2,7 @@
 title: Toolbar
 ---
 
-import { DataColumn, DataTable, Example, Icon, Lucide, ToggleGroup, ToggleGroupItem, Toolbar, ToolbarButton, ToolbarGroup, ToolbarSeparator } from '../../../mdx-components';
+import { Example, Icon, Lucide, ToggleGroup, ToggleGroupItem, Toolbar, ToolbarButton, ToolbarGroup, ToolbarSeparator } from '../../../mdx-components';
 
 A toolbar groups a set of buttons and controls with keyboard navigation between them.
 
@@ -172,30 +172,14 @@ Toolbars work with `ToggleGroup` and `ToggleGroupItem` for pressed states.
 
 ### Toolbar
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'orientation', value: "'horizontal' | 'vertical'", description: 'Toolbar layout direction (default: "horizontal")' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the entire toolbar' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="orientation" type="'horizontal' | 'vertical'">Toolbar layout direction (default: "horizontal")</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the entire toolbar</ResponseField>
+</PropertiesTable>
 
 ### ToolbarButton
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the button' },
-      { name: '...ButtonProps', value: 'ButtonProps', description: 'Accepts all Button props (default variant: "quiet")' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="isDisabled" type="boolean">Disables the button</ResponseField>
+  <ResponseField name="...ButtonProps" type="ButtonProps">Accepts all Button props (default variant: "quiet")</ResponseField>
+</PropertiesTable>

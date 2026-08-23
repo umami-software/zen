@@ -2,7 +2,7 @@
 title: Pagination
 ---
 
-import { DataColumn, DataTable, Example, Pagination, PaginationExample } from '../../../mdx-components';
+import { Column, Example, Pagination, PaginationExample, Text } from '../../../mdx-components';
 
 Pagination lets users navigate between pages of content.
 
@@ -71,21 +71,13 @@ Use the `page` and `onChange` props to control the current page.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'pageCount', value: 'number', description: 'Total number of pages' },
-      { name: 'totalItems', value: 'number', description: 'Total number of items (used when pageCount is not set)' },
-      { name: 'pageSize', value: 'number', description: 'Items per page used with totalItems (default: 10)' },
-      { name: 'page', value: 'number', description: 'Controlled current page' },
-      { name: 'defaultPage', value: 'number', description: 'Default current page (default: 1)' },
-      { name: 'siblingCount', value: 'number', description: 'Pages shown on each side of the current page (default: 1)' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables all pagination controls' },
-      { name: 'onChange', value: '(page: number) => void', description: 'Called when the page changes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="pageCount" type="number">Total number of pages</ResponseField>
+  <ResponseField name="totalItems" type="number">Total number of items (used when pageCount is not set)</ResponseField>
+  <ResponseField name="pageSize" type="number">Items per page used with totalItems (default: 10)</ResponseField>
+  <ResponseField name="page" type="number">Controlled current page</ResponseField>
+  <ResponseField name="defaultPage" type="number">Default current page (default: 1)</ResponseField>
+  <ResponseField name="siblingCount" type="number">Pages shown on each side of the current page (default: 1)</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables all pagination controls</ResponseField>
+  <ResponseField name="onChange" type="(page: number) => void">Called when the page changes</ResponseField>
+</PropertiesTable>

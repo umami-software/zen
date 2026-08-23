@@ -2,7 +2,7 @@
 title: Container
 ---
 
-import { Button, Container, DataColumn, DataTable, Dialog, DialogTrigger, Example, Modal } from '../../../mdx-components';
+import { Button, Container, DataColumn, DataTable, Dialog, DialogTrigger, Example, Modal, Text } from '../../../mdx-components';
 
 A centered wrapper that constrains content to a maximum width. Essential for readable line lengths and consistent page layouts, especially for text-heavy content like articles or documentation.
 
@@ -50,17 +50,9 @@ The container at each breakpoint has a `max-width`.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'isCentered', value: 'boolean', description: 'Centers the container horizontally (default: true)' },
-      { name: 'isFluid', value: 'boolean', description: 'Makes the container full width with no max-width constraint' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="isCentered" type="boolean">Centers the container horizontally (default: true)</ResponseField>
+  <ResponseField name="isFluid" type="boolean">Makes the container full width with no max-width constraint</ResponseField>
+</PropertiesTable>
 
 Container also extends all [Box](/docs/layout/box) props.

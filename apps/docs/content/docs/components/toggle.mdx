@@ -2,7 +2,7 @@
 title: Toggle
 ---
 
-import { DataColumn, DataTable, Example, Toggle } from '../../../mdx-components';
+import { Example, Toggle } from '../../../mdx-components';
 
 A toggle button allows a user to toggle a selection on or off, for example switching between two states or modes.
 
@@ -16,18 +16,10 @@ A toggle button allows a user to toggle a selection on or off, for example switc
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'label', value: 'string', description: 'Label text displayed above the toggle' },
-      { name: 'isSelected', value: 'boolean', description: 'Controlled selected state' },
-      { name: 'defaultSelected', value: 'boolean', description: 'Default selected state' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the toggle' },
-      { name: 'onChange', value: '(isSelected: boolean) => void', description: 'Called when state changes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="label" type="string">Label text displayed above the toggle</ResponseField>
+  <ResponseField name="isSelected" type="boolean">Controlled selected state</ResponseField>
+  <ResponseField name="defaultSelected" type="boolean">Default selected state</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the toggle</ResponseField>
+  <ResponseField name="onChange" type="(isSelected: boolean) => void">Called when state changes</ResponseField>
+</PropertiesTable>

@@ -2,7 +2,7 @@
 title: Tabs
 ---
 
-import { DataColumn, DataTable, Example, Tab, TabList, TabPanel, Tabs } from '../../../mdx-components';
+import { Example, Tab, TabList, TabPanel, Tabs } from '../../../mdx-components';
 
 Tabs organize content into multiple sections and allow users to navigate between them.
 
@@ -92,32 +92,16 @@ Tabs organize content into multiple sections and allow users to navigate between
 
 ### Tabs
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'selectedKey', value: 'string', description: 'Controlled selected tab key' },
-      { name: 'defaultSelectedKey', value: 'string', description: 'Default selected tab key' },
-      { name: 'onSelectionChange', value: '(key: string) => void', description: 'Called when selection changes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="selectedKey" type="string">Controlled selected tab key</ResponseField>
+  <ResponseField name="defaultSelectedKey" type="string">Default selected tab key</ResponseField>
+  <ResponseField name="onSelectionChange" type="(key: string) => void">Called when selection changes</ResponseField>
+</PropertiesTable>
 
 ### Tab
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'id', value: 'string', description: 'Unique tab identifier (required)' },
-      { name: 'href', value: 'string', description: 'Makes the tab a link' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the tab' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="id" type="string">Unique tab identifier (required)</ResponseField>
+  <ResponseField name="href" type="string">Makes the tab a link</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the tab</ResponseField>
+</PropertiesTable>

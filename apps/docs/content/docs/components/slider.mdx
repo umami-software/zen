@@ -2,7 +2,7 @@
 title: Slider
 ---
 
-import { Box, DataColumn, DataTable, Example, Slider } from '../../../mdx-components';
+import { Box, Example, Slider } from '../../../mdx-components';
 
 A slider allows a user to select a value within a range.
 
@@ -16,22 +16,14 @@ A slider allows a user to select a value within a range.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'label', value: 'ReactNode', description: 'Label text displayed above the slider' },
-      { name: 'value', value: 'number', description: 'Controlled value' },
-      { name: 'defaultValue', value: 'number', description: 'Default value' },
-      { name: 'minValue', value: 'number', description: 'Minimum value (default: 0)' },
-      { name: 'maxValue', value: 'number', description: 'Maximum value (default: 100)' },
-      { name: 'step', value: 'number', description: 'Step increment (default: 1)' },
-      { name: 'showValue', value: 'boolean', description: 'Shows current value (default: true)' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the slider' },
-      { name: 'onChange', value: '(value: number) => void', description: 'Called when value changes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="label" type="ReactNode">Label text displayed above the slider</ResponseField>
+  <ResponseField name="value" type="number">Controlled value</ResponseField>
+  <ResponseField name="defaultValue" type="number">Default value</ResponseField>
+  <ResponseField name="minValue" type="number">Minimum value (default: 0)</ResponseField>
+  <ResponseField name="maxValue" type="number">Maximum value (default: 100)</ResponseField>
+  <ResponseField name="step" type="number">Step increment (default: 1)</ResponseField>
+  <ResponseField name="showValue" type="boolean">Shows current value (default: true)</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the slider</ResponseField>
+  <ResponseField name="onChange" type="(value: number) => void">Called when value changes</ResponseField>
+</PropertiesTable>

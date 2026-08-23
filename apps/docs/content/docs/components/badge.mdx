@@ -2,7 +2,7 @@
 title: Badge
 ---
 
-import { Badge, DataColumn, DataTable, Example } from '../../../mdx-components';
+import { Badge, Example } from '../../../mdx-components';
 
 A badge displays a small label used to highlight a status or category.
 
@@ -86,15 +86,7 @@ In addition to the semantic variants above, `Badge` supports every Tailwind base
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'variant', value: 'string', description: '"default" | "primary" | "outline" | "success" | "warning" | "error" | "info" | any Tailwind base color ("slate", "gray", "zinc", "neutral", "stone", "red", "orange", "amber", "yellow", "lime", "green", "emerald", "teal", "cyan", "sky", "blue", "indigo", "violet", "purple", "fuchsia", "pink", "rose") (default: "default")' },
-      { name: 'size', value: 'string', description: '"sm" | "md" (default: "md")' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="variant" type="string">"default" | "primary" | "outline" | "success" | "warning" | "error" | "info" | any Tailwind base color ("slate", "gray", "zinc", "neutral", "stone", "red", "orange", "amber", "yellow", "lime", "green", "emerald", "teal", "cyan", "sky", "blue", "indigo", "violet", "purple", "fuchsia", "pink", "rose") (default: "default")</ResponseField>
+  <ResponseField name="size" type="string">"sm" | "md" (default: "md")</ResponseField>
+</PropertiesTable>

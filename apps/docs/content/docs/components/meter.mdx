@@ -2,7 +2,7 @@
 title: Meter
 ---
 
-import { Box, DataColumn, DataTable, Example, Meter } from '../../../mdx-components';
+import { Box, Example, Meter } from '../../../mdx-components';
 
 A meter represents a measured value within a known range, such as disk usage or battery level.
 
@@ -45,19 +45,11 @@ Values are formatted with `Intl.NumberFormat` using the `formatOptions` prop.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'value', value: 'number', description: 'Current value (required)' },
-      { name: 'minValue', value: 'number', description: 'Minimum value' },
-      { name: 'maxValue', value: 'number', description: 'Maximum value' },
-      { name: 'label', value: 'string', description: 'Label text displayed above the meter' },
-      { name: 'showValue', value: 'boolean', description: 'Shows the formatted value' },
-      { name: 'formatOptions', value: 'Intl.NumberFormatOptions', description: 'Number format options for the displayed value' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="value" type="number">Current value (required)</ResponseField>
+  <ResponseField name="minValue" type="number">Minimum value</ResponseField>
+  <ResponseField name="maxValue" type="number">Maximum value</ResponseField>
+  <ResponseField name="label" type="string">Label text displayed above the meter</ResponseField>
+  <ResponseField name="showValue" type="boolean">Shows the formatted value</ResponseField>
+  <ResponseField name="formatOptions" type="Intl.NumberFormatOptions">Number format options for the displayed value</ResponseField>
+</PropertiesTable>

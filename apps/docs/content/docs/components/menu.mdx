@@ -2,7 +2,7 @@
 title: Menu
 ---
 
-import { Button, DataColumn, DataTable, Example, Menu, MenuItem, MenuSection, MenuSeparator, MenuTrigger, SubMenuTrigger } from '../../../mdx-components';
+import { Button, Example, Menu, MenuItem, MenuSection, MenuSeparator, MenuTrigger, SubMenuTrigger } from '../../../mdx-components';
 
 A menu displays a list of actions or options that a user can choose.
 
@@ -177,36 +177,20 @@ A menu displays a list of actions or options that a user can choose.
 
 ### Menu
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'selectionMode', value: 'SelectionMode', description: '"none" | "single" | "multiple"' },
-      { name: 'selectedKeys', value: 'string[]', description: 'Controlled selected keys' },
-      { name: 'defaultSelectedKeys', value: 'string[]', description: 'Default selected keys' },
-      { name: 'onSelectionChange', value: '(keys: Selection) => void', description: 'Called when selection changes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="selectionMode" type="SelectionMode">"none" | "single" | "multiple"</ResponseField>
+  <ResponseField name="selectedKeys" type="string[]">Controlled selected keys</ResponseField>
+  <ResponseField name="defaultSelectedKeys" type="string[]">Default selected keys</ResponseField>
+  <ResponseField name="onSelectionChange" type="(keys: Selection) => void">Called when selection changes</ResponseField>
+</PropertiesTable>
 
 ### MenuItem
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'id', value: 'string', description: 'Unique item identifier' },
-      { name: 'icon', value: 'ReactNode', description: 'Icon displayed before label' },
-      { name: 'label', value: 'string', description: 'Item label text' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the item' },
-      { name: 'showChecked', value: 'boolean', description: 'Shows check mark when selected (default: true)' },
-      { name: 'showSubMenuIcon', value: 'boolean', description: 'Shows submenu arrow icon' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="id" type="string">Unique item identifier</ResponseField>
+  <ResponseField name="icon" type="ReactNode">Icon displayed before label</ResponseField>
+  <ResponseField name="label" type="string">Item label text</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the item</ResponseField>
+  <ResponseField name="showChecked" type="boolean">Shows check mark when selected (default: true)</ResponseField>
+  <ResponseField name="showSubMenuIcon" type="boolean">Shows submenu arrow icon</ResponseField>
+</PropertiesTable>

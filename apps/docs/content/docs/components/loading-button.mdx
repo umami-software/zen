@@ -2,7 +2,7 @@
 title: Loading Button
 ---
 
-import { DataColumn, DataTable, Example, LoadingButton } from '../../../mdx-components';
+import { Example, LoadingButton } from '../../../mdx-components';
 
 A button that indicates an action is still pending.
 
@@ -62,17 +62,9 @@ A button that indicates an action is still pending.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'isLoading', value: 'boolean', description: 'Shows loading indicator' },
-      { name: 'variant', value: 'ButtonVariant', description: '"default" | "primary" | "outline" | "quiet" | "danger"' },
-      { name: 'size', value: 'ButtonSize', description: '"xs" | "sm" | "md" | "lg" | "xl"' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the button' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="isLoading" type="boolean">Shows loading indicator</ResponseField>
+  <ResponseField name="variant" type="ButtonVariant">"default" | "primary" | "outline" | "quiet" | "danger"</ResponseField>
+  <ResponseField name="size" type="ButtonSize">"xs" | "sm" | "md" | "lg" | "xl"</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the button</ResponseField>
+</PropertiesTable>

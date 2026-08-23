@@ -2,7 +2,7 @@
 title: Calendar
 ---
 
-import { CalendarExample, DataColumn, DataTable, Example } from '../../../mdx-components';
+import { Calendar, CalendarExample, Example } from '../../../mdx-components';
 
 A calendar displays one or more date grids and allows users to select a single date.
 
@@ -16,20 +16,12 @@ A calendar displays one or more date grids and allows users to select a single d
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'value', value: 'Date', description: 'Controlled selected date' },
-      { name: 'defaultValue', value: 'Date', description: 'Default selected date' },
-      { name: 'minValue', value: 'Date', description: 'Minimum selectable date' },
-      { name: 'maxValue', value: 'Date', description: 'Maximum selectable date' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the calendar' },
-      { name: 'isReadOnly', value: 'boolean', description: 'Makes the calendar read-only' },
-      { name: 'onChange', value: '(date: Date) => void', description: 'Called when date changes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="value" type="Date">Controlled selected date</ResponseField>
+  <ResponseField name="defaultValue" type="Date">Default selected date</ResponseField>
+  <ResponseField name="minValue" type="Date">Minimum selectable date</ResponseField>
+  <ResponseField name="maxValue" type="Date">Maximum selectable date</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the calendar</ResponseField>
+  <ResponseField name="isReadOnly" type="boolean">Makes the calendar read-only</ResponseField>
+  <ResponseField name="onChange" type="(date: Date) => void">Called when date changes</ResponseField>
+</PropertiesTable>

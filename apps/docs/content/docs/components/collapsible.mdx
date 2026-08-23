@@ -2,7 +2,7 @@
 title: Collapsible
 ---
 
-import { Box, Collapsible, CollapsiblePanel, CollapsibleTrigger, DataColumn, DataTable, Example, Text } from '../../../mdx-components';
+import { Box, Collapsible, CollapsiblePanel, CollapsibleTrigger, Example, Text } from '../../../mdx-components';
 
 A collapsible shows and hides a section of content.
 
@@ -56,20 +56,12 @@ A collapsible shows and hides a section of content.
 
 ### Collapsible
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'isExpanded', value: 'boolean', description: 'Controlled expanded state' },
-      { name: 'defaultExpanded', value: 'boolean', description: 'Default expanded state' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the collapsible' },
-      { name: 'onExpandedChange', value: '(expanded: boolean) => void', description: 'Called when the expanded state changes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="isExpanded" type="boolean">Controlled expanded state</ResponseField>
+  <ResponseField name="defaultExpanded" type="boolean">Default expanded state</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the collapsible</ResponseField>
+  <ResponseField name="onExpandedChange" type="(expanded: boolean) => void">Called when the expanded state changes</ResponseField>
+</PropertiesTable>
 
 ### CollapsibleTrigger
 

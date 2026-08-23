@@ -2,7 +2,7 @@
 title: Empty
 ---
 
-import { Box, Button, DataColumn, DataTable, Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle, Example, Lucide, Row } from '../../../mdx-components';
+import { Box, Button, Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle, Example, Lucide, Row } from '../../../mdx-components';
 
 Displays a placeholder when a view has no content. Compose an `Empty` from an
 `EmptyHeader` — containing an optional `EmptyMedia`, an `EmptyTitle`, and an
@@ -146,26 +146,10 @@ Place buttons or links inside `EmptyContent`.
 
 ### EmptyMedia
 
-<Example>
-  <DataTable
-    data={[
-      {
-        name: 'variant',
-        value: "'default' | 'icon'",
-        description: 'Media style (default: "default"). Use "icon" for a muted icon container.',
-      },
-      {
-        name: 'children',
-        value: 'ReactNode',
-        description: 'An svg icon, avatar, or other media',
-      },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="variant" type="'default' | 'icon'">Media style (default: "default"). Use "icon" for a muted icon container.</ResponseField>
+  <ResponseField name="children" type="ReactNode">An svg icon, avatar, or other media</ResponseField>
+</PropertiesTable>
 
 `Empty`, `EmptyHeader`, `EmptyMedia`, `EmptyTitle`, and `EmptyContent` accept
 standard `div` props including `className`; `EmptyDescription` renders a `p`

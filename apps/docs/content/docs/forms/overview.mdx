@@ -2,7 +2,7 @@
 title: Forms
 ---
 
-import { Box, DataColumn, DataTable, Example, FormErrorExample, FormExample, FormFieldArrayExample, FormInputsExample, FormLoadingExample, FormValidationExample } from '../../../mdx-components';
+import { Box, Button, Checkbox, Column, Example, Form, FormButtons, FormController, FormErrorExample, FormExample, FormField, FormFieldArray, FormFieldArrayExample, FormInputsExample, FormLoadingExample, FormResetButton, FormSubmitButton, FormValidationExample, PasswordField, Radio, RadioGroup, Row, SearchField, Select, Slider, Switch, Text, TextField } from '../../../mdx-components';
 
 Zen provides a complete form system built on [react-hook-form](https://react-hook-form.com/). The `Form` and `FormField` components handle validation, error display, and field state management with minimal boilerplate.
 
@@ -377,84 +377,44 @@ Use `preventSubmit` to stop the form from submitting when the user presses Enter
 
 ### Form
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'defaultValues', value: 'object', description: 'Initial form values (uncontrolled)' },
-      { name: 'values', value: 'object', description: 'Current form values (controlled)' },
-      { name: 'onSubmit', value: '(data) => void | Promise', description: 'Called when form is submitted with valid data' },
-      { name: 'error', value: 'ReactNode | Error', description: 'Error message to display above the form' },
-      { name: 'preventSubmit', value: 'boolean', description: 'Prevents form submission on Enter key' },
-      { name: 'resolver', value: 'Resolver', description: 'Validation resolver for schema validation (Zod, Yup, etc.)' },
-      { name: 'mode', value: 'string', description: 'Validation mode: "onSubmit" | "onBlur" | "onChange" | "onTouched" | "all"' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="defaultValues" type="object">Initial form values (uncontrolled)</ResponseField>
+  <ResponseField name="values" type="object">Current form values (controlled)</ResponseField>
+  <ResponseField name="onSubmit" type="(data) => void | Promise">Called when form is submitted with valid data</ResponseField>
+  <ResponseField name="error" type="ReactNode | Error">Error message to display above the form</ResponseField>
+  <ResponseField name="preventSubmit" type="boolean">Prevents form submission on Enter key</ResponseField>
+  <ResponseField name="resolver" type="Resolver">Validation resolver for schema validation (Zod, Yup, etc.)</ResponseField>
+  <ResponseField name="mode" type="string">Validation mode: "onSubmit" | "onBlur" | "onChange" | "onTouched" | "all"</ResponseField>
+</PropertiesTable>
 
 ### FormField
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'name', value: 'string', description: 'Field name (required). Must match a key in form values.' },
-      { name: 'label', value: 'string', description: 'Label displayed above the input' },
-      { name: 'description', value: 'string', description: 'Help text displayed below the input' },
-      { name: 'rules', value: 'RegisterOptions', description: 'Validation rules (required, min, max, pattern, validate, etc.)' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="name" type="string">Field name (required). Must match a key in form values.</ResponseField>
+  <ResponseField name="label" type="string">Label displayed above the input</ResponseField>
+  <ResponseField name="description" type="string">Help text displayed below the input</ResponseField>
+  <ResponseField name="rules" type="RegisterOptions">Validation rules (required, min, max, pattern, validate, etc.)</ResponseField>
+</PropertiesTable>
 
 ### FormFieldArray
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'name', value: 'string', description: 'Field array name (required)' },
-      { name: 'label', value: 'string', description: 'Label displayed above the field array' },
-      { name: 'description', value: 'string', description: 'Help text displayed below the label' },
-      { name: 'children', value: '(props) => ReactNode', description: 'Render function receiving fields, append, remove, and control' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="name" type="string">Field array name (required)</ResponseField>
+  <ResponseField name="label" type="string">Label displayed above the field array</ResponseField>
+  <ResponseField name="description" type="string">Help text displayed below the label</ResponseField>
+  <ResponseField name="children" type="(props) => ReactNode">Render function receiving fields, append, remove, and control</ResponseField>
+</PropertiesTable>
 
 ### FormSubmitButton
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'variant', value: 'ButtonVariant', description: 'Button style variant (default: "primary")' },
-      { name: 'isDisabled', value: 'boolean', description: 'Override automatic disabled state' },
-      { name: 'isLoading', value: 'boolean', description: 'Override automatic loading state' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="variant" type="ButtonVariant">Button style variant (default: "primary")</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Override automatic disabled state</ResponseField>
+  <ResponseField name="isLoading" type="boolean">Override automatic loading state</ResponseField>
+</PropertiesTable>
 
 ### FormResetButton
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'values', value: 'object', description: 'Values to reset the form to (default: original defaultValues)' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="values" type="object">Values to reset the form to (default: original defaultValues)</ResponseField>
+</PropertiesTable>

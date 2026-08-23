@@ -2,7 +2,7 @@
 title: Resizable
 ---
 
-import { Box, DataColumn, DataTable, Example, Flexbox, ResizableHandle, ResizablePanel, ResizablePanelGroup } from '../../../mdx-components';
+import { Box, Example, Flexbox, ResizableHandle, ResizablePanel, ResizablePanelGroup } from '../../../mdx-components';
 
 Resizable panels allow users to adjust the size of adjacent sections by dragging a handle.
 
@@ -56,45 +56,21 @@ Resizable panels allow users to adjust the size of adjacent sections by dragging
 
 ### ResizablePanelGroup
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'direction', value: 'string', description: '"horizontal" | "vertical" (default: "horizontal")' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="direction" type="string">"horizontal" | "vertical" (default: "horizontal")</ResponseField>
+</PropertiesTable>
 
 ### ResizablePanel
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'defaultSize', value: 'number', description: 'Initial size as a percentage' },
-      { name: 'minSize', value: 'number', description: 'Minimum size as a percentage' },
-      { name: 'maxSize', value: 'number', description: 'Maximum size as a percentage' },
-      { name: 'collapsible', value: 'boolean', description: 'Allows the panel to collapse below its minimum size' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="defaultSize" type="number">Initial size as a percentage</ResponseField>
+  <ResponseField name="minSize" type="number">Minimum size as a percentage</ResponseField>
+  <ResponseField name="maxSize" type="number">Maximum size as a percentage</ResponseField>
+  <ResponseField name="collapsible" type="boolean">Allows the panel to collapse below its minimum size</ResponseField>
+</PropertiesTable>
 
 ### ResizableHandle
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'withHandle', value: 'boolean', description: 'Shows a visible grip on the handle' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="withHandle" type="boolean">Shows a visible grip on the handle</ResponseField>
+</PropertiesTable>

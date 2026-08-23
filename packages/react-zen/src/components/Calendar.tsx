@@ -46,6 +46,14 @@ export function Calendar({
       }}
       className={cn(
         'w-fit max-w-full text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
+        // The month grid is a real <table>; host prose styles (docs sites,
+        // CMS themes) often style table/th/td with borders, padding, and
+        // width. Reset them at matching specificity so zen styles hold.
+        '[&_table]:m-0 [&_table]:w-auto [&_table]:border-0 [&_table]:text-[length:inherit]',
+        '[&_th]:border-0 [&_th]:p-0 [&_th]:text-center [&_th]:align-middle',
+        '[&_td]:border-0 [&_td]:p-0 [&_td]:text-center [&_td]:align-middle',
+        '[&_th:first-child]:pl-0 [&_th:last-child]:pr-0',
+        '[&_td:first-child]:pl-0 [&_td:last-child]:pr-0',
         className,
       )}
       classNames={{
@@ -63,7 +71,8 @@ export function Calendar({
         day: 'size-12 text-center',
         day_button:
           'size-12 rounded cursor-pointer outline-none hover:bg-interactive focus-visible:outline-2 focus-visible:outline-focus-ring focus-visible:outline-offset-2',
-        selected: '[&>button]:text-primary-foreground [&>button]:bg-primary',
+        selected:
+          '[&>button]:text-primary-foreground [&>button]:bg-primary [&>button:hover]:bg-primary',
         outside: 'invisible',
         disabled: 'text-foreground-disabled pointer-events-none opacity-50',
         today: '[&>button]:font-bold',

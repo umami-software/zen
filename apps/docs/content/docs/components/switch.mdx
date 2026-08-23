@@ -2,7 +2,7 @@
 title: Switch
 ---
 
-import { DataColumn, DataTable, Example, Switch } from '../../../mdx-components';
+import { Example, Switch } from '../../../mdx-components';
 
 A switch allows a user to turn a setting on or off.
 
@@ -30,18 +30,10 @@ A switch allows a user to turn a setting on or off.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'label', value: 'string', description: 'Label text displayed above the switch' },
-      { name: 'isSelected', value: 'boolean', description: 'Controlled selected state' },
-      { name: 'defaultSelected', value: 'boolean', description: 'Default selected state' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the switch' },
-      { name: 'onChange', value: '(isSelected: boolean) => void', description: 'Called when state changes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="label" type="string">Label text displayed above the switch</ResponseField>
+  <ResponseField name="isSelected" type="boolean">Controlled selected state</ResponseField>
+  <ResponseField name="defaultSelected" type="boolean">Default selected state</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the switch</ResponseField>
+  <ResponseField name="onChange" type="(isSelected: boolean) => void">Called when state changes</ResponseField>
+</PropertiesTable>

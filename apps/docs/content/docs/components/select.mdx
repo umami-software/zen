@@ -2,7 +2,7 @@
 title: Select
 ---
 
-import { Box, DataColumn, DataTable, Example, ListItem, Select, SelectSearchExample, SelectValueExample } from '../../../mdx-components';
+import { Box, Example, ListItem, Select, SelectSearchExample, SelectValueExample } from '../../../mdx-components';
 
 Displays a list of options for the user to pick from—triggered by a button.
 
@@ -159,35 +159,26 @@ the selected option with the trigger value instead.
   ```
 </Example>
 
-
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'value', value: 'string | number', description: 'Controlled selected value' },
-      { name: 'defaultValue', value: 'string | number', description: 'Default selected value' },
-      { name: 'label', value: 'string', description: 'Label text displayed above the select' },
-      { name: 'placeholder', value: 'string', description: 'Placeholder text when no selection' },
-      { name: 'isLoading', value: 'boolean', description: 'Shows loading indicator' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the select' },
-      { name: 'isFullscreen', value: 'boolean', description: 'Opens options in fullscreen mode' },
-      { name: 'allowSearch', value: 'boolean', description: 'Enables search within options' },
-      { name: 'searchValue', value: 'string', description: 'Controlled search field value' },
-      { name: 'searchDelay', value: 'number', description: 'Debounce delay for search' },
-      { name: 'maxHeight', value: 'string | number', description: 'Max height of the dropdown list' },
-      { name: 'showIcon', value: 'boolean', description: 'Show chevron icon on trigger button (default: true)' },
-      { name: 'alignItemWithTrigger', value: 'boolean', description: 'Aligns the selected option with the trigger instead of opening below it (default: false)' },
-      { name: 'onChange', value: '(value: any) => void', description: 'Called when selection changes' },
-      { name: 'onSearch', value: '(value: string) => void', description: 'Called when search value changes' },
-      { name: 'renderValue', value: 'ReactNode | Function', description: 'Custom render for selected value' },
-      { name: 'buttonProps', value: 'ButtonProps', description: 'Props passed to the trigger button' },
-      { name: 'listProps', value: 'ListProps', description: 'Props passed to the list component' },
-      { name: 'popoverProps', value: 'PopoverProps', description: 'Props passed to the popover' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="value" type="string | number">Controlled selected value</ResponseField>
+  <ResponseField name="defaultValue" type="string | number">Default selected value</ResponseField>
+  <ResponseField name="label" type="string">Label text displayed above the select</ResponseField>
+  <ResponseField name="placeholder" type="string">Placeholder text when no selection</ResponseField>
+  <ResponseField name="isLoading" type="boolean">Shows loading indicator</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the select</ResponseField>
+  <ResponseField name="isFullscreen" type="boolean">Opens options in fullscreen mode</ResponseField>
+  <ResponseField name="allowSearch" type="boolean">Enables search within options</ResponseField>
+  <ResponseField name="searchValue" type="string">Controlled search field value</ResponseField>
+  <ResponseField name="searchDelay" type="number">Debounce delay for search</ResponseField>
+  <ResponseField name="maxHeight" type="string | number">Max height of the dropdown list</ResponseField>
+  <ResponseField name="showIcon" type="boolean">Show chevron icon on trigger button (default: true)</ResponseField>
+  <ResponseField name="alignItemWithTrigger" type="boolean">Aligns the selected option with the trigger instead of opening below it (default: false)</ResponseField>
+  <ResponseField name="onChange" type="(value: any) => void">Called when selection changes</ResponseField>
+  <ResponseField name="onSearch" type="(value: string) => void">Called when search value changes</ResponseField>
+  <ResponseField name="renderValue" type="ReactNode | Function">Custom render for selected value</ResponseField>
+  <ResponseField name="buttonProps" type="ButtonProps">Props passed to the trigger button</ResponseField>
+  <ResponseField name="listProps" type="ListProps">Props passed to the list component</ResponseField>
+  <ResponseField name="popoverProps" type="PopoverProps">Props passed to the popover</ResponseField>
+</PropertiesTable>

@@ -2,7 +2,7 @@
 title: Context Menu
 ---
 
-import { Box, ContextMenu, DataColumn, DataTable, Example, Menu, MenuItem, MenuSeparator } from '../../../mdx-components';
+import { Box, ContextMenu, Example, Menu, MenuItem, MenuSeparator } from '../../../mdx-components';
 
 A context menu opens a menu at the pointer position when a user right clicks the trigger area.
 Pass two children: the trigger element followed by a `Menu`.
@@ -44,15 +44,7 @@ Pass two children: the trigger element followed by a `Menu`.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'children', value: 'ReactNode', description: 'Trigger element followed by a Menu' },
-      { name: 'onOpenChange', value: '(open: boolean) => void', description: 'Called when the menu opens or closes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="children" type="ReactNode">Trigger element followed by a Menu</ResponseField>
+  <ResponseField name="onOpenChange" type="(open: boolean) => void">Called when the menu opens or closes</ResponseField>
+</PropertiesTable>

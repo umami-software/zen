@@ -2,7 +2,7 @@
 title: Tag Group
 ---
 
-import { Column, DataColumn, DataTable, Example, RemovableTagGroupExample, Tag, TagGroup } from '../../../mdx-components';
+import { Column, Example, RemovableTagGroupExample, Tag, TagGroup } from '../../../mdx-components';
 
 A tag group displays a collection of tags that can optionally be removed.
 
@@ -78,32 +78,16 @@ Add `onRemove` to make tags removable. An X button will appear on each tag.
 
 ### TagGroup
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'label', value: 'string', description: 'Label text displayed above the group' },
-      { name: 'onRemove', value: '(keys: Set<Key>) => void', description: 'Called when tags are removed. Enables remove buttons.' },
-      { name: 'disabledKeys', value: 'Iterable<Key>', description: 'Keys of tags that cannot be removed' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="label" type="string">Label text displayed above the group</ResponseField>
+  <ResponseField name="onRemove" type="(keys: Set<Key>) => void">Called when tags are removed. Enables remove buttons.</ResponseField>
+  <ResponseField name="disabledKeys" type="Iterable<Key>">Keys of tags that cannot be removed</ResponseField>
+</PropertiesTable>
 
 ### Tag
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'id', value: 'string', description: 'Unique tag identifier (required)' },
-      { name: 'variant', value: '"default" | "outline" | "primary"', description: 'Visual style variant' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the tag' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="id" type="string">Unique tag identifier (required)</ResponseField>
+  <ResponseField name="variant" type="&quot;default&quot; | &quot;outline&quot; | &quot;primary&quot;">Visual style variant</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the tag</ResponseField>
+</PropertiesTable>

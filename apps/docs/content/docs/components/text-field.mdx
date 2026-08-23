@@ -2,7 +2,7 @@
 title: Text Field
 ---
 
-import { Box, Column, DataColumn, DataTable, Example, TextField } from '../../../mdx-components';
+import { Box, Column, Example, TextField } from '../../../mdx-components';
 
 A text field allows a user to enter a plain text value with a keyboard.
 
@@ -97,24 +97,16 @@ A text field allows a user to enter a plain text value with a keyboard.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'label', value: 'string', description: 'Label text displayed above the field' },
-      { name: 'placeholder', value: 'string', description: 'Placeholder text' },
-      { name: 'value', value: 'string', description: 'Controlled value' },
-      { name: 'defaultValue', value: 'string', description: 'Default value (uncontrolled)' },
-      { name: 'variant', value: 'TextFieldVariant', description: '"quiet" | "none"' },
-      { name: 'asTextArea', value: 'boolean', description: 'Renders as a textarea instead of input' },
-      { name: 'resize', value: 'ResizeDirection', description: '"vertical" | "horizontal" | "both" | "none"' },
-      { name: 'allowCopy', value: 'boolean', description: 'Shows a copy button' },
-      { name: 'isReadOnly', value: 'boolean', description: 'Makes the field read-only' },
-      { name: 'isDisabled', value: 'boolean', description: 'Disables the field' },
-      { name: 'onChange', value: '(value: string) => void', description: 'Called when value changes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="label" type="string">Label text displayed above the field</ResponseField>
+  <ResponseField name="placeholder" type="string">Placeholder text</ResponseField>
+  <ResponseField name="value" type="string">Controlled value</ResponseField>
+  <ResponseField name="defaultValue" type="string">Default value (uncontrolled)</ResponseField>
+  <ResponseField name="variant" type="TextFieldVariant">"quiet" | "none"</ResponseField>
+  <ResponseField name="asTextArea" type="boolean">Renders as a textarea instead of input</ResponseField>
+  <ResponseField name="resize" type="ResizeDirection">"vertical" | "horizontal" | "both" | "none"</ResponseField>
+  <ResponseField name="allowCopy" type="boolean">Shows a copy button</ResponseField>
+  <ResponseField name="isReadOnly" type="boolean">Makes the field read-only</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the field</ResponseField>
+  <ResponseField name="onChange" type="(value: string) => void">Called when value changes</ResponseField>
+</PropertiesTable>

@@ -2,7 +2,7 @@
 title: Theme Switcher
 ---
 
-import { DataColumn, DataTable, Example, ThemeSwitcher } from '../../../mdx-components';
+import { Example, ThemeSwitcher } from '../../../mdx-components';
 
 A segmented control that allows users to choose between light, dark, or system theme.
 
@@ -23,14 +23,6 @@ A segmented control that allows users to choose between light, dark, or system t
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'className', value: 'string', description: 'Additional CSS classes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="className" type="string">Additional CSS classes</ResponseField>
+</PropertiesTable>

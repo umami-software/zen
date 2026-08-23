@@ -2,7 +2,7 @@
 title: Tooltip
 ---
 
-import { Button, DataColumn, DataTable, Example, FloatingTooltipExample, Tooltip, TooltipTrigger } from '../../../mdx-components';
+import { Button, Example, FloatingTooltip, FloatingTooltipExample, Tooltip, TooltipTrigger } from '../../../mdx-components';
 
 A tooltip displays a description of an element on hover or focus.
 
@@ -114,16 +114,8 @@ A tooltip displays a description of an element on hover or focus.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'placement', value: 'Placement', description: '"top" | "bottom" | "left" | "right"' },
-      { name: 'showArrow', value: 'boolean', description: 'Shows an arrow pointing to the trigger' },
-      { name: 'offset', value: 'number', description: 'Distance from the trigger element' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="placement" type="Placement">"top" | "bottom" | "left" | "right"</ResponseField>
+  <ResponseField name="showArrow" type="boolean">Shows an arrow pointing to the trigger</ResponseField>
+  <ResponseField name="offset" type="number">Distance from the trigger element</ResponseField>
+</PropertiesTable>

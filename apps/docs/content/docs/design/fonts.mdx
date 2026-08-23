@@ -123,15 +123,7 @@ All font props accept responsive values for adapting typography across breakpoin
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'size', value: 'Responsive<FontSize>', description: '"xs" | "sm" | "base" | "lg" | "xl" | "2xl" | ... | "9xl"' },
-      { name: 'weight', value: 'Responsive<FontWeight>', description: '"thin" | "extralight" | "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold" | "black"' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Values" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="size" type="Responsive<FontSize>">"xs" | "sm" | "base" | "lg" | "xl" | "2xl" | ... | "9xl"</ResponseField>
+  <ResponseField name="weight" type="Responsive<FontWeight>">"thin" | "extralight" | "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold" | "black"</ResponseField>
+</PropertiesTable>

@@ -2,7 +2,7 @@
 title: Theme Button
 ---
 
-import { DataColumn, DataTable, Example, ThemeButton, ThemeButtonExample } from '../../../mdx-components';
+import { Box, Example, ThemeButton, ThemeButtonExample } from '../../../mdx-components';
 
 A button that toggles the page theme between light and dark.
 
@@ -32,17 +32,9 @@ Use the `target` prop to scope theme changes to a specific container instead of 
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'target', value: 'RefObject | HTMLElement', description: 'Element to apply theme to (default: global)' },
-      { name: 'variant', value: 'ButtonVariant', description: '"default" | "primary" | "outline" | "quiet" (default: "quiet")' },
-      { name: 'size', value: 'ButtonSize', description: '"xs" | "sm" | "md" | "lg" | "xl"' },
-      { name: 'onPress', value: '(e: PressEvent) => void', description: 'Called when button is pressed' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="target" type="RefObject | HTMLElement">Element to apply theme to (default: global)</ResponseField>
+  <ResponseField name="variant" type="ButtonVariant">"default" | "primary" | "outline" | "quiet" (default: "quiet")</ResponseField>
+  <ResponseField name="size" type="ButtonSize">"xs" | "sm" | "md" | "lg" | "xl"</ResponseField>
+  <ResponseField name="onPress" type="(e: PressEvent) => void">Called when button is pressed</ResponseField>
+</PropertiesTable>

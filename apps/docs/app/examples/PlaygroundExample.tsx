@@ -1146,14 +1146,14 @@ export function PlaygroundExample() {
                     </MenuItem>
                   </MenuSection>
                 </Menu>
-                <Box border borderRadius="lg" padding="3" overflow="auto">
-                  <Calendar
-                    value={calendarValue}
-                    onChange={setCalendarValue}
-                    defaultValue={calendarValue}
-                  />
-                </Box>
               </Grid>
+              <Box border borderRadius="lg" padding="3" width="fit">
+                <Calendar
+                  value={calendarValue}
+                  onChange={setCalendarValue}
+                  defaultValue={calendarValue}
+                />
+              </Box>
             </Column>
 
             {/* Progress and loading */}

@@ -2,7 +2,7 @@
 title: Toast
 ---
 
-import { DataColumn, DataTable, Example, ToastActionExample, ToastExample, ToastTitleExample, ToastVariantsExample } from '../../../mdx-components';
+import { Button, Example, ToastActionExample, ToastExample, ToastTitleExample, ToastVariantsExample } from '../../../mdx-components';
 
 A succinct message that is displayed temporarily.
 
@@ -68,18 +68,10 @@ A succinct message that is displayed temporarily.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'message', value: 'ReactNode', description: 'Toast message content' },
-      { name: 'title', value: 'ReactNode', description: 'Optional toast title' },
-      { name: 'variant', value: 'ToastVariant', description: '"default" | "success" | "error"' },
-      { name: 'action', value: 'ReactNode', description: 'Action element (e.g., button)' },
-      { name: 'onAction', value: '() => void', description: 'Called when action is clicked' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="message" type="ReactNode">Toast message content</ResponseField>
+  <ResponseField name="title" type="ReactNode">Optional toast title</ResponseField>
+  <ResponseField name="variant" type="ToastVariant">"default" | "success" | "error"</ResponseField>
+  <ResponseField name="action" type="ReactNode">Action element (e.g., button)</ResponseField>
+  <ResponseField name="onAction" type="() => void">Called when action is clicked</ResponseField>
+</PropertiesTable>

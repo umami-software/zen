@@ -2,7 +2,7 @@
 title: Box
 ---
 
-import { Box, DataColumn, DataTable, Example } from '../../../mdx-components';
+import { Box, Example } from '../../../mdx-components';
 
 A versatile layout primitive that serves as the foundation for building UI. Box provides comprehensive styling props for spacing, colors, borders, positioning, and more. Use it to wrap and position other components, create cards, or build custom layouts.
 
@@ -118,72 +118,62 @@ Click to focus, then hover and click to see all states.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'display', value: 'Responsive<Display>', description: '"none" | "inline" | "inline-block" | "block"' },
-      { name: 'position', value: 'Responsive<Position>', description: '"static" | "relative" | "absolute" | "fixed" | "sticky"' },
-      { name: 'color', value: 'FontColor', description: 'SemanticColor | ColorName | TailwindColor' },
-      { name: 'backgroundColor', value: 'BackgroundColor', description: 'SemanticColor | SurfaceColor | ColorName | TailwindColor' },
-      { name: 'fontSize', value: 'Responsive<FontSize>', description: '"xs" | "sm" | "base" | "lg" | "xl" | "2xl" | ... | "9xl"' },
-      { name: 'fontWeight', value: 'Responsive<FontWeight>', description: '"thin" | "light" | "normal" | "medium" | "semibold" | "bold" | ...' },
-      { name: 'textAlign', value: 'Responsive<TextAlign>', description: '"left" | "center" | "right"' },
-      { name: 'border', value: 'Responsive<Border>', description: 'true | "top" | "right" | "bottom" | "left" | "none"' },
-      { name: 'borderColor', value: 'BorderColor', description: 'SemanticColor | ColorName | TailwindColor' },
-      { name: 'borderWidth', value: 'Responsive<BorderWidth>', description: '"sm" | "md" | "lg" | "xl"' },
-      { name: 'borderRadius', value: 'Responsive<BorderRadius>', description: 'true | "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full"' },
-      { name: 'shadow', value: 'Responsive<BoxShadow>', description: 'true | "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "inner"' },
-      { name: 'padding', value: 'Responsive<Padding>', description: 'true | Spacing' },
-      { name: 'paddingX', value: 'Responsive<Padding>', description: 'true | Spacing' },
-      { name: 'paddingY', value: 'Responsive<Padding>', description: 'true | Spacing' },
-      { name: 'paddingTop', value: 'Responsive<Padding>', description: 'Spacing' },
-      { name: 'paddingRight', value: 'Responsive<Padding>', description: 'Spacing' },
-      { name: 'paddingBottom', value: 'Responsive<Padding>', description: 'Spacing' },
-      { name: 'paddingLeft', value: 'Responsive<Padding>', description: 'Spacing' },
-      { name: 'margin', value: 'Responsive<Spacing>', description: '"0" | "1" | "2" | "3" | "4" | ... or negative' },
-      { name: 'marginX', value: 'Responsive<Spacing>', description: 'Spacing' },
-      { name: 'marginY', value: 'Responsive<Spacing>', description: 'Spacing' },
-      { name: 'marginTop', value: 'Responsive<Spacing>', description: 'Spacing' },
-      { name: 'marginRight', value: 'Responsive<Spacing>', description: 'Spacing' },
-      { name: 'marginBottom', value: 'Responsive<Spacing>', description: 'Spacing' },
-      { name: 'marginLeft', value: 'Responsive<Spacing>', description: 'Spacing' },
-      { name: 'width', value: 'Responsive<Width | string>', description: 'Spacing | Fraction | "auto" | "full" | "screen" | "min" | "max" | "fit" | custom CSS' },
-      { name: 'minWidth', value: 'Responsive<MinWidth | string>', description: 'Spacing | "full" | "min" | "max" | "fit" | custom CSS' },
-      { name: 'maxWidth', value: 'Responsive<MaxWidth | string>', description: 'Spacing | "none" | "xs"-"7xl" | "full" | "prose" | "screen-*" | custom CSS' },
-      { name: 'height', value: 'Responsive<Height | string>', description: 'Spacing | Fraction | "auto" | "full" | "screen" | "min" | "max" | "fit" | custom CSS' },
-      { name: 'minHeight', value: 'Responsive<MinHeight | string>', description: 'Spacing | "full" | "screen" | "min" | "max" | "fit" | custom CSS' },
-      { name: 'maxHeight', value: 'Responsive<MaxHeight | string>', description: 'Spacing | "none" | "full" | "screen" | "min" | "max" | "fit" | custom CSS' },
-      { name: 'top', value: 'string', description: 'CSS value (inline style)' },
-      { name: 'right', value: 'string', description: 'CSS value (inline style)' },
-      { name: 'bottom', value: 'string', description: 'CSS value (inline style)' },
-      { name: 'left', value: 'string', description: 'CSS value (inline style)' },
-      { name: 'overflow', value: 'Responsive<Overflow>', description: '"visible" | "hidden" | "clip" | "scroll" | "auto"' },
-      { name: 'overflowX', value: 'Responsive<Overflow>', description: '"visible" | "hidden" | "clip" | "scroll" | "auto"' },
-      { name: 'overflowY', value: 'Responsive<Overflow>', description: '"visible" | "hidden" | "clip" | "scroll" | "auto"' },
-      { name: 'cursor', value: 'Responsive<Cursor>', description: '"auto" | "default" | "pointer" | "wait" | "text" | "move" | "not-allowed" | ...' },
-      { name: 'opacity', value: 'Responsive<Opacity>', description: '"0" | "5" | "10" | "15" | ... | "95" | "100"' },
-      { name: 'pointerEvents', value: 'Responsive<PointerEvents>', description: '"none" | "auto"' },
-      { name: 'alignSelf', value: 'Responsive<AlignSelf>', description: '"center" | "start" | "end" | "stretch" | "baseline" | ...' },
-      { name: 'justifySelf', value: 'Responsive<JustifySelf>', description: '"center" | "start" | "end" | "stretch" | ...' },
-      { name: 'flexBasis', value: 'string', description: 'CSS value (inline style)' },
-      { name: 'flexGrow', value: 'string | number', description: 'Inline style' },
-      { name: 'flexShrink', value: 'string | number', description: 'Inline style' },
-      { name: 'gridArea', value: 'string', description: 'CSS value (inline style)' },
-      { name: 'gridRow', value: 'string', description: 'CSS value (inline style)' },
-      { name: 'gridColumn', value: 'string', description: 'CSS value (inline style)' },
-      { name: 'order', value: 'number', description: 'Inline style' },
-      { name: 'zIndex', value: 'number', description: 'Inline style' },
-      { name: 'hover', value: 'StateStyles', description: '{ color?, backgroundColor?, borderColor?, opacity? }' },
-      { name: 'focus', value: 'StateStyles', description: '{ color?, backgroundColor?, borderColor?, opacity? }' },
-      { name: 'active', value: 'StateStyles', description: '{ color?, backgroundColor?, borderColor?, opacity? }' },
-      { name: 'as', value: 'string', description: 'HTML element to render' },
-      { name: 'render', value: 'RenderProp', description: 'Render prop for polymorphism' },
-    ]}
->
-
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Values" />
-
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="display" type="Responsive<Display>">"none" | "inline" | "inline-block" | "block"</ResponseField>
+  <ResponseField name="position" type="Responsive<Position>">"static" | "relative" | "absolute" | "fixed" | "sticky"</ResponseField>
+  <ResponseField name="color" type="FontColor">SemanticColor | ColorName | TailwindColor</ResponseField>
+  <ResponseField name="backgroundColor" type="BackgroundColor">SemanticColor | SurfaceColor | ColorName | TailwindColor</ResponseField>
+  <ResponseField name="fontSize" type="Responsive<FontSize>">"xs" | "sm" | "base" | "lg" | "xl" | "2xl" | ... | "9xl"</ResponseField>
+  <ResponseField name="fontWeight" type="Responsive<FontWeight>">"thin" | "light" | "normal" | "medium" | "semibold" | "bold" | ...</ResponseField>
+  <ResponseField name="textAlign" type="Responsive<TextAlign>">"left" | "center" | "right"</ResponseField>
+  <ResponseField name="border" type="Responsive<Border>">true | "top" | "right" | "bottom" | "left" | "none"</ResponseField>
+  <ResponseField name="borderColor" type="BorderColor">SemanticColor | ColorName | TailwindColor</ResponseField>
+  <ResponseField name="borderWidth" type="Responsive<BorderWidth>">"sm" | "md" | "lg" | "xl"</ResponseField>
+  <ResponseField name="borderRadius" type="Responsive<BorderRadius>">true | "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full"</ResponseField>
+  <ResponseField name="shadow" type="Responsive<BoxShadow>">true | "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "inner"</ResponseField>
+  <ResponseField name="padding" type="Responsive<Padding>">true | Spacing</ResponseField>
+  <ResponseField name="paddingX" type="Responsive<Padding>">true | Spacing</ResponseField>
+  <ResponseField name="paddingY" type="Responsive<Padding>">true | Spacing</ResponseField>
+  <ResponseField name="paddingTop" type="Responsive<Padding>">Spacing</ResponseField>
+  <ResponseField name="paddingRight" type="Responsive<Padding>">Spacing</ResponseField>
+  <ResponseField name="paddingBottom" type="Responsive<Padding>">Spacing</ResponseField>
+  <ResponseField name="paddingLeft" type="Responsive<Padding>">Spacing</ResponseField>
+  <ResponseField name="margin" type="Responsive<Spacing>">"0" | "1" | "2" | "3" | "4" | ... or negative</ResponseField>
+  <ResponseField name="marginX" type="Responsive<Spacing>">Spacing</ResponseField>
+  <ResponseField name="marginY" type="Responsive<Spacing>">Spacing</ResponseField>
+  <ResponseField name="marginTop" type="Responsive<Spacing>">Spacing</ResponseField>
+  <ResponseField name="marginRight" type="Responsive<Spacing>">Spacing</ResponseField>
+  <ResponseField name="marginBottom" type="Responsive<Spacing>">Spacing</ResponseField>
+  <ResponseField name="marginLeft" type="Responsive<Spacing>">Spacing</ResponseField>
+  <ResponseField name="width" type="Responsive<Width | string>">Spacing | Fraction | "auto" | "full" | "screen" | "min" | "max" | "fit" | custom CSS</ResponseField>
+  <ResponseField name="minWidth" type="Responsive<MinWidth | string>">Spacing | "full" | "min" | "max" | "fit" | custom CSS</ResponseField>
+  <ResponseField name="maxWidth" type="Responsive<MaxWidth | string>">Spacing | "none" | "xs"-"7xl" | "full" | "prose" | "screen-*" | custom CSS</ResponseField>
+  <ResponseField name="height" type="Responsive<Height | string>">Spacing | Fraction | "auto" | "full" | "screen" | "min" | "max" | "fit" | custom CSS</ResponseField>
+  <ResponseField name="minHeight" type="Responsive<MinHeight | string>">Spacing | "full" | "screen" | "min" | "max" | "fit" | custom CSS</ResponseField>
+  <ResponseField name="maxHeight" type="Responsive<MaxHeight | string>">Spacing | "none" | "full" | "screen" | "min" | "max" | "fit" | custom CSS</ResponseField>
+  <ResponseField name="top" type="string">CSS value (inline style)</ResponseField>
+  <ResponseField name="right" type="string">CSS value (inline style)</ResponseField>
+  <ResponseField name="bottom" type="string">CSS value (inline style)</ResponseField>
+  <ResponseField name="left" type="string">CSS value (inline style)</ResponseField>
+  <ResponseField name="overflow" type="Responsive<Overflow>">"visible" | "hidden" | "clip" | "scroll" | "auto"</ResponseField>
+  <ResponseField name="overflowX" type="Responsive<Overflow>">"visible" | "hidden" | "clip" | "scroll" | "auto"</ResponseField>
+  <ResponseField name="overflowY" type="Responsive<Overflow>">"visible" | "hidden" | "clip" | "scroll" | "auto"</ResponseField>
+  <ResponseField name="cursor" type="Responsive<Cursor>">"auto" | "default" | "pointer" | "wait" | "text" | "move" | "not-allowed" | ...</ResponseField>
+  <ResponseField name="opacity" type="Responsive<Opacity>">"0" | "5" | "10" | "15" | ... | "95" | "100"</ResponseField>
+  <ResponseField name="pointerEvents" type="Responsive<PointerEvents>">"none" | "auto"</ResponseField>
+  <ResponseField name="alignSelf" type="Responsive<AlignSelf>">"center" | "start" | "end" | "stretch" | "baseline" | ...</ResponseField>
+  <ResponseField name="justifySelf" type="Responsive<JustifySelf>">"center" | "start" | "end" | "stretch" | ...</ResponseField>
+  <ResponseField name="flexBasis" type="string">CSS value (inline style)</ResponseField>
+  <ResponseField name="flexGrow" type="string | number">Inline style</ResponseField>
+  <ResponseField name="flexShrink" type="string | number">Inline style</ResponseField>
+  <ResponseField name="gridArea" type="string">CSS value (inline style)</ResponseField>
+  <ResponseField name="gridRow" type="string">CSS value (inline style)</ResponseField>
+  <ResponseField name="gridColumn" type="string">CSS value (inline style)</ResponseField>
+  <ResponseField name="order" type="number">Inline style</ResponseField>
+  <ResponseField name="zIndex" type="number">Inline style</ResponseField>
+  <ResponseField name="hover" type="StateStyles">{"{ color?, backgroundColor?, borderColor?, opacity? }"}</ResponseField>
+  <ResponseField name="focus" type="StateStyles">{"{ color?, backgroundColor?, borderColor?, opacity? }"}</ResponseField>
+  <ResponseField name="active" type="StateStyles">{"{ color?, backgroundColor?, borderColor?, opacity? }"}</ResponseField>
+  <ResponseField name="as" type="string">HTML element to render</ResponseField>
+  <ResponseField name="render" type="RenderProp">Render prop for polymorphism</ResponseField>
+</PropertiesTable>

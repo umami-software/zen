@@ -2,7 +2,7 @@
 title: Shadows
 ---
 
-import { DataColumn, DataTable, Example, ExampleBox, Label } from '../../../mdx-components';
+import { Example, ExampleBox, Label } from '../../../mdx-components';
 
 Shadows are a set of `box-shadow` values that give the element a sense of depth.
 
@@ -34,14 +34,6 @@ Shadows are a set of `box-shadow` values that give the element a sense of depth.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'shadow', value: 'Responsive<BoxShadow>', description: 'true | "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "inner"' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Values" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="shadow" type="Responsive<BoxShadow>">true | "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "inner"</ResponseField>
+</PropertiesTable>

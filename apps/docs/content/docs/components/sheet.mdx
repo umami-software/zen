@@ -2,7 +2,7 @@
 title: Sheet
 ---
 
-import { Button, DataColumn, DataTable, DialogTrigger, Example, Sheet, SheetExample, SheetHeader, Text } from '../../../mdx-components';
+import { Button, DialogTrigger, Example, Sheet, SheetExample, SheetHeader, Text } from '../../../mdx-components';
 
 A sheet is a panel that slides in from the edge of the screen, overlaying the current content.
 
@@ -46,33 +46,17 @@ The `size` prop sets the width for left and right sheets, and the height for top
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'side', value: 'string', description: '"left" | "right" | "top" | "bottom" (default: "right")' },
-      { name: 'size', value: 'string | number', description: 'Width (left/right) or height (top/bottom) of the sheet' },
-      { name: 'isOpen', value: 'boolean', description: 'Controlled open state' },
-      { name: 'onOpenChange', value: '(open: boolean) => void', description: 'Called when the open state changes' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="side" type="string">"left" | "right" | "top" | "bottom" (default: "right")</ResponseField>
+  <ResponseField name="size" type="string | number">Width (left/right) or height (top/bottom) of the sheet</ResponseField>
+  <ResponseField name="isOpen" type="boolean">Controlled open state</ResponseField>
+  <ResponseField name="onOpenChange" type="(open: boolean) => void">Called when the open state changes</ResponseField>
+</PropertiesTable>
 
 ## SheetHeader props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'title', value: 'ReactNode', description: 'Title displayed at the top of the sheet' },
-      { name: 'showClose', value: 'boolean', description: 'Shows the close button (default: true)' },
-      { name: 'children', value: 'ReactNode', description: 'Additional content below the title' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="title" type="ReactNode">Title displayed at the top of the sheet</ResponseField>
+  <ResponseField name="showClose" type="boolean">Shows the close button (default: true)</ResponseField>
+  <ResponseField name="children" type="ReactNode">Additional content below the title</ResponseField>
+</PropertiesTable>

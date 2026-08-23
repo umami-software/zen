@@ -2,7 +2,7 @@
 title: Hover Trigger
 ---
 
-import { Button, Column, DataColumn, DataTable, Dialog, Example, HoverTrigger, Switch } from '../../../mdx-components';
+import { Button, Column, Dialog, Example, HoverTrigger, Switch } from '../../../mdx-components';
 
 Displays a popover element when a user hovers over a trigger element.
 
@@ -34,17 +34,9 @@ Displays a popover element when a user hovers over a trigger element.
 
 ## Component props
 
-<Example>
-  <DataTable
-    data={[
-      { name: 'isOpen', value: 'boolean', description: 'Controlled open state' },
-      { name: 'closeDelay', value: 'number', description: 'Delay before closing in ms (default: 500)' },
-      { name: 'onHoverStart', value: '() => void', description: 'Called when hover starts' },
-      { name: 'onHoverEnd', value: '() => void', description: 'Called when hover ends' },
-    ]}
-  >
-    <DataColumn id="name" label="Name" />
-    <DataColumn id="value" label="Type" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+<PropertiesTable>
+  <ResponseField name="isOpen" type="boolean">Controlled open state</ResponseField>
+  <ResponseField name="closeDelay" type="number">Delay before closing in ms (default: 500)</ResponseField>
+  <ResponseField name="onHoverStart" type="() => void">Called when hover starts</ResponseField>
+  <ResponseField name="onHoverEnd" type="() => void">Called when hover ends</ResponseField>
+</PropertiesTable>
