@@ -38,6 +38,18 @@ html[data-theme='dark'] {
   --sidebar-primary: #f5f5f5;
 }
 
+/* Two Tailwind builds share this page (shiso's and ours). Ours loads last, so
+   its plain `.hidden` outranks shiso's earlier `dark:block`/`dark:hidden`
+   variants by document order, hiding both theme toggle icons in dark mode.
+   Recreate shiso's dark display variants at higher precedence. */
+html[data-theme='dark'] .dark\:block {
+  display: block;
+}
+
+html[data-theme='dark'] .dark\:hidden {
+  display: none;
+}
+
 body {
   --font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-family-mono: var(--font-mono), ui-monospace, monospace;
