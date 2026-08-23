@@ -21,8 +21,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/react-zen
       '@umami/shiso':
-        specifier: ^1.7.0
-        version: 1.7.0(@date-fns/tz@1.5.0)(@types/node@22.19.8)(@types/react@19.2.11)(date-fns@4.1.0)(esbuild@0.27.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(rollup@4.57.1)(supports-color@7.2.0)(yaml@2.9.0)
+        specifier: ^1.8.0
+        version: 1.8.0(@date-fns/tz@1.5.0)(@types/node@22.19.8)(@types/react@19.2.11)(date-fns@4.1.0)(esbuild@0.27.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(rollup@4.57.1)(supports-color@7.2.0)(yaml@2.9.0)
       lucide-react:
         specifier: ^0.555.0
         version: 0.555.0(react@19.2.4)
@@ -1468,8 +1468,8 @@ packages:
   '@umami/esbuild-plugin-css-modules@0.4.0':
     resolution: {integrity: sha512-OcFbipBJZCmMnJ52/eHkZxpXGQT8Q5bAePgkhpxlreT4zP98grZ6iLzaIkDPFqURQwM/llDhPyNEFRzkSfVYFw==}
 
-  '@umami/shiso@1.7.0':
-    resolution: {integrity: sha512-FmDWPyod7AHOkuMOlhsBer47LBLNLCrMYhByGUeR4TLDAmAjB+Xlz8VFGs0YNNO/JSfzAF9tmJidmwu8MRX14Q==}
+  '@umami/shiso@1.8.0':
+    resolution: {integrity: sha512-r3f5CgrwPDL9nNWv5bxX2CL6xw8ivIGmaNF7fSfvCOebTsAlcDpAOldwm/2MRRcv9vaF8J4FKnK8y5eHB7di9g==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -4795,7 +4795,7 @@ snapshots:
       postcss: 8.5.6
       postcss-modules: 6.0.1(postcss@8.5.6)
 
-  '@umami/shiso@1.7.0(@date-fns/tz@1.5.0)(@types/node@22.19.8)(@types/react@19.2.11)(date-fns@4.1.0)(esbuild@0.27.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(rollup@4.57.1)(supports-color@7.2.0)(yaml@2.9.0)':
+  '@umami/shiso@1.8.0(@date-fns/tz@1.5.0)(@types/node@22.19.8)(@types/react@19.2.11)(date-fns@4.1.0)(esbuild@0.27.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(rollup@4.57.1)(supports-color@7.2.0)(yaml@2.9.0)':
     dependencies:
       '@base-ui/react': 1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.11)(date-fns@4.1.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@fontsource-variable/inter': 5.3.0

@@ -3,7 +3,7 @@
 	"name": "zen",
 	"description": "The design system and React components used by Umami.",
 	"colors": { "primary": "#262626" },
-	"logo": "/favicon-32x32.png",
+	"logo": { "light": "/logo.png", "invert": true },
 	"favicon": "/favicon.ico",
 	"search": { "provider": "pagefind" },
 	"appearance": { "default": "system" },

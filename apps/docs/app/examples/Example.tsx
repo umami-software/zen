@@ -69,6 +69,7 @@ export function Example({
   position = 'relative',
   overflow = 'hidden',
   backgroundColor = 'surface-base',
+  className,
   children,
   ...props
 }: FlexboxProps) {
@@ -105,6 +106,8 @@ export function Example({
   const previewBlock = (
     <Flexbox
       {...props}
+      // Exclude live demos from shiso's markdown typography styles.
+      className={['not-prose', className].filter(Boolean).join(' ')}
       {...{
         direction,
         alignItems,
