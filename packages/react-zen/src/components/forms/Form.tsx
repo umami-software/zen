@@ -89,7 +89,10 @@ export function Form({
       <form
         {...props}
         autoComplete={autoComplete}
-        className={cn('flex flex-col relative text-base gap-3', className)}
+        className={cn(
+          'flex flex-col relative text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] gap-3',
+          className,
+        )}
         onSubmit={onSubmit ? handleSubmit(onSubmit) : undefined}
         onKeyDown={onKeyDown}
       >

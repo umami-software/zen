@@ -53,7 +53,7 @@ export interface ButtonGroupTextRenderProps {
 
 export function ButtonGroupText({ className, render, children, ...props }: ButtonGroupTextProps) {
   const classes = cn(
-    'flex items-center gap-2 rounded border border-edge bg-surface-raised px-4 text-sm font-medium shadow-sm',
+    'flex items-center gap-2 rounded border border-edge bg-surface-raised px-4 text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)] font-medium shadow-sm',
     "[&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none",
     className,
   );

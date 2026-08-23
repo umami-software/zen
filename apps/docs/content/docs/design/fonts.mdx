@@ -2,16 +2,15 @@
 title: Fonts
 ---
 
-import { DataColumn, DataTable, Example, Text, ZenProvider } from '../../../mdx-components';
-
-<ZenProvider>
+import { DataColumn, DataTable, Example, Text } from '../../../mdx-components';
 
 The default fonts we use are [Inter](https://fonts.google.com/specimen/Inter) for regular text and
 [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono) for monospace text.
 
 ## Font sizes
 
-Font sizes use Tailwind's naming convention.
+Font sizes use Tailwind's naming convention, but resolve through Zen's own type-scale tokens. The
+scale has a `14px` base and does not change when the host application's root font size changes.
 
 <Example>
     <Text size="xs">xs</Text>
@@ -48,19 +47,19 @@ Font sizes use Tailwind's naming convention.
 <Example>
   <DataTable
     data={[
-      { name: 'xs', value: '12px' },
-      { name: 'sm', value: '14px' },
-      { name: 'base', value: '16px' },
-      { name: 'lg', value: '18px' },
-      { name: 'xl', value: '20px' },
-      { name: '2xl', value: '24px' },
-      { name: '3xl', value: '30px' },
-      { name: '4xl', value: '36px' },
-      { name: '5xl', value: '48px' },
-      { name: '6xl', value: '60px' },
-      { name: '7xl', value: '72px' },
-      { name: '8xl', value: '96px' },
-      { name: '9xl', value: '128px' },
+      { name: 'xs', value: '10.5px' },
+      { name: 'sm', value: '12.25px' },
+      { name: 'base', value: '14px' },
+      { name: 'lg', value: '15.75px' },
+      { name: 'xl', value: '17.5px' },
+      { name: '2xl', value: '21px' },
+      { name: '3xl', value: '26.25px' },
+      { name: '4xl', value: '31.5px' },
+      { name: '5xl', value: '42px' },
+      { name: '6xl', value: '52.5px' },
+      { name: '7xl', value: '63px' },
+      { name: '8xl', value: '84px' },
+      { name: '9xl', value: '112px' },
     ]}
   >
     <DataColumn id="name" label="Value" />
@@ -136,5 +135,3 @@ All font props accept responsive values for adapting typography across breakpoin
     <DataColumn id="description" label="Values" />
   </DataTable>
 </Example>
-
-</ZenProvider>

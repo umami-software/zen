@@ -13,7 +13,7 @@ const NavbarContext = createContext<NavbarContextValue>({ showArrow: true });
 
 const triggerClassName = cn(
   'flex items-center gap-1 select-none cursor-pointer rounded-md px-3 py-2',
-  'text-base font-medium text-foreground-primary bg-transparent border-0',
+  'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] font-medium text-foreground-primary bg-transparent border-0',
   'hover:bg-interactive data-[popup-open]:bg-interactive',
   'outline-none [&:focus-visible]:outline-2 [&:focus-visible]:outline-offset-1 [&:focus-visible]:outline-focus-ring',
 );

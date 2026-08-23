@@ -158,7 +158,7 @@ export function MenuItem({
   };
 
   const itemClassName = cn(
-    'text-base flex items-center justify-between gap-3 px-2 py-1.5 rounded cursor-pointer outline-none w-full',
+    'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] flex items-center justify-between gap-3 px-2 py-1.5 rounded cursor-pointer outline-none w-full',
     'hover:bg-interactive focus:bg-interactive data-[highlighted]:bg-interactive',
     'data-[disabled]:text-foreground-disabled',
     'data-[selected]:font-semibold',
@@ -276,15 +276,17 @@ export function MenuSection({
     <>
       {title &&
         (primitiveKind === 'context-menu' ? (
-          <BaseContextMenu.GroupLabel className="text-base font-bold px-2 py-1.5">
+          <BaseContextMenu.GroupLabel className="text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] font-bold px-2 py-1.5">
             {title}
           </BaseContextMenu.GroupLabel>
         ) : primitiveKind === 'menu' ? (
-          <BaseMenu.GroupLabel className="text-base font-bold px-2 py-1.5">
+          <BaseMenu.GroupLabel className="text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] font-bold px-2 py-1.5">
             {title}
           </BaseMenu.GroupLabel>
         ) : (
-          <div className="text-base font-bold px-2 py-1.5">{title}</div>
+          <div className="text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] font-bold px-2 py-1.5">
+            {title}
+          </div>
         ))}
       {body}
     </>

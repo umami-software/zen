@@ -44,7 +44,7 @@ export function ProgressCircle({
         />
       </svg>
       {showPercentage && (
-        <BaseProgress.Value className="text-base font-bold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+        <BaseProgress.Value className="text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] font-bold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
       )}
     </BaseProgress.Root>
   );

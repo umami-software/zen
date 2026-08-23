@@ -56,3 +56,19 @@ pre {
 .example-code pre {
   border-radius: 0;
 }
+
+/* Shiso's Markdown table styles also match React Zen's grid-based tables.
+   Let Table and DataTable own their borders and spacing. */
+@layer components {
+  .docs-markdown table.grid {
+    margin: 0;
+    border: 0;
+    border-collapse: collapse;
+    border-radius: 0;
+  }
+
+  .docs-markdown table.grid th,
+  .docs-markdown table.grid td {
+    border: 0;
+  }
+}

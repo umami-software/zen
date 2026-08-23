@@ -204,7 +204,7 @@ export function Select({
                 )}
                 {isLoading && <Loading className="py-8" icon="dots" placement="center" size="sm" />}
                 {!isLoading && isEmpty && (
-                  <div className="px-2 py-8 text-center text-base text-foreground-muted">
+                  <div className="px-2 py-8 text-center text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] text-foreground-muted">
                     No results found
                   </div>
                 )}

@@ -42,7 +42,10 @@ export function Accordion({
       value={expandedKeys ? Array.from(expandedKeys) : undefined}
       defaultValue={defaultExpandedKeys ? Array.from(defaultExpandedKeys) : undefined}
       onValueChange={value => onExpandedChange?.(new Set(value))}
-      className={cn('flex flex-col items-start w-full gap-2 text-base', className)}
+      className={cn(
+        'flex flex-col items-start w-full gap-2 text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
+        className,
+      )}
     >
       {children}
     </BaseAccordion.Root>

@@ -66,7 +66,13 @@ export function DataTable({
   }
 
   return (
-    <Table {...props} className={cn('relative text-base', className)}>
+    <Table
+      {...props}
+      className={cn(
+        'relative text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
+        className,
+      )}
+    >
       <TableHeader style={{ gridTemplateColumns }}>
         {columns?.map(({ id, label, as, hidden, width, ...columnProps }) => {
           if (hidden) {

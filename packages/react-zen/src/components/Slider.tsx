@@ -38,7 +38,9 @@ export function Slider({
     >
       <Row justifyContent="space-between" alignItems="center">
         {label && <Label id={labelId}>{label}</Label>}
-        {showValue && <BaseSlider.Value className="text-base tabular-nums" />}
+        {showValue && (
+          <BaseSlider.Value className="text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] tabular-nums" />
+        )}
       </Row>
       <BaseSlider.Control className="relative h-5 w-full touch-none">
         <BaseSlider.Track className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-2 rounded-full bg-interactive overflow-hidden">

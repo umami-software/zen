@@ -48,11 +48,11 @@ export const button = tv({
       ],
     },
     size: {
-      xs: 'text-sm py-1 px-2',
-      sm: 'text-base py-1.5 px-2.5',
-      md: 'text-base py-2 px-3',
-      lg: 'text-lg py-2.5 px-4',
-      xl: 'text-xl py-3 px-5',
+      xs: 'text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)] py-1 px-2',
+      sm: 'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] py-1.5 px-2.5',
+      md: 'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] py-2 px-3',
+      lg: 'text-[length:var(--zen-font-size-lg)]/[var(--zen-line-height-lg)] py-2.5 px-4',
+      xl: 'text-[length:var(--zen-font-size-xl)]/[var(--zen-line-height-xl)] py-3 px-5',
     },
   },
   defaultVariants: {
@@ -67,7 +67,7 @@ export type ButtonVariants = VariantProps<typeof button>;
 export const inputField = tv({
   base: [
     'relative flex items-center',
-    'text-base rounded border border-edge bg-surface-base shadow-sm',
+    'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] rounded border border-edge bg-surface-base shadow-sm',
     'leading-6 text-foreground-primary transition-colors',
     'focus-within:border-edge-strong',
     'has-[input:read-only]:bg-surface-raised has-[textarea:read-only]:bg-surface-raised',
@@ -91,7 +91,7 @@ export type InputFieldVariants = VariantProps<typeof inputField>;
 export const listItem = tv({
   base: [
     'flex items-center justify-between',
-    'gap-3 text-base py-2 px-3 min-w-[120px]',
+    'gap-3 text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] py-2 px-3 min-w-[120px]',
     'cursor-pointer outline-none rounded',
     'text-foreground-primary',
     'hovered:bg-interactive',
@@ -142,7 +142,9 @@ export type PopoverVariants = VariantProps<typeof popover>;
 
 // Tooltip variants
 export const tooltip = tv({
-  base: ['bg-surface-inverted text-surface-base text-base px-2 py-1 rounded'],
+  base: [
+    'bg-surface-inverted text-surface-base text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] px-2 py-1 rounded',
+  ],
 });
 
 // Checkbox variants
@@ -150,7 +152,7 @@ export const checkbox = tv({
   slots: {
     root: [
       'group flex items-center gap-3',
-      'text-base cursor-pointer',
+      'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] cursor-pointer',
       'disabled:text-foreground-disabled disabled:cursor-default',
     ],
     box: [
@@ -178,7 +180,7 @@ export const switchVariant = tv({
   slots: {
     root: [
       'group flex items-center gap-3',
-      'text-base cursor-pointer',
+      'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] cursor-pointer',
       'disabled:opacity-50 disabled:cursor-default',
     ],
     track: [
@@ -205,7 +207,7 @@ export const tabs = tv({
     root: 'flex flex-col',
     list: ['flex gap-1 border-b border-edge-muted'],
     tab: [
-      'px-4 py-2 text-base font-medium cursor-pointer',
+      'px-4 py-2 text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] font-medium cursor-pointer',
       'text-foreground-muted outline-none',
       'border-b-2 border-transparent -mb-px',
       'hovered:text-foreground-primary',
@@ -224,14 +226,14 @@ export const text = tv({
   base: 'text-foreground-primary',
   variants: {
     size: {
-      xs: 'text-xs',
-      sm: 'text-sm',
-      base: 'text-base',
-      lg: 'text-lg',
-      xl: 'text-xl',
-      '2xl': 'text-2xl',
-      '3xl': 'text-3xl',
-      '4xl': 'text-4xl',
+      xs: 'text-[length:var(--zen-font-size-xs)]/[var(--zen-line-height-xs)]',
+      sm: 'text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)]',
+      base: 'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
+      lg: 'text-[length:var(--zen-font-size-lg)]/[var(--zen-line-height-lg)]',
+      xl: 'text-[length:var(--zen-font-size-xl)]/[var(--zen-line-height-xl)]',
+      '2xl': 'text-[length:var(--zen-font-size-2xl)]/[var(--zen-line-height-2xl)]',
+      '3xl': 'text-[length:var(--zen-font-size-3xl)]/[var(--zen-line-height-3xl)]',
+      '4xl': 'text-[length:var(--zen-font-size-4xl)]/[var(--zen-line-height-4xl)]',
     },
     color: {
       default: '',
@@ -262,15 +264,15 @@ export const heading = tv({
   base: 'font-semibold text-foreground-primary',
   variants: {
     size: {
-      sm: 'text-sm',
-      base: 'text-base',
-      lg: 'text-lg',
-      xl: 'text-xl',
-      '2xl': 'text-2xl',
-      '3xl': 'text-3xl',
-      '4xl': 'text-4xl',
-      '5xl': 'text-5xl',
-      '6xl': 'text-6xl',
+      sm: 'text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)]',
+      base: 'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
+      lg: 'text-[length:var(--zen-font-size-lg)]/[var(--zen-line-height-lg)]',
+      xl: 'text-[length:var(--zen-font-size-xl)]/[var(--zen-line-height-xl)]',
+      '2xl': 'text-[length:var(--zen-font-size-2xl)]/[var(--zen-line-height-2xl)]',
+      '3xl': 'text-[length:var(--zen-font-size-3xl)]/[var(--zen-line-height-3xl)]',
+      '4xl': 'text-[length:var(--zen-font-size-4xl)]/[var(--zen-line-height-4xl)]',
+      '5xl': 'text-[length:var(--zen-font-size-5xl)]/[var(--zen-line-height-5xl)]',
+      '6xl': 'text-[length:var(--zen-font-size-6xl)]/[var(--zen-line-height-6xl)]',
     },
   },
   defaultVariants: {
@@ -283,7 +285,7 @@ export type HeadingVariants = VariantProps<typeof heading>;
 // Alert variants
 export const alert = tv({
   base: [
-    'relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border border-edge-muted px-4 py-3 text-base',
+    'relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border border-edge-muted px-4 py-3 text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
     'has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3',
     '[&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current',
   ],
@@ -324,7 +326,7 @@ export const statusLight = tv({
   base: 'inline-flex items-center gap-2',
   slots: {
     dot: 'w-2 h-2 rounded-full',
-    label: 'text-base',
+    label: 'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
   },
   variants: {
     color: {
@@ -348,7 +350,7 @@ export const toast = tv({
     'flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg',
     'bg-surface-overlay',
     'border border-edge-muted',
-    'text-base',
+    'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
   ],
   variants: {
     variant: {
@@ -401,8 +403,8 @@ export const badge = tv({
       rose: 'bg-rose-50 text-rose-900 dark:bg-rose-500/20 dark:text-rose-100',
     },
     size: {
-      sm: 'text-xs px-2 py-0.5',
-      md: 'text-sm px-2.5 py-0.5',
+      sm: 'text-[length:var(--zen-font-size-xs)]/[var(--zen-line-height-xs)] px-2 py-0.5',
+      md: 'text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)] px-2.5 py-0.5',
     },
   },
   defaultVariants: {
@@ -428,11 +430,26 @@ export const avatar = tv({
   },
   variants: {
     size: {
-      xs: { root: 'size-6', fallback: 'text-xs' },
-      sm: { root: 'size-8', fallback: 'text-sm' },
-      md: { root: 'size-10', fallback: 'text-base' },
-      lg: { root: 'size-12', fallback: 'text-lg' },
-      xl: { root: 'size-16', fallback: 'text-xl' },
+      xs: {
+        root: 'size-6',
+        fallback: 'text-[length:var(--zen-font-size-xs)]/[var(--zen-line-height-xs)]',
+      },
+      sm: {
+        root: 'size-8',
+        fallback: 'text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)]',
+      },
+      md: {
+        root: 'size-10',
+        fallback: 'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
+      },
+      lg: {
+        root: 'size-12',
+        fallback: 'text-[length:var(--zen-font-size-lg)]/[var(--zen-line-height-lg)]',
+      },
+      xl: {
+        root: 'size-16',
+        fallback: 'text-[length:var(--zen-font-size-xl)]/[var(--zen-line-height-xl)]',
+      },
     },
   },
   defaultVariants: {
@@ -446,7 +463,7 @@ export type AvatarVariants = VariantProps<typeof avatar>;
 export const tag = tv({
   slots: {
     base: [
-      'inline-flex items-center gap-1 px-2 py-0.5 rounded text-sm',
+      'inline-flex items-center gap-1 px-2 py-0.5 rounded text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)]',
       'cursor-default outline-none',
       'focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-1',
     ],

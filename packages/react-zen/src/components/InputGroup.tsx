@@ -69,7 +69,7 @@ export const InputGroupAddon = forwardRef<HTMLDivElement, InputGroupAddonProps>(
         data-slot="input-group-addon"
         data-align={align}
         className={cn(
-          'flex h-auto shrink-0 cursor-text items-center justify-center gap-2 py-2 text-sm text-foreground-muted',
+          'flex h-auto shrink-0 cursor-text items-center justify-center gap-2 py-2 text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)] text-foreground-muted',
           "[&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
           addonClasses[align],
           className,
@@ -89,8 +89,8 @@ export interface InputGroupButtonProps extends Omit<ButtonProps, 'size'> {
 }
 
 const buttonSizeClasses: Record<InputGroupButtonSize, string> = {
-  xs: 'h-6 gap-1 rounded px-1.5 py-0 text-sm',
-  sm: 'h-8 gap-2 rounded px-2 py-0 text-sm',
+  xs: 'h-6 gap-1 rounded px-1.5 py-0 text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)]',
+  sm: 'h-8 gap-2 rounded px-2 py-0 text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)]',
   'icon-xs': 'size-6 rounded p-0',
   'icon-sm': 'size-8 rounded p-0',
 };
@@ -123,7 +123,7 @@ export const InputGroupText = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpa
       ref={ref}
       data-slot="input-group-text"
       className={cn(
-        'flex items-center gap-2 text-sm text-foreground-muted [&_svg]:pointer-events-none [&_svg]:size-4',
+        'flex items-center gap-2 text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)] text-foreground-muted [&_svg]:pointer-events-none [&_svg]:size-4',
         className,
       )}
     />
@@ -139,7 +139,7 @@ export const InputGroupInput = forwardRef<HTMLInputElement, InputHTMLAttributes<
       ref={ref}
       data-slot="input-group-control"
       className={cn(
-        'min-w-0 flex-1 bg-transparent px-3 py-2 text-base outline-none placeholder:text-foreground-muted disabled:cursor-not-allowed',
+        'min-w-0 flex-1 bg-transparent px-3 py-2 text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] outline-none placeholder:text-foreground-muted disabled:cursor-not-allowed',
         className,
       )}
     />
@@ -157,7 +157,7 @@ export const InputGroupTextarea = forwardRef<
     ref={ref}
     data-slot="input-group-control"
     className={cn(
-      'min-w-0 w-full flex-1 bg-transparent p-3 text-base outline-none placeholder:text-foreground-muted disabled:cursor-not-allowed',
+      'min-w-0 w-full flex-1 bg-transparent p-3 text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] outline-none placeholder:text-foreground-muted disabled:cursor-not-allowed',
       className,
     )}
   />

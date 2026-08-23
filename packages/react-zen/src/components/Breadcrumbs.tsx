@@ -31,7 +31,7 @@ export function Breadcrumb({ children, className, isDisabled, ...props }: Breadc
       {...props}
       aria-disabled={isDisabled || undefined}
       className={cn(
-        'flex items-center text-base gap-3 list-none',
+        'flex items-center text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] gap-3 list-none',
         '[&_a]:text-foreground-muted [&_a]:no-underline [&_a]:font-normal',
         '[&_a:hover]:text-foreground-primary',
         'last:[&>span]:hidden',

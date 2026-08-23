@@ -67,7 +67,7 @@ export function NumberField({
         </BaseNumberField.Decrement>
         <BaseNumberField.Input
           placeholder={placeholder}
-          className="w-full min-w-0 text-base text-center tabular-nums bg-transparent py-2 px-3 outline-none placeholder:text-foreground-muted"
+          className="w-full min-w-0 text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] text-center tabular-nums bg-transparent py-2 px-3 outline-none placeholder:text-foreground-muted"
         />
         <BaseNumberField.Increment className={cn(stepperClasses, 'border-l border-edge')}>
           <Icon size="sm">

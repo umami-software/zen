@@ -18,6 +18,36 @@
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
     monospace;
 
+  /* === TYPE SCALE === */
+  /* Keep Zen typography independent from the host application's root font size. */
+  --zen-font-size-base: 14px;
+  --zen-font-size-xs: calc(var(--zen-font-size-base) * 0.75);
+  --zen-font-size-sm: calc(var(--zen-font-size-base) * 0.875);
+  --zen-font-size-lg: calc(var(--zen-font-size-base) * 1.125);
+  --zen-font-size-xl: calc(var(--zen-font-size-base) * 1.25);
+  --zen-font-size-2xl: calc(var(--zen-font-size-base) * 1.5);
+  --zen-font-size-3xl: calc(var(--zen-font-size-base) * 1.875);
+  --zen-font-size-4xl: calc(var(--zen-font-size-base) * 2.25);
+  --zen-font-size-5xl: calc(var(--zen-font-size-base) * 3);
+  --zen-font-size-6xl: calc(var(--zen-font-size-base) * 3.75);
+  --zen-font-size-7xl: calc(var(--zen-font-size-base) * 4.5);
+  --zen-font-size-8xl: calc(var(--zen-font-size-base) * 6);
+  --zen-font-size-9xl: calc(var(--zen-font-size-base) * 8);
+
+  --zen-line-height-xs: calc(var(--zen-font-size-base) * 1);
+  --zen-line-height-sm: calc(var(--zen-font-size-base) * 1.25);
+  --zen-line-height-base: calc(var(--zen-font-size-base) * 1.5);
+  --zen-line-height-lg: calc(var(--zen-font-size-base) * 1.75);
+  --zen-line-height-xl: calc(var(--zen-font-size-base) * 1.75);
+  --zen-line-height-2xl: calc(var(--zen-font-size-base) * 2);
+  --zen-line-height-3xl: calc(var(--zen-font-size-base) * 2.25);
+  --zen-line-height-4xl: calc(var(--zen-font-size-base) * 2.5);
+  --zen-line-height-5xl: calc(var(--zen-font-size-base) * 3);
+  --zen-line-height-6xl: calc(var(--zen-font-size-base) * 3.75);
+  --zen-line-height-7xl: calc(var(--zen-font-size-base) * 4.5);
+  --zen-line-height-8xl: calc(var(--zen-font-size-base) * 6);
+  --zen-line-height-9xl: calc(var(--zen-font-size-base) * 8);
+
   /* === GRAY SCALE (base palette - defaults to neutral) === */
   --gray-50: oklch(0.985 0 0);
   --gray-100: oklch(0.97 0 0);

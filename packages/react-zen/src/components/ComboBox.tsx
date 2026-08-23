@@ -99,7 +99,9 @@ export function ComboBox({
     >
       <div className={cn('relative', className)}>
         {label && (
-          <BaseCombobox.Label className="text-base font-semibold">{label}</BaseCombobox.Label>
+          <BaseCombobox.Label className="text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] font-semibold">
+            {label}
+          </BaseCombobox.Label>
         )}
         <BaseCombobox.InputGroup render={<InputGroup />}>
           <BaseCombobox.Input placeholder={placeholder} render={<InputGroupInput />} />
@@ -147,7 +149,9 @@ export function ComboBox({
                   {renderEmptyState ? (
                     renderEmptyState({})
                   ) : (
-                    <span className="text-base text-foreground-muted">No items found.</span>
+                    <span className="text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] text-foreground-muted">
+                      No items found.
+                    </span>
                   )}
                 </div>
               </BaseCombobox.Empty>

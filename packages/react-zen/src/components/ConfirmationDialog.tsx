@@ -35,7 +35,7 @@ export function ConfirmationDialog({
               paddingY="2"
               marginY="2"
               borderRadius="md"
-              className="font-mono text-base bg-surface-sunken"
+              className="font-mono text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] bg-surface-sunken"
             >
               {value}
             </Box>

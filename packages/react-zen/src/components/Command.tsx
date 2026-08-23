@@ -34,7 +34,7 @@ export function CommandInput({ className, ...props }: CommandInputProps) {
       <CommandPrimitive.Input
         {...props}
         className={cn(
-          'flex h-11 w-full bg-transparent text-base outline-none',
+          'flex h-11 w-full bg-transparent text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] outline-none',
           'placeholder:text-foreground-muted',
           'disabled:cursor-not-allowed disabled:text-foreground-disabled',
           className,
@@ -62,7 +62,10 @@ export function CommandEmpty({ className, ...props }: CommandEmptyProps) {
   return (
     <CommandPrimitive.Empty
       {...props}
-      className={cn('py-6 text-center text-base text-foreground-muted', className)}
+      className={cn(
+        'py-6 text-center text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] text-foreground-muted',
+        className,
+      )}
     />
   );
 }
@@ -76,7 +79,7 @@ export function CommandGroup({ className, ...props }: CommandGroupProps) {
       className={cn(
         'overflow-hidden [&:not(:last-child)]:mb-2',
         '[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5',
-        '[&_[cmdk-group-heading]]:text-sm [&_[cmdk-group-heading]]:font-bold [&_[cmdk-group-heading]]:text-foreground-muted',
+        '[&_[cmdk-group-heading]]:text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)] [&_[cmdk-group-heading]]:font-bold [&_[cmdk-group-heading]]:text-foreground-muted',
         className,
       )}
     />
@@ -95,7 +98,7 @@ export function CommandItem({ icon, isDisabled, className, children, ...props }:
       {...props}
       disabled={isDisabled}
       className={cn(
-        'flex items-center gap-3 px-2 py-1.5 rounded cursor-pointer outline-none text-base',
+        'flex items-center gap-3 px-2 py-1.5 rounded cursor-pointer outline-none text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
         'data-[selected=true]:bg-interactive',
         'data-[disabled=true]:text-foreground-disabled data-[disabled=true]:cursor-default',
         className,

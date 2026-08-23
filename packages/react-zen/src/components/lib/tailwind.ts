@@ -726,37 +726,37 @@ const spaceYMap: Record<string, string> = {
   '96': 'space-y-96',
 };
 
-// Font size mapping - Tailwind native names
+// Font size mapping - Tailwind-compatible names backed by Zen's isolated type scale
 const fontSizeMap: Record<string, string> = {
-  xs: 'text-xs',
-  sm: 'text-sm',
-  base: 'text-base',
-  lg: 'text-lg',
-  xl: 'text-xl',
-  '2xl': 'text-2xl',
-  '3xl': 'text-3xl',
-  '4xl': 'text-4xl',
-  '5xl': 'text-5xl',
-  '6xl': 'text-6xl',
-  '7xl': 'text-7xl',
-  '8xl': 'text-8xl',
-  '9xl': 'text-9xl',
+  xs: 'text-[length:var(--zen-font-size-xs)]/[var(--zen-line-height-xs)]',
+  sm: 'text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)]',
+  base: 'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
+  lg: 'text-[length:var(--zen-font-size-lg)]/[var(--zen-line-height-lg)]',
+  xl: 'text-[length:var(--zen-font-size-xl)]/[var(--zen-line-height-xl)]',
+  '2xl': 'text-[length:var(--zen-font-size-2xl)]/[var(--zen-line-height-2xl)]',
+  '3xl': 'text-[length:var(--zen-font-size-3xl)]/[var(--zen-line-height-3xl)]',
+  '4xl': 'text-[length:var(--zen-font-size-4xl)]/[var(--zen-line-height-4xl)]',
+  '5xl': 'text-[length:var(--zen-font-size-5xl)]/[var(--zen-line-height-5xl)]',
+  '6xl': 'text-[length:var(--zen-font-size-6xl)]/[var(--zen-line-height-6xl)]',
+  '7xl': 'text-[length:var(--zen-font-size-7xl)]/[var(--zen-line-height-7xl)]',
+  '8xl': 'text-[length:var(--zen-font-size-8xl)]/[var(--zen-line-height-8xl)]',
+  '9xl': 'text-[length:var(--zen-font-size-9xl)]/[var(--zen-line-height-9xl)]',
 };
 
 // Heading size mapping
 const headingSizeMap: Record<string, string> = {
-  sm: 'text-sm',
-  base: 'text-base',
-  lg: 'text-lg',
-  xl: 'text-xl',
-  '2xl': 'text-2xl',
-  '3xl': 'text-3xl',
-  '4xl': 'text-4xl',
-  '5xl': 'text-5xl',
-  '6xl': 'text-6xl',
-  '7xl': 'text-7xl',
-  '8xl': 'text-8xl',
-  '9xl': 'text-9xl',
+  sm: 'text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)]',
+  base: 'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
+  lg: 'text-[length:var(--zen-font-size-lg)]/[var(--zen-line-height-lg)]',
+  xl: 'text-[length:var(--zen-font-size-xl)]/[var(--zen-line-height-xl)]',
+  '2xl': 'text-[length:var(--zen-font-size-2xl)]/[var(--zen-line-height-2xl)]',
+  '3xl': 'text-[length:var(--zen-font-size-3xl)]/[var(--zen-line-height-3xl)]',
+  '4xl': 'text-[length:var(--zen-font-size-4xl)]/[var(--zen-line-height-4xl)]',
+  '5xl': 'text-[length:var(--zen-font-size-5xl)]/[var(--zen-line-height-5xl)]',
+  '6xl': 'text-[length:var(--zen-font-size-6xl)]/[var(--zen-line-height-6xl)]',
+  '7xl': 'text-[length:var(--zen-font-size-7xl)]/[var(--zen-line-height-7xl)]',
+  '8xl': 'text-[length:var(--zen-font-size-8xl)]/[var(--zen-line-height-8xl)]',
+  '9xl': 'text-[length:var(--zen-font-size-9xl)]/[var(--zen-line-height-9xl)]',
 };
 
 // Font weight mapping - Tailwind native names

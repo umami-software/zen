@@ -44,7 +44,10 @@ export function Calendar({
           onChange?.(date);
         }
       }}
-      className={cn('w-fit max-w-full text-base', className)}
+      className={cn(
+        'w-fit max-w-full text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
+        className,
+      )}
       classNames={{
         months: 'relative',
         month: 'space-y-4',
