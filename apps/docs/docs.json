@@ -13,6 +13,7 @@
 	}],
 	"navbar": { "links": [{
 		"label": "Playground",
+		"icon": "flask-conical",
 		"href": "/playground"
 	}, {
 		"icon": "github",
