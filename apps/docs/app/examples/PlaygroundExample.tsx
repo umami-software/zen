@@ -570,7 +570,7 @@ function VariableInput({
   if (variable.type === 'select' && variable.options) {
     const selectedOption = variable.options.find(opt => opt.value === value);
     return (
-      <Column marginBottom="2">
+      <Column gap="1">
         <Label size="sm" weight="medium">
           {variable.label}
         </Label>
@@ -592,7 +592,7 @@ function VariableInput({
   if (variable.type === 'color' && variable.options) {
     const selectedOption = variable.options.find(opt => opt.value === value);
     return (
-      <Column marginBottom="2">
+      <Column gap="1">
         <Label size="sm" weight="medium">
           {variable.label}
         </Label>

@@ -25,6 +25,7 @@ import type {
   JustifyContent,
   JustifyItems,
   JustifySelf,
+  Margin,
   MaxHeight,
   MaxWidth,
   MinHeight,
@@ -98,13 +99,13 @@ export interface BoxProps extends Omit<HTMLAttributes<HTMLElement>, 'color'> {
   paddingBottom?: Responsive<Padding>;
   paddingLeft?: Responsive<Padding>;
 
-  margin?: Responsive<Spacing>;
-  marginX?: Responsive<Spacing>;
-  marginY?: Responsive<Spacing>;
-  marginTop?: Responsive<Spacing>;
-  marginRight?: Responsive<Spacing>;
-  marginBottom?: Responsive<Spacing>;
-  marginLeft?: Responsive<Spacing>;
+  margin?: Responsive<Margin>;
+  marginX?: Responsive<Margin>;
+  marginY?: Responsive<Margin>;
+  marginTop?: Responsive<Margin>;
+  marginRight?: Responsive<Margin>;
+  marginBottom?: Responsive<Margin>;
+  marginLeft?: Responsive<Margin>;
   spaceX?: Responsive<Spacing>;
   spaceY?: Responsive<Spacing>;
 

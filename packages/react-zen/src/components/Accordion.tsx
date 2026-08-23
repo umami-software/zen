@@ -69,7 +69,9 @@ export function AccordionItem({
       disabled={isDisabled}
       className={cn('w-full cursor-pointer group', className)}
     >
-      <BaseAccordion.Header>
+      {/* The header renders an h3; reset margins and font size so external
+          heading/prose styles can't alter accordion spacing. */}
+      <BaseAccordion.Header className="m-0 text-[length:inherit]">
         <BaseAccordion.Trigger className="w-full flex items-center justify-between font-bold py-2 px-0">
           <Text>{trigger}</Text>
           <Icon className="transition-transform duration-200 group-data-[open]:rotate-90" size="sm">

@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Button, Flexbox, type FlexboxProps } from '@umami/react-zen';
+import { Box, Button, DataTable, Flexbox, type FlexboxProps } from '@umami/react-zen';
 import { Children, isValidElement, type ReactNode, useState } from 'react';
 import { ExampleCode } from '../components/ExampleCode';
 
@@ -73,6 +73,11 @@ export function Example({
   ...props
 }: FlexboxProps) {
   const { preview, code, codeFirst } = separateChildren(children);
+  // Prop reference tables don't need the demo min-height; without this they
+  // get vertically centered inside 300px with dead space above and below.
+  const isTableOnly =
+    preview.length > 0 &&
+    preview.every(child => isValidElement(child) && child.type === DataTable);
   // If code comes first, show preview by default (expanded); otherwise hide code by default
   const [showSecondary, setShowSecondary] = useState(codeFirst);
 
@@ -106,7 +111,7 @@ export function Example({
         justifyContent,
         gap,
         padding,
-        minHeight,
+        minHeight: isTableOnly ? '0' : minHeight,
         wrap,
         position,
         overflow,

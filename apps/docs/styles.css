@@ -50,6 +50,13 @@ html[data-theme='dark'] .dark\:hidden {
   display: none;
 }
 
+/* Same collision: our build's `.border-transparent` (all-sides shorthand)
+   loads after shiso's side-specific `.border-b-primary`, erasing the active
+   tab underline in the top nav. Restore it. */
+.border-b-primary {
+  border-bottom-color: var(--primary);
+}
+
 body {
   --font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-family-mono: var(--font-mono), ui-monospace, monospace;

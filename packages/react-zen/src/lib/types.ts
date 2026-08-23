@@ -145,6 +145,7 @@ export type NegativeSpacing =
   | '-24';
 
 export type Padding = Spacing | true;
+export type Margin = Spacing | NegativeSpacing | 'auto';
 export type Top = Spacing | NegativeSpacing | string;
 export type Right = Spacing | NegativeSpacing | string;
 export type Bottom = Spacing | NegativeSpacing | string;

@@ -276,6 +276,7 @@ const plMap: Record<string, string> = {
 
 // Margin maps
 const marginMap: Record<string, string> = {
+  auto: 'm-auto',
   '0': 'm-0',
   px: 'm-px',
   '0.5': 'm-0.5',
@@ -334,6 +335,7 @@ const marginMap: Record<string, string> = {
   '-24': '-m-24',
 };
 const mxMap: Record<string, string> = {
+  auto: 'mx-auto',
   '0': 'mx-0',
   px: 'mx-px',
   '0.5': 'mx-0.5',
@@ -371,6 +373,7 @@ const mxMap: Record<string, string> = {
   '-4': '-mx-4',
 };
 const myMap: Record<string, string> = {
+  auto: 'my-auto',
   '0': 'my-0',
   px: 'my-px',
   '0.5': 'my-0.5',
@@ -408,6 +411,7 @@ const myMap: Record<string, string> = {
   '-4': '-my-4',
 };
 const mtMap: Record<string, string> = {
+  auto: 'mt-auto',
   '0': 'mt-0',
   px: 'mt-px',
   '0.5': 'mt-0.5',
@@ -445,6 +449,7 @@ const mtMap: Record<string, string> = {
   '-4': '-mt-4',
 };
 const mrMap: Record<string, string> = {
+  auto: 'mr-auto',
   '0': 'mr-0',
   px: 'mr-px',
   '0.5': 'mr-0.5',
@@ -482,6 +487,7 @@ const mrMap: Record<string, string> = {
   '-4': '-mr-4',
 };
 const mbMap: Record<string, string> = {
+  auto: 'mb-auto',
   '0': 'mb-0',
   px: 'mb-px',
   '0.5': 'mb-0.5',
@@ -519,6 +525,7 @@ const mbMap: Record<string, string> = {
   '-4': '-mb-4',
 };
 const mlMap: Record<string, string> = {
+  auto: 'ml-auto',
   '0': 'ml-0',
   px: 'ml-px',
   '0.5': 'ml-0.5',

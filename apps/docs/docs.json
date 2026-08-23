@@ -8,14 +8,13 @@
 	"search": { "provider": "pagefind" },
 	"appearance": { "default": "system" },
 	"pages": [{
+		"path": "/",
+		"page": "home"
+	}, {
 		"path": "/playground",
 		"page": "playground"
 	}],
 	"navbar": { "links": [{
-		"label": "Playground",
-		"icon": "layout-dashboard",
-		"href": "/playground"
-	}, {
 		"icon": "github",
 		"ariaLabel": "GitHub",
 		"href": "https://github.com/umami-software/react-zen"
@@ -318,9 +317,16 @@
 		{
 			"source": "/docs/layout/separator",
 			"destination": "/docs/structure/separator"
+		},
+		{
+			"source": "/docs/playground",
+			"destination": "/playground"
 		}
 	],
-	"navigation": { "groups": [
+	"navigation": { "tabs": [{
+		"tab": "Documentation",
+		"icon": "book-open",
+		"groups": [
 		{
 			"group": "Getting started",
 			"collapsible": false,
@@ -468,5 +474,10 @@
 				"components/tag-group"
 			]
 		}
-	] }
+		]
+	}, {
+		"tab": "Playground",
+		"icon": "layout-dashboard",
+		"href": "/playground"
+	}] }
 }
