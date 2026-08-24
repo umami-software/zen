@@ -158,6 +158,8 @@ A button allows a user to perform an action, with mouse, touch, and keyboard int
   <ResponseField name="variant" type="ButtonVariant">"default" | "primary" | "outline" | "quiet" | "danger" | "zero"</ResponseField>
   <ResponseField name="size" type="ButtonSize">"xs" | "sm" | "md" | "lg" | "xl" (default: "md")</ResponseField>
   <ResponseField name="isDisabled" type="boolean">Disables the button</ResponseField>
-  <ResponseField name="render" type="RenderProp">Render prop for polymorphism (e.g., render as link)</ResponseField>
+  <ResponseField name="href" type="string">Renders the button as an anchor pointing at this URL</ResponseField>
+  <ResponseField name="target" type="string">Anchor target when using href (adds rel="noreferrer" for _blank)</ResponseField>
+  <ResponseField name="render" type="RenderProp">Render prop for polymorphism (e.g., render as a router link)</ResponseField>
   <ResponseField name="nativeButton" type="boolean">Overrides native button semantics for custom render functions or components</ResponseField>
 </PropertiesTable>

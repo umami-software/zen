@@ -22,7 +22,7 @@ importers:
         version: link:../../packages/react-zen
       '@umami/shiso':
         specifier: ^1.8.0
-        version: 1.8.0(@date-fns/tz@1.5.0)(@types/node@22.19.8)(@types/react@19.2.11)(date-fns@4.1.0)(esbuild@0.27.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(rollup@4.57.1)(supports-color@7.2.0)(yaml@2.9.0)
+        version: 1.8.0(@date-fns/tz@1.5.0)(@types/node@22.19.8)(@types/react-dom@19.2.3(@types/react@19.2.11))(@types/react@19.2.11)(date-fns@4.1.0)(esbuild@0.27.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(rollup@4.57.1)(supports-color@7.2.0)(yaml@2.9.0)
       lucide-react:
         specifier: ^0.555.0
         version: 0.555.0(react@19.2.4)
@@ -4795,7 +4795,7 @@ snapshots:
       postcss: 8.5.6
       postcss-modules: 6.0.1(postcss@8.5.6)
 
-  '@umami/shiso@1.8.0(@date-fns/tz@1.5.0)(@types/node@22.19.8)(@types/react@19.2.11)(date-fns@4.1.0)(esbuild@0.27.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(rollup@4.57.1)(supports-color@7.2.0)(yaml@2.9.0)':
+  '@umami/shiso@1.8.0(@date-fns/tz@1.5.0)(@types/node@22.19.8)(@types/react-dom@19.2.3(@types/react@19.2.11))(@types/react@19.2.11)(date-fns@4.1.0)(esbuild@0.27.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(rollup@4.57.1)(supports-color@7.2.0)(yaml@2.9.0)':
     dependencies:
       '@base-ui/react': 1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.11)(date-fns@4.1.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@fontsource-variable/inter': 5.3.0

@@ -5,6 +5,10 @@ import { type ButtonVariants, button } from './variants';
 
 export interface ButtonProps extends Omit<BaseButtonProps, 'className' | 'render'>, ButtonVariants {
   render?: RenderProp<ButtonRenderProps>;
+  /** Render as a link. Ignored when a custom `render` is supplied. */
+  href?: string;
+  target?: string;
+  rel?: string;
   children?: ReactNode;
   className?: string;
   isDisabled?: boolean;
@@ -21,7 +25,10 @@ export interface ButtonRenderProps {
 export function Button({
   variant,
   size = 'md',
-  render,
+  render: renderProp,
+  href,
+  target,
+  rel,
   preventFocusOnPress: _preventFocusOnPress = true,
   nativeButton,
   isDisabled,
@@ -33,6 +40,15 @@ export function Button({
   ...props
 }: ButtonProps) {
   const buttonClassName = button({ variant, size, className });
+  const render =
+    renderProp ??
+    (href ? (
+      <a
+        href={href}
+        target={target}
+        rel={rel ?? (target === '_blank' ? 'noreferrer' : undefined)}
+      />
+    ) : undefined);
   const isNativeButton =
     nativeButton ?? (render === undefined || (isValidElement(render) && render.type === 'button'));
 

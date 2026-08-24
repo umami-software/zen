@@ -7,7 +7,7 @@ import { Icon } from './Icon';
 import type { PressEvent } from './lib/interaction';
 import { cn } from './lib/tailwind';
 
-export interface ThemeButtonProps extends ButtonProps {
+export interface ThemeButtonProps extends Omit<ButtonProps, 'target'> {
   target?: RefObject<HTMLElement | null> | HTMLElement;
 }
 
