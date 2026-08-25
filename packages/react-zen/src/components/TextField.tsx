@@ -63,7 +63,7 @@ export function TextField({
     }
   }, [value, defaultValue]);
 
-  const inputClasses = cn(resize && resizeClasses[resize]);
+  const inputClasses = cn(allowCopy && asTextArea && 'pe-12', resize && resizeClasses[resize]);
 
   const input = (
     <>
@@ -99,8 +99,8 @@ export function TextField({
         )}
         {allowCopy && (
           <InputGroupAddon
-            align={asTextArea ? 'block-start' : 'inline-end'}
-            className={cn(asTextArea && 'justify-end pb-0')}
+            align="inline-end"
+            className={cn(asTextArea && 'absolute end-0 top-1 z-10')}
           >
             <CopyButton
               value={String(inputValue)}
