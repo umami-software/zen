@@ -46,6 +46,13 @@ export default defineConfig({
         let content = await fs.readFile(file, 'utf-8');
         content = content.replace(/^import\s+['"]\.\/[^'"]+\.css['"];?\s*$/gm, '');
         content = content.replace(/^require\(['"]\.\/[^'"]+\.css['"]\);?\s*$/gm, '');
+        // Mark the entry as a client module boundary. Done here rather than via
+        // `banner` because tsup's treeshake pass strips (and warns about)
+        // module-level directives.
+        if (!content.startsWith("'use client';")) {
+          content = `'use client';
+${content}`;
+        }
         await fs.writeFile(file, content);
       } catch (e) {
         // File might not exist yet

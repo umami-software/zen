@@ -1,5 +1,3 @@
-'use client';
-
 import { AlertDialog as BaseAlertDialog } from '@base-ui/react/alert-dialog';
 import { Dialog as BaseDialog } from '@base-ui/react/dialog';
 import { Menu as BaseMenu } from '@base-ui/react/menu';

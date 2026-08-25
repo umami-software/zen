@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@config "../../packages/react-zen/tailwind.config.ts";
+@config "../../packages/react-zen/tailwind.config.mts";
 
 /* Consume the package's assembled stylesheet (theme tokens + component CSS) the
    same way a real consumer does, so the docs can't drift from what ships.

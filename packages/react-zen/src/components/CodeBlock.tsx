@@ -1,4 +1,3 @@
-'use client';
 import { useRef, useState } from 'react';
 import { Check, Copy } from '@/components/icons';
 import { Icon } from './Icon';

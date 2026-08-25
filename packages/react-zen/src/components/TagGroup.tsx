@@ -1,5 +1,3 @@
-'use client';
-
 import { createContext, type HTMLAttributes, type Key, type ReactNode, useContext } from 'react';
 import { X } from '@/components/icons';
 import { Icon } from './Icon';

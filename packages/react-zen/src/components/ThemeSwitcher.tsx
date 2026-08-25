@@ -1,4 +1,3 @@
-'use client';
 import { useEffect, useState } from 'react';
 import { Monitor, Moon, Sun } from '@/components/icons';
 import { type Theme, useTheme } from './hooks/useTheme';

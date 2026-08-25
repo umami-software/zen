@@ -1,5 +1,5 @@
 {
-  "name": "umami-react-zen-monorepo",
+  "name": "umami-zen-monorepo",
   "private": true,
   "scripts": {
     "dev": "turbo dev",

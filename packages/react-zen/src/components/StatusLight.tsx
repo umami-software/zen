@@ -40,10 +40,7 @@ export function StatusLight(props: StatusLightProps) {
       {...domProps}
       alignItems="center"
       gap="2"
-      className={cn(
-        'text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)]',
-        className,
-      )}
+      className={cn('text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)]', className)}
     >
       <StatusDot color={color} variant={variant} />
       {children}

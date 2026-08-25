@@ -1,6 +1,6 @@
 {
   "name": "@umami/react-zen",
-  "version": "0.249.0",
+  "version": "0.251.0",
   "description": "Modern, minimalist React component library",
   "homepage": "https://zen.umami.is",
   "repository": {
@@ -39,7 +39,8 @@
     "lint": "biome check ./src",
     "icons": "svgr ./src/assets --out-dir src/components/svg --typescript",
     "css": "node css.mjs",
-    "tsup": "tsup"
+    "tsup": "tsup",
+    "prepublishOnly": "pnpm build"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

@@ -91,24 +91,35 @@ export function DataTable({
           return (
             // biome-ignore lint/suspicious/noArrayIndexKey: row data may not have unique ids
             <TableRow key={index} id={String(row.id)} style={{ gridTemplateColumns }}>
-              {columns?.map(({ id, as, hidden, className, children, ...cellProps }) => {
-                if (hidden) {
-                  return null;
-                }
+              {columns?.map(
+                ({
+                  id,
+                  label: _label,
+                  width: _width,
+                  as,
+                  hidden,
+                  className,
+                  children,
+                  ...cellProps
+                }) => {
+                  if (hidden) {
+                    return null;
+                  }
 
-                const value =
-                  typeof children === 'function' ? children(row, index) : children || row[id];
+                  const value =
+                    typeof children === 'function' ? children(row, index) : children || row[id];
 
-                return (
-                  <TableCell
-                    {...(cellProps as TableCellProps)}
-                    key={id}
-                    className={cn('items-center', className)}
-                  >
-                    {as ? createElement(as, {}, value) : value}
-                  </TableCell>
-                );
-              })}
+                  return (
+                    <TableCell
+                      {...(cellProps as TableCellProps)}
+                      key={id}
+                      className={cn('items-center', className)}
+                    >
+                      {as ? createElement(as, {}, value) : value}
+                    </TableCell>
+                  );
+                },
+              )}
             </TableRow>
           );
         })}

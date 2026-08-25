@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@config "../../tailwind.config.ts";
+@config "../../tailwind.config.mts";
 @import "./theme.css";
 @import "../components/Dots.css";
 @import "../components/Modal.css";
