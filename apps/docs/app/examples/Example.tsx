@@ -8,6 +8,14 @@ function isCodeBlock(child: ReactNode): boolean {
   if (!isValidElement(child)) return false;
 
   const type = child.type as any;
+  const props = (child.props || {}) as Record<string, unknown>;
+
+  // Fenced code blocks: shiso's rehype-shiki stamps `data-language` and
+  // `data-line-count` on the `pre`. Check these first since the rendered
+  // component's function name is minified in production builds.
+  if (props['data-language'] !== undefined || props['data-line-count'] !== undefined) {
+    return true;
+  }
 
   // Check for pre element
   if (type === 'pre') return true;
