@@ -41,10 +41,12 @@ export interface InputGroupAddonProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const addonClasses: Record<InputGroupAddonAlign, string> = {
-  'inline-start': 'order-first ps-3',
-  'inline-end': 'order-last pe-3',
-  'block-start': 'order-first w-full justify-start px-3 pt-3',
-  'block-end': 'order-last w-full justify-start px-3 pb-3',
+  // Inline addons must not add vertical padding around their buttons; the
+  // input's padding determines the height of a single-line control.
+  'inline-start': 'order-first ps-3 py-0',
+  'inline-end': 'order-last pe-3 py-0',
+  'block-start': 'order-first w-full justify-start px-3 pt-3 pb-2',
+  'block-end': 'order-last w-full justify-start px-3 pt-2 pb-3',
 };
 
 export const InputGroupAddon = forwardRef<HTMLDivElement, InputGroupAddonProps>(
@@ -69,7 +71,7 @@ export const InputGroupAddon = forwardRef<HTMLDivElement, InputGroupAddonProps>(
         data-slot="input-group-addon"
         data-align={align}
         className={cn(
-          'flex h-auto shrink-0 cursor-text items-center justify-center gap-2 py-2 text-sm text-fg-muted',
+          'flex h-auto shrink-0 cursor-text items-center justify-center gap-2 text-sm text-fg-muted',
           "[&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
           addonClasses[align],
           className,

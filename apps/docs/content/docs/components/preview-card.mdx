@@ -49,7 +49,7 @@ A supplementary preview of a link on hover.
 ```
 </Example>
 
-## Component props
+## Component parts
 
 | Component | Purpose |
 | --- | --- |
@@ -57,6 +57,54 @@ A supplementary preview of a link on hover.
 | `PreviewCardTrigger` | Link with `href`, `delay`, `closeDelay`, and `render` support |
 | `PreviewCardContent` | Styled popup with automatic portal and positioning |
 
-`PreviewCardContent` supports Base UI Popup props and a forwarded popup ref. Use `positionerProps` to adjust `side`, `align`, and `sideOffset`, or `portalProps` for a custom container. Styling callbacks receive the primitive state.
+## Component props
+
+### PreviewCard
+
+<PropertiesTable>
+  <ResponseField name="open" type="boolean">Controlled open state.</ResponseField>
+  <ResponseField name="defaultOpen" type="boolean">Initial open state when uncontrolled (default: false).</ResponseField>
+  <ResponseField name="onOpenChange" type="(open, eventDetails) => void">Called when the preview opens or closes. Event details include the reason and a cancel method.</ResponseField>
+  <ResponseField name="onOpenChangeComplete" type="(open: boolean) => void">Called after the opening or closing animation completes.</ResponseField>
+  <ResponseField name="triggerId" type="string | null">Identifies the active trigger when controlling the preview.</ResponseField>
+  <ResponseField name="defaultTriggerId" type="string | null">Identifies the trigger for an initially open, uncontrolled preview.</ResponseField>
+  <ResponseField name="actionsRef" type="RefObject">Receives imperative close and unmount actions.</ResponseField>
+  <ResponseField name="handle" type="PreviewCardHandle">Associates the preview with detached triggers.</ResponseField>
+  <ResponseField name="children" type="ReactNode | function">Preview parts, or a render function receiving the active trigger payload.</ResponseField>
+</PropertiesTable>
+
+The root does not render an HTML element. Set hover delays on `PreviewCardTrigger` and positioning options on `PreviewCardContent`.
+
+### PreviewCardTrigger
+
+<PropertiesTable>
+  <ResponseField name="href" type="string">Link destination.</ResponseField>
+  <ResponseField name="delay" type="number">Delay in milliseconds before opening on hover (default: 600).</ResponseField>
+  <ResponseField name="closeDelay" type="number">Delay in milliseconds before closing after the pointer leaves (default: 300).</ResponseField>
+  <ResponseField name="id" type="string">Identifies this trigger for the root's triggerId or defaultTriggerId.</ResponseField>
+  <ResponseField name="handle" type="PreviewCardHandle">Associates a detached trigger with a preview.</ResponseField>
+  <ResponseField name="payload" type="Payload">Data passed to the root's children render function when this trigger is active.</ResponseField>
+  <ResponseField name="children" type="ReactNode">Link content.</ResponseField>
+  <ResponseField name="className" type="string | (state) => string">Additional link classes, optionally based on the open state.</ResponseField>
+  <ResponseField name="style" type="CSSProperties | (state) => CSSProperties">Additional link styles.</ResponseField>
+  <ResponseField name="render" type="ReactElement | function">Customizes the trigger element.</ResponseField>
+</PropertiesTable>
+
+Renders an anchor by default and supports standard anchor attributes and event handlers, including `target` and `rel`.
+
+### PreviewCardContent
+
+<PropertiesTable>
+  <ResponseField name="children" type="ReactNode">Content displayed inside the preview.</ResponseField>
+  <ResponseField name="className" type="string | (state) => string">Additional popup classes, optionally based on popup state.</ResponseField>
+  <ResponseField name="style" type="CSSProperties | (state) => CSSProperties">Popup styles, including width or height.</ResponseField>
+  <ResponseField name="positionerProps" type="BasePreviewCard.Positioner.Props">Positioning options such as side, align, sideOffset, alignOffset, and collisionAvoidance. Zen defaults to side: 'bottom', align: 'start', and sideOffset: 8.</ResponseField>
+  <ResponseField name="portalProps" type="BasePreviewCard.Portal.Props">Portal options, including a custom container and keepMounted (default: false). The portal is appended to document.body by default.</ResponseField>
+  <ResponseField name="render" type="ReactElement | function">Customizes the popup element.</ResponseField>
+</PropertiesTable>
+
+`BasePreviewCard` refers to the `PreviewCard` namespace from `@base-ui/react/preview-card`. Positioning options belong inside `positionerProps`, and portal options belong inside `portalProps`.
+
+The forwarded ref targets the popup div. Standard div attributes and event handlers are also supported. Styling callbacks receive the corresponding Base UI component state.
 
 Preview content is supplementary: keep essential information accessible through the link destination. Use Popover for content that users must explicitly open and interact with.
