@@ -59,7 +59,7 @@ export type SemanticColor =
 
 // Surface color variants
 export type SurfaceColor =
-  | 'surface-base'
+  | 'surface'
   | 'surface-raised'
   | 'surface-sunken'
   | 'surface-overlay'

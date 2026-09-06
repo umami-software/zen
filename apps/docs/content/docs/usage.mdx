@@ -319,7 +319,7 @@ Use semantic color tokens that adapt to the theme:
 
 | Token | Purpose |
 |-------|---------|
-| `surface-base` | Page background |
+| `surface` | Page background |
 | `surface-raised` | Cards, elevated elements |
 | `surface-sunken` | Inset areas |
 | `primary` | Primary text |
@@ -331,7 +331,7 @@ Use semantic color tokens that adapt to the theme:
 ### Cards
 
 ```jsx
-<Box padding="6" border borderRadius="lg" shadow="sm" backgroundColor="surface-base">
+<Box padding="6" border borderRadius="lg" shadow="sm" backgroundColor="surface">
   <Column gap="4">
     <Heading size="lg">Card Title</Heading>
     <Text color="muted">Card description or content goes here.</Text>
@@ -344,7 +344,7 @@ Use semantic color tokens that adapt to the theme:
 ```
 
 <Example>
-  <Box padding="6" border borderRadius="lg" shadow="sm" backgroundColor="surface-base" maxWidth="300px">
+  <Box padding="6" border borderRadius="lg" shadow="sm" backgroundColor="surface" maxWidth="300px">
     <Column gap="4">
       <Heading size="lg">Card Title</Heading>
       <Text color="muted">Card description or content goes here.</Text>

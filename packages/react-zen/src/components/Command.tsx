@@ -14,7 +14,7 @@ export function Command({ className, children, ...props }: CommandProps) {
     <CommandPrimitive
       {...props}
       className={cn(
-        'flex size-full flex-col overflow-hidden rounded-md bg-surface-base text-foreground-primary',
+        'flex size-full flex-col overflow-hidden rounded-md bg-surface text-fg',
         className,
       )}
     >
@@ -28,15 +28,15 @@ export interface CommandInputProps extends ComponentProps<typeof CommandPrimitiv
 export function CommandInput({ className, ...props }: CommandInputProps) {
   return (
     <div className="flex items-center gap-3 border-b border-edge px-3">
-      <Icon size="sm" className="shrink-0 text-foreground-muted">
+      <Icon size="sm" className="shrink-0 text-fg-muted">
         <Search />
       </Icon>
       <CommandPrimitive.Input
         {...props}
         className={cn(
-          'flex h-11 w-full bg-transparent text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] outline-none',
-          'placeholder:text-foreground-muted',
-          'disabled:cursor-not-allowed disabled:text-foreground-disabled',
+          'flex h-11 w-full bg-transparent text-sm outline-none',
+          'placeholder:text-fg-muted',
+          'disabled:cursor-not-allowed disabled:text-fg-disabled',
           className,
         )}
       />
@@ -62,10 +62,7 @@ export function CommandEmpty({ className, ...props }: CommandEmptyProps) {
   return (
     <CommandPrimitive.Empty
       {...props}
-      className={cn(
-        'py-6 text-center text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] text-foreground-muted',
-        className,
-      )}
+      className={cn('py-6 text-center text-sm text-fg-muted', className)}
     />
   );
 }
@@ -79,7 +76,7 @@ export function CommandGroup({ className, ...props }: CommandGroupProps) {
       className={cn(
         'overflow-hidden [&:not(:last-child)]:mb-2',
         '[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5',
-        '[&_[cmdk-group-heading]]:text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)] [&_[cmdk-group-heading]]:font-bold [&_[cmdk-group-heading]]:text-foreground-muted',
+        '[&_[cmdk-group-heading]]:text-sm [&_[cmdk-group-heading]]:font-bold [&_[cmdk-group-heading]]:text-fg-muted',
         className,
       )}
     />
@@ -98,9 +95,9 @@ export function CommandItem({ icon, isDisabled, className, children, ...props }:
       {...props}
       disabled={isDisabled}
       className={cn(
-        'flex items-center gap-3 px-2 py-1.5 rounded cursor-pointer outline-none text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
+        'flex items-center gap-3 px-2 py-1.5 rounded cursor-pointer outline-none text-sm',
         'data-[selected=true]:bg-interactive',
-        'data-[disabled=true]:text-foreground-disabled data-[disabled=true]:cursor-default',
+        'data-[disabled=true]:text-fg-disabled data-[disabled=true]:cursor-default',
         className,
       )}
     >

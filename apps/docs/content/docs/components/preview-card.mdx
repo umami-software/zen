@@ -1,0 +1,62 @@
+---
+title: PreviewCard
+description: A supplementary preview of a link on hover.
+---
+
+import { PreviewCard, PreviewCardTrigger, PreviewCardContent, Text, Example } from "../../../mdx-components";
+
+A supplementary preview of a link on hover.
+
+## Link preview
+
+<Example>
+<PreviewCard>
+  <PreviewCardTrigger href="https://umami.is" className="underline text-sm">Umami</PreviewCardTrigger>
+  <PreviewCardContent className="flex flex-col gap-1">
+    <Text as="p" size="sm" weight="semibold">Umami</Text>
+    <Text as="p" size="sm" color="muted">Website analytics that respects visitor privacy.</Text>
+  </PreviewCardContent>
+</PreviewCard>
+
+```jsx
+<PreviewCard>
+  <PreviewCardTrigger href="https://umami.is" className="underline text-sm">Umami</PreviewCardTrigger>
+  <PreviewCardContent className="flex flex-col gap-1">
+    <Text as="p" size="sm" weight="semibold">Umami</Text>
+    <Text as="p" size="sm" color="muted">Website analytics that respects visitor privacy.</Text>
+  </PreviewCardContent>
+</PreviewCard>
+```
+</Example>
+
+## Placement and delay
+
+<Example>
+<PreviewCard>
+  <PreviewCardTrigger href="https://zen.umami.is" delay={200} closeDelay={300} className="underline text-sm">React Zen</PreviewCardTrigger>
+  <PreviewCardContent positionerProps={{ side: "top", align: "center" }}>
+    <Text as="p" size="sm">Modern, minimalist React components.</Text>
+  </PreviewCardContent>
+</PreviewCard>
+
+```jsx
+<PreviewCard>
+  <PreviewCardTrigger href="https://zen.umami.is" delay={200} closeDelay={300} className="underline text-sm">React Zen</PreviewCardTrigger>
+  <PreviewCardContent positionerProps={{ side: "top", align: "center" }}>
+    <Text as="p" size="sm">Modern, minimalist React components.</Text>
+  </PreviewCardContent>
+</PreviewCard>
+```
+</Example>
+
+## Component props
+
+| Component | Purpose |
+| --- | --- |
+| `PreviewCard` | Root with `open`, `defaultOpen`, and `onOpenChange` |
+| `PreviewCardTrigger` | Link with `href`, `delay`, `closeDelay`, and `render` support |
+| `PreviewCardContent` | Styled popup with automatic portal and positioning |
+
+`PreviewCardContent` supports Base UI Popup props and a forwarded popup ref. Use `positionerProps` to adjust `side`, `align`, and `sideOffset`, or `portalProps` for a custom container. Styling callbacks receive the primitive state.
+
+Preview content is supplementary: keep essential information accessible through the link destination. Use Popover for content that users must explicitly open and interact with.

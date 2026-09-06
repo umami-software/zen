@@ -20,9 +20,10 @@ function isCodeBlock(child: ReactNode): boolean {
   // Check for pre element
   if (type === 'pre') return true;
 
-  // Check for component name containing 'Code' or 'Pre'
+  // Match code-block components explicitly so PreviewCard and other live
+  // components whose names contain "Pre" stay in the preview.
   const name = type.displayName || type.name || '';
-  if (name.includes('Code') || name.includes('Pre')) return true;
+  if (name === 'Pre' || name === 'CodeBlock') return true;
 
   // Check if it has a 'data-rehype-pretty-code-figure' or similar attribute
   if (child.props?.['data-rehype-pretty-code-figure'] !== undefined) return true;
@@ -76,7 +77,7 @@ export function Example({
   wrap = 'wrap',
   position = 'relative',
   overflow = 'hidden',
-  backgroundColor = 'surface-base',
+  backgroundColor = 'surface',
   className,
   children,
   ...props
@@ -85,8 +86,7 @@ export function Example({
   // Prop reference tables don't need the demo min-height; without this they
   // get vertically centered inside 300px with dead space above and below.
   const isTableOnly =
-    preview.length > 0 &&
-    preview.every(child => isValidElement(child) && child.type === DataTable);
+    preview.length > 0 && preview.every(child => isValidElement(child) && child.type === DataTable);
   // If code comes first, show preview by default (expanded); otherwise hide code by default
   const [showSecondary, setShowSecondary] = useState(codeFirst);
 

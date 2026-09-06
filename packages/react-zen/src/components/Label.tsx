@@ -5,7 +5,7 @@ export interface LabelProps extends Omit<TextProps, 'as' | 'render'> {
 }
 
 export function Label({
-  size = 'base',
+  size = 'sm',
   weight = 'semibold',
   lineHeight = 'loose',
   ...props

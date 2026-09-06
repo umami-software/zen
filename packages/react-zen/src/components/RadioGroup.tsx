@@ -55,9 +55,9 @@ export function Radio({ children, className, isDisabled, ...props }: RadioProps)
       {...props}
       disabled={isDisabled}
       className={cn(
-        'radio group flex items-center gap-3 cursor-pointer text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
+        'radio group flex items-center gap-3 cursor-pointer text-sm',
         "before:content-[''] before:block before:w-5 before:h-5 before:box-border before:rounded-full",
-        'before:border before:border-edge-strong before:bg-surface-base before:transition-all before:duration-200',
+        'before:border before:border-edge-strong before:bg-surface before:transition-all before:duration-200',
         'data-[checked]:before:border-[6px] data-[checked]:before:border-primary',
         'data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed',
         className,

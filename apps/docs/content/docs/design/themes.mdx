@@ -62,7 +62,7 @@ function LocalThemeExample() {
   const containerRef = useRef(null);
 
   return (
-    <Box ref={containerRef} padding="6" backgroundColor="surface-base">
+    <Box ref={containerRef} padding="6" backgroundColor="surface">
       <Row alignItems="center" justifyContent="space-between">
         <Text>This container has its own theme</Text>
         <ThemeButton target={containerRef} />
@@ -97,13 +97,13 @@ Themes work by redefining CSS custom properties. The following variables change 
 <Example>
   <DataTable
     data={[
-      { name: '--zen-surface-base', description: 'Primary background color' },
+      { name: '--zen-surface', description: 'Primary background color' },
       { name: '--zen-surface-raised', description: 'Elevated surface background' },
       { name: '--zen-surface-sunken', description: 'Recessed surface background' },
       { name: '--zen-surface-overlay', description: 'Overlay/modal background' },
-      { name: '--zen-text-primary', description: 'Primary text color' },
-      { name: '--zen-text-muted', description: 'Muted/subtle text color' },
-      { name: '--zen-border-default', description: 'Default border color' },
+      { name: '--zen-fg', description: 'Primary text color' },
+      { name: '--zen-fg-muted', description: 'Muted/subtle text color' },
+      { name: '--zen-border', description: 'Default border color' },
       { name: '--zen-border-strong', description: 'Emphasized border color' },
       { name: '--zen-interactive-bg', description: 'Interactive element background' },
       { name: '--zen-primary', description: 'Primary/accent color' },

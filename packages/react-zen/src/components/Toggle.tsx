@@ -39,7 +39,7 @@ export function Toggle({
       className={cn(
         'flex items-center justify-center whitespace-nowrap gap-3 font-medium bg-interactive border border-transparent rounded p-2 relative cursor-pointer',
         'hover:bg-interactive-hover',
-        'data-[pressed]:text-primary-foreground data-[pressed]:bg-primary',
+        'data-[pressed]:text-primary-fg data-[pressed]:bg-primary',
         className,
       )}
     >

@@ -139,13 +139,7 @@ export function Table({
 
   return (
     <TableSelectionContext.Provider value={selection}>
-      <table
-        {...props}
-        className={cn(
-          'grid text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] w-full relative',
-          className,
-        )}
-      >
+      <table {...props} className={cn('grid text-sm w-full relative', className)}>
         {children}
       </table>
     </TableSelectionContext.Provider>

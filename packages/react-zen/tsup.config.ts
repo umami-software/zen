@@ -44,12 +44,21 @@ export default defineConfig({
     for (const file of files) {
       try {
         let content = await fs.readFile(file, 'utf-8');
-        content = content.replace(/^import\s+['"]\.\/[^'"]+\.css['"];?\s*$/gm, '');
-        content = content.replace(/^require\(['"]\.\/[^'"]+\.css['"]\);?\s*$/gm, '');
+        content = content.replace(/^import\s+['"]\.\/[^'"]+\.css['"];?\s*$/gm, match =>
+          match.replace(/[^\n]/g, ''),
+        );
+        content = content.replace(/^require\(['"]\.\/[^'"]+\.css['"]\);?\s*$/gm, match =>
+          match.replace(/[^\n]/g, ''),
+        );
         // Mark the entry as a client module boundary. Done here rather than via
         // `banner` because tsup's treeshake pass strips (and warns about)
         // module-level directives.
         if (!content.startsWith("'use client';")) {
+          const mapFile = `${file}.map`;
+          const map = JSON.parse(await fs.readFile(mapFile, 'utf-8'));
+          // The directive adds one generated line before the mapped bundle.
+          map.mappings = `;${map.mappings}`;
+          await fs.writeFile(mapFile, JSON.stringify(map));
           content = `'use client';
 ${content}`;
         }
@@ -59,9 +68,9 @@ ${content}`;
       }
     }
   },
+  // Keep source paths relative and embed source text for downstream debuggers.
   esbuildOptions(options) {
-    options.sourceRoot = '/';
-    options.sourcesContent = false;
+    options.sourcesContent = true;
   },
   outDir: 'dist',
 });

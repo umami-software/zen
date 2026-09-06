@@ -12,7 +12,7 @@ export function ThemeButtonExample() {
       padding="6"
       border
       borderRadius="lg"
-      backgroundColor="surface-base"
+      backgroundColor="surface"
       width="100%"
       data-theme="dark"
     >

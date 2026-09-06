@@ -1,0 +1,70 @@
+---
+title: Autocomplete
+description: Free-text input with filtered suggestions.
+---
+
+import { Autocomplete, Box, Example } from "../../../mdx-components";
+
+Free-text input with filtered suggestions.
+
+## Suggestions
+
+<Example>
+<Box width="300px">
+  <Autocomplete label="Language" placeholder="Type a language" items={["JavaScript", "TypeScript", "Python", "Rust"]} />
+</Box>
+
+```jsx
+<Box width="300px">
+  <Autocomplete label="Language" placeholder="Type a language" items={["JavaScript", "TypeScript", "Python", "Rust"]} />
+</Box>
+```
+</Example>
+
+## Inline completion
+
+<Example>
+<Box width="300px">
+  <Autocomplete label="City" mode="both" autoHighlight items={["Amsterdam", "Berlin", "London", "Paris"]} />
+</Box>
+
+```jsx
+<Box width="300px">
+  <Autocomplete label="City" mode="both" autoHighlight items={["Amsterdam", "Berlin", "London", "Paris"]} />
+</Box>
+```
+</Example>
+
+## Disabled
+
+<Example>
+<Box width="300px">
+  <Autocomplete label="Language" isDisabled defaultValue="TypeScript" items={["JavaScript", "TypeScript"]} />
+</Box>
+
+```jsx
+<Box width="300px">
+  <Autocomplete label="Language" isDisabled defaultValue="TypeScript" items={["JavaScript", "TypeScript"]} />
+</Box>
+```
+</Example>
+
+## Component props
+
+`items` accepts unique strings. Users can enter a value that is absent from the suggestions.
+
+| Prop | Type | Purpose |
+| --- | --- | --- |
+| `items` | `readonly string[]` | Suggestions to filter and display |
+| `label` | `ReactNode` | Accessible input label |
+| `value` / `defaultValue` | `string` | Controlled or initial text |
+| `onChange` | `(value: string) => void` | Receives edits and chosen suggestions |
+| `onValueChange` | Base UI callback | Receives the value and cancellable event details |
+| `isDisabled` | `boolean` | Disables the input |
+| `mode` | `'list' \| 'both' \| 'inline' \| 'none'` | Filtering and inline completion behavior |
+| `inputProps` | Base UI Input props | Input attributes, including `aria-label` when no label is shown |
+| `positionerProps` | Base UI Positioner props | Popup placement |
+| `renderItem` | `(item: string) => ReactNode` | Custom suggestion content |
+| `emptyMessage` | `ReactNode` | Content shown when no suggestions match |
+
+The forwarded ref targets the input. Other Base UI Autocomplete root props are supported, including `open`, `onOpenChange`, `filter`, and `readOnly`.

@@ -6,33 +6,33 @@ export const button = tv({
     'inline-flex items-center justify-center gap-3 whitespace-nowrap',
     'font-medium rounded border border-transparent cursor-pointer',
     'transition-colors leading-normal relative no-underline',
-    'outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base',
+    'outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface',
   ],
   variants: {
     variant: {
       default: [
-        'bg-interactive text-foreground-primary',
+        'bg-interactive text-fg',
         'hover:bg-interactive-hover',
         'pressed:bg-interactive-pressed',
-        'disabled:text-foreground-disabled',
+        'disabled:text-fg-disabled',
       ],
       primary: [
-        'bg-primary text-primary-foreground',
+        'bg-primary text-primary-fg',
         'hover:opacity-90',
         'pressed:opacity-80',
         'disabled:opacity-50',
       ],
       outline: [
-        'bg-surface-base border-edge shadow-sm text-foreground-primary',
+        'bg-surface border-edge shadow-sm text-fg',
         'hover:border-edge-strong',
         'pressed:bg-surface-raised',
-        'disabled:bg-surface-disabled disabled:text-foreground-disabled',
+        'disabled:bg-surface-disabled disabled:text-fg-disabled',
       ],
       quiet: [
         'bg-transparent',
         'hover:bg-interactive',
         'pressed:bg-interactive-hover',
-        'disabled:text-foreground-disabled',
+        'disabled:text-fg-disabled',
       ],
       danger: [
         'bg-status-error text-white',
@@ -44,15 +44,15 @@ export const button = tv({
         'bg-transparent border-0',
         'hover:bg-transparent',
         'pressed:bg-transparent',
-        'disabled:text-foreground-disabled',
+        'disabled:text-fg-disabled',
       ],
     },
     size: {
-      xs: 'text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)] py-1 px-2',
-      sm: 'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] py-1.5 px-2.5',
-      md: 'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] py-2 px-3',
-      lg: 'text-[length:var(--zen-font-size-lg)]/[var(--zen-line-height-lg)] py-2.5 px-4',
-      xl: 'text-[length:var(--zen-font-size-xl)]/[var(--zen-line-height-xl)] py-3 px-5',
+      xs: 'text-xs py-1 px-2',
+      sm: 'text-sm py-1.5 px-2.5',
+      md: 'text-sm py-2 px-3',
+      lg: 'text-base py-2.5 px-4',
+      xl: 'text-lg py-3 px-5',
     },
   },
   defaultVariants: {
@@ -67,8 +67,8 @@ export type ButtonVariants = VariantProps<typeof button>;
 export const inputField = tv({
   base: [
     'relative flex items-center',
-    'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] rounded border border-edge bg-surface-base shadow-sm',
-    'leading-6 text-foreground-primary transition-colors',
+    'text-sm rounded border border-edge bg-surface shadow-sm',
+    'leading-6 text-fg transition-colors',
     'focus-within:border-edge-strong',
     'has-[input:read-only]:bg-surface-raised has-[textarea:read-only]:bg-surface-raised',
     'has-[:disabled]:bg-surface-disabled has-[:disabled]:opacity-50',
@@ -91,13 +91,13 @@ export type InputFieldVariants = VariantProps<typeof inputField>;
 export const listItem = tv({
   base: [
     'flex items-center justify-between',
-    'gap-3 text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] py-2 px-3 min-w-[120px]',
+    'gap-3 text-sm py-2 px-3 min-w-[120px]',
     'cursor-pointer outline-none rounded',
-    'text-foreground-primary',
+    'text-fg',
     'hovered:bg-interactive',
     'focused:bg-interactive',
     'focus-visible:bg-interactive',
-    'disabled:text-foreground-disabled disabled:cursor-default',
+    'disabled:text-fg-disabled disabled:cursor-default',
     'selected:font-semibold',
   ],
 });
@@ -142,9 +142,7 @@ export type PopoverVariants = VariantProps<typeof popover>;
 
 // Tooltip variants
 export const tooltip = tv({
-  base: [
-    'bg-surface-inverted text-surface-base text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] px-2 py-1 rounded',
-  ],
+  base: ['bg-surface-inverted text-surface text-sm px-2 py-1 rounded'],
 });
 
 // Checkbox variants
@@ -152,15 +150,15 @@ export const checkbox = tv({
   slots: {
     root: [
       'group flex items-center gap-3',
-      'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] cursor-pointer',
-      'disabled:text-foreground-disabled disabled:cursor-default',
+      'text-sm cursor-pointer',
+      'disabled:text-fg-disabled disabled:cursor-default',
     ],
     box: [
       'flex items-center justify-center',
-      'w-5 h-5 rounded border border-edge bg-surface-base',
+      'w-5 h-5 rounded border border-edge bg-surface',
       'shadow-sm transition-colors',
-      'group-data-[checked]:bg-primary group-data-[checked]:border-primary group-data-[checked]:text-primary-foreground',
-      'group-indeterminate:bg-surface-base group-indeterminate:text-foreground-primary',
+      'group-data-[checked]:bg-primary group-data-[checked]:border-primary group-data-[checked]:text-primary-fg',
+      'group-indeterminate:bg-surface group-indeterminate:text-fg',
       'group-disabled:bg-surface-disabled',
       'group-focus-visible:ring-2 group-focus-visible:ring-focus-ring group-focus-visible:ring-offset-1',
     ],
@@ -180,7 +178,7 @@ export const switchVariant = tv({
   slots: {
     root: [
       'group flex items-center gap-3',
-      'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] cursor-pointer',
+      'text-sm cursor-pointer',
       'disabled:opacity-50 disabled:cursor-default',
     ],
     track: [
@@ -192,7 +190,7 @@ export const switchVariant = tv({
     ],
     thumb: [
       'w-4 h-4 rounded-full',
-      'bg-surface-base shadow-sm',
+      'bg-surface shadow-sm',
       'transition-transform',
       'group-data-[checked]:translate-x-4',
     ],
@@ -207,12 +205,12 @@ export const tabs = tv({
     root: 'flex flex-col',
     list: ['flex gap-1 border-b border-edge-muted'],
     tab: [
-      'px-4 py-2 text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] font-medium cursor-pointer',
-      'text-foreground-muted outline-none',
+      'px-4 py-2 text-sm font-medium cursor-pointer',
+      'text-fg-muted outline-none',
       'border-b-2 border-transparent -mb-px',
-      'hovered:text-foreground-primary',
-      'selected:text-foreground-primary selected:border-primary',
-      'disabled:text-foreground-disabled disabled:cursor-default',
+      'hovered:text-fg',
+      'selected:text-fg selected:border-primary',
+      'disabled:text-fg-disabled disabled:cursor-default',
       'focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2',
     ],
     panel: 'py-4',
@@ -223,22 +221,22 @@ export type TabsVariants = VariantProps<typeof tabs>;
 
 // Text variants
 export const text = tv({
-  base: 'text-foreground-primary',
+  base: 'text-fg',
   variants: {
     size: {
-      xs: 'text-[length:var(--zen-font-size-xs)]/[var(--zen-line-height-xs)]',
-      sm: 'text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)]',
-      base: 'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
-      lg: 'text-[length:var(--zen-font-size-lg)]/[var(--zen-line-height-lg)]',
-      xl: 'text-[length:var(--zen-font-size-xl)]/[var(--zen-line-height-xl)]',
-      '2xl': 'text-[length:var(--zen-font-size-2xl)]/[var(--zen-line-height-2xl)]',
-      '3xl': 'text-[length:var(--zen-font-size-3xl)]/[var(--zen-line-height-3xl)]',
-      '4xl': 'text-[length:var(--zen-font-size-4xl)]/[var(--zen-line-height-4xl)]',
+      xs: 'text-xs',
+      sm: 'text-sm',
+      base: 'text-base',
+      lg: 'text-lg',
+      xl: 'text-xl',
+      '2xl': 'text-2xl',
+      '3xl': 'text-3xl',
+      '4xl': 'text-4xl',
     },
     color: {
       default: '',
-      muted: 'text-foreground-muted',
-      disabled: 'text-foreground-disabled',
+      muted: 'text-fg-muted',
+      disabled: 'text-fg-disabled',
     },
     weight: {
       thin: 'font-thin',
@@ -261,18 +259,18 @@ export type TextVariants = VariantProps<typeof text>;
 
 // Heading variants
 export const heading = tv({
-  base: 'font-semibold text-foreground-primary',
+  base: 'font-semibold text-fg',
   variants: {
     size: {
-      sm: 'text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)]',
-      base: 'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
-      lg: 'text-[length:var(--zen-font-size-lg)]/[var(--zen-line-height-lg)]',
-      xl: 'text-[length:var(--zen-font-size-xl)]/[var(--zen-line-height-xl)]',
-      '2xl': 'text-[length:var(--zen-font-size-2xl)]/[var(--zen-line-height-2xl)]',
-      '3xl': 'text-[length:var(--zen-font-size-3xl)]/[var(--zen-line-height-3xl)]',
-      '4xl': 'text-[length:var(--zen-font-size-4xl)]/[var(--zen-line-height-4xl)]',
-      '5xl': 'text-[length:var(--zen-font-size-5xl)]/[var(--zen-line-height-5xl)]',
-      '6xl': 'text-[length:var(--zen-font-size-6xl)]/[var(--zen-line-height-6xl)]',
+      sm: 'text-sm',
+      base: 'text-base',
+      lg: 'text-lg',
+      xl: 'text-xl',
+      '2xl': 'text-2xl',
+      '3xl': 'text-3xl',
+      '4xl': 'text-4xl',
+      '5xl': 'text-5xl',
+      '6xl': 'text-6xl',
     },
   },
   defaultVariants: {
@@ -285,15 +283,15 @@ export type HeadingVariants = VariantProps<typeof heading>;
 // Alert variants
 export const alert = tv({
   base: [
-    'relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border border-edge-muted px-4 py-3 text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
+    'relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border border-edge-muted px-4 py-3 text-sm',
     'has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3',
     '[&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current',
   ],
   variants: {
     variant: {
-      default: 'bg-surface-base text-foreground-primary',
+      default: 'bg-surface text-fg',
       danger: [
-        'border-status-error bg-surface-base text-status-error',
+        'border-status-error bg-surface text-status-error',
         '*:data-[slot=alert-description]:text-status-error/90',
       ],
     },
@@ -311,7 +309,7 @@ export const emptyMedia = tv({
   variants: {
     variant: {
       default: 'bg-transparent',
-      icon: "bg-surface-raised text-foreground-primary flex size-10 shrink-0 items-center justify-center rounded-lg [&_svg:not([class*='size-'])]:size-6",
+      icon: "bg-surface-raised text-fg flex size-10 shrink-0 items-center justify-center rounded-lg [&_svg:not([class*='size-'])]:size-6",
     },
   },
   defaultVariants: {
@@ -326,7 +324,7 @@ export const statusLight = tv({
   base: 'inline-flex items-center gap-2',
   slots: {
     dot: 'w-2 h-2 rounded-full',
-    label: 'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
+    label: 'text-sm',
   },
   variants: {
     color: {
@@ -350,13 +348,13 @@ export const toast = tv({
     'flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg',
     'bg-surface-overlay',
     'border border-edge-muted',
-    'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
+    'text-sm',
   ],
   variants: {
     variant: {
       default: '',
-      success: 'bg-status-success-bg text-status-success-text',
-      error: 'bg-status-error-bg text-status-error-text',
+      success: 'bg-status-success-bg text-status-success-fg',
+      error: 'bg-status-error-bg text-status-error-fg',
     },
   },
 });
@@ -371,13 +369,13 @@ export const badge = tv({
   ],
   variants: {
     variant: {
-      default: 'bg-interactive text-foreground-primary',
-      primary: 'bg-primary text-primary-foreground',
-      outline: 'bg-transparent border-edge text-foreground-primary',
-      success: 'bg-status-success-bg text-status-success-text',
-      warning: 'bg-status-warning-bg text-status-warning-text',
-      error: 'bg-status-error-bg text-status-error-text',
-      info: 'bg-status-info-bg text-status-info-text',
+      default: 'bg-interactive text-fg',
+      primary: 'bg-primary text-primary-fg',
+      outline: 'bg-transparent border-edge text-fg',
+      success: 'bg-status-success-bg text-status-success-fg',
+      warning: 'bg-status-warning-bg text-status-warning-fg',
+      error: 'bg-status-error-bg text-status-error-fg',
+      info: 'bg-status-info-bg text-status-info-fg',
       // Tailwind base color palette (soft tint + readable text, dark-mode aware)
       slate: 'bg-slate-50 text-slate-900 dark:bg-slate-500/20 dark:text-slate-100',
       gray: 'bg-gray-50 text-gray-900 dark:bg-gray-500/20 dark:text-gray-100',
@@ -403,8 +401,8 @@ export const badge = tv({
       rose: 'bg-rose-50 text-rose-900 dark:bg-rose-500/20 dark:text-rose-100',
     },
     size: {
-      sm: 'text-[length:var(--zen-font-size-xs)]/[var(--zen-line-height-xs)] px-2 py-0.5',
-      md: 'text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)] px-2.5 py-0.5',
+      sm: 'text-xs px-2 py-0.5',
+      md: 'text-sm px-2.5 py-0.5',
     },
   },
   defaultVariants: {
@@ -423,32 +421,29 @@ export const avatar = tv({
       'overflow-hidden rounded-full align-middle bg-interactive',
     ],
     image: 'size-full object-cover',
-    fallback: [
-      'flex size-full items-center justify-center',
-      'font-medium text-foreground-primary uppercase',
-    ],
+    fallback: ['flex size-full items-center justify-center', 'font-medium text-fg uppercase'],
   },
   variants: {
     size: {
       xs: {
         root: 'size-6',
-        fallback: 'text-[length:var(--zen-font-size-xs)]/[var(--zen-line-height-xs)]',
+        fallback: 'text-xs',
       },
       sm: {
         root: 'size-8',
-        fallback: 'text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)]',
+        fallback: 'text-sm',
       },
       md: {
         root: 'size-10',
-        fallback: 'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
+        fallback: 'text-sm',
       },
       lg: {
         root: 'size-12',
-        fallback: 'text-[length:var(--zen-font-size-lg)]/[var(--zen-line-height-lg)]',
+        fallback: 'text-lg',
       },
       xl: {
         root: 'size-16',
-        fallback: 'text-[length:var(--zen-font-size-xl)]/[var(--zen-line-height-xl)]',
+        fallback: 'text-xl',
       },
     },
   },
@@ -463,7 +458,7 @@ export type AvatarVariants = VariantProps<typeof avatar>;
 export const tag = tv({
   slots: {
     base: [
-      'inline-flex items-center gap-1 px-2 py-0.5 rounded text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)]',
+      'inline-flex items-center gap-1 px-2 py-0.5 rounded text-sm',
       'cursor-default outline-none',
       'focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-1',
     ],
@@ -477,13 +472,13 @@ export const tag = tv({
   variants: {
     variant: {
       default: {
-        base: 'bg-interactive text-foreground-primary',
+        base: 'bg-interactive text-fg',
       },
       outline: {
-        base: 'bg-transparent border border-edge text-foreground-primary',
+        base: 'bg-transparent border border-edge text-fg',
       },
       primary: {
-        base: 'bg-primary text-primary-foreground',
+        base: 'bg-primary text-primary-fg',
       },
     },
   },

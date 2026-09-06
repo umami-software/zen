@@ -103,7 +103,7 @@ export function List({
   const classes = cn(
     'grid outline-none overflow-auto gap-1',
     isFullscreen &&
-      'zen-layer-floating block p-3 rounded-none fixed inset-0 overflow-auto bg-surface-base',
+      'zen-layer-floating block p-3 rounded-none fixed inset-0 overflow-auto bg-surface',
     className,
   );
 
@@ -160,7 +160,7 @@ export interface ListItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'id'
 }
 
 const itemClasses =
-  'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] flex items-center justify-between px-2 py-1.5 gap-3 min-w-[120px] cursor-pointer outline-none rounded hover:bg-interactive data-[highlighted]:bg-interactive data-[disabled]:text-foreground-disabled data-[selected]:font-semibold';
+  'text-sm flex items-center justify-between px-2 py-1.5 gap-3 min-w-[120px] cursor-pointer outline-none rounded hover:bg-interactive data-[highlighted]:bg-interactive data-[disabled]:text-fg-disabled data-[selected]:font-semibold';
 
 export function ListItem({
   id,
@@ -268,7 +268,7 @@ export function ListSection({ title, className, children, ...props }: ListSectio
     return (
       <BaseSelect.Group {...props} className={cn('[&:not(:last-child)]:mb-4', className)}>
         {title && (
-          <BaseSelect.GroupLabel className="text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] font-bold px-2 py-1.5">
+          <BaseSelect.GroupLabel className="text-sm font-bold px-2 py-1.5">
             {title}
           </BaseSelect.GroupLabel>
         )}
@@ -281,7 +281,7 @@ export function ListSection({ title, className, children, ...props }: ListSectio
     return (
       <BaseCombobox.Group {...props} className={cn('[&:not(:last-child)]:mb-4', className)}>
         {title && (
-          <BaseCombobox.GroupLabel className="text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] font-bold px-2 py-1.5">
+          <BaseCombobox.GroupLabel className="text-sm font-bold px-2 py-1.5">
             {title}
           </BaseCombobox.GroupLabel>
         )}
@@ -292,11 +292,7 @@ export function ListSection({ title, className, children, ...props }: ListSectio
 
   return (
     <div {...props} role="group" className={cn('[&:not(:last-child)]:mb-4', className)}>
-      {title && (
-        <div className="text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] font-bold px-2 py-1.5">
-          {title}
-        </div>
-      )}
+      {title && <div className="text-sm font-bold px-2 py-1.5">{title}</div>}
       {children}
     </div>
   );

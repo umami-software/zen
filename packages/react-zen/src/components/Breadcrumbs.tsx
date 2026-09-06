@@ -31,15 +31,15 @@ export function Breadcrumb({ children, className, isDisabled, ...props }: Breadc
       {...props}
       aria-disabled={isDisabled || undefined}
       className={cn(
-        'flex items-center text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] gap-3 list-none',
-        '[&_a]:text-foreground-muted [&_a]:no-underline [&_a]:font-normal',
-        '[&_a:hover]:text-foreground-primary',
+        'flex items-center text-sm gap-3 list-none',
+        '[&_a]:text-fg-muted [&_a]:no-underline [&_a]:font-normal',
+        '[&_a:hover]:text-fg',
         'last:[&>span]:hidden',
         className,
       )}
     >
       {children as ReactNode}
-      <Icon className="text-foreground-muted" size="xs">
+      <Icon className="text-fg-muted" size="xs">
         <ChevronRight />
       </Icon>
     </li>

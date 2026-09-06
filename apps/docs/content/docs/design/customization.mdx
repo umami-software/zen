@@ -18,14 +18,14 @@ To customize Zen, override the CSS variables in your stylesheet. Variables defin
 
 /* Override only in light mode */
 [data-theme="light"] {
-  --zen-surface-base: #fafafa;
-  --zen-text-primary: #1a1a1a;
+  --zen-surface: #fafafa;
+  --zen-fg: #1a1a1a;
 }
 
 /* Override only in dark mode */
 [data-theme="dark"] {
-  --zen-surface-base: #0a0a0a;
-  --zen-text-primary: #fafafa;
+  --zen-surface: #0a0a0a;
+  --zen-fg: #fafafa;
 }
 ```
 
@@ -37,14 +37,14 @@ Here's an example of creating a custom branded theme with a blue accent:
 [data-theme="light"] {
   /* Primary button and accent color */
   --zen-primary: oklch(0.55 0.2 250);
-  --zen-primary-foreground: #ffffff;
+  --zen-primary-fg: #ffffff;
   --zen-focus-ring: oklch(0.7 0.15 250);
 }
 
 [data-theme="dark"] {
   /* Lighter primary for dark mode */
   --zen-primary: oklch(0.7 0.15 250);
-  --zen-primary-foreground: oklch(0.2 0 0);
+  --zen-primary-fg: oklch(0.2 0 0);
   --zen-focus-ring: var(--zen-primary);
 }
 ```
@@ -59,7 +59,7 @@ The primary accent color used for primary buttons and branded elements.
   <DataTable
     data={[
       { variable: '--zen-primary', description: 'Primary/brand accent color (button backgrounds)' },
-      { variable: '--zen-primary-foreground', description: 'Text color on primary backgrounds' },
+      { variable: '--zen-primary-fg', description: 'Text color on primary backgrounds' },
     ]}
   >
     <DataColumn id="variable" label="Variable" />
@@ -74,7 +74,7 @@ Background colors for different elevation levels.
 <Example>
   <DataTable
     data={[
-      { variable: '--zen-surface-base', description: 'Primary background (page level)' },
+      { variable: '--zen-surface', description: 'Primary background (page level)' },
       { variable: '--zen-surface-raised', description: 'Elevated surfaces (cards, modals)' },
       { variable: '--zen-surface-sunken', description: 'Recessed areas (inputs, wells)' },
       { variable: '--zen-surface-overlay', description: 'Overlays (dropdowns, popovers)' },
@@ -94,9 +94,9 @@ Text colors for different emphasis levels.
 <Example>
   <DataTable
     data={[
-      { variable: '--zen-text-primary', description: 'Primary text (headings, body)' },
-      { variable: '--zen-text-muted', description: 'Muted text (labels, placeholders, hints)' },
-      { variable: '--zen-text-disabled', description: 'Disabled text' },
+      { variable: '--zen-fg', description: 'Primary text (headings, body)' },
+      { variable: '--zen-fg-muted', description: 'Muted text (labels, placeholders, hints)' },
+      { variable: '--zen-fg-disabled', description: 'Disabled text' },
     ]}
   >
     <DataColumn id="variable" label="Variable" />
@@ -111,7 +111,7 @@ Border colors for different emphasis levels.
 <Example>
   <DataTable
     data={[
-      { variable: '--zen-border-default', description: 'Default border (inputs, cards)' },
+      { variable: '--zen-border', description: 'Default border (inputs, cards)' },
       { variable: '--zen-border-muted', description: 'Subtle borders (dividers)' },
       { variable: '--zen-border-strong', description: 'Emphasized borders (focus, active)' },
     ]}
@@ -146,7 +146,7 @@ Focus ring styles for accessibility.
   <DataTable
     data={[
       { variable: '--zen-focus-ring', description: 'Focus ring color' },
-      { variable: '--zen-focus-ring-offset', description: 'Focus ring offset color (gap)' },
+      { variable: '--zen-focus-offset', description: 'Focus ring offset color (gap)' },
     ]}
   >
     <DataColumn id="variable" label="Variable" />
@@ -163,16 +163,16 @@ Colors for feedback states (info, success, warning, error).
     data={[
       { variable: '--zen-status-info', description: 'Info accent color' },
       { variable: '--zen-status-info-bg', description: 'Info background' },
-      { variable: '--zen-status-info-text', description: 'Info text color' },
+      { variable: '--zen-status-info-fg', description: 'Info text color' },
       { variable: '--zen-status-success', description: 'Success accent color' },
       { variable: '--zen-status-success-bg', description: 'Success background' },
-      { variable: '--zen-status-success-text', description: 'Success text color' },
+      { variable: '--zen-status-success-fg', description: 'Success text color' },
       { variable: '--zen-status-warning', description: 'Warning accent color' },
       { variable: '--zen-status-warning-bg', description: 'Warning background' },
-      { variable: '--zen-status-warning-text', description: 'Warning text color' },
+      { variable: '--zen-status-warning-fg', description: 'Warning text color' },
       { variable: '--zen-status-error', description: 'Error accent color' },
       { variable: '--zen-status-error-bg', description: 'Error background' },
-      { variable: '--zen-status-error-text', description: 'Error text color' },
+      { variable: '--zen-status-error-fg', description: 'Error text color' },
     ]}
   >
     <DataColumn id="variable" label="Variable" />
@@ -223,3 +223,49 @@ Zen uses OKLCH color values for better color manipulation and perceptual uniform
 - Use OKLCH for colors to maintain perceptual consistency across themes
 - Test your customizations in both themes to ensure adequate contrast
 - Use browser DevTools to inspect and experiment with CSS variables in real-time
+
+## Token naming
+
+All Zen tokens use the `--zen-` prefix. Unsuffixed names represent the default value;
+variants add a suffix, such as `--zen-border-muted`. Foreground colors use `fg`, and
+background qualifiers use `bg`. The `--zen-palette-50` through `--zen-palette-950` tokens
+provide the selected neutral, slate, gray, zinc, or stone shades used by semantic colors.
+
+## Migrating token names
+
+Update custom overrides and utility classes to the names below. Token values and
+light/dark palette definitions are unchanged. The old names are no longer provided.
+
+| Previous token | Current token |
+| --- | --- |
+| `--zen-radius-default` | `--zen-radius` |
+| `--zen-shadow-default` | `--zen-shadow` |
+| `--zen-padding-x-default` | `--zen-padding-x` |
+| `--zen-padding-y-default` | `--zen-padding-y` |
+| `--zen-gap-default` | `--zen-gap` |
+| `--zen-surface-base` | `--zen-surface` |
+| `--zen-border-default` | `--zen-border` |
+| `--zen-text-primary` | `--zen-fg` |
+| `--zen-text-muted` | `--zen-fg-muted` |
+| `--zen-text-disabled` | `--zen-fg-disabled` |
+| `--zen-primary-foreground` | `--zen-primary-fg` |
+| `--zen-status-*-text` | `--zen-status-*-fg` |
+| `--zen-focus-ring-offset` | `--zen-focus-offset` |
+| `--zen-gray-*` | `--zen-palette-*` |
+
+| Previous utility | Current utility |
+| --- | --- |
+| `bg-surface-base` | `bg-surface` |
+| `text-surface-base` | `text-surface` |
+| `text-foreground` / `text-foreground-primary` | `text-fg` |
+| `text-foreground-muted` | `text-fg-muted` |
+| `text-foreground-disabled` | `text-fg-disabled` |
+| `text-primary-foreground` | `text-primary-fg` |
+| `text-status-*-text` | `text-status-*-fg` |
+
+The surface color prop value also changes: use `backgroundColor="surface"` instead of
+`backgroundColor="surface-base"`. Responsive values and hover/focus/active variants
+use the same new names. `border-edge` and `ring-offset-focus-offset` remain unchanged.
+
+The package's Tailwind preset and its own build now share one configuration, including
+the correct `--zen-` variable references.

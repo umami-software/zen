@@ -75,7 +75,7 @@ export function Menu({
   };
 
   const popupClassName = cn(
-    'min-w-[200px] p-2 border border-edge rounded-md shadow-lg bg-surface-base overflow-hidden outline-none',
+    'min-w-[200px] p-2 border border-edge rounded-md shadow-lg bg-surface overflow-hidden outline-none',
     className,
   );
 
@@ -158,9 +158,9 @@ export function MenuItem({
   };
 
   const itemClassName = cn(
-    'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] flex items-center justify-between gap-3 px-2 py-1.5 rounded cursor-pointer outline-none w-full',
+    'text-sm flex items-center justify-between gap-3 px-2 py-1.5 rounded cursor-pointer outline-none w-full',
     'hover:bg-interactive focus:bg-interactive data-[highlighted]:bg-interactive',
-    'data-[disabled]:text-foreground-disabled',
+    'data-[disabled]:text-fg-disabled',
     'data-[selected]:font-semibold',
     className,
   );
@@ -276,17 +276,15 @@ export function MenuSection({
     <>
       {title &&
         (primitiveKind === 'context-menu' ? (
-          <BaseContextMenu.GroupLabel className="text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] font-bold px-2 py-1.5">
+          <BaseContextMenu.GroupLabel className="text-sm font-bold px-2 py-1.5">
             {title}
           </BaseContextMenu.GroupLabel>
         ) : primitiveKind === 'menu' ? (
-          <BaseMenu.GroupLabel className="text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] font-bold px-2 py-1.5">
+          <BaseMenu.GroupLabel className="text-sm font-bold px-2 py-1.5">
             {title}
           </BaseMenu.GroupLabel>
         ) : (
-          <div className="text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] font-bold px-2 py-1.5">
-            {title}
-          </div>
+          <div className="text-sm font-bold px-2 py-1.5">{title}</div>
         ))}
       {body}
     </>

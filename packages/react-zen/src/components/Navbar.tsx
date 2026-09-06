@@ -13,7 +13,7 @@ const NavbarContext = createContext<NavbarContextValue>({ showArrow: true });
 
 const triggerClassName = cn(
   'flex items-center gap-1 select-none cursor-pointer rounded-md px-3 py-2',
-  'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] font-medium text-foreground-primary bg-transparent border-0',
+  'text-sm font-medium text-fg bg-transparent border-0',
   'hover:bg-interactive data-[popup-open]:bg-interactive',
   'outline-none [&:focus-visible]:outline-2 [&:focus-visible]:outline-offset-1 [&:focus-visible]:outline-focus-ring',
 );
@@ -51,7 +51,7 @@ const popupClassName = cn(
   'relative h-(--popup-height) w-(--popup-width) origin-(--transform-origin)',
   // `overflow-hidden` clips the nested menu's square background to the rounded
   // corners so the popup border stays visible all the way around.
-  'overflow-hidden rounded-md border border-edge bg-surface-base shadow-lg outline-none',
+  'overflow-hidden rounded-md border border-edge bg-surface shadow-lg outline-none',
   'transition-[opacity,transform,width,height,scale,translate] duration-(--duration) ease-(--easing)',
   'data-[starting-style]:scale-95 data-[starting-style]:opacity-0',
   'data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[ending-style]:duration-150 data-[ending-style]:ease-[ease]',
@@ -116,7 +116,7 @@ export function NavbarItem({
         <BaseNavigationMenu.Trigger className={cn(triggerClassName, className)}>
           <Text>{label}</Text>
           {showArrow && (
-            <BaseNavigationMenu.Icon className="flex text-foreground-muted transition-transform duration-200 ease-in-out data-[popup-open]:rotate-180">
+            <BaseNavigationMenu.Icon className="flex text-fg-muted transition-transform duration-200 ease-in-out data-[popup-open]:rotate-180">
               <ChevronDown className="size-4" />
             </BaseNavigationMenu.Icon>
           )}
@@ -142,7 +142,7 @@ export function NavbarLink({ className, ...props }: NavbarLinkProps) {
   return (
     <BaseNavigationMenu.Link
       className={cn(
-        'flex items-center gap-1 select-none rounded-md px-3 py-2 no-underline text-foreground-primary',
+        'flex items-center gap-1 select-none rounded-md px-3 py-2 no-underline text-fg',
         'hover:bg-interactive',
         'outline-none [&:focus-visible]:outline-2 [&:focus-visible]:outline-offset-1 [&:focus-visible]:outline-focus-ring',
         className as string,

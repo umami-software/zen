@@ -71,10 +71,10 @@ export function Tab({ id, value, isDisabled, href, children, className, ...props
       render={href ? <a href={href} /> : undefined}
       nativeButton={!href}
       className={cn(
-        'tab flex items-center justify-center text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] text-foreground-muted py-2 border-b-2 border-transparent select-none -mb-[2px] cursor-pointer outline-none',
-        'hover:text-foreground-primary',
-        'data-[active]:text-foreground-primary data-[active]:border-b-primary',
-        'data-[disabled]:text-foreground-disabled data-[disabled]:cursor-default',
+        'tab flex items-center justify-center text-sm text-fg-muted py-2 border-b-2 border-transparent select-none -mb-[2px] cursor-pointer outline-none',
+        'hover:text-fg',
+        'data-[active]:text-fg data-[active]:border-b-primary',
+        'data-[disabled]:text-fg-disabled data-[disabled]:cursor-default',
         className,
       )}
     >

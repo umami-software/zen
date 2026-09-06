@@ -28,7 +28,7 @@ export function PaletteSwitcher({ className }: PaletteSwitcherProps) {
   return (
     <div
       className={cn(
-        'inline-flex items-center bg-surface-base border border-edge rounded-md overflow-hidden',
+        'inline-flex items-center bg-surface border border-edge rounded-md overflow-hidden',
         className,
       )}
     >
@@ -44,9 +44,7 @@ export function PaletteSwitcher({ className }: PaletteSwitcherProps) {
             '[&:not(:first-child)]:border-l [&:not(:first-child)]:border-edge',
             'hover:bg-interactive',
             'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset',
-            currentPalette === paletteOption
-              ? 'bg-interactive text-foreground-primary'
-              : 'text-foreground-muted',
+            currentPalette === paletteOption ? 'bg-interactive text-fg' : 'text-fg-muted',
           )}
         >
           {PALETTE_LABELS[paletteOption]}

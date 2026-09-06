@@ -66,7 +66,7 @@ export function ResizableHandle({ withHandle, className, ...props }: ResizableHa
             isVertical && 'rotate-90',
           )}
         >
-          <GripVertical className="size-2.5 text-foreground-muted" />
+          <GripVertical className="size-2.5 text-fg-muted" />
         </div>
       )}
     </Separator>

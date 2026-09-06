@@ -81,7 +81,7 @@ export function SearchField({
             size="icon-xs"
             isDisabled={props.disabled}
             aria-label="Clear search"
-            className="text-foreground-muted"
+            className="text-fg-muted"
             onClick={() => handleChange('')}
           >
             <Icon size="sm">

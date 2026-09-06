@@ -52,10 +52,7 @@ export const EmptyTitle = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivEleme
       {...props}
       ref={ref}
       data-slot="empty-title"
-      className={cn(
-        'text-[length:var(--zen-font-size-lg)]/[var(--zen-line-height-lg)] font-medium tracking-tight',
-        className,
-      )}
+      className={cn('text-lg font-medium tracking-tight', className)}
     />
   ),
 );
@@ -71,7 +68,7 @@ export const EmptyDescription = forwardRef<
     ref={ref}
     data-slot="empty-description"
     className={cn(
-      'text-foreground-muted [&>a:hover]:text-foreground-primary text-[length:var(--zen-font-size-sm)]/relaxed [&>a]:underline [&>a]:underline-offset-4',
+      'text-fg-muted [&>a:hover]:text-fg text-sm/relaxed [&>a]:underline [&>a]:underline-offset-4',
       className,
     )}
   />
@@ -86,7 +83,7 @@ export const EmptyContent = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivEle
       ref={ref}
       data-slot="empty-content"
       className={cn(
-        'flex w-full max-w-sm min-w-0 flex-col items-center gap-4 text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)] text-balance',
+        'flex w-full max-w-sm min-w-0 flex-col items-center gap-4 text-sm text-balance',
         className,
       )}
     />

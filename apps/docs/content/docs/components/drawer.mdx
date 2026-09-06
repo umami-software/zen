@@ -1,0 +1,154 @@
+---
+title: Drawer
+description: A panel with swipe dismissal and optional vertical snap points.
+---
+
+import { Button, Drawer, DrawerTrigger, DrawerContent, DrawerTitle, DrawerDescription, DrawerClose, Example } from "../../../mdx-components";
+
+A panel with swipe dismissal and optional vertical snap points.
+
+## Bottom drawer
+
+<Example>
+<Drawer>
+  <DrawerTrigger render={<Button />}>Open drawer</DrawerTrigger>
+  <DrawerContent>
+    <DrawerTitle>Display settings</DrawerTitle>
+    <DrawerDescription>Adjust your workspace preferences.</DrawerDescription>
+    <DrawerClose render={<Button />}>Done</DrawerClose>
+  </DrawerContent>
+</Drawer>
+
+```jsx
+<Drawer>
+  <DrawerTrigger render={<Button />}>Open drawer</DrawerTrigger>
+  <DrawerContent>
+    <DrawerTitle>Display settings</DrawerTitle>
+    <DrawerDescription>Adjust your workspace preferences.</DrawerDescription>
+    <DrawerClose render={<Button />}>Done</DrawerClose>
+  </DrawerContent>
+</Drawer>
+```
+</Example>
+
+## Side drawer
+
+<Example>
+<Drawer swipeDirection="right">
+  <DrawerTrigger render={<Button />}>Open side drawer</DrawerTrigger>
+  <DrawerContent>
+    <DrawerTitle>Filters</DrawerTitle>
+    <DrawerDescription>Swipe right to dismiss this panel.</DrawerDescription>
+    <DrawerClose render={<Button />}>Close filters</DrawerClose>
+  </DrawerContent>
+</Drawer>
+
+```jsx
+<Drawer swipeDirection="right">
+  <DrawerTrigger render={<Button />}>Open side drawer</DrawerTrigger>
+  <DrawerContent>
+    <DrawerTitle>Filters</DrawerTitle>
+    <DrawerDescription>Swipe right to dismiss this panel.</DrawerDescription>
+    <DrawerClose render={<Button />}>Close filters</DrawerClose>
+  </DrawerContent>
+</Drawer>
+```
+</Example>
+
+## Snap points
+
+<Example>
+<Drawer snapPoints={[0.5, 1]} defaultSnapPoint={0.5}>
+  <DrawerTrigger render={<Button />}>Open snap drawer</DrawerTrigger>
+  <DrawerContent style={{ height: "100dvh" }}>
+    <DrawerTitle>Activity</DrawerTitle>
+    <DrawerDescription>Drag this panel upward to expand it, or downward to dismiss it.</DrawerDescription>
+    <DrawerClose render={<Button />}>Close activity</DrawerClose>
+  </DrawerContent>
+</Drawer>
+
+```jsx
+<Drawer snapPoints={[0.5, 1]} defaultSnapPoint={0.5}>
+  <DrawerTrigger render={<Button />}>Open snap drawer</DrawerTrigger>
+  <DrawerContent style={{ height: "100dvh" }}>
+    <DrawerTitle>Activity</DrawerTitle>
+    <DrawerDescription>Drag this panel upward to expand it, or downward to dismiss it.</DrawerDescription>
+    <DrawerClose render={<Button />}>Close activity</DrawerClose>
+  </DrawerContent>
+</Drawer>
+```
+</Example>
+
+## Component parts
+
+| Component | Purpose |
+| --- | --- |
+| `Drawer` | Root: `open`, `defaultOpen`, `onOpenChange`, `swipeDirection`, and snap-point props |
+| `DrawerTrigger` | Opens the drawer; use `render={<Button />}` for Zen button styles |
+| `DrawerContent` | Styled popup with portal, backdrop, viewport, and scrollable content |
+| `DrawerTitle` | Accessible title; include one in every drawer |
+| `DrawerDescription` | Optional accessible description |
+| `DrawerClose` | Closes the drawer; supports `render` |
+
+`swipeDirection` defaults to `down` (bottom). Use `up` for top, `left` for left, or `right` for right. Snap points apply to vertical drawers. Set the content height to accommodate the largest snap point.
+
+## Component props
+
+### Drawer
+
+<PropertiesTable>
+  <ResponseField name="open" type="boolean">Controlled open state.</ResponseField>
+  <ResponseField name="defaultOpen" type="boolean">Initial open state when uncontrolled (default: false).</ResponseField>
+  <ResponseField name="onOpenChange" type="(open, eventDetails) => void">Called when the drawer opens or closes. Event details include the reason and a cancel method.</ResponseField>
+  <ResponseField name="onOpenChangeComplete" type="(open: boolean) => void">Called after the opening or closing animation completes.</ResponseField>
+  <ResponseField name="swipeDirection" type="'up' | 'down' | 'left' | 'right'">Dismissal direction and edge placement (default: 'down').</ResponseField>
+  <ResponseField name="modal" type="boolean | 'trap-focus'">Controls focus trapping, scroll locking, and outside interaction (default: true). 'trap-focus' traps focus without locking page scrolling.</ResponseField>
+  <ResponseField name="disablePointerDismissal" type="boolean">Prevents dismissal by outside presses and, for non-modal drawers, focus moving outside (default: false).</ResponseField>
+  <ResponseField name="snapPoints" type="(number | string)[]">Vertical snap positions. Numbers from 0 to 1 represent viewport-height fractions; larger numbers represent pixels. Strings accept px or rem units.</ResponseField>
+  <ResponseField name="snapPoint" type="number | string | null">Controlled active snap point.</ResponseField>
+  <ResponseField name="defaultSnapPoint" type="number | string | null">Initial snap point when uncontrolled.</ResponseField>
+  <ResponseField name="onSnapPointChange" type="(snapPoint, eventDetails) => void">Called when the active snap point changes.</ResponseField>
+  <ResponseField name="snapToSequentialPoints" type="boolean">Uses drag distance instead of velocity to choose the next snap point (default: false).</ResponseField>
+  <ResponseField name="triggerId" type="string | null">Identifies the active trigger when controlling the drawer.</ResponseField>
+  <ResponseField name="defaultTriggerId" type="string | null">Identifies the trigger for an initially open, uncontrolled drawer.</ResponseField>
+  <ResponseField name="actionsRef" type="RefObject">Receives imperative close and unmount actions.</ResponseField>
+  <ResponseField name="handle" type="DrawerHandle">Associates the drawer with detached triggers.</ResponseField>
+  <ResponseField name="children" type="ReactNode | function">Drawer parts, or a render function receiving the active trigger payload.</ResponseField>
+</PropertiesTable>
+
+### DrawerContent
+
+<PropertiesTable>
+  <ResponseField name="children" type="ReactNode">Content displayed inside the drawer.</ResponseField>
+  <ResponseField name="className" type="string | (state) => string">Additional popup classes, optionally based on drawer state.</ResponseField>
+  <ResponseField name="style" type="CSSProperties | (state) => CSSProperties">Popup styles, including width or height.</ResponseField>
+  <ResponseField name="initialFocus" type="boolean | RefObject | function">Controls where focus moves when the drawer opens.</ResponseField>
+  <ResponseField name="finalFocus" type="boolean | RefObject | function">Controls where focus returns when the drawer closes.</ResponseField>
+  <ResponseField name="portalProps" type="Drawer.Portal.Props">Portal options, including a custom container and keepMounted.</ResponseField>
+  <ResponseField name="render" type="ReactElement | function">Customizes the popup element.</ResponseField>
+</PropertiesTable>
+
+The forwarded ref targets the popup element. Standard div attributes and event handlers are also supported.
+
+### DrawerTrigger and DrawerClose
+
+<PropertiesTable>
+  <ResponseField name="children" type="ReactNode">Button content.</ResponseField>
+  <ResponseField name="render" type="ReactElement | function">Customizes the button element. The examples use a Zen Button.</ResponseField>
+  <ResponseField name="disabled" type="boolean">Disables the button (default: false).</ResponseField>
+  <ResponseField name="nativeButton" type="boolean">Set to false when render uses a non-button element (default: true).</ResponseField>
+  <ResponseField name="className" type="string | (state) => string">Additional button classes.</ResponseField>
+</PropertiesTable>
+
+`DrawerTrigger` also accepts `id` to identify the trigger, `handle` to associate a detached trigger with a drawer, and `payload` to pass data to the root's render function. Both components support standard button attributes and event handlers.
+
+### DrawerTitle and DrawerDescription
+
+<PropertiesTable>
+  <ResponseField name="children" type="ReactNode">Title or description content.</ResponseField>
+  <ResponseField name="render" type="ReactElement | function">Customizes the rendered element.</ResponseField>
+  <ResponseField name="className" type="string | (state) => string">Additional element classes.</ResponseField>
+  <ResponseField name="style" type="CSSProperties | (state) => CSSProperties">Additional element styles.</ResponseField>
+</PropertiesTable>
+
+Include a `DrawerTitle` to give the drawer an accessible name. `DrawerDescription` supplies an optional accessible description.

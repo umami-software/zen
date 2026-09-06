@@ -16,7 +16,7 @@ export function Toolbar({ isDisabled, orientation, className, children, ...props
       disabled={isDisabled}
       orientation={orientation}
       className={cn(
-        'flex items-center gap-1 p-1 rounded-md border border-edge bg-surface-base shadow-sm w-fit',
+        'flex items-center gap-1 p-1 rounded-md border border-edge bg-surface shadow-sm w-fit',
         orientation === 'vertical' && 'flex-col',
         className,
       )}

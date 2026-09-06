@@ -9,8 +9,10 @@ The default fonts we use are [Inter](https://fonts.google.com/specimen/Inter) fo
 
 ## Font sizes
 
-Font sizes use Tailwind's naming convention, but resolve through Zen's own type-scale tokens. The
-scale has a `14px` base and does not change when the host application's root font size changes.
+Font sizes use Tailwind's native typography utilities. `size="sm"` maps to `text-sm`,
+and `size="base"` maps to `text-base`. Text and standard controls default to `sm`.
+The sizes below assume Tailwind's default theme and a 16px root font size; rem-based sizes
+follow the host application's root font size.
 
 <Example>
     <Text size="xs">xs</Text>
@@ -47,19 +49,19 @@ scale has a `14px` base and does not change when the host application's root fon
 <Example>
   <DataTable
     data={[
-      { name: 'xs', value: '10.5px' },
-      { name: 'sm', value: '12.25px' },
-      { name: 'base', value: '14px' },
-      { name: 'lg', value: '15.75px' },
-      { name: 'xl', value: '17.5px' },
-      { name: '2xl', value: '21px' },
-      { name: '3xl', value: '26.25px' },
-      { name: '4xl', value: '31.5px' },
-      { name: '5xl', value: '42px' },
-      { name: '6xl', value: '52.5px' },
-      { name: '7xl', value: '63px' },
-      { name: '8xl', value: '84px' },
-      { name: '9xl', value: '112px' },
+      { name: 'xs', value: '12px' },
+      { name: 'sm', value: '14px' },
+      { name: 'base', value: '16px' },
+      { name: 'lg', value: '18px' },
+      { name: 'xl', value: '20px' },
+      { name: '2xl', value: '24px' },
+      { name: '3xl', value: '30px' },
+      { name: '4xl', value: '36px' },
+      { name: '5xl', value: '48px' },
+      { name: '6xl', value: '60px' },
+      { name: '7xl', value: '72px' },
+      { name: '8xl', value: '96px' },
+      { name: '9xl', value: '128px' },
     ]}
   >
     <DataColumn id="name" label="Value" />
@@ -116,7 +118,7 @@ scale has a `14px` base and does not change when the host application's root fon
 
 Font properties are used by typography components to control text appearance. [Text](/docs/typography/text) is the primary component for rendering text and accepts all font-related props. [Heading](/docs/typography/heading) uses a subset of larger sizes appropriate for headings.
 
-- **size** - Controls the font size. Text defaults to `base`, while Heading sizes map to appropriate heading levels.
+- **size** - Controls the font size. Text defaults to `sm`, while Heading sizes map to appropriate heading levels.
 - **weight** - Controls the font weight. Text defaults to `normal`, Heading defaults to `semibold`.
 
 All font props accept responsive values for adapting typography across breakpoints.
@@ -127,3 +129,17 @@ All font props accept responsive values for adapting typography across breakpoin
   <ResponseField name="size" type="Responsive<FontSize>">"xs" | "sm" | "base" | "lg" | "xl" | "2xl" | ... | "9xl"</ResponseField>
   <ResponseField name="weight" type="Responsive<FontWeight>">"thin" | "extralight" | "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold" | "black"</ResponseField>
 </PropertiesTable>
+
+## Customizing typography
+
+Configure font sizes and their line heights through Tailwind's `--text-*` theme variables.
+Zen components use the same utilities as the rest of your application. Font families remain
+configurable through `--zen-font-family` and `--zen-font-family-mono`.
+
+## Migrating from the custom scale
+
+The old `--zen-font-size-*` and `--zen-line-height-*` variables are no longer used.
+Move overrides into your Tailwind typography theme. Explicit sizes now follow Tailwind: for
+example, `size="base"` is 16px instead of 14px at the default root size. Use `size="sm"` for 14px text.
+Text, Label, Code, and ordinary control defaults remain 14px; explicit heading and other size
+variants now follow the standard scale.

@@ -55,7 +55,7 @@ export function Toast({
           aria-hidden
           aria-label="Close"
           size="sm"
-          className="cursor-pointer text-foreground-muted hover:text-foreground-primary"
+          className="cursor-pointer text-fg-muted hover:text-fg"
           onClick={() => onClose?.(TOAST_CLOSE_ACTION)}
         >
           <X />

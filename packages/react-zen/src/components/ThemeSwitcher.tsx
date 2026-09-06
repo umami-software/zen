@@ -61,7 +61,7 @@ export function ThemeSwitcher({ className }: ThemeSwitcherProps) {
   return (
     <div
       className={cn(
-        'inline-flex items-center bg-surface-base border border-edge rounded-md overflow-hidden',
+        'inline-flex items-center bg-surface border border-edge rounded-md overflow-hidden',
         className,
       )}
     >
@@ -77,9 +77,7 @@ export function ThemeSwitcher({ className }: ThemeSwitcherProps) {
             '[&:not(:first-child)]:border-l [&:not(:first-child)]:border-edge',
             'hover:bg-interactive',
             'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset',
-            mode === option.value
-              ? 'bg-interactive text-foreground-primary'
-              : 'text-foreground-muted',
+            mode === option.value ? 'bg-interactive text-fg' : 'text-fg-muted',
           )}
         >
           <Icon size="sm">{option.icon}</Icon>

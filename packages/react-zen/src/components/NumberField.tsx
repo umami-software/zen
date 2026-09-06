@@ -24,9 +24,9 @@ export interface NumberFieldProps
 
 const stepperClasses = [
   'flex items-center justify-center self-stretch px-3 shrink-0',
-  'cursor-pointer select-none bg-transparent text-foreground-primary',
+  'cursor-pointer select-none bg-transparent text-fg',
   'hover:bg-interactive active:bg-interactive-hover',
-  'disabled:text-foreground-disabled disabled:cursor-default disabled:hover:bg-transparent',
+  'disabled:text-fg-disabled disabled:cursor-default disabled:hover:bg-transparent',
 ];
 
 export function NumberField({
@@ -67,7 +67,7 @@ export function NumberField({
         </BaseNumberField.Decrement>
         <BaseNumberField.Input
           placeholder={placeholder}
-          className="w-full min-w-0 text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] text-center tabular-nums bg-transparent py-2 px-3 outline-none placeholder:text-foreground-muted"
+          className="w-full min-w-0 text-sm text-center tabular-nums bg-transparent py-2 px-3 outline-none placeholder:text-fg-muted"
         />
         <BaseNumberField.Increment className={cn(stepperClasses, 'border-l border-edge')}>
           <Icon size="sm">

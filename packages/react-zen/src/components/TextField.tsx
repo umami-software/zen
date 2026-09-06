@@ -71,7 +71,7 @@ export function TextField({
         variant={variant === 'quiet' ? 'quiet' : 'default'}
         className={cn(
           isReadOnly && 'focus-within:border-edge',
-          isDisabled && 'text-foreground-disabled',
+          isDisabled && 'text-fg-disabled',
           variant === 'quiet' && 'text-[length:inherit]',
           className,
         )}
@@ -105,10 +105,7 @@ export function TextField({
             <CopyButton
               value={String(inputValue)}
               aria-disabled={!inputValue}
-              className={cn(
-                'text-foreground-muted hover:text-foreground-primary',
-                !inputValue && 'text-foreground-disabled',
-              )}
+              className={cn('text-fg-muted hover:text-fg', !inputValue && 'text-fg-disabled')}
             />
           </InputGroupAddon>
         )}

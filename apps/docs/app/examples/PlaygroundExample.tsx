@@ -252,35 +252,35 @@ interface CSSVariable {
 // Defaults - affects borderRadius={true}, shadow={true}, padding={true}, gap={true}
 const defaultsVariables: CSSVariable[] = [
   {
-    name: '--zen-radius-default',
+    name: '--zen-radius',
     label: 'Border Radius',
     defaultValue: '0.375rem',
     type: 'select',
     options: radiusOptions,
   },
   {
-    name: '--zen-shadow-default',
+    name: '--zen-shadow',
     label: 'Shadow',
     defaultValue: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
     type: 'select',
     options: shadowOptions,
   },
   {
-    name: '--zen-padding-x-default',
+    name: '--zen-padding-x',
     label: 'Padding X',
     defaultValue: '0.75rem',
     type: 'select',
     options: spacingOptions,
   },
   {
-    name: '--zen-padding-y-default',
+    name: '--zen-padding-y',
     label: 'Padding Y',
     defaultValue: '0.5rem',
     type: 'select',
     options: spacingOptions,
   },
   {
-    name: '--zen-gap-default',
+    name: '--zen-gap',
     label: 'Gap',
     defaultValue: '0.75rem',
     type: 'select',
@@ -305,7 +305,7 @@ const defaultsVariables: CSSVariable[] = [
 // Surface variables - affects backgrounds
 const surfaceVariables: CSSVariable[] = [
   {
-    name: '--zen-surface-base',
+    name: '--zen-surface',
     label: 'Base',
     defaultValue: '#ffffff',
     type: 'color',
@@ -351,21 +351,21 @@ const surfaceVariables: CSSVariable[] = [
 // Text variables - affects text colors
 const textVariables: CSSVariable[] = [
   {
-    name: '--zen-text-primary',
+    name: '--zen-fg',
     label: 'Primary',
     defaultValue: '#171717',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--zen-text-muted',
+    name: '--zen-fg-muted',
     label: 'Muted',
     defaultValue: '#737373',
     type: 'color',
     options: tailwindColors,
   },
   {
-    name: '--zen-text-disabled',
+    name: '--zen-fg-disabled',
     label: 'Disabled',
     defaultValue: '#a3a3a3',
     type: 'color',
@@ -383,7 +383,7 @@ const primaryVariables: CSSVariable[] = [
     options: tailwindColors,
   },
   {
-    name: '--zen-primary-foreground',
+    name: '--zen-primary-fg',
     label: 'Foreground',
     defaultValue: '#ffffff',
     type: 'color',
@@ -394,7 +394,7 @@ const primaryVariables: CSSVariable[] = [
 // Border variables - affects borders
 const borderVariables: CSSVariable[] = [
   {
-    name: '--zen-border-default',
+    name: '--zen-border',
     label: 'Default',
     defaultValue: '#d4d4d4',
     type: 'color',
@@ -451,7 +451,7 @@ const focusVariables: CSSVariable[] = [
     options: tailwindColors,
   },
   {
-    name: '--zen-focus-ring-offset',
+    name: '--zen-focus-offset',
     label: 'Offset',
     defaultValue: '#ffffff',
     type: 'color',
@@ -476,7 +476,7 @@ const statusVariables: CSSVariable[] = [
     options: tailwindColors,
   },
   {
-    name: '--zen-status-info-text',
+    name: '--zen-status-info-fg',
     label: 'Info Text',
     defaultValue: '#1e3a8a',
     type: 'color',
@@ -497,7 +497,7 @@ const statusVariables: CSSVariable[] = [
     options: tailwindColors,
   },
   {
-    name: '--zen-status-success-text',
+    name: '--zen-status-success-fg',
     label: 'Success Text',
     defaultValue: '#14532d',
     type: 'color',
@@ -518,7 +518,7 @@ const statusVariables: CSSVariable[] = [
     options: tailwindColors,
   },
   {
-    name: '--zen-status-warning-text',
+    name: '--zen-status-warning-fg',
     label: 'Warning Text',
     defaultValue: '#713f12',
     type: 'color',
@@ -539,7 +539,7 @@ const statusVariables: CSSVariable[] = [
     options: tailwindColors,
   },
   {
-    name: '--zen-status-error-text',
+    name: '--zen-status-error-fg',
     label: 'Error Text',
     defaultValue: '#7f1d1d',
     type: 'color',
@@ -749,7 +749,7 @@ export function PlaygroundExample() {
   return (
     <Box
       ref={containerRef}
-      backgroundColor="surface-base"
+      backgroundColor="surface"
       borderRadius="lg"
       border
       overflow="hidden"
@@ -912,13 +912,7 @@ export function PlaygroundExample() {
                 LAYOUT, SURFACES & DEFAULTS
               </Text>
               <Grid columns={{ base: '1', xl: '3' }} gap="3">
-                <Box
-                  backgroundColor="surface-base"
-                  border
-                  borderRadius
-                  padding="3"
-                  minWidth="100px"
-                >
+                <Box backgroundColor="surface" border borderRadius padding="3" minWidth="100px">
                   <Column gap="1">
                     <Text size="xs" color="muted">
                       Base

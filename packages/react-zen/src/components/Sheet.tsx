@@ -51,7 +51,7 @@ export function Sheet({
         <BaseDialog.Popup
           className={cn(
             'relative p-6 overflow-auto outline-none',
-            'bg-surface-base border-edge shadow-xl',
+            'bg-surface border-edge shadow-xl',
             sideClasses[side],
             className,
           )}

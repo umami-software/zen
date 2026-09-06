@@ -58,7 +58,7 @@ export function ToggleGroup({
         multiple={selectionMode === 'multiple'}
         onValueChange={handleChange}
         className={cn(
-          'inline-flex bg-surface-base shadow-sm border border-edge rounded overflow-hidden',
+          'inline-flex bg-surface shadow-sm border border-edge rounded overflow-hidden',
           className,
         )}
       >
@@ -99,13 +99,13 @@ export function ToggleGroupItem({
       value={props.value || id}
       disabled={isDisabled}
       className={cn(
-        'text-foreground-muted bg-surface-base font-bold flex items-center justify-center p-2 cursor-pointer outline-none',
+        'text-fg-muted bg-surface font-bold flex items-center justify-center p-2 cursor-pointer outline-none',
         '[&:not(:first-child)]:border-l [&:not(:first-child)]:border-edge',
         'hover:bg-interactive',
         variant === 'primary'
-          ? 'data-[pressed]:text-primary-foreground data-[pressed]:bg-primary'
-          : 'data-[pressed]:text-foreground-primary data-[pressed]:bg-interactive',
-        'data-[disabled]:text-foreground-disabled',
+          ? 'data-[pressed]:text-primary-fg data-[pressed]:bg-primary'
+          : 'data-[pressed]:text-fg data-[pressed]:bg-interactive',
+        'data-[disabled]:text-fg-disabled',
         className,
       )}
     >

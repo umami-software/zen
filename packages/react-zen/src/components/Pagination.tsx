@@ -90,7 +90,7 @@ export function Pagination({
           <span
             // biome-ignore lint/suspicious/noArrayIndexKey: ellipsis positions are stable
             key={`ellipsis-${index}`}
-            className="flex items-center justify-center size-9 text-foreground-muted"
+            className="flex items-center justify-center size-9 text-fg-muted"
             aria-hidden="true"
           >
             <Icon size="sm">

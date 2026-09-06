@@ -36,7 +36,7 @@ export function Dialog({ title, children, className, ...props }: DialogProps) {
     <div
       {...props}
       className={cn(
-        'p-6 shadow-xl bg-surface-base border border-edge rounded relative outline-none overflow-auto',
+        'p-6 shadow-xl bg-surface border border-edge rounded relative outline-none overflow-auto',
         className,
       )}
     >

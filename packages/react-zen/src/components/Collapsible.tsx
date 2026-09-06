@@ -43,9 +43,9 @@ export function CollapsibleTrigger({ className, children, ...props }: Collapsibl
     <BaseCollapsible.Trigger
       {...props}
       className={cn(
-        'flex items-center gap-2 cursor-pointer outline-none text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
+        'flex items-center gap-2 cursor-pointer outline-none text-sm',
         'focus-visible:ring-2 focus-visible:ring-focus-ring rounded',
-        'disabled:text-foreground-disabled disabled:cursor-default',
+        'disabled:text-fg-disabled disabled:cursor-default',
         className,
       )}
     >

@@ -6,12 +6,12 @@ export interface CodeProps extends Omit<TextProps, 'as'> {
   children?: ReactNode;
 }
 
-export function Code({ className, children, ...props }: CodeProps) {
+export function Code({ className, children, size = 'sm', ...props }: CodeProps) {
   return (
     <Text
       {...props}
       as="code"
-      size="base"
+      size={size}
       weight="medium"
       className={cn('font-mono bg-surface-sunken rounded p-1', className)}
     >

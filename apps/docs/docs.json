@@ -112,6 +112,7 @@
 		{
 			"group": "Form Inputs",
 			"pages": [
+				"components/autocomplete",
 				"components/checkbox",
 				"components/checkbox-group",
 				"components/combobox",
@@ -160,11 +161,13 @@
 				"components/alert-dialog",
 				"components/confirmation-dialog",
 				"components/dialog",
+				"components/drawer",
 				"components/empty",
 				"components/loading",
 				"components/meter",
 				"components/modal",
 				"components/popover",
+				"components/preview-card",
 				"components/progress-bar",
 				"components/progress-circle",
 				"components/sheet",

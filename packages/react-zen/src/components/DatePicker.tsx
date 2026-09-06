@@ -74,7 +74,7 @@ export function DatePicker({
           {date ? (
             new Intl.DateTimeFormat(locale, formatOptions).format(date)
           ) : (
-            <span className="text-foreground-muted">{placeholder}</span>
+            <span className="text-fg-muted">{placeholder}</span>
           )}
         </Button>
         <Popover className="bg-surface-overlay border border-edge-muted rounded-lg shadow-lg p-4">

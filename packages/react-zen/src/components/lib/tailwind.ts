@@ -47,7 +47,7 @@ const paddingMap: Record<string, string> = {
   '72': 'p-72',
   '80': 'p-80',
   '96': 'p-96',
-  true: 'px-[var(--zen-padding-x-default)] py-[var(--zen-padding-y-default)]',
+  true: 'px-[var(--zen-padding-x)] py-[var(--zen-padding-y)]',
 };
 const pxMap: Record<string, string> = {
   '0': 'px-0',
@@ -85,7 +85,7 @@ const pxMap: Record<string, string> = {
   '72': 'px-72',
   '80': 'px-80',
   '96': 'px-96',
-  true: 'px-[var(--zen-padding-x-default)]',
+  true: 'px-[var(--zen-padding-x)]',
 };
 const pyMap: Record<string, string> = {
   '0': 'py-0',
@@ -123,7 +123,7 @@ const pyMap: Record<string, string> = {
   '72': 'py-72',
   '80': 'py-80',
   '96': 'py-96',
-  true: 'py-[var(--zen-padding-y-default)]',
+  true: 'py-[var(--zen-padding-y)]',
 };
 const ptMap: Record<string, string> = {
   '0': 'pt-0',
@@ -600,7 +600,7 @@ const gapMap: Record<string, string> = {
   '72': 'gap-72',
   '80': 'gap-80',
   '96': 'gap-96',
-  true: 'gap-[var(--zen-gap-default)]',
+  true: 'gap-[var(--zen-gap)]',
 };
 const gapXMap: Record<string, string> = {
   '0': 'gap-x-0',
@@ -627,7 +627,7 @@ const gapXMap: Record<string, string> = {
   '24': 'gap-x-24',
   '28': 'gap-x-28',
   '32': 'gap-x-32',
-  true: 'gap-x-[var(--zen-gap-default)]',
+  true: 'gap-x-[var(--zen-gap)]',
 };
 const gapYMap: Record<string, string> = {
   '0': 'gap-y-0',
@@ -654,7 +654,7 @@ const gapYMap: Record<string, string> = {
   '24': 'gap-y-24',
   '28': 'gap-y-28',
   '32': 'gap-y-32',
-  true: 'gap-y-[var(--zen-gap-default)]',
+  true: 'gap-y-[var(--zen-gap)]',
 };
 
 // Space-between maps (for child spacing utilities)
@@ -733,37 +733,37 @@ const spaceYMap: Record<string, string> = {
   '96': 'space-y-96',
 };
 
-// Font size mapping - Tailwind-compatible names backed by Zen's isolated type scale
+// Font size mapping - native Tailwind typography utilities
 const fontSizeMap: Record<string, string> = {
-  xs: 'text-[length:var(--zen-font-size-xs)]/[var(--zen-line-height-xs)]',
-  sm: 'text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)]',
-  base: 'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
-  lg: 'text-[length:var(--zen-font-size-lg)]/[var(--zen-line-height-lg)]',
-  xl: 'text-[length:var(--zen-font-size-xl)]/[var(--zen-line-height-xl)]',
-  '2xl': 'text-[length:var(--zen-font-size-2xl)]/[var(--zen-line-height-2xl)]',
-  '3xl': 'text-[length:var(--zen-font-size-3xl)]/[var(--zen-line-height-3xl)]',
-  '4xl': 'text-[length:var(--zen-font-size-4xl)]/[var(--zen-line-height-4xl)]',
-  '5xl': 'text-[length:var(--zen-font-size-5xl)]/[var(--zen-line-height-5xl)]',
-  '6xl': 'text-[length:var(--zen-font-size-6xl)]/[var(--zen-line-height-6xl)]',
-  '7xl': 'text-[length:var(--zen-font-size-7xl)]/[var(--zen-line-height-7xl)]',
-  '8xl': 'text-[length:var(--zen-font-size-8xl)]/[var(--zen-line-height-8xl)]',
-  '9xl': 'text-[length:var(--zen-font-size-9xl)]/[var(--zen-line-height-9xl)]',
+  xs: 'text-xs',
+  sm: 'text-sm',
+  base: 'text-base',
+  lg: 'text-lg',
+  xl: 'text-xl',
+  '2xl': 'text-2xl',
+  '3xl': 'text-3xl',
+  '4xl': 'text-4xl',
+  '5xl': 'text-5xl',
+  '6xl': 'text-6xl',
+  '7xl': 'text-7xl',
+  '8xl': 'text-8xl',
+  '9xl': 'text-9xl',
 };
 
 // Heading size mapping
 const headingSizeMap: Record<string, string> = {
-  sm: 'text-[length:var(--zen-font-size-sm)]/[var(--zen-line-height-sm)]',
-  base: 'text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)]',
-  lg: 'text-[length:var(--zen-font-size-lg)]/[var(--zen-line-height-lg)]',
-  xl: 'text-[length:var(--zen-font-size-xl)]/[var(--zen-line-height-xl)]',
-  '2xl': 'text-[length:var(--zen-font-size-2xl)]/[var(--zen-line-height-2xl)]',
-  '3xl': 'text-[length:var(--zen-font-size-3xl)]/[var(--zen-line-height-3xl)]',
-  '4xl': 'text-[length:var(--zen-font-size-4xl)]/[var(--zen-line-height-4xl)]',
-  '5xl': 'text-[length:var(--zen-font-size-5xl)]/[var(--zen-line-height-5xl)]',
-  '6xl': 'text-[length:var(--zen-font-size-6xl)]/[var(--zen-line-height-6xl)]',
-  '7xl': 'text-[length:var(--zen-font-size-7xl)]/[var(--zen-line-height-7xl)]',
-  '8xl': 'text-[length:var(--zen-font-size-8xl)]/[var(--zen-line-height-8xl)]',
-  '9xl': 'text-[length:var(--zen-font-size-9xl)]/[var(--zen-line-height-9xl)]',
+  sm: 'text-sm',
+  base: 'text-base',
+  lg: 'text-lg',
+  xl: 'text-xl',
+  '2xl': 'text-2xl',
+  '3xl': 'text-3xl',
+  '4xl': 'text-4xl',
+  '5xl': 'text-5xl',
+  '6xl': 'text-6xl',
+  '7xl': 'text-7xl',
+  '8xl': 'text-8xl',
+  '9xl': 'text-9xl',
 };
 
 // Font weight mapping - Tailwind native names
@@ -789,7 +789,7 @@ const borderRadiusMap: Record<string, string> = {
   '2xl': 'rounded-2xl',
   '3xl': 'rounded-3xl',
   full: 'rounded-full',
-  true: 'rounded-[var(--zen-radius-default)]',
+  true: 'rounded-[var(--zen-radius)]',
 };
 
 // Border width mapping - sm=1, md=2, lg=4, xl=8
@@ -809,19 +809,19 @@ const shadowMap: Record<string, string> = {
   xl: 'shadow-xl',
   '2xl': 'shadow-2xl',
   inner: 'shadow-inner',
-  true: 'shadow-[var(--zen-shadow-default)]',
+  true: 'shadow-[var(--zen-shadow)]',
 };
 
 // Semantic color mapping
 const semanticColorMap: Record<string, { text: string; bg: string }> = {
-  primary: { text: 'text-foreground-primary', bg: 'bg-primary' },
-  muted: { text: 'text-foreground-muted', bg: 'bg-surface-raised' },
-  inverted: { text: 'text-surface-base', bg: 'bg-surface-inverted' },
-  disabled: { text: 'text-foreground-disabled', bg: 'bg-surface-disabled' },
+  primary: { text: 'text-fg', bg: 'bg-primary' },
+  muted: { text: 'text-fg-muted', bg: 'bg-surface-raised' },
+  inverted: { text: 'text-surface', bg: 'bg-surface-inverted' },
+  disabled: { text: 'text-fg-disabled', bg: 'bg-surface-disabled' },
   transparent: { text: 'text-transparent', bg: 'bg-transparent' },
-  true: { text: 'text-foreground-primary', bg: 'bg-interactive' },
+  true: { text: 'text-fg', bg: 'bg-interactive' },
   // Surface colors
-  'surface-base': { text: '', bg: 'bg-surface-base' },
+  surface: { text: '', bg: 'bg-surface' },
   'surface-raised': { text: '', bg: 'bg-surface-raised' },
   'surface-sunken': { text: '', bg: 'bg-surface-sunken' },
   'surface-overlay': { text: '', bg: 'bg-surface-overlay' },
@@ -1472,9 +1472,9 @@ export function mapBorderColor(value: string | undefined): string {
 
 // Semantic CSS color values for SVG stroke/fill
 const semanticCssColorValues: Record<string, string> = {
-  primary: 'var(--zen-text-primary)',
-  muted: 'var(--zen-text-muted)',
-  disabled: 'var(--zen-text-disabled)',
+  primary: 'var(--zen-fg)',
+  muted: 'var(--zen-fg-muted)',
+  disabled: 'var(--zen-fg-disabled)',
 };
 
 // Tailwind color hex values (500 shade as default)

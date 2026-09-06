@@ -50,11 +50,11 @@ export function OTPField({
             // biome-ignore lint/suspicious/noArrayIndexKey: slots are positional
             key={index}
             className={cn(
-              'size-10 text-center text-[length:var(--zen-font-size-base)]/[var(--zen-line-height-base)] rounded border border-edge bg-surface-base shadow-sm',
-              'text-foreground-primary outline-none transition-colors',
-              'focus:border-edge-strong focus:ring-2 focus:ring-focus-ring focus:ring-offset-1 focus:ring-offset-surface-base',
+              'size-10 text-center text-sm rounded border border-edge bg-surface shadow-sm',
+              'text-fg outline-none transition-colors',
+              'focus:border-edge-strong focus:ring-2 focus:ring-focus-ring focus:ring-offset-1 focus:ring-offset-surface',
               'data-[filled]:border-edge-strong',
-              'disabled:bg-surface-disabled disabled:text-foreground-disabled',
+              'disabled:bg-surface-disabled disabled:text-fg-disabled',
             )}
           />
         ))}

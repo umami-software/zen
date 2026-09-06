@@ -76,7 +76,7 @@ export interface TextRenderProps {
 
 export function Text({
   color,
-  size = 'base',
+  size = 'sm',
   weight,
   align,
   spacing,
