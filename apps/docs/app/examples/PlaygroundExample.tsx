@@ -64,8 +64,6 @@ import {
   Text,
   TextField,
   Toggle,
-  ToggleGroup,
-  ToggleGroupItem,
   useToast,
 } from '@umami/react-zen';
 import { FileArchive, Inbox, Layers, Sparkles, Users } from 'lucide-react';
@@ -707,8 +705,9 @@ export function PlaygroundExample() {
     return initial;
   });
 
-  const [checked, setChecked] = useState(true);
-  const [switchOn, setSwitchOn] = useState(true);
+  const [watching, setWatching] = useState(true);
+  const [notifyTeammates, setNotifyTeammates] = useState(true);
+  const [isPublic, setIsPublic] = useState(true);
   const [sliderValue, setSliderValue] = useState(65);
   const [calendarValue, setCalendarValue] = useState(new Date());
 
@@ -1043,32 +1042,30 @@ export function PlaygroundExample() {
                 SELECTION CONTROLS
               </Text>
               <Row gap="5" wrap="wrap" alignItems="center">
-                <Toggle isSelected>Selected toggle</Toggle>
-                <Checkbox isSelected={checked} onChange={setChecked}>
-                  Checkbox
+                <Toggle isSelected={watching} onChange={setWatching}>
+                  {watching ? 'Watching' : 'Watch'}
+                </Toggle>
+                <Checkbox isSelected={notifyTeammates} onChange={setNotifyTeammates}>
+                  Notify teammates
                 </Checkbox>
-                <Switch isSelected={switchOn} onChange={setSwitchOn}>
-                  Switch
+                <Switch isSelected={isPublic} onChange={setIsPublic}>
+                  Public project
                 </Switch>
               </Row>
-              <Grid columns={{ base: '1', xl: '2' }} gap="5">
-                <RadioGroup label="Plan" defaultValue="pro">
-                  <Radio value="starter">Starter</Radio>
-                  <Radio value="pro">Professional</Radio>
-                  <Radio value="enterprise">Enterprise</Radio>
-                </RadioGroup>
-                <Column gap="2">
-                  <Label>Alignment</Label>
-                  <ToggleGroup defaultValue={['center']}>
-                    <ToggleGroupItem id="left">Left</ToggleGroupItem>
-                    <ToggleGroupItem id="center">Center</ToggleGroupItem>
-                    <ToggleGroupItem id="right">Right</ToggleGroupItem>
-                  </ToggleGroup>
-                </Column>
-              </Grid>
-              <Column gap="3" maxWidth="md">
-                <Label>Completion: {sliderValue}%</Label>
-                <Slider value={sliderValue} onChange={setSliderValue} min={0} max={100} />
+              <RadioGroup label="Plan" defaultValue="pro">
+                <Radio value="starter">Starter</Radio>
+                <Radio value="pro">Professional</Radio>
+                <Radio value="enterprise">Enterprise</Radio>
+              </RadioGroup>
+              <Column maxWidth="md">
+                <Slider
+                  label={`Upload progress: ${sliderValue}%`}
+                  value={sliderValue}
+                  onChange={setSliderValue}
+                  min={0}
+                  max={100}
+                  showValue={false}
+                />
               </Column>
             </Column>
 
