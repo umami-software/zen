@@ -7,3 +7,4 @@ allowBuilds:
   sharp: true
 minimumReleaseAgeExclude:
   - '@umami/shiso'
+  - cn@0.2.6

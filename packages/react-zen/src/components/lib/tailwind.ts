@@ -1,10 +1,4 @@
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-// Utility to merge Tailwind classes
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+export { cn } from 'cn';
 
 // Breakpoint prefixes - aligned with Tailwind 4 defaults
 type Breakpoint = 'base' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';

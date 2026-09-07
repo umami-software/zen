@@ -19,6 +19,7 @@ export default defineConfig({
     'zustand',
     '@react-spring/web',
     'react-day-picker',
+    'cn',
     'tailwind-merge',
     'tailwind-variants',
     'lucide-react',
