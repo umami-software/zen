@@ -23,11 +23,13 @@ export function Popover({
   isNonModal: _isNonModal,
   triggerRef: _triggerRef,
   onOpenChange: _onOpenChange,
+  sideOffset = 4,
   ...props
 }: PopoverProps) {
   return (
     <BasePopover.Portal>
       <BasePopover.Positioner
+        sideOffset={sideOffset}
         {...props}
         className={cn(
           'zen-layer-floating',
