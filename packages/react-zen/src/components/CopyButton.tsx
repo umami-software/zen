@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Check, Copy } from '@/components/icons';
 import { Button, type ButtonProps } from './Button';
 import { Icon } from './Icon';
@@ -17,7 +17,13 @@ export interface CopyButtonProps
 
 export function CopyButton({ value, timeout = TIMEOUT, className, ...props }: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
-  const ref = useRef(timeout);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   const handleCopy = async () => {
     const text = typeof value === 'function' ? value() : value;
@@ -26,9 +32,9 @@ export function CopyButton({ value, timeout = TIMEOUT, className, ...props }: Co
 
       setCopied(true);
 
-      clearTimeout(ref.current);
+      clearTimeout(timeoutRef.current);
 
-      ref.current = +setTimeout(() => setCopied(false), timeout);
+      timeoutRef.current = setTimeout(() => setCopied(false), timeout);
     }
   };
 
@@ -37,9 +43,11 @@ export function CopyButton({ value, timeout = TIMEOUT, className, ...props }: Co
       {...props}
       type="button"
       variant="quiet"
-      size="xs"
+      size="icon-xs"
+      data-slot="copy-button"
+      data-copied={copied || undefined}
       aria-label={props['aria-label'] ?? 'Copy'}
-      className={cn('size-6 shrink-0 p-0', className)}
+      className={cn('shrink-0', className)}
       onClick={handleCopy}
     >
       <Icon className="animate-icon-pop">{copied ? <Check /> : <Copy />}</Icon>

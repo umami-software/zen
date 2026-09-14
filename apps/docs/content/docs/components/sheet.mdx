@@ -1,5 +1,6 @@
 ---
 title: Sheet
+description: "A sheet is a panel that slides in from the edge of the screen, overlaying the current content."
 ---
 
 import { Button, DialogTrigger, Example, Sheet, SheetExample, SheetHeader, Text } from '../../../mdx-components';
@@ -50,7 +51,18 @@ The `size` prop sets the width for left and right sheets, and the height for top
   <ResponseField name="side" type="string">"left" | "right" | "top" | "bottom" (default: "right")</ResponseField>
   <ResponseField name="size" type="string | number">Width (left/right) or height (top/bottom) of the sheet</ResponseField>
   <ResponseField name="isOpen" type="boolean">Controlled open state</ResponseField>
+  <ResponseField name="defaultOpen" type="boolean">Initial open state. Used when the sheet is not wrapped in a `DialogTrigger`</ResponseField>
   <ResponseField name="onOpenChange" type="(open: boolean) => void">Called when the open state changes</ResponseField>
+  <ResponseField name="showCloseButton" type="boolean">Renders a close button in the top-right corner. Defaults to `true` unless a `SheetHeader` is present, so only one close button is ever rendered</ResponseField>
+</PropertiesTable>
+
+## Parts
+
+<PropertiesTable>
+  <ResponseField name="SheetTrigger" type="component">Opens the sheet</ResponseField>
+  <ResponseField name="SheetClose" type="component">Closes the sheet</ResponseField>
+  <ResponseField name="SheetTitle" type="component">Accessible title, rendered as a `Heading`</ResponseField>
+  <ResponseField name="SheetDescription" type="component">Accessible description, rendered as muted `Text`</ResponseField>
 </PropertiesTable>
 
 ## SheetHeader props

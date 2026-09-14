@@ -20,6 +20,9 @@ export function Spinner(props: SpinnerProps) {
   return (
     <Box
       {...domProps}
+      role="status"
+      aria-label={props['aria-label'] ?? 'Loading'}
+      data-slot="spinner"
       className={cn('relative inline-flex justify-center items-center', sizeMap[size], className)}
     >
       <svg viewBox="25 25 50 50" className="zen-spinner-svg w-full h-full">

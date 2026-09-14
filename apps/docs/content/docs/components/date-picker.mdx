@@ -1,5 +1,6 @@
 ---
 title: Date Picker
+description: "A date picker allows a user to select a date from a popup calendar."
 ---
 
 import { DatePicker, DatePickerExample, Example } from '../../../mdx-components';
@@ -71,7 +72,10 @@ Dates are formatted with `Intl.DateTimeFormat` using the `locale` and `formatOpt
   <ResponseField name="formatOptions" type="Intl.DateTimeFormatOptions">{"Date format options (default: { dateStyle: \"medium\" })"}</ResponseField>
   <ResponseField name="isDisabled" type="boolean">Disables the picker</ResponseField>
   <ResponseField name="isReadOnly" type="boolean">Prevents changing the value</ResponseField>
-  <ResponseField name="onChange" type="(date: Date) => void">Called when a date is selected</ResponseField>
+  <ResponseField name="isOpen" type="boolean">Controlled open state of the popover</ResponseField>
+  <ResponseField name="defaultOpen" type="boolean">Default open state of the popover</ResponseField>
+  <ResponseField name="onOpenChange" type="(open: boolean) => void">Called when the popover opens or closes</ResponseField>
+  <ResponseField name="onChange" type="(date: Date | undefined) => void">Called when a date is selected. Receives `undefined` when the date is cleared.</ResponseField>
   <ResponseField name="triggerProps" type="ButtonHTMLAttributes">Props passed to the trigger element (`buttonProps` is a deprecated alias)</ResponseField>
   <ResponseField name="calendarProps" type="Partial<CalendarProps>">Props passed to the popup calendar</ResponseField>
 </PropertiesTable>

@@ -53,28 +53,29 @@ export function Toaster({ duration = 0, position = 'bottom-right' }: ToasterProp
   });
 
   useEffect(() => {
-    if (duration) {
-      const timeout = setInterval(() => {
-        if (hovered || !toasts.length) return;
-
-        const expired = Date.now() - duration;
-
-        toasts.forEach(toast => {
-          if (toast.timestamp < expired) {
-            removeToast(toast.id);
-          }
-        });
-      }, 100);
-
-      return () => {
-        clearTimeout(timeout);
-      };
+    if (!duration || hovered || !toasts.length) {
+      return;
     }
+
+    // One timer per toast instead of a global poller.
+    const timers = toasts.map(toast => {
+      const remaining = Math.max(toast.timestamp + duration - Date.now(), 0);
+
+      return setTimeout(() => removeToast(toast.id), remaining);
+    });
+
+    return () => {
+      timers.forEach(clearTimeout);
+    };
   }, [duration, toasts, hovered]);
 
   return (
     <Column
       gap="2"
+      role="region"
+      aria-live="polite"
+      aria-label="Notifications"
+      data-slot="toaster"
       className={cn('zen-layer-toast fixed', positionClasses[position])}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}

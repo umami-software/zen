@@ -1,5 +1,6 @@
 ---
 title: Slider
+description: "A slider allows a user to select a value within a range."
 ---
 
 import { Box, Example, Slider } from '../../../mdx-components';
@@ -18,12 +19,14 @@ A slider allows a user to select a value within a range.
 
 <PropertiesTable>
   <ResponseField name="label" type="ReactNode">Label text displayed above the slider</ResponseField>
-  <ResponseField name="value" type="number">Controlled value</ResponseField>
-  <ResponseField name="defaultValue" type="number">Default value</ResponseField>
+  <ResponseField name="value" type="number | number[]">Controlled value. An array renders one thumb per entry (range slider).</ResponseField>
+  <ResponseField name="defaultValue" type="number | number[]">Default value</ResponseField>
   <ResponseField name="minValue" type="number">Minimum value (default: 0)</ResponseField>
   <ResponseField name="maxValue" type="number">Maximum value (default: 100)</ResponseField>
   <ResponseField name="step" type="number">Step increment (default: 1)</ResponseField>
   <ResponseField name="showValue" type="boolean">Shows current value (default: true)</ResponseField>
   <ResponseField name="isDisabled" type="boolean">Disables the slider</ResponseField>
-  <ResponseField name="onChange" type="(value: number) => void">Called when value changes</ResponseField>
+  <ResponseField name="orientation" type="'horizontal' | 'vertical'">Layout direction (default: "horizontal")</ResponseField>
+  <ResponseField name="onChange" type="(value: number | number[]) => void">Called when value changes</ResponseField>
+  <ResponseField name="onChangeEnd" type="(value: number | number[]) => void">Called when the drag is committed</ResponseField>
 </PropertiesTable>

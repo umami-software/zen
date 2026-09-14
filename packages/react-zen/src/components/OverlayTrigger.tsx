@@ -32,6 +32,19 @@ const OverlayContext = createContext<OverlayContextValue>({
   close: () => undefined,
   kind: 'dialog',
 });
+
+/**
+ * True when an overlay surface (`Modal`, `Sheet`, `Popover`, …) is rendered as the second child of
+ * one of the compatibility trigger wrappers (`DialogTrigger`, `MenuTrigger`, `HoverTrigger`).
+ * When false those components render their own Base UI `Root` so `isOpen`/`onOpenChange`/
+ * `defaultOpen` are honored instead of being silently discarded.
+ */
+export const OverlayTriggerNestedContext = createContext<boolean>(false);
+
+export function useInsideOverlayTrigger() {
+  return useContext(OverlayTriggerNestedContext);
+}
+
 export type MenuPrimitiveKind = 'context-menu' | 'menu';
 export const MenuPrimitiveContext = createContext<MenuPrimitiveKind | null>(null);
 /** True when a Menu/MenuItem is rendered inside a Menubar dropdown. */
@@ -53,20 +66,81 @@ export function OverlayContentProvider({
   return <OverlayContext.Provider value={{ close, kind }}>{children}</OverlayContext.Provider>;
 }
 
-function getOverlayKind(element: ReactElement | undefined): OverlayKind | undefined {
-  if (!element) {
+const MAX_OVERLAY_SCAN_DEPTH = 12;
+
+function readOverlayType(node: unknown): OverlayKind | undefined {
+  try {
+    return (node as { type?: OverlayTarget } | undefined)?.type?.zenOverlayType;
+  } catch {
+    return undefined;
+  }
+}
+
+function getChildren(element: ReactElement | undefined): ReactNode {
+  try {
+    return (element?.props as { children?: ReactNode } | undefined)?.children;
+  } catch {
+    return undefined;
+  }
+}
+
+/** Recursively walks a subtree looking for a Zen overlay surface. `alert-dialog` always wins. */
+function scanOverlayKind(node: ReactNode, depth: number): OverlayKind | undefined {
+  if (depth > MAX_OVERLAY_SCAN_DEPTH) {
     return undefined;
   }
 
-  const nestedKinds = Children.toArray((element.props as { children?: ReactNode }).children)
-    .filter(isValidElement)
-    .map(child => getOverlayKind(child));
+  let found: OverlayKind | undefined;
 
-  if (nestedKinds.includes('alert-dialog')) {
-    return 'alert-dialog';
+  for (const child of Children.toArray(node)) {
+    if (!isValidElement(child)) {
+      continue;
+    }
+
+    const own = readOverlayType(child);
+
+    if (own === 'alert-dialog') {
+      return 'alert-dialog';
+    }
+
+    const nested = scanOverlayKind(getChildren(child), depth + 1);
+
+    if (nested === 'alert-dialog') {
+      return 'alert-dialog';
+    }
+
+    found ??= own ?? nested;
   }
 
-  return (element.type as OverlayTarget).zenOverlayType;
+  return found;
+}
+
+/**
+ * Best-effort detection of the overlay primitive a trigger should render. Never throws: any
+ * unexpected child shape simply yields `undefined` so callers can fall back to `'dialog'`.
+ */
+export function getOverlayKind(element: ReactElement | undefined): OverlayKind | undefined {
+  try {
+    if (!element || !isValidElement(element)) {
+      return undefined;
+    }
+
+    const own = readOverlayType(element);
+
+    if (own === 'alert-dialog') {
+      return 'alert-dialog';
+    }
+
+    const nested = scanOverlayKind(getChildren(element), 0);
+
+    if (nested === 'alert-dialog') {
+      return 'alert-dialog';
+    }
+
+    return own ?? nested;
+  } catch {
+    return undefined;
+  }
 }
 
 function unwrapMenuContent(element: ReactElement | undefined) {
@@ -113,9 +187,11 @@ export function DialogTrigger({
     targetOpenChange?.(nextOpen);
   };
   const content = (
-    <OverlayContentProvider close={() => setOpen(false)} kind={kind}>
-      {target}
-    </OverlayContentProvider>
+    <OverlayTriggerNestedContext.Provider value={true}>
+      <OverlayContentProvider close={() => setOpen(false)} kind={kind}>
+        {target}
+      </OverlayContentProvider>
+    </OverlayTriggerNestedContext.Provider>
   );
 
   if (kind === 'popover') {
@@ -125,7 +201,11 @@ export function DialogTrigger({
         modal={targetNonModal === undefined ? undefined : !targetNonModal}
         onOpenChange={setOpen}
       >
-        <BasePopover.Trigger ref={targetTriggerRef as Ref<HTMLButtonElement>} render={trigger} />
+        <BasePopover.Trigger
+          data-slot="popover-trigger"
+          ref={targetTriggerRef as Ref<HTMLButtonElement>}
+          render={trigger}
+        />
         {content}
       </BasePopover.Root>
     );
@@ -134,7 +214,7 @@ export function DialogTrigger({
   if (kind === 'alert-dialog') {
     return (
       <BaseAlertDialog.Root open={open} onOpenChange={setOpen}>
-        <BaseAlertDialog.Trigger render={trigger} />
+        <BaseAlertDialog.Trigger data-slot="alert-dialog-trigger" render={trigger} />
         {content}
       </BaseAlertDialog.Root>
     );
@@ -142,7 +222,7 @@ export function DialogTrigger({
 
   return (
     <BaseDialog.Root open={open} onOpenChange={setOpen}>
-      <BaseDialog.Trigger render={trigger} />
+      <BaseDialog.Trigger data-slot="dialog-trigger" render={trigger} />
       {content}
     </BaseDialog.Root>
   );
@@ -152,17 +232,39 @@ export interface TooltipTriggerProps {
   children: ReactNode;
   delay?: number;
   closeDelay?: number;
+  isOpen?: boolean;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  isDisabled?: boolean;
 }
 
-export function TooltipTrigger({ children, delay, closeDelay }: TooltipTriggerProps) {
+export function TooltipTrigger({
+  children,
+  delay,
+  closeDelay,
+  isOpen,
+  defaultOpen,
+  onOpenChange,
+  isDisabled,
+}: TooltipTriggerProps) {
   const items = Children.toArray(children) as ReactElement[];
+
+  // No `Tooltip.Provider` here: one is mounted by `ZenProvider`. Base UI's `Tooltip.Root` works
+  // without a provider, so standalone usage keeps working.
   return (
-    <BaseTooltip.Provider delay={delay} closeDelay={closeDelay}>
-      <BaseTooltip.Root>
-        <BaseTooltip.Trigger render={items[0]} />
-        {items[1]}
-      </BaseTooltip.Root>
-    </BaseTooltip.Provider>
+    <BaseTooltip.Root
+      {...(isOpen === undefined ? { defaultOpen } : { open: isOpen })}
+      disabled={isDisabled}
+      onOpenChange={onOpenChange}
+    >
+      <BaseTooltip.Trigger
+        data-slot="tooltip-trigger"
+        delay={delay}
+        closeDelay={closeDelay}
+        render={items[0]}
+      />
+      {items[1]}
+    </BaseTooltip.Root>
   );
 }
 
@@ -187,8 +289,10 @@ export function MenuTrigger({ children, isOpen, defaultOpen, onOpenChange }: Men
 
   return (
     <BaseMenu.Root open={open} onOpenChange={setOpen}>
-      <BaseMenu.Trigger render={items[0]} />
-      <MenuPrimitiveContext.Provider value="menu">{content}</MenuPrimitiveContext.Provider>
+      <BaseMenu.Trigger data-slot="menu-trigger" render={items[0]} />
+      <OverlayTriggerNestedContext.Provider value={true}>
+        <MenuPrimitiveContext.Provider value="menu">{content}</MenuPrimitiveContext.Provider>
+      </OverlayTriggerNestedContext.Provider>
     </BaseMenu.Root>
   );
 }
@@ -218,14 +322,23 @@ export function FileTrigger({
           onClick: (event: MouseEvent<HTMLElement>) => {
             child.props.onClick?.(event);
             if (!event.defaultPrevented) {
-              inputRef.current?.click();
+              const input = inputRef.current;
+              if (input) {
+                // Reset first so picking the same file twice in a row still fires `change`.
+                input.value = '';
+                input.click();
+              }
             }
           },
         })}
       <input
         ref={inputRef}
+        data-slot="file-trigger-input"
         className="sr-only"
         type="file"
+        hidden={true}
+        tabIndex={-1}
+        aria-hidden="true"
         accept={acceptedFileTypes?.join(',')}
         multiple={allowsMultiple}
         onChange={event => onSelect?.(event.target.files)}

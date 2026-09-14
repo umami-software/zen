@@ -1,4 +1,4 @@
-import { type HTMLAttributes, type ReactNode, useEffect } from 'react';
+import { type HTMLAttributes, type ReactNode, useEffect, useRef } from 'react';
 import {
   FormProvider,
   type SubmitHandler,
@@ -67,7 +67,22 @@ export function Form({
       ? (e: { key: string; preventDefault: () => any }) => e.key === 'Enter' && e.preventDefault()
       : undefined;
 
+  // `useForm({ values })` already syncs, so only reset when the caller supplies a
+  // genuinely new object. Comparing by reference re-ran this on every parent render.
+  const lastValues = useRef<string | undefined>(undefined);
+
   useEffect(() => {
+    if (values === undefined) {
+      return;
+    }
+
+    const serialized = JSON.stringify(values);
+
+    if (lastValues.current === serialized) {
+      return;
+    }
+
+    lastValues.current = serialized;
     formValues.reset(values);
   }, [formValues, values]);
 
@@ -79,13 +94,6 @@ export function Form({
 
   return (
     <FormProvider {...formValues}>
-      {error && (
-        <Alert variant="danger">
-          <AlertTitle className="justify-self-center">
-            {error instanceof Error ? error?.message : error}
-          </AlertTitle>
-        </Alert>
-      )}
       <form
         {...props}
         autoComplete={autoComplete}
@@ -93,6 +101,13 @@ export function Form({
         onSubmit={onSubmit ? handleSubmit(onSubmit) : undefined}
         onKeyDown={onKeyDown}
       >
+        {error && (
+          <Alert variant="danger">
+            <AlertTitle className="justify-self-center">
+              {error instanceof Error ? error?.message : error}
+            </AlertTitle>
+          </Alert>
+        )}
         {typeof children === 'function' ? children(formValues) : children}
       </form>
     </FormProvider>

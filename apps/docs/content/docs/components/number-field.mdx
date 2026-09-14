@@ -1,5 +1,6 @@
 ---
 title: Number Field
+description: "A number field allows a user to enter a numeric value with stepper buttons for incrementing and decrementing."
 ---
 
 import { Box, Example, NumberField } from '../../../mdx-components';
@@ -65,4 +66,6 @@ Values are formatted with `Intl.NumberFormat` using the `formatOptions` prop.
   <ResponseField name="isReadOnly" type="boolean">Prevents changing the value</ResponseField>
   <ResponseField name="isRequired" type="boolean">Marks the field as required</ResponseField>
   <ResponseField name="onChange" type="(value: number | null) => void">Called when the value changes</ResponseField>
+  <ResponseField name="decrementLabel" type="string">Accessible label for the decrement button (default: "Decrease")</ResponseField>
+  <ResponseField name="incrementLabel" type="string">Accessible label for the increment button (default: "Increase")</ResponseField>
 </PropertiesTable>

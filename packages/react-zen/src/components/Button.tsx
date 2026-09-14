@@ -4,7 +4,11 @@ import type { RenderProp } from './lib/render';
 import { type ButtonVariants, button } from './variants';
 
 export interface ButtonProps extends Omit<BaseButtonProps, 'className' | 'render'>, ButtonVariants {
-  render?: RenderProp<ButtonRenderProps>;
+  /**
+   * Replace the rendered element. Accepts a React element to compose with, or a
+   * function `(props, state) => ReactElement` following the Base UI contract.
+   */
+  render?: RenderProp<ButtonRenderProps, ButtonRenderState>;
   /** Render as a link. Ignored when a custom `render` is supplied. */
   href?: string;
   target?: string;
@@ -13,12 +17,26 @@ export interface ButtonProps extends Omit<BaseButtonProps, 'className' | 'render
   className?: string;
   isDisabled?: boolean;
   onPress?: (event: MouseEvent<HTMLElement>) => void;
+  /**
+   * When `true`, the button does not receive focus when pressed with a pointer
+   * (the `mousedown` default is prevented).
+   *
+   * Defaults to `false` to match native/shadcn behavior — buttons are focused on
+   * press. Opt in when the button opens an overlay that manages focus itself.
+   *
+   * @default false
+   */
   preventFocusOnPress?: boolean;
 }
 
 export interface ButtonRenderProps {
   className: string;
   children: ReactNode;
+  [key: string]: unknown;
+}
+
+export interface ButtonRenderState {
+  disabled: boolean;
   [key: string]: unknown;
 }
 
@@ -29,12 +47,13 @@ export function Button({
   href,
   target,
   rel,
-  preventFocusOnPress: _preventFocusOnPress = true,
+  preventFocusOnPress = false,
   nativeButton,
   isDisabled,
   disabled,
   onPress,
   onClick,
+  onMouseDown,
   className,
   children,
   ...props
@@ -59,15 +78,25 @@ export function Button({
     }
   };
 
+  const handleMouseDown = (event: any) => {
+    onMouseDown?.(event);
+    if (preventFocusOnPress && !event.defaultPrevented) {
+      event.preventDefault();
+    }
+  };
+
   return (
     <BaseButton
-      {...props}
       data-slot="button"
+      {...props}
+      data-variant={variant ?? 'default'}
+      data-size={size}
       render={render as BaseButtonProps['render']}
       nativeButton={isNativeButton}
       disabled={isDisabled ?? disabled}
       className={buttonClassName}
       onClick={handleClick}
+      onMouseDown={handleMouseDown}
     >
       {children}
     </BaseButton>

@@ -1,25 +1,23 @@
 import { Box, type BoxProps } from './Box';
 import { Column, type ColumnProps } from './Column';
 import { cn } from './lib/tailwind';
-import './Skeleton.css';
 
 export interface SkeletonProps extends BoxProps {}
 
-export function Skeleton({
-  width = '100%',
-  height = '1rem',
-  borderRadius = 'md',
-  className,
-  ...props
-}: SkeletonProps) {
+/**
+ * Placeholder block shown while content loads.
+ *
+ * Sizing can come either from the `width`/`height`/`borderRadius` props or from
+ * utility classes passed via `className` (e.g. `className="size-10 rounded-full"`).
+ */
+export function Skeleton({ borderRadius = 'md', className, ...props }: SkeletonProps) {
   return (
     <Box
       aria-hidden="true"
       {...props}
-      width={width}
-      height={height}
+      data-slot="skeleton"
       borderRadius={borderRadius}
-      className={cn('zen-skeleton', className)}
+      className={cn('block h-4 w-full animate-pulse bg-interactive', className)}
     />
   );
 }
@@ -39,7 +37,7 @@ export function SkeletonText({
   const lineKeys = Array.from({ length: lines }, (_, index) => `line-${index}`);
 
   return (
-    <Column gap="2" width="100%" {...props}>
+    <Column gap="2" width="100%" data-slot="skeleton-text" {...props}>
       {lineKeys.map((key, index) => (
         <Skeleton
           key={key}

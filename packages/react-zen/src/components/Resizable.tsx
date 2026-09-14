@@ -1,4 +1,3 @@
-import { createContext, useContext } from 'react';
 import {
   Group,
   type GroupProps,
@@ -10,8 +9,6 @@ import {
 import { GripVertical } from '@/components/icons';
 import { cn } from './lib/tailwind';
 
-const ResizableOrientationContext = createContext<'horizontal' | 'vertical'>('horizontal');
-
 export interface ResizablePanelGroupProps extends Omit<GroupProps, 'orientation'> {
   direction?: 'horizontal' | 'vertical';
 }
@@ -22,20 +19,21 @@ export function ResizablePanelGroup({
   ...props
 }: ResizablePanelGroupProps) {
   return (
-    <ResizableOrientationContext.Provider value={direction}>
-      <Group
-        {...props}
-        orientation={direction}
-        className={cn('flex size-full', direction === 'vertical' && 'flex-col', className)}
-      />
-    </ResizableOrientationContext.Provider>
+    <Group
+      {...props}
+      data-slot="resizable-panel-group"
+      orientation={direction}
+      className={cn('flex size-full', direction === 'vertical' && 'flex-col', className)}
+    />
   );
 }
 
 export interface ResizablePanelProps extends PanelProps {}
 
 export function ResizablePanel({ className, ...props }: ResizablePanelProps) {
-  return <Panel {...props} className={cn('overflow-hidden', className)} />;
+  return (
+    <Panel {...props} data-slot="resizable-panel" className={cn('overflow-hidden', className)} />
+  );
 }
 
 export interface ResizableHandleProps extends SeparatorProps {
@@ -43,28 +41,28 @@ export interface ResizableHandleProps extends SeparatorProps {
 }
 
 export function ResizableHandle({ withHandle, className, ...props }: ResizableHandleProps) {
-  const direction = useContext(ResizableOrientationContext);
-  const isVertical = direction === 'vertical';
-
   return (
     <Separator
       {...props}
+      data-slot="resizable-handle"
       className={cn(
-        'relative flex items-center justify-center bg-edge shrink-0',
-        isVertical ? 'h-px w-full' : 'w-px',
-        isVertical
-          ? 'after:absolute after:inset-x-0 after:-top-1 after:h-2'
-          : 'after:absolute after:inset-y-0 after:-left-1 after:w-2',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring',
+        // The orientation is read from the `aria-orientation` attribute set by
+        // react-resizable-panels instead of a React context.
+        'relative flex w-px shrink-0 items-center justify-center bg-edge outline-none',
+        'after:absolute after:inset-y-0 after:left-1/2 after:w-2 after:-translate-x-1/2',
+        'aria-[orientation=horizontal]:h-px aria-[orientation=horizontal]:w-full',
+        'aria-[orientation=horizontal]:after:inset-x-0 aria-[orientation=horizontal]:after:left-0',
+        'aria-[orientation=horizontal]:after:h-2 aria-[orientation=horizontal]:after:w-full',
+        'aria-[orientation=horizontal]:after:translate-x-0 aria-[orientation=horizontal]:after:-translate-y-1/2',
+        'focus-visible:ring-[3px] focus-visible:ring-focus-ring/50',
+        '[&[aria-orientation=horizontal]>div]:rotate-90',
         className,
       )}
     >
       {withHandle && (
         <div
-          className={cn(
-            'z-10 flex h-5 w-3.5 items-center justify-center rounded-sm border border-edge bg-surface-raised',
-            isVertical && 'rotate-90',
-          )}
+          data-slot="resizable-handle-grip"
+          className="z-10 flex h-5 w-3.5 items-center justify-center rounded-sm border border-edge bg-surface-raised"
         >
           <GripVertical className="size-2.5 text-fg-muted" />
         </div>

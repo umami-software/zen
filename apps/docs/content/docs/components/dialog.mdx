@@ -1,5 +1,6 @@
 ---
 title: Dialog
+description: "A dialog is an overlay shown above other content in an application."
 ---
 
 import { Button, Dialog, DialogExample, DialogTrigger, Example, Form, FormButtons, FormField, Modal, TextField } from '../../../mdx-components';
@@ -41,6 +42,7 @@ A dialog is an overlay shown above other content in an application.
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="title" type="ReactNode">Dialog title displayed at the top</ResponseField>
+  <ResponseField name="title" type="ReactNode">Dialog title displayed at the top. When omitted, an `aria-label` is used as a visually hidden title instead</ResponseField>
+  <ResponseField name="description" type="ReactNode">Accessible description rendered below the title</ResponseField>
   <ResponseField name="variant" type="DialogVariant">"sheet" - Full-width variant for side panels</ResponseField>
 </PropertiesTable>

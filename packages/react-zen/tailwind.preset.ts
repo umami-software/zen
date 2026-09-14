@@ -107,13 +107,11 @@ const preset: Config = {
   },
   plugins: [
     plugin(({ addVariant }) => {
-      // Component state variants
-      addVariant('pressed', '&[data-pressed]');
+      // Data-attribute state variants emitted by Base UI parts.
+      // `disabled`, `focus-visible`, `hover` and `active` are intentionally NOT
+      // overridden so the native pseudo-classes keep working; use Tailwind's
+      // built-in `data-disabled:` / `data-highlighted:` for non-native Base UI parts.
       addVariant('selected', '&[data-selected]');
-      addVariant('disabled', '&[data-disabled]');
-      addVariant('focused', '&[data-focused]');
-      addVariant('focus-visible', '&[data-focus-visible]');
-      addVariant('hovered', '&[data-hovered]');
       addVariant('indeterminate', '&[data-indeterminate]');
       addVariant('expanded', '&[data-expanded]');
       addVariant('readonly', '&[data-readonly]');
@@ -131,11 +129,9 @@ const preset: Config = {
       addVariant('orientation-vertical', "&[data-orientation='vertical']");
 
       // Group variants for nested state selectors
-      addVariant('group-pressed', ':merge(.group)[data-pressed] &');
       addVariant('group-selected', ':merge(.group)[data-selected] &');
       addVariant('group-disabled', ':merge(.group)[data-disabled] &');
       addVariant('group-expanded', ':merge(.group)[data-expanded] &');
-      addVariant('group-focus-visible', ':merge(.group)[data-focus-visible] &');
       addVariant('group-indeterminate', ':merge(.group)[data-indeterminate] &');
     }),
   ],

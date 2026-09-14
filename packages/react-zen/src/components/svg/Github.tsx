@@ -1,5 +1,4 @@
 import type { SVGProps } from 'react';
-import * as React from 'react';
 
 const SvgGithub = (props: SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 496 512" {...props}>

@@ -14,6 +14,7 @@ export interface HeadingProps extends Omit<TextProps, 'as' | 'size'> {
 export function Heading({
   size = '2xl',
   spacing = 'tight',
+  weight = 'semibold',
   as = 'h2',
   className,
   children,
@@ -24,7 +25,7 @@ export function Heading({
       {...props}
       as={as}
       spacing={spacing}
-      weight="semibold"
+      weight={weight}
       className={cn(mapHeadingSize(size), className)}
     >
       {children}

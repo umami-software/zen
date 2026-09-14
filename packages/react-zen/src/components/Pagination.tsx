@@ -1,8 +1,147 @@
-import { type HTMLAttributes, useState } from 'react';
+import {
+  type ComponentProps,
+  type HTMLAttributes,
+  type MouseEvent,
+  type ReactElement,
+  type ReactNode,
+  useState,
+} from 'react';
 import { ChevronLeft, ChevronRight, Ellipsis } from '@/components/icons';
-import { Button } from './Button';
-import { Icon } from './Icon';
+import { Button, type ButtonProps } from './Button';
 import { cn } from './lib/tailwind';
+
+/* -------------------------------------------------------------------------- */
+/*                                   Parts                                    */
+/* -------------------------------------------------------------------------- */
+
+export interface PaginationContentProps extends HTMLAttributes<HTMLUListElement> {}
+
+export function PaginationContent({ className, ...props }: PaginationContentProps) {
+  return (
+    <ul
+      {...props}
+      data-slot="pagination-content"
+      className={cn('flex list-none items-center gap-1', className)}
+    />
+  );
+}
+
+export interface PaginationItemProps extends HTMLAttributes<HTMLLIElement> {}
+
+export function PaginationItem({ className, ...props }: PaginationItemProps) {
+  return <li {...props} data-slot="pagination-item" className={cn('list-none', className)} />;
+}
+
+export interface PaginationLinkProps extends Omit<ComponentProps<'a'>, 'color'> {
+  isActive?: boolean;
+  isDisabled?: boolean;
+  size?: ButtonProps['size'];
+  children?: ReactNode;
+}
+
+/** A pagination control rendered as an anchor but styled as a Button. */
+export function PaginationLink({
+  className,
+  isActive,
+  isDisabled,
+  size = 'icon',
+  children,
+  ...props
+}: PaginationLinkProps) {
+  return (
+    <Button
+      variant={isActive ? 'outline' : 'quiet'}
+      size={size}
+      nativeButton={false}
+      isDisabled={isDisabled}
+      className={cn('tabular-nums no-underline', className)}
+      render={
+        <a
+          data-slot="pagination-link"
+          data-active={isActive || undefined}
+          aria-current={isActive ? 'page' : undefined}
+          {...props}
+        />
+      }
+    >
+      {children}
+    </Button>
+  );
+}
+
+export interface PaginationNavProps extends PaginationLinkProps {
+  /** Visible label, hidden on small screens. */
+  text?: string;
+}
+
+export function PaginationPrevious({
+  className,
+  text = 'Previous',
+  size = 'md',
+  ...props
+}: PaginationNavProps) {
+  return (
+    <PaginationLink
+      aria-label="Go to previous page"
+      size={size}
+      className={cn('gap-1', className)}
+      {...props}
+    >
+      <ChevronLeft />
+      {text ? <span className="hidden sm:block">{text}</span> : null}
+    </PaginationLink>
+  );
+}
+
+export function PaginationNext({
+  className,
+  text = 'Next',
+  size = 'md',
+  ...props
+}: PaginationNavProps) {
+  return (
+    <PaginationLink
+      aria-label="Go to next page"
+      size={size}
+      className={cn('gap-1', className)}
+      {...props}
+    >
+      {text ? <span className="hidden sm:block">{text}</span> : null}
+      <ChevronRight />
+    </PaginationLink>
+  );
+}
+
+export interface PaginationEllipsisProps extends HTMLAttributes<HTMLSpanElement> {}
+
+export function PaginationEllipsis({ className, ...props }: PaginationEllipsisProps) {
+  return (
+    <span
+      {...props}
+      aria-hidden="true"
+      data-slot="pagination-ellipsis"
+      className={cn(
+        "flex size-9 items-center justify-center text-fg-muted [&>svg:not([class*='size-'])]:size-4",
+        className,
+      )}
+    >
+      <Ellipsis />
+      <span className="sr-only">More pages</span>
+    </span>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*                              Convenience API                               */
+/* -------------------------------------------------------------------------- */
+
+export interface PaginationRenderLinkProps {
+  children?: ReactNode;
+  'aria-current'?: 'page' | undefined;
+  'aria-label'?: string;
+  onClick?: (event: MouseEvent) => void;
+  [key: string]: unknown;
+}
 
 export interface PaginationProps extends Omit<HTMLAttributes<HTMLElement>, 'onChange'> {
   pageCount?: number;
@@ -13,6 +152,11 @@ export interface PaginationProps extends Omit<HTMLAttributes<HTMLElement>, 'onCh
   siblingCount?: number;
   isDisabled?: boolean;
   onChange?: (page: number) => void;
+  /**
+   * Render each page control with a router aware link. Receives the target page
+   * number and the props that must be spread onto the rendered element.
+   */
+  renderLink?: (page: number, props: PaginationRenderLinkProps) => ReactElement;
 }
 
 function getPageRange(
@@ -58,6 +202,7 @@ export function Pagination({
   siblingCount = 1,
   isDisabled,
   onChange,
+  renderLink,
   className,
   ...props
 }: PaginationProps) {
@@ -73,54 +218,66 @@ export function Pagination({
     onChange?.(clamped);
   };
 
+  const renderPage = (target: number, isActive: boolean, label: string, children: ReactNode) => {
+    if (renderLink) {
+      return renderLink(target, {
+        'aria-current': isActive ? 'page' : undefined,
+        'aria-label': label,
+        children,
+        onClick: () => setPage(target),
+      });
+    }
+
+    return (
+      <PaginationLink
+        isActive={isActive}
+        isDisabled={isDisabled}
+        aria-label={label}
+        onClick={() => setPage(target)}
+      >
+        {children}
+      </PaginationLink>
+    );
+  };
+
   return (
-    <nav {...props} aria-label="Pagination" className={cn('flex items-center gap-1', className)}>
-      <Button
-        variant="quiet"
-        aria-label="Previous page"
-        isDisabled={isDisabled || currentPage <= 1}
-        onPress={() => setPage(currentPage - 1)}
-      >
-        <Icon size="sm">
-          <ChevronLeft />
-        </Icon>
-      </Button>
-      {getPageRange(count, currentPage, siblingCount).map((item, index) =>
-        item === 'ellipsis' ? (
-          <span
+    <nav
+      {...props}
+      role="navigation"
+      data-slot="pagination"
+      aria-label="Pagination"
+      className={cn('flex items-center', className)}
+    >
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious
+            size="icon"
+            text=""
+            isDisabled={isDisabled || currentPage <= 1}
+            onClick={() => setPage(currentPage - 1)}
+          />
+        </PaginationItem>
+        {getPageRange(count, currentPage, siblingCount).map((item, index) =>
+          item === 'ellipsis' ? (
             // biome-ignore lint/suspicious/noArrayIndexKey: ellipsis positions are stable
-            key={`ellipsis-${index}`}
-            className="flex items-center justify-center size-9 text-fg-muted"
-            aria-hidden="true"
-          >
-            <Icon size="sm">
-              <Ellipsis />
-            </Icon>
-          </span>
-        ) : (
-          <Button
-            key={item}
-            variant={item === currentPage ? 'outline' : 'quiet'}
-            aria-current={item === currentPage ? 'page' : undefined}
-            aria-label={`Page ${item}`}
-            isDisabled={isDisabled}
-            className="min-w-9 tabular-nums"
-            onPress={() => setPage(item)}
-          >
-            {item}
-          </Button>
-        ),
-      )}
-      <Button
-        variant="quiet"
-        aria-label="Next page"
-        isDisabled={isDisabled || currentPage >= count}
-        onPress={() => setPage(currentPage + 1)}
-      >
-        <Icon size="sm">
-          <ChevronRight />
-        </Icon>
-      </Button>
+            <PaginationItem key={`ellipsis-${index}`}>
+              <PaginationEllipsis />
+            </PaginationItem>
+          ) : (
+            <PaginationItem key={item}>
+              {renderPage(item, item === currentPage, `Page ${item}`, item)}
+            </PaginationItem>
+          ),
+        )}
+        <PaginationItem>
+          <PaginationNext
+            size="icon"
+            text=""
+            isDisabled={isDisabled || currentPage >= count}
+            onClick={() => setPage(currentPage + 1)}
+          />
+        </PaginationItem>
+      </PaginationContent>
     </nav>
   );
 }

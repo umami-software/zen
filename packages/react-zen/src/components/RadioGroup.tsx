@@ -4,7 +4,7 @@ import {
   type RadioGroupProps as BaseRadioGroupProps,
 } from '@base-ui/react/radio-group';
 import { type ReactNode, useId } from 'react';
-import { Column } from './Column';
+import { useFieldId } from './hooks/useFieldId';
 import { Label } from './Label';
 import { cn } from './lib/tailwind';
 
@@ -27,21 +27,22 @@ export function RadioGroup({
   ...props
 }: RadioGroupProps) {
   const labelId = useId();
-  const ariaLabel = props['aria-label'] ?? (label ? undefined : 'Radio group');
 
   return (
-    <BaseRadioGroup
-      {...props}
-      aria-label={ariaLabel}
-      aria-labelledby={label ? labelId : props['aria-labelledby']}
-      disabled={isDisabled}
-      readOnly={isReadOnly}
-      onValueChange={onChange}
-      className={cn('flex flex-col gap-2', className)}
-    >
+    <div className="flex flex-col gap-2">
       {label && <Label id={labelId}>{label}</Label>}
-      <Column gap="2">{children as ReactNode}</Column>
-    </BaseRadioGroup>
+      <BaseRadioGroup
+        {...props}
+        data-slot="radio-group"
+        aria-labelledby={label ? labelId : props['aria-labelledby']}
+        disabled={isDisabled}
+        readOnly={isReadOnly}
+        onValueChange={onChange}
+        className={cn('flex flex-col gap-2', className)}
+      >
+        {children as ReactNode}
+      </BaseRadioGroup>
+    </div>
   );
 }
 
@@ -49,21 +50,40 @@ export interface RadioProps extends Omit<RadioRoot.Props, 'disabled'> {
   isDisabled?: boolean;
 }
 
-export function Radio({ children, className, isDisabled, ...props }: RadioProps) {
+export function Radio({ children, className, isDisabled, id, ...props }: RadioProps) {
+  const fieldId = useFieldId(id);
+
   return (
-    <BaseRadio.Root
-      {...props}
-      disabled={isDisabled}
-      className={cn(
-        'radio group flex items-center gap-3 cursor-pointer text-sm',
-        "before:content-[''] before:block before:w-5 before:h-5 before:box-border before:rounded-full",
-        'before:border before:border-edge-strong before:bg-surface before:transition-all before:duration-200',
-        'data-[checked]:before:border-[6px] data-[checked]:before:border-primary',
-        'data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed',
-        className,
-      )}
-    >
-      {children}
-    </BaseRadio.Root>
+    <div className="radio flex items-center gap-3 text-sm">
+      <BaseRadio.Root
+        {...props}
+        id={fieldId}
+        data-slot="radio"
+        disabled={isDisabled}
+        className={cn(
+          'peer flex shrink-0 items-center justify-center',
+          'size-4 aspect-square rounded-full border border-edge-strong bg-surface shadow-xs',
+          'cursor-pointer outline-none transition-[color,box-shadow,border-color]',
+          'data-checked:border-primary',
+          'focus-visible:border-focus-ring focus-visible:ring-[3px] focus-visible:ring-focus-ring/50',
+          'aria-invalid:border-status-error aria-invalid:ring-status-error/20',
+          'data-disabled:opacity-50 data-disabled:cursor-not-allowed',
+          className,
+        )}
+      >
+        <BaseRadio.Indicator
+          data-slot="radio-indicator"
+          className="size-2 rounded-full bg-primary data-unchecked:hidden"
+        />
+      </BaseRadio.Root>
+      {children ? (
+        <Label
+          htmlFor={fieldId}
+          className="cursor-pointer peer-data-disabled:cursor-not-allowed peer-data-disabled:opacity-50"
+        >
+          {children}
+        </Label>
+      ) : null}
+    </div>
   );
 }

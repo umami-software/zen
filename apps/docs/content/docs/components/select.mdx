@@ -1,5 +1,6 @@
 ---
 title: Select
+description: "Displays a list of options for the user to pick from—triggered by a button."
 ---
 
 import { Box, Example, ListItem, Select, SelectSearchExample, SelectValueExample } from '../../../mdx-components';
@@ -167,18 +168,29 @@ the selected option with the trigger value instead.
   <ResponseField name="label" type="string">Label text displayed above the select</ResponseField>
   <ResponseField name="placeholder" type="string">Placeholder text when no selection</ResponseField>
   <ResponseField name="isLoading" type="boolean">Shows loading indicator</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the select</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the select (`disabled` is also accepted)</ResponseField>
+  <ResponseField name="size" type="'sm' | 'md'">Trigger size. Emits `data-size` on the trigger (default: `md`)</ResponseField>
   <ResponseField name="isFullscreen" type="boolean">Opens options in fullscreen mode</ResponseField>
   <ResponseField name="allowSearch" type="boolean">Enables search within options</ResponseField>
   <ResponseField name="searchValue" type="string">Controlled search field value</ResponseField>
   <ResponseField name="searchDelay" type="number">Debounce delay for search</ResponseField>
-  <ResponseField name="maxHeight" type="string | number">Max height of the dropdown list</ResponseField>
+  <ResponseField name="maxHeight" type="string | number">Max height of the dropdown list. When set, the list is wrapped in a `ScrollArea`; otherwise the popup scrolls itself and shows scroll arrows</ResponseField>
   <ResponseField name="showIcon" type="boolean">Show chevron icon on trigger button (default: true)</ResponseField>
   <ResponseField name="alignItemWithTrigger" type="boolean">Aligns the selected option with the trigger instead of opening below it (default: false)</ResponseField>
   <ResponseField name="onChange" type="(value: any) => void">Called when selection changes</ResponseField>
+  <ResponseField name="onValueChange" type="(value, details) => void">Base UI change handler, called before `onChange`</ResponseField>
   <ResponseField name="onSearch" type="(value: string) => void">Called when search value changes</ResponseField>
   <ResponseField name="renderValue" type="ReactNode | Function">Custom render for selected value</ResponseField>
   <ResponseField name="triggerProps" type="Select.Trigger.Props">Props passed to the trigger element (`buttonProps` is a deprecated alias)</ResponseField>
   <ResponseField name="listProps" type="ListProps">Props passed to the list component</ResponseField>
   <ResponseField name="popoverProps" type="PopoverProps">Props passed to the popover</ResponseField>
 </PropertiesTable>
+
+## Anatomy
+
+The rendered parts expose `data-slot` attributes for styling: `select`, `select-trigger`,
+`select-value`, `select-icon`, `select-positioner`, `select-content`, `select-empty`,
+`select-scroll-up-button`, `select-scroll-down-button`, and `list` / `list-item` from `List`.
+
+The selected label is resolved by Base UI from the `items` collection—when `items` is not supplied
+it is derived from the `<ListItem>` children automatically.

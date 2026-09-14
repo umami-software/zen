@@ -1,13 +1,49 @@
 import { Toggle as BaseToggle, type ToggleProps as BaseToggleProps } from '@base-ui/react/toggle';
 import { useId } from 'react';
+import { tv, type VariantProps } from 'tailwind-variants';
 import { Label } from './Label';
-import { cn } from './lib/tailwind';
+
+export const toggleVariants = tv({
+  base: [
+    'inline-flex items-center justify-center gap-2 shrink-0 whitespace-nowrap',
+    'rounded text-sm font-medium cursor-pointer outline-none',
+    'transition-[color,background-color,box-shadow,border-color]',
+    'hover:bg-interactive-hover',
+    'data-pressed:bg-interactive data-pressed:text-fg',
+    'focus-visible:border-focus-ring focus-visible:ring-[3px] focus-visible:ring-focus-ring/50',
+    'disabled:pointer-events-none disabled:opacity-50',
+    'data-disabled:pointer-events-none data-disabled:opacity-50',
+    'aria-invalid:border-status-error aria-invalid:ring-status-error/20',
+    "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  ],
+  variants: {
+    variant: {
+      default: 'bg-transparent border border-transparent',
+      outline: 'bg-surface border border-edge shadow-xs',
+      /** @deprecated Kept for backward compatibility with `<ToggleGroup variant="primary" />`. */
+      primary: [
+        'bg-transparent border border-transparent',
+        'data-pressed:bg-primary data-pressed:text-primary-fg',
+      ],
+    },
+    size: {
+      sm: 'h-8 min-w-8 px-1.5',
+      md: 'h-9 min-w-9 px-2',
+      lg: 'h-10 min-w-10 px-2.5',
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+    size: 'md',
+  },
+});
+
+export type ToggleVariants = VariantProps<typeof toggleVariants>;
 
 export interface ToggleProps
-  extends Omit<
-    BaseToggleProps<string>,
-    'pressed' | 'defaultPressed' | 'disabled' | 'onChange' | 'onPressedChange'
-  > {
+  extends Omit<BaseToggleProps<string>, 'defaultValue' | 'onChange'>,
+    ToggleVariants {
+  className?: string;
   label?: string;
   value?: string;
   isSelected?: boolean;
@@ -20,10 +56,16 @@ export function Toggle({
   label,
   children,
   className,
+  variant,
+  size,
+  pressed,
+  defaultPressed,
+  disabled,
   isSelected,
   defaultSelected,
   isDisabled,
   onChange,
+  onPressedChange,
   ...props
 }: ToggleProps) {
   const labelId = useId();
@@ -31,17 +73,16 @@ export function Toggle({
   const toggle = (
     <BaseToggle
       {...props}
+      data-slot="toggle"
       aria-labelledby={label ? labelId : props['aria-labelledby']}
-      pressed={isSelected}
-      defaultPressed={defaultSelected}
-      disabled={isDisabled}
-      onPressedChange={onChange}
-      className={cn(
-        'flex items-center justify-center whitespace-nowrap gap-3 font-medium bg-interactive border border-transparent rounded p-2 relative cursor-pointer',
-        'hover:bg-interactive-hover',
-        'data-[pressed]:text-primary-fg data-[pressed]:bg-primary',
-        className,
-      )}
+      pressed={pressed ?? isSelected}
+      defaultPressed={defaultPressed ?? defaultSelected}
+      disabled={disabled ?? isDisabled}
+      onPressedChange={(nextPressed, event) => {
+        onPressedChange?.(nextPressed, event);
+        onChange?.(nextPressed);
+      }}
+      className={toggleVariants({ variant, size, className })}
     >
       {children}
     </BaseToggle>

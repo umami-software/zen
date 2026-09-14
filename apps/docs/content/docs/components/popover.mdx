@@ -1,5 +1,6 @@
 ---
 title: Popover
+description: "A popover is an overlay element positioned relative to a trigger."
 ---
 
 import { Button, Column, Dialog, DialogTrigger, Example, Popover, Switch } from '../../../mdx-components';
@@ -42,4 +43,21 @@ A popover is an overlay element positioned relative to a trigger.
   <ResponseField name="placement" type="Placement">"top" | "bottom" | "left" | "right" | "start" | "end"</ResponseField>
   <ResponseField name="offset" type="number">Distance from the trigger element</ResponseField>
   <ResponseField name="isFullscreen" type="boolean">Opens popover in fullscreen mode</ResponseField>
+  <ResponseField name="isOpen" type="boolean">Controlled open state. Used when the popover is not wrapped in a `DialogTrigger`</ResponseField>
+  <ResponseField name="defaultOpen" type="boolean">Initial open state. Used when the popover is not wrapped in a `DialogTrigger`</ResponseField>
+  <ResponseField name="onOpenChange" type="(open: boolean) => void">Called when the open state changes</ResponseField>
+  <ResponseField name="isNonModal" type="boolean">Allows interaction with the rest of the page while open</ResponseField>
+  <ResponseField name="sideOffset" type="number">Distance from the trigger element (default: 4)</ResponseField>
+</PropertiesTable>
+
+The popup carries the default surface (`w-72`, border, shadow, padding). A `Dialog` nested inside a
+popover drops its own surface so the two do not stack.
+
+## Parts
+
+<PropertiesTable>
+  <ResponseField name="PopoverTrigger" type="component">Opens the popover</ResponseField>
+  <ResponseField name="PopoverClose" type="component">Closes the popover</ResponseField>
+  <ResponseField name="PopoverTitle" type="component">Accessible title, rendered as a `Heading`</ResponseField>
+  <ResponseField name="PopoverDescription" type="component">Accessible description, rendered as muted `Text`</ResponseField>
 </PropertiesTable>

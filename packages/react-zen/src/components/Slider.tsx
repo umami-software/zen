@@ -4,16 +4,19 @@ import { Label } from './Label';
 import { cn } from './lib/tailwind';
 import { Row } from './Row';
 
+type SliderValue = number | number[];
+
 export interface SliderProps
   extends Omit<
-    BaseSlider.Root.Props<number>,
+    BaseSlider.Root.Props<SliderValue>,
     'disabled' | 'onChange' | 'onValueChange' | 'onValueCommitted'
   > {
+  className?: string;
   label?: ReactNode;
   showValue?: boolean;
   isDisabled?: boolean;
-  onChange?: (value: number) => void;
-  onChangeEnd?: (value: number) => void;
+  onChange?: (value: SliderValue) => void;
+  onChangeEnd?: (value: SliderValue) => void;
 }
 
 export function Slider({
@@ -23,33 +26,87 @@ export function Slider({
   isDisabled,
   onChange,
   onChangeEnd,
+  value,
+  defaultValue,
+  min = 0,
+  max = 100,
+  orientation = 'horizontal',
   ...props
 }: SliderProps) {
   const labelId = useId();
+  const thumbValues = Array.isArray(value)
+    ? value
+    : Array.isArray(defaultValue)
+      ? defaultValue
+      : [min];
 
   return (
     <BaseSlider.Root
       {...props}
+      data-slot="slider"
       aria-labelledby={label ? labelId : props['aria-labelledby']}
+      value={value}
+      defaultValue={defaultValue}
+      min={min}
+      max={max}
+      orientation={orientation}
+      thumbAlignment="edge"
       disabled={isDisabled}
       onValueChange={onChange}
       onValueCommitted={onChangeEnd}
-      className={cn('flex flex-col gap-2 w-full', className)}
+      className={cn(
+        'flex gap-2',
+        orientation === 'vertical' ? 'flex-row h-full' : 'flex-col w-full',
+        className,
+      )}
     >
-      <Row justifyContent="space-between" alignItems="center">
-        {label && <Label id={labelId}>{label}</Label>}
-        {showValue && <BaseSlider.Value className="text-sm tabular-nums" />}
-      </Row>
-      <BaseSlider.Control className="relative h-5 w-full touch-none">
-        <BaseSlider.Track className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-2 rounded-full bg-interactive overflow-hidden">
-          <BaseSlider.Indicator className="h-full rounded-full bg-primary" />
-        </BaseSlider.Track>
-        <BaseSlider.Thumb
+      {(label || showValue) && (
+        <Row justifyContent="space-between" alignItems="center">
+          {label && <Label id={labelId}>{label}</Label>}
+          {showValue && <BaseSlider.Value className="text-sm tabular-nums" />}
+        </Row>
+      )}
+      <BaseSlider.Control
+        data-slot="slider-control"
+        className={cn(
+          'relative flex touch-none select-none items-center',
+          'data-disabled:opacity-50',
+          'data-[orientation=horizontal]:h-5 data-[orientation=horizontal]:w-full',
+          'data-[orientation=vertical]:h-full data-[orientation=vertical]:w-5 data-[orientation=vertical]:flex-col',
+        )}
+      >
+        <BaseSlider.Track
+          data-slot="slider-track"
           className={cn(
-            'w-5 h-5 rounded-full bg-surface border-2 border-primary shadow',
-            'focus:outline-none focus:ring-2 focus:ring-focus-ring focus:ring-offset-2',
+            'relative grow overflow-hidden rounded-full bg-interactive',
+            'data-[orientation=horizontal]:h-2 data-[orientation=horizontal]:w-full',
+            'data-[orientation=vertical]:w-2 data-[orientation=vertical]:h-full',
           )}
-        />
+        >
+          <BaseSlider.Indicator
+            data-slot="slider-indicator"
+            className={cn(
+              'rounded-full bg-primary',
+              'data-[orientation=horizontal]:h-full',
+              'data-[orientation=vertical]:w-full',
+            )}
+          />
+        </BaseSlider.Track>
+        {thumbValues.map((_, index) => (
+          <BaseSlider.Thumb
+            // biome-ignore lint/suspicious/noArrayIndexKey: thumbs are positional
+            key={index}
+            index={index}
+            data-slot="slider-thumb"
+            className={cn(
+              'block size-4 shrink-0 rounded-full bg-surface border-2 border-primary shadow',
+              'cursor-pointer outline-none transition-[box-shadow]',
+              'ring-focus-ring/50 hover:ring-4 focus-visible:ring-4 has-[:focus-visible]:ring-4',
+              'disabled:pointer-events-none disabled:opacity-50',
+              'data-disabled:pointer-events-none data-disabled:opacity-50',
+            )}
+          />
+        ))}
       </BaseSlider.Control>
     </BaseSlider.Root>
   );

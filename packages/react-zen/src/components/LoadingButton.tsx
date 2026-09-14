@@ -17,9 +17,17 @@ export function LoadingButton({
   children,
   ...props
 }: LoadingButtonProps) {
+  const loading = !!isLoading;
+
   return (
-    <Button {...props} isDisabled={isDisabled}>
-      {isLoading && (
+    <Button
+      {...props}
+      data-slot="loading-button"
+      data-loading={loading || undefined}
+      aria-busy={loading}
+      isDisabled={isDisabled || loading}
+    >
+      {loading && (
         <Icon size="sm">
           <Spinner isDisabled={isDisabled} />
         </Icon>

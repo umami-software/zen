@@ -1,5 +1,6 @@
 ---
 title: Hover Trigger
+description: "Displays a popover element when a user hovers over a trigger element."
 ---
 
 import { Button, Column, Dialog, Example, HoverTrigger, Switch } from '../../../mdx-components';
@@ -36,7 +37,14 @@ Displays a popover element when a user hovers over a trigger element.
 
 <PropertiesTable>
   <ResponseField name="isOpen" type="boolean">Controlled open state</ResponseField>
+  <ResponseField name="defaultOpen" type="boolean">Initial open state when uncontrolled</ResponseField>
+  <ResponseField name="onOpenChange" type="(open: boolean) => void">Called when the open state changes</ResponseField>
+  <ResponseField name="delay" type="number">Delay before opening in ms (default: 300)</ResponseField>
   <ResponseField name="closeDelay" type="number">Delay before closing in ms (default: 500)</ResponseField>
   <ResponseField name="onHoverStart" type="() => void">Called when hover starts</ResponseField>
   <ResponseField name="onHoverEnd" type="() => void">Called when hover ends</ResponseField>
+  <ResponseField name="className" type="string">Extra classes for the popup surface</ResponseField>
 </PropertiesTable>
+
+The trigger renders through the child element, so buttons and links keep their own semantics and
+remain focusable.

@@ -58,13 +58,19 @@ Free-text input with filtered suggestions.
 | `items` | `readonly string[]` | Suggestions to filter and display |
 | `label` | `ReactNode` | Accessible input label |
 | `value` / `defaultValue` | `string` | Controlled or initial text |
-| `onChange` | `(value: string) => void` | Receives edits and chosen suggestions |
-| `onValueChange` | Base UI callback | Receives the value and cancellable event details |
-| `isDisabled` | `boolean` | Disables the input |
+| `onChange` | `(value: string) => void` | Called after `onValueChange`, and only for changes that were not canceled |
+| `onValueChange` | Base UI callback | Receives the value and cancellable event details; runs first |
+| `isDisabled` | `boolean` | Disables the input (`disabled` is also accepted) |
+| `showClear` | `boolean` | Shows a clear button while the input has a value |
 | `mode` | `'list' \| 'both' \| 'inline' \| 'none'` | Filtering and inline completion behavior |
 | `inputProps` | Base UI Input props | Input attributes, including `aria-label` when no label is shown |
 | `positionerProps` | Base UI Positioner props | Popup placement |
 | `renderItem` | `(item: string) => ReactNode` | Custom suggestion content |
 | `emptyMessage` | `ReactNode` | Content shown when no suggestions match |
+
+The parts expose `data-slot` attributes (`autocomplete`, `autocomplete-input`, `autocomplete-clear`,
+`autocomplete-status`, `autocomplete-positioner`, `autocomplete-content`, `autocomplete-list`,
+`autocomplete-item`, `autocomplete-empty`), and a visually hidden `Autocomplete.Status` announces
+the number of available suggestions.
 
 The forwarded ref targets the input. Other Base UI Autocomplete root props are supported, including `open`, `onOpenChange`, `filter`, and `readOnly`.

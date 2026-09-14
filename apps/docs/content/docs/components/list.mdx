@@ -1,5 +1,6 @@
 ---
 title: List
+description: "A list displays a collection of items and allows a user to select one or more of them."
 ---
 
 import { Example, List, ListItem, ListSection, ListSeparator } from '../../../mdx-components';
@@ -143,8 +144,12 @@ A list displays a collection of items and allows a user to select one or more of
   <ResponseField name="selectionMode" type="SelectionMode">"none" | "single" | "multiple"</ResponseField>
   <ResponseField name="selectedKeys" type="string[]">Controlled selected keys</ResponseField>
   <ResponseField name="defaultSelectedKeys" type="string[]">Default selected keys</ResponseField>
-  <ResponseField name="onSelectionChange" type="(keys: Selection) => void">Called when selection changes</ResponseField>
+  <ResponseField name="onSelectionChange" type="(keys: Selection) => void">Called when selection changes. Keys are always emitted as strings, so numeric `id`s match string `selectedKeys`</ResponseField>
 </PropertiesTable>
+
+A standalone list (one that is not inside a `Select` or `ComboBox`) uses a roving tabindex: the
+listbox itself is the single tab stop, <kbd>ArrowUp</kbd>/<kbd>ArrowDown</kbd>/<kbd>Home</kbd>/<kbd>End</kbd>
+move focus between options, and <kbd>Enter</kbd>/<kbd>Space</kbd> selects the focused option.
 
 ### ListItem
 

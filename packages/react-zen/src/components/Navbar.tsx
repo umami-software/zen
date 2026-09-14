@@ -2,6 +2,7 @@ import { NavigationMenu as BaseNavigationMenu } from '@base-ui/react/navigation-
 import { createContext, type HTMLAttributes, type ReactNode, useContext } from 'react';
 import { ChevronDown } from '@/components/icons';
 import { cn } from './lib/tailwind';
+import { MenuVariantContext } from './Menu';
 import { Text } from './Text';
 import './Overlay.css';
 
@@ -26,9 +27,6 @@ const itemLinkClassName = cn(
 
 const contentClassName = cn(
   'w-max',
-  // Menu already provides the popup padding. Let the shared navbar popup own
-  // the surface so nested menus do not render a second border and shadow.
-  '[&>[role=menu]]:border-0 [&>[role=menu]]:rounded-none [&>[role=menu]]:shadow-none',
   'transition-[opacity,transform,translate] duration-(--duration) ease-(--easing)',
   'data-[starting-style]:opacity-0 data-[ending-style]:opacity-0',
   'data-[starting-style]:data-[activation-direction=left]:translate-x-[-50%]',
@@ -71,13 +69,17 @@ export function Navbar({
 }: NavbarProps) {
   return (
     <NavbarContext.Provider value={{ showArrow }}>
-      <BaseNavigationMenu.Root className={cn('relative', className)} {...props}>
+      <BaseNavigationMenu.Root
+        data-slot="navbar"
+        className={cn('relative isolate', className)}
+        {...props}
+      >
         <BaseNavigationMenu.List className="flex items-center gap-1">
           {children}
         </BaseNavigationMenu.List>
         <BaseNavigationMenu.Portal>
           <BaseNavigationMenu.Positioner
-            className={cn('zen-layer-floating', positionerClassName)}
+            className={cn('zen-layer-floating isolate', positionerClassName)}
             sideOffset={10}
             collisionPadding={16}
             style={{
@@ -122,7 +124,11 @@ export function NavbarItem({
           )}
         </BaseNavigationMenu.Trigger>
         <BaseNavigationMenu.Content className={contentClassName}>
-          {children}
+          {/*
+            The shared navbar popup already owns the surface, so nested menus render `plain`
+            instead of being un-styled with descendant selectors.
+          */}
+          <MenuVariantContext.Provider value="plain">{children}</MenuVariantContext.Provider>
         </BaseNavigationMenu.Content>
       </BaseNavigationMenu.Item>
     );

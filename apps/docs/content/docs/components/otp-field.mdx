@@ -1,8 +1,9 @@
 ---
 title: OTP Field
+description: "An OTP field allows a user to enter a one-time password or verification code, one character per input slot."
 ---
 
-import { Example, OTPField, OTPFieldExample } from '../../../mdx-components';
+import { Example, OTPField, OTPFieldExample, OTPFieldSeparator, Row } from '../../../mdx-components';
 
 An OTP field allows a user to enter a one-time password or verification code, one character per input slot.
 
@@ -59,6 +60,26 @@ An OTP field allows a user to enter a one-time password or verification code, on
     onChange={setValue}
     onComplete={() => setIsComplete(true)}
   />
+  ```
+</Example>
+
+## Separator
+
+Use `OTPFieldSeparator` to visually split the slots into groups.
+
+<Example>
+  <Row alignItems="center" gap="2">
+    <OTPField length={3} aria-label="First group" />
+    <OTPFieldSeparator />
+    <OTPField length={3} aria-label="Second group" />
+  </Row>
+
+  ```jsx
+  <Row alignItems="center" gap="2">
+    <OTPField length={3} aria-label="First group" />
+    <OTPFieldSeparator />
+    <OTPField length={3} aria-label="Second group" />
+  </Row>
   ```
 </Example>
 

@@ -3,56 +3,43 @@ import { tv, type VariantProps } from 'tailwind-variants';
 // Button variants
 export const button = tv({
   base: [
-    'inline-flex items-center justify-center gap-3 whitespace-nowrap',
+    'inline-flex items-center justify-center gap-2 whitespace-nowrap shrink-0',
     'font-medium rounded border border-transparent cursor-pointer',
-    'transition-colors leading-normal relative no-underline',
-    'outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface',
+    'transition-all relative no-underline outline-none',
+    'focus-visible:border-focus-ring focus-visible:ring-[3px] focus-visible:ring-focus-ring/50',
+    'disabled:pointer-events-none disabled:opacity-50',
+    'aria-invalid:border-status-error aria-invalid:ring-status-error/20',
+    "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   ],
   variants: {
     variant: {
       default: [
         'bg-interactive text-fg',
         'hover:bg-interactive-hover',
-        'pressed:bg-interactive-pressed',
-        'disabled:text-fg-disabled',
+        'active:bg-interactive-pressed',
       ],
-      primary: [
-        'bg-primary text-primary-fg',
-        'hover:opacity-90',
-        'pressed:opacity-80',
-        'disabled:opacity-50',
-      ],
+      primary: ['bg-primary text-primary-fg', 'hover:opacity-90', 'active:opacity-80'],
       outline: [
-        'bg-surface border-edge shadow-sm text-fg',
+        'bg-surface border-edge shadow-xs text-fg',
         'hover:border-edge-strong',
-        'pressed:bg-surface-raised',
-        'disabled:bg-surface-disabled disabled:text-fg-disabled',
+        'active:bg-surface-raised',
+        'disabled:bg-surface-disabled',
       ],
-      quiet: [
-        'bg-transparent',
-        'hover:bg-interactive',
-        'pressed:bg-interactive-hover',
-        'disabled:text-fg-disabled',
-      ],
-      danger: [
-        'bg-status-error text-white',
-        'hover:opacity-90',
-        'pressed:opacity-80',
-        'disabled:opacity-50',
-      ],
-      zero: [
-        'bg-transparent border-0',
-        'hover:bg-transparent',
-        'pressed:bg-transparent',
-        'disabled:text-fg-disabled',
-      ],
+      quiet: ['bg-transparent', 'hover:bg-interactive', 'active:bg-interactive-hover'],
+      danger: ['bg-status-error text-white', 'hover:opacity-90', 'active:opacity-80'],
+      link: ['bg-transparent text-primary underline-offset-4', 'hover:underline'],
+      zero: ['bg-transparent border-0', 'hover:bg-transparent', 'active:bg-transparent'],
     },
     size: {
-      xs: 'text-xs py-1 px-2',
-      sm: 'text-sm py-1.5 px-2.5',
-      md: 'text-sm py-2 px-3',
-      lg: 'text-base py-2.5 px-4',
-      xl: 'text-lg py-3 px-5',
+      xs: 'h-6 gap-1 px-2 text-xs',
+      sm: 'h-8 gap-1.5 px-3 text-sm has-[>svg]:px-2.5',
+      md: 'h-9 px-4 py-2 text-sm has-[>svg]:px-3',
+      lg: 'h-10 px-6 text-base has-[>svg]:px-4',
+      xl: 'h-11 px-8 text-lg has-[>svg]:px-6',
+      icon: 'size-9',
+      'icon-xs': 'size-6',
+      'icon-sm': 'size-8',
+      'icon-lg': 'size-10',
     },
   },
   defaultVariants: {
@@ -67,18 +54,24 @@ export type ButtonVariants = VariantProps<typeof button>;
 export const inputField = tv({
   base: [
     'relative flex items-center',
-    'h-9 text-sm rounded border border-edge bg-surface shadow-sm',
-    'text-fg transition-colors',
-    'focus-within:border-edge-strong',
+    'h-9 text-base md:text-sm rounded border border-edge bg-surface shadow-xs',
+    'text-fg transition-[color,box-shadow,border-color]',
+    // Wrapper around a native control (TextField, SearchField, ...)
+    'focus-within:border-focus-ring focus-within:ring-[3px] focus-within:ring-focus-ring/50',
     'has-[input:read-only]:bg-surface-raised has-[textarea:read-only]:bg-surface-raised',
     'has-[:disabled]:bg-surface-disabled has-[:disabled]:opacity-50',
+    'has-[[aria-invalid=true]]:border-status-error has-[[aria-invalid=true]]:ring-status-error/20',
+    // Used directly on a trigger button (Select, DatePicker)
+    'focus-visible:border-focus-ring focus-visible:ring-[3px] focus-visible:ring-focus-ring/50',
     'disabled:bg-surface-disabled disabled:opacity-50 disabled:cursor-not-allowed',
+    'data-disabled:bg-surface-disabled data-disabled:opacity-50 data-disabled:cursor-not-allowed',
+    'aria-invalid:border-status-error aria-invalid:ring-status-error/20',
   ],
   variants: {
     variant: {
       default: '',
       quiet:
-        'h-auto rounded-none border-transparent bg-transparent shadow-none focus-within:border-b-edge focus-within:border-x-transparent focus-within:border-t-transparent',
+        'h-auto rounded-none border-transparent bg-transparent shadow-none focus-within:ring-0 focus-within:border-b-edge focus-within:border-x-transparent focus-within:border-t-transparent',
     },
   },
   defaultVariants: {
@@ -95,11 +88,10 @@ export const listItem = tv({
     'gap-3 text-sm py-2 px-3 min-w-[120px]',
     'cursor-pointer outline-none rounded',
     'text-fg',
-    'hovered:bg-interactive',
-    'focused:bg-interactive',
+    'data-highlighted:bg-interactive',
     'focus-visible:bg-interactive',
-    'disabled:text-fg-disabled disabled:cursor-default',
-    'selected:font-semibold',
+    'data-disabled:text-fg-disabled data-disabled:cursor-default',
+    'data-selected:font-semibold',
   ],
 });
 
@@ -152,7 +144,7 @@ export const checkbox = tv({
     root: [
       'group flex items-center gap-3',
       'text-sm cursor-pointer',
-      'disabled:text-fg-disabled disabled:cursor-default',
+      'data-disabled:text-fg-disabled data-disabled:cursor-default',
     ],
     box: [
       'flex items-center justify-center',
@@ -161,7 +153,8 @@ export const checkbox = tv({
       'group-data-[checked]:bg-primary group-data-[checked]:border-primary group-data-[checked]:text-primary-fg',
       'group-indeterminate:bg-surface group-indeterminate:text-fg',
       'group-disabled:bg-surface-disabled',
-      'group-focus-visible:ring-2 group-focus-visible:ring-focus-ring group-focus-visible:ring-offset-1',
+      'group-aria-invalid:border-status-error group-aria-invalid:ring-status-error/20',
+      'group-focus-visible:border-focus-ring group-focus-visible:ring-[3px] group-focus-visible:ring-focus-ring/50',
     ],
     icon: [
       'hidden',
@@ -180,14 +173,14 @@ export const switchVariant = tv({
     root: [
       'group flex items-center gap-3',
       'text-sm cursor-pointer',
-      'disabled:opacity-50 disabled:cursor-default',
+      'data-disabled:opacity-50 data-disabled:cursor-default',
     ],
     track: [
       'flex items-center w-10 h-6 px-1 rounded-full',
       'bg-interactive',
       'transition-colors',
       'group-data-[checked]:bg-primary',
-      'group-focus-visible:ring-2 group-focus-visible:ring-focus-ring group-focus-visible:ring-offset-1',
+      'group-focus-visible:border-focus-ring group-focus-visible:ring-[3px] group-focus-visible:ring-focus-ring/50',
     ],
     thumb: [
       'w-4 h-4 rounded-full',
@@ -209,10 +202,10 @@ export const tabs = tv({
       'px-4 py-2 text-sm font-medium cursor-pointer',
       'text-fg-muted outline-none',
       'border-b-2 border-transparent -mb-px',
-      'hovered:text-fg',
-      'selected:text-fg selected:border-primary',
+      'hover:text-fg',
+      'data-active:text-fg data-active:border-primary',
       'disabled:text-fg-disabled disabled:cursor-default',
-      'focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2',
+      'focus-visible:ring-[3px] focus-visible:ring-focus-ring/50',
     ],
     panel: 'py-4',
   },
@@ -461,13 +454,13 @@ export const tag = tv({
     base: [
       'inline-flex items-center gap-1 px-2 py-0.5 rounded text-sm',
       'cursor-default outline-none',
-      'focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-1',
+      'focus-visible:ring-[3px] focus-visible:ring-focus-ring/50',
     ],
     removeButton: [
       'flex items-center justify-center rounded-full p-0.5 -mr-1',
       'cursor-pointer outline-none',
       'hover:bg-black/10 dark:hover:bg-white/10',
-      'pressed:bg-black/20 dark:pressed:bg-white/20',
+      'active:bg-black/20 dark:active:bg-white/20',
     ],
   },
   variants: {

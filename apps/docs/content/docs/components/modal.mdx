@@ -1,5 +1,6 @@
 ---
 title: Modal
+description: "A modal is an overlay element which blocks interaction with elements outside it."
 ---
 
 import { Button, Dialog, DialogTrigger, Example, Flexbox, Heading, Modal } from '../../../mdx-components';
@@ -21,7 +22,7 @@ Use `Sheet` for panels that slide in from an edge of the viewport.
   <DialogTrigger>
     <Button>Fullscreen</Button>
     <Modal placement="fullscreen">
-      <Dialog className="size-full rounded-none border-0 shadow-none">
+      <Dialog>
         <Flexbox justifyContent="center" alignItems="center" paddingX="9" paddingY="8">
           <Heading>Hello.</Heading>
         </Flexbox>
@@ -43,7 +44,7 @@ Use `Sheet` for panels that slide in from an edge of the viewport.
   <DialogTrigger>
     <Button>Fullscreen</Button>
     <Modal placement="fullscreen">
-      <Dialog className="size-full rounded-none border-0 shadow-none">
+      <Dialog>
         <Flexbox justifyContent="center" alignItems="center" paddingX="9" paddingY="8">
           <Heading>Hello.</Heading>
         </Flexbox>
@@ -59,4 +60,22 @@ Use `Sheet` for panels that slide in from an edge of the viewport.
   <ResponseField name="placement" type="string">"center" | "fullscreen" (default: "center")</ResponseField>
   <ResponseField name="isDismissable" type="boolean">Can be dismissed by clicking outside (default: true)</ResponseField>
   <ResponseField name="isKeyboardDismissDisabled" type="boolean">Disables Escape key dismissal</ResponseField>
+  <ResponseField name="isOpen" type="boolean">Controlled open state. Used when the modal is not wrapped in a `DialogTrigger`</ResponseField>
+  <ResponseField name="defaultOpen" type="boolean">Initial open state. Used when the modal is not wrapped in a `DialogTrigger`</ResponseField>
+  <ResponseField name="onOpenChange" type="(open: boolean) => void">Called when the open state changes</ResponseField>
+  <ResponseField name="showCloseButton" type="boolean">Renders a quiet close button in the top-right corner (default: false)</ResponseField>
 </PropertiesTable>
+
+## Parts
+
+`Modal` can also be composed directly with the shadcn-style parts, which map onto the Base UI dialog primitives.
+
+<PropertiesTable>
+  <ResponseField name="ModalTrigger" type="component">Opens the modal</ResponseField>
+  <ResponseField name="ModalClose" type="component">Closes the modal</ResponseField>
+  <ResponseField name="ModalTitle" type="component">Accessible title, rendered as a `Heading`</ResponseField>
+  <ResponseField name="ModalDescription" type="component">Accessible description, rendered as muted `Text`</ResponseField>
+</PropertiesTable>
+
+A fullscreen modal now removes the inner dialog's border, radius and shadow automatically, so no
+`className` override is needed.

@@ -1,5 +1,6 @@
 ---
 title: Calendar
+description: "A calendar displays one or more date grids and allows users to select a single date."
 ---
 
 import { Calendar, CalendarExample, Example } from '../../../mdx-components';
@@ -17,11 +18,18 @@ A calendar displays one or more date grids and allows users to select a single d
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="value" type="Date">Controlled selected date</ResponseField>
+  <ResponseField name="mode" type="'single' | 'multiple' | 'range'">Selection mode (default: "single")</ResponseField>
+  <ResponseField name="selected" type="Date | Date[] | DateRange">Selection for the current `mode`</ResponseField>
+  <ResponseField name="onSelect" type="(selected: Date | Date[] | DateRange | undefined) => void">Called when the selection changes in any mode</ResponseField>
+  <ResponseField name="value" type="Date">Controlled selected date (compat prop for `mode="single"`)</ResponseField>
   <ResponseField name="defaultValue" type="Date">Default selected date</ResponseField>
   <ResponseField name="minValue" type="Date">Minimum selectable date</ResponseField>
   <ResponseField name="maxValue" type="Date">Maximum selectable date</ResponseField>
   <ResponseField name="isDisabled" type="boolean">Disables the calendar</ResponseField>
   <ResponseField name="isReadOnly" type="boolean">Makes the calendar read-only</ResponseField>
-  <ResponseField name="onChange" type="(date: Date) => void">Called when date changes</ResponseField>
+  <ResponseField name="captionLayout" type="'label' | 'dropdown' | 'dropdown-months' | 'dropdown-years'">Month/year caption style (default: "label")</ResponseField>
+  <ResponseField name="showOutsideDays" type="boolean">Shows muted days from adjacent months (default: true)</ResponseField>
+  <ResponseField name="buttonVariant" type="ButtonVariant">Button style used for day and nav buttons (default: "quiet")</ResponseField>
+  <ResponseField name="classNames" type="ClassNames">Merged over the default react-day-picker class names</ResponseField>
+  <ResponseField name="onChange" type="(date: Date | undefined) => void">Called when the date changes in `mode="single"`. Receives `undefined` when deselected.</ResponseField>
 </PropertiesTable>

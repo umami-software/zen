@@ -8,7 +8,6 @@ import {
 import { useFieldId } from '@/components/hooks/useFieldId';
 import { Column } from '../Column';
 import { Label } from '../Label';
-import { cn } from '../lib/tailwind';
 import { Text } from '../Text';
 
 export interface FormFieldArrayProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
@@ -48,7 +47,11 @@ export function FormFieldArray({
     <Column {...props} gap="1" className={className}>
       {label && <Label htmlFor={fieldId}>{label}</Label>}
       {description && <Text color="muted">{description}</Text>}
-      {errorMessage && <Text className="text-red-500">{errorMessage}</Text>}
+      {errorMessage && (
+        <Text role="alert" className="text-status-error">
+          {errorMessage}
+        </Text>
+      )}
       {children({ ...context, ...fieldProps })}
     </Column>
   );

@@ -31,9 +31,14 @@ export function FormField({
   ...props
 }: FormFieldProps) {
   const fieldId = useFieldId(id);
+  const descriptionId = `${fieldId}-description`;
+  const errorId = `${fieldId}-error`;
   const context = useFormContext();
   const { control } = context;
   const { invalid, error } = context.getFieldState(name);
+
+  const describedBy =
+    [description && descriptionId, invalid && errorId].filter(Boolean).join(' ') || undefined;
 
   return (
     <Column {...props} gap="1" className={className}>
@@ -46,13 +51,28 @@ export function FormField({
               if (!child) {
                 return null;
               }
-              return cloneElement(child, { ...field, id: fieldId });
+              return cloneElement(child, {
+                ...field,
+                id: fieldId,
+                'aria-invalid': invalid || undefined,
+                'aria-describedby':
+                  [child.props?.['aria-describedby'], describedBy].filter(Boolean).join(' ') ||
+                  undefined,
+              });
             },
           );
         }}
       </FormController>
-      {description && <Text color="muted">{description}</Text>}
-      {invalid && <Text className="text-red-500">{error?.message}</Text>}
+      {description && (
+        <Text id={descriptionId} color="muted">
+          {description}
+        </Text>
+      )}
+      {invalid && (
+        <Text id={errorId} role="alert" className="text-status-error">
+          {error?.message}
+        </Text>
+      )}
     </Column>
   );
 }

@@ -1,7 +1,6 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { Button } from '@/components/Button';
 import { Column } from '@/components/Column';
-import { Icon } from '@/components/Icon';
 import { X } from '@/components/icons';
 import { cn } from '@/components/lib/tailwind';
 import { Row } from '@/components/Row';
@@ -37,7 +36,7 @@ export function Toast({
   const hasActions = actions?.length > 0;
 
   return (
-    <Row {...props} className={cn(toastVariant({ variant }), className)}>
+    <Row {...props} data-slot="toast" className={cn(toastVariant({ variant }), className)}>
       <Column flexGrow={1} gap="1">
         {title && <Text weight="semibold">{title}</Text>}
         {message && <Text color={title ? 'muted' : undefined}>{message}</Text>}
@@ -51,15 +50,16 @@ export function Toast({
           );
         })}
       {!hasActions && allowClose && (
-        <Icon
-          aria-hidden
+        <Button
+          variant="quiet"
+          size="icon-xs"
           aria-label="Close"
-          size="sm"
-          className="cursor-pointer text-fg-muted hover:text-fg"
-          onClick={() => onClose?.(TOAST_CLOSE_ACTION)}
+          data-slot="toast-close"
+          className="shrink-0 self-start text-fg-muted hover:text-fg"
+          onPress={() => onClose?.(TOAST_CLOSE_ACTION)}
         >
           <X />
-        </Icon>
+        </Button>
       )}
     </Row>
   );

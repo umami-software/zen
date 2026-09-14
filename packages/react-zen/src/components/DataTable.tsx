@@ -66,7 +66,7 @@ export function DataTable({
   }
 
   return (
-    <Table {...props} className={cn('relative text-sm', className)}>
+    <Table {...props} data-slot="data-table" className={cn('relative text-sm', className)}>
       <TableHeader style={{ gridTemplateColumns }}>
         {columns?.map(({ id, label, as, hidden, width, ...columnProps }) => {
           if (hidden) {
@@ -82,9 +82,10 @@ export function DataTable({
       </TableHeader>
       <TableBody>
         {rows.map((row, index) => {
+          const rowId = row.id !== undefined && row.id !== null ? String(row.id) : undefined;
+
           return (
-            // biome-ignore lint/suspicious/noArrayIndexKey: row data may not have unique ids
-            <TableRow key={index} id={String(row.id)} style={{ gridTemplateColumns }}>
+            <TableRow key={rowId ?? `row-${index}`} id={rowId} style={{ gridTemplateColumns }}>
               {columns?.map(
                 ({
                   id,

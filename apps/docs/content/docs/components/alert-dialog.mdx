@@ -1,5 +1,6 @@
 ---
 title: Alert Dialog
+description: "Alert dialogs are a specific type of Dialog."
 ---
 
 import { AlertDialog, AlertDialogExample, Button, DialogTrigger, Example, Modal, Text } from '../../../mdx-components';
@@ -31,6 +32,6 @@ to acknowledge.
   <ResponseField name="isConfirmDisabled" type="boolean">Disables the confirm button</ResponseField>
   <ResponseField name="confirmLabel" type="ReactNode">Confirm button text (default: "Confirm")</ResponseField>
   <ResponseField name="cancelLabel" type="ReactNode">Cancel button text (default: "Cancel")</ResponseField>
-  <ResponseField name="onConfirm" type="() => void">Called when confirm is clicked</ResponseField>
+  <ResponseField name="onConfirm" type="() => void | Promise<unknown>">Called when confirm is clicked. When it returns a promise the dialog stays open until it resolves, and stays open on rejection</ResponseField>
   <ResponseField name="onCancel" type="() => void">Called when cancel is clicked</ResponseField>
 </PropertiesTable>

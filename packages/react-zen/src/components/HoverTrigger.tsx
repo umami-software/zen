@@ -1,95 +1,88 @@
 import { Popover as BasePopover } from '@base-ui/react/popover';
-import { type ReactElement, useEffect, useRef, useState } from 'react';
-import { OverlayContentProvider } from './OverlayTrigger';
+import { Children, type ReactElement, type ReactNode } from 'react';
+import { cn } from './lib/tailwind';
+import { OverlayContentProvider, OverlayTriggerNestedContext } from './OverlayTrigger';
 import './Overlay.css';
 
+const OPEN_DELAY = 300;
 const CLOSE_DELAY = 500;
 
-export interface HoverButtonProps {
+export interface HoverTriggerProps {
+  /** Controlled open state. */
   isOpen?: boolean;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
   onHoverStart?: () => void;
   onHoverEnd?: () => void;
+  /** Delay before opening on hover, in milliseconds. */
+  delay?: number;
+  /** Delay before closing once the pointer leaves, in milliseconds. */
   closeDelay?: number;
-  children: ReactElement[];
+  className?: string;
+  children: ReactNode;
 }
+
+/** @deprecated Use `HoverTriggerProps`. */
+export type HoverButtonProps = HoverTriggerProps;
 
 export function HoverTrigger({
   isOpen,
+  defaultOpen,
+  onOpenChange,
   onHoverStart,
   onHoverEnd,
+  delay = OPEN_DELAY,
   closeDelay = CLOSE_DELAY,
+  className,
   children,
-}: HoverButtonProps) {
-  const [triggerElement, popupElement] = children;
-  const triggerRef = useRef(null);
+}: HoverTriggerProps) {
+  const items = Children.toArray(children) as ReactElement[];
+  const [triggerElement, popupElement] = items;
 
-  const [open, setOpen] = useState(isOpen);
-  const isOverMenu = useRef<boolean>(false);
-  const isOverButton = useRef<boolean>(false);
-  const timeout = useRef<NodeJS.Timeout>(null);
-
-  useEffect(() => {
-    if (isOpen !== open) {
-      setOpen(isOpen);
+  const handleOpenChange = (open: boolean) => {
+    onOpenChange?.(open);
+    if (open) {
+      onHoverStart?.();
+    } else {
+      onHoverEnd?.();
     }
-  }, [isOpen]);
-
-  const _close = () => setOpen(false);
-
-  const handleMouseEnter = () => {
-    isOverMenu.current = false;
-    isOverButton.current = true;
-    setOpen(true);
-    onHoverStart?.();
-  };
-
-  const handleMouseLeave = () => {
-    isOverButton.current = false;
-    checkHoverState();
-  };
-
-  const handleMenuEnter = () => {
-    isOverMenu.current = true;
-  };
-
-  const handleMenuLeave = () => {
-    isOverMenu.current = false;
-    checkHoverState();
-  };
-
-  const checkHoverState = () => {
-    if (timeout.current) {
-      clearTimeout(timeout.current);
-    }
-
-    timeout.current = setTimeout(() => {
-      if (!isOverMenu.current && !isOverButton.current) {
-        setOpen(false);
-        onHoverEnd?.();
-        isOverMenu.current = false;
-        isOverButton.current = false;
-      }
-    }, closeDelay);
   };
 
   return (
-    <BasePopover.Root open={open} onOpenChange={setOpen}>
+    <BasePopover.Root
+      {...(isOpen === undefined ? { defaultOpen } : { open: isOpen })}
+      onOpenChange={handleOpenChange}
+    >
+      {/*
+        `openOnHover` replaces the old manual mouseenter/mouseleave timers, and `render` keeps the
+        child's own semantics (button, link, …) instead of wrapping it in a non-focusable <span>.
+      */}
       <BasePopover.Trigger
-        ref={triggerRef}
-        render={
-          <span onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            {triggerElement}
-          </span>
-        }
+        data-slot="hover-trigger"
+        openOnHover={true}
+        delay={delay}
+        closeDelay={closeDelay}
+        render={triggerElement}
       />
       <BasePopover.Portal>
-        <BasePopover.Positioner className="zen-layer-floating">
-          <BasePopover.Popup className="zen-popover outline-none">
-            <div onMouseEnter={handleMenuEnter} onMouseLeave={handleMenuLeave}>
-              <OverlayContentProvider close={_close} kind="popover">
+        <BasePopover.Positioner className="zen-layer-floating isolate" sideOffset={4}>
+          <BasePopover.Popup
+            data-slot="hover-content"
+            className={cn(
+              'max-w-(--available-width) max-h-(--available-height) overflow-y-auto outline-none',
+              'bg-surface-overlay border border-edge rounded-lg shadow-lg p-4',
+              'origin-(--transform-origin) transition-[transform,opacity] duration-200 ease-out',
+              'data-starting-style:opacity-0 data-starting-style:scale-95',
+              'data-ending-style:opacity-0 data-ending-style:scale-95 data-ending-style:ease-in',
+              'motion-reduce:transition-none',
+              className,
+            )}
+          >
+            <OverlayTriggerNestedContext.Provider value={true}>
+              <OverlayContentProvider close={() => handleOpenChange(false)} kind="popover">
                 {popupElement}
               </OverlayContentProvider>
-            </div>
+            </OverlayTriggerNestedContext.Provider>
           </BasePopover.Popup>
         </BasePopover.Positioner>
       </BasePopover.Portal>

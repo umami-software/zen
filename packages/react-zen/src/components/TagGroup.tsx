@@ -1,4 +1,12 @@
-import { createContext, type HTMLAttributes, type Key, type ReactNode, useContext } from 'react';
+import {
+  createContext,
+  type HTMLAttributes,
+  type Key,
+  type KeyboardEvent,
+  type LiHTMLAttributes,
+  type ReactNode,
+  useContext,
+} from 'react';
 import { X } from '@/components/icons';
 import { Icon } from './Icon';
 import { Label } from './Label';
@@ -29,17 +37,17 @@ export function TagGroup({ label, children, className, onRemove, ...props }: Tag
         remove: key => onRemove?.(new Set([key])),
       }}
     >
-      <div {...props} className={cn('flex flex-col gap-1', className)}>
+      <div {...props} data-slot="tag-group" className={cn('flex flex-col gap-1', className)}>
         {label && <Label>{label}</Label>}
-        <div role="list" className="flex flex-wrap gap-1">
+        <ul data-slot="tag-group-list" className="flex list-none flex-wrap gap-1 p-0 m-0">
           {children}
-        </div>
+        </ul>
       </div>
     </TagContext.Provider>
   );
 }
 
-export interface TagProps extends Omit<HTMLAttributes<HTMLDivElement>, 'id'>, TagVariants {
+export interface TagProps extends Omit<LiHTMLAttributes<HTMLLIElement>, 'id'>, TagVariants {
   id?: string | number;
   children?: ReactNode;
   isDisabled?: boolean;
@@ -48,27 +56,55 @@ export interface TagProps extends Omit<HTMLAttributes<HTMLDivElement>, 'id'>, Ta
 export function Tag({ id, variant, children, className, isDisabled, ...props }: TagProps) {
   const styles = tag({ variant });
   const { allowsRemoving, remove } = useContext(TagContext);
+  const key = id ?? String(children);
+  const isRemovable = allowsRemoving && !isDisabled;
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLLIElement>) => {
+    props.onKeyDown?.(event);
+
+    if (event.defaultPrevented || !isRemovable) {
+      return;
+    }
+
+    if (event.key === 'Backspace' || event.key === 'Delete') {
+      event.preventDefault();
+      remove(key);
+    }
+  };
 
   return (
-    <div
+    <li
       {...props}
-      role="listitem"
+      data-slot="tag"
+      data-disabled={isDisabled || undefined}
       aria-disabled={isDisabled || undefined}
-      className={cn(styles.base(), className)}
+      tabIndex={props.tabIndex ?? (isRemovable ? 0 : undefined)}
+      className={cn(
+        styles.base(),
+        'list-none',
+        'focus-visible:ring-[3px] focus-visible:ring-focus-ring/50',
+        isDisabled && 'opacity-50',
+        className,
+      )}
+      onKeyDown={handleKeyDown}
     >
       {children}
-      {allowsRemoving && !isDisabled && (
+      {isRemovable && (
         <button
           type="button"
-          className={styles.removeButton()}
+          data-slot="tag-remove"
+          className={cn(
+            styles.removeButton(),
+            'focus-visible:ring-[3px] focus-visible:ring-focus-ring/50',
+          )}
           aria-label={`Remove ${typeof children === 'string' ? children : 'tag'}`}
-          onClick={() => remove(id ?? String(children))}
+          onClick={() => remove(key)}
         >
           <Icon size="xs">
             <X />
           </Icon>
         </button>
       )}
-    </div>
+    </li>
   );
 }

@@ -1,5 +1,6 @@
 ---
 title: Text Field
+description: "A text field allows a user to enter a plain text value with a keyboard."
 ---
 
 import { Box, Column, Example, TextField } from '../../../mdx-components';
@@ -67,18 +68,18 @@ A text field allows a user to enter a plain text value with a keyboard.
 ## Copy button
 
 <Example>
-  <TextField placeholder="Enter some text." value="Text" style={{ width: 200 }} allowCopy />
+  <TextField placeholder="Enter some text." defaultValue="Text" style={{ width: 200 }} allowCopy />
   <TextField
     placeholder="Enter some text."
-    value="Text"
+    defaultValue="Text"
     style={{ width: 200 }}
     asTextArea
     allowCopy
   />
 
   ```jsx
-  <TextField value="Text" allowCopy />
-  <TextField value="Text" asTextArea allowCopy />
+  <TextField defaultValue="Text" allowCopy />
+  <TextField defaultValue="Text" asTextArea allowCopy />
   ```
 </Example>
 
@@ -95,10 +96,42 @@ A text field allows a user to enter a plain text value with a keyboard.
   ```
 </Example>
 
+## Label, description and error
+
+<Example>
+  <Box width="300px" maxWidth="100%">
+    <TextField
+      label="Email"
+      placeholder="ada@example.com"
+      description="We will never share your address."
+    />
+  </Box>
+
+  ```jsx
+  <TextField
+    label="Email"
+    placeholder="ada@example.com"
+    description="We will never share your address."
+  />
+  ```
+</Example>
+
+<Example>
+  <Box width="300px" maxWidth="100%">
+    <TextField label="Email" defaultValue="not-an-email" error="Enter a valid email address." />
+  </Box>
+
+  ```jsx
+  <TextField label="Email" defaultValue="not-an-email" error="Enter a valid email address." />
+  ```
+</Example>
+
 ## Component props
 
 <PropertiesTable>
   <ResponseField name="label" type="string">Label text displayed above the field</ResponseField>
+  <ResponseField name="description" type="ReactNode">Helper text rendered below the field and linked with `aria-describedby`</ResponseField>
+  <ResponseField name="error" type="ReactNode">Error message rendered below the field. Sets `aria-invalid` and `role="alert"`</ResponseField>
   <ResponseField name="placeholder" type="string">Placeholder text</ResponseField>
   <ResponseField name="value" type="string">Controlled value</ResponseField>
   <ResponseField name="defaultValue" type="string">Default value (uncontrolled)</ResponseField>

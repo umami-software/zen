@@ -1,12 +1,33 @@
 import type { CheckboxRoot } from '@base-ui/react/checkbox';
 import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
-import { type ReactNode, useContext } from 'react';
+import type { ReactNode } from 'react';
+import { tv } from 'tailwind-variants';
 import { Check, Minus } from '@/components/icons';
-import { Box } from './Box';
-import { Icon } from './Icon';
-import { TableSelectionContext, TableSelectionScopeContext } from './lib/tableSelection';
+import { useFieldId } from './hooks/useFieldId';
+import { Label } from './Label';
 import { cn } from './lib/tailwind';
-import { checkbox } from './variants';
+
+const checkboxStyles = tv({
+  slots: {
+    field: 'flex items-center gap-3 text-sm',
+    root: [
+      'peer flex size-4 shrink-0 items-center justify-center',
+      'rounded-[4px] border border-edge bg-surface shadow-xs',
+      'cursor-pointer outline-none transition-shadow',
+      'data-checked:bg-primary data-checked:border-primary data-checked:text-primary-fg',
+      'data-indeterminate:bg-primary data-indeterminate:border-primary data-indeterminate:text-primary-fg',
+      'focus-visible:border-focus-ring focus-visible:ring-[3px] focus-visible:ring-focus-ring/50',
+      'aria-invalid:border-status-error aria-invalid:ring-status-error/20',
+      'disabled:cursor-default disabled:opacity-50 disabled:bg-surface-disabled',
+      'data-disabled:cursor-default data-disabled:opacity-50 data-disabled:bg-surface-disabled',
+    ],
+    indicator: [
+      'flex items-center justify-center text-current',
+      "[&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-3.5",
+    ],
+    label: 'cursor-pointer peer-disabled:cursor-default peer-disabled:opacity-50',
+  },
+});
 
 export interface CheckboxProps
   extends Omit<
@@ -15,83 +36,88 @@ export interface CheckboxProps
   > {
   children?: ReactNode;
   label?: string;
+  /** Hide the visible label and expose it as `aria-label` instead. */
+  hideLabel?: boolean;
   value?: string | boolean;
   isSelected?: boolean;
+  checked?: boolean;
   defaultSelected?: boolean;
+  defaultChecked?: boolean;
   isDisabled?: boolean;
+  disabled?: boolean;
   isIndeterminate?: boolean;
+  indeterminate?: boolean;
   onChange?: (selected: boolean) => void;
+  onCheckedChange?: (checked: boolean) => void;
 }
 
 export function Checkbox({
+  id,
   label,
+  hideLabel,
   className,
   children,
   isSelected,
+  checked: checkedProp,
   defaultSelected,
+  defaultChecked,
   isDisabled,
+  disabled,
   isIndeterminate,
+  indeterminate,
   onChange,
+  onCheckedChange,
   value,
-  slot,
   ...props
 }: CheckboxProps) {
-  const tableSelection = useContext(TableSelectionContext);
-  const tableScope = useContext(TableSelectionScopeContext);
-  const isTableSelection = slot === 'selection' && tableSelection !== null && tableScope !== null;
-  const isHeaderSelection = isTableSelection && tableScope.type === 'header';
-  const selectedRowCount = tableSelection
-    ? Array.from(tableSelection.rowKeys).filter(key => tableSelection.selectedKeys.has(key)).length
-    : 0;
-  const tableChecked = isHeaderSelection
-    ? tableSelection.rowKeys.size > 0 && selectedRowCount === tableSelection.rowKeys.size
-    : tableScope?.rowKey
-      ? tableSelection?.selectedKeys.has(tableScope.rowKey)
-      : undefined;
-  const tableIndeterminate =
-    isHeaderSelection && selectedRowCount > 0 && selectedRowCount < tableSelection.rowKeys.size;
-  const checked =
-    (isTableSelection ? tableChecked : undefined) ??
-    isSelected ??
-    (typeof value === 'boolean' ? value : undefined);
-  const styles = checkbox();
+  const styles = checkboxStyles();
+  const fieldId = useFieldId(id);
+  const checked = checkedProp ?? isSelected ?? (typeof value === 'boolean' ? value : undefined);
+  const isIndeterminateValue = isIndeterminate ?? indeterminate;
+  const showLabel = !!label && !hideLabel;
+  const hasContent = showLabel || children !== undefined;
 
-  return (
+  const control = (
     <BaseCheckbox.Root
       {...props}
-      aria-label={props['aria-label'] ?? label}
+      id={fieldId}
+      data-slot="checkbox"
+      aria-label={props['aria-label'] ?? (showLabel ? undefined : label)}
       value={typeof value === 'string' ? value : undefined}
       checked={checked}
-      defaultChecked={defaultSelected}
-      disabled={
-        isDisabled ||
-        (isTableSelection &&
-          (tableSelection.selectionMode === 'none' ||
-            (isHeaderSelection && tableSelection.selectionMode !== 'multiple')))
-      }
-      indeterminate={isTableSelection ? tableIndeterminate : isIndeterminate}
-      className={cn(styles.root(), className)}
-      slot={isTableSelection ? undefined : slot}
-      onCheckedChange={selected => {
-        onChange?.(selected);
-        if (!isTableSelection) {
-          return;
-        }
-        if (isHeaderSelection) {
-          tableSelection.setAllSelected(selected);
-        } else if (tableScope.rowKey) {
-          tableSelection.setRowSelected(tableScope.rowKey, selected);
-        }
+      defaultChecked={defaultSelected ?? defaultChecked}
+      disabled={isDisabled ?? disabled}
+      indeterminate={isIndeterminateValue}
+      className={cn(styles.root(), !hasContent && className)}
+      onCheckedChange={(next, eventDetails) => {
+        onCheckedChange?.(next);
+        onChange?.(next);
+        void eventDetails;
       }}
     >
-      <Box className={styles.box()}>
-        <BaseCheckbox.Indicator className={styles.icon()}>
-          <Icon size="sm">
-            {(isTableSelection ? tableIndeterminate : isIndeterminate) ? <Minus /> : <Check />}
-          </Icon>
-        </BaseCheckbox.Indicator>
-      </Box>
-      {children}
+      <BaseCheckbox.Indicator data-slot="checkbox-indicator" className={styles.indicator()}>
+        {isIndeterminateValue ? <Minus /> : <Check />}
+      </BaseCheckbox.Indicator>
     </BaseCheckbox.Root>
+  );
+
+  if (!hasContent) {
+    return control;
+  }
+
+  return (
+    <div data-slot="checkbox-field" className={cn(styles.field(), className)}>
+      {control}
+      {showLabel && (
+        <Label htmlFor={fieldId} className={styles.label()}>
+          {label}
+        </Label>
+      )}
+      {children !== undefined && (
+        <label htmlFor={fieldId} className={styles.label()}>
+          {children}
+        </label>
+      )}
+    </div>
   );
 }

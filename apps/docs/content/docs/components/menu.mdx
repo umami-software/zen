@@ -1,5 +1,6 @@
 ---
 title: Menu
+description: "A menu displays a list of actions or options that a user can choose."
 ---
 
 import { Button, Example, Menu, MenuItem, MenuSection, MenuSeparator, MenuTrigger, SubMenuTrigger } from '../../../mdx-components';
@@ -182,7 +183,11 @@ A menu displays a list of actions or options that a user can choose.
   <ResponseField name="selectedKeys" type="string[]">Controlled selected keys</ResponseField>
   <ResponseField name="defaultSelectedKeys" type="string[]">Default selected keys</ResponseField>
   <ResponseField name="onSelectionChange" type="(keys: Selection) => void">Called when selection changes</ResponseField>
+  <ResponseField name="variant" type="'default' | 'plain'">`plain` drops the popup surface (border, shadow, background) when the menu is embedded in another popup, such as a `Navbar` dropdown</ResponseField>
 </PropertiesTable>
+
+With `selectionMode="single"` items render as radio items and with `"multiple"` as checkbox items, so
+`aria-checked` is exposed to assistive technology.
 
 ### MenuItem
 
@@ -191,6 +196,11 @@ A menu displays a list of actions or options that a user can choose.
   <ResponseField name="icon" type="ReactNode">Icon displayed before label</ResponseField>
   <ResponseField name="label" type="string">Item label text</ResponseField>
   <ResponseField name="isDisabled" type="boolean">Disables the item</ResponseField>
-  <ResponseField name="showChecked" type="boolean">Shows check mark when selected (default: true)</ResponseField>
+  <ResponseField name="showChecked" type="boolean">Shows the selected indicator. Defaults to `true` only when the menu has a selection mode</ResponseField>
   <ResponseField name="showSubMenuIcon" type="boolean">Shows submenu arrow icon</ResponseField>
+  <ResponseField name="closeOnSelect" type="boolean">Whether picking the item closes the menu. Defaults to `false` for multiple selection</ResponseField>
 </PropertiesTable>
+
+### MenuShortcut
+
+Renders a right-aligned keyboard hint inside a `MenuItem`.

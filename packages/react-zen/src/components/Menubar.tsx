@@ -14,8 +14,9 @@ export function Menubar({ isDisabled, className, children, ...props }: MenubarPr
   return (
     <BaseMenubar
       {...props}
+      data-slot="menubar"
       disabled={isDisabled}
-      className={cn('flex items-center gap-1 w-fit', className)}
+      className={cn('flex items-center gap-1 w-fit isolate', className)}
     >
       {children}
     </BaseMenubar>
@@ -32,8 +33,9 @@ export function MenubarMenu({ label, isDisabled, children, ...props }: MenubarMe
   return (
     <BaseMenu.Root {...props} disabled={isDisabled}>
       <BaseMenu.Trigger
+        data-slot="menubar-trigger"
         render={
-          <Button variant="quiet" size="sm" className="data-[popup-open]:bg-interactive">
+          <Button variant="quiet" size="sm" className="data-popup-open:bg-interactive">
             {label}
           </Button>
         }

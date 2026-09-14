@@ -4,6 +4,7 @@ import {
   createContext,
   type HTMLAttributes,
   type Key,
+  type KeyboardEvent,
   type ReactNode,
   useContext,
   useMemo,
@@ -16,6 +17,7 @@ import { Label } from '@/components/Label';
 import { getHighlightColor } from '@/lib/styles';
 import type { Selection } from './lib/interaction';
 import { cn } from './lib/tailwind';
+import { listItem } from './variants';
 import './Overlay.css';
 
 type ListKind = 'native' | 'select' | 'combobox';
@@ -79,20 +81,22 @@ export function List({
   ...props
 }: ListProps) {
   const parent = useContext(ListContext);
-  const [uncontrolled, setUncontrolled] = useState(
-    new Set<Key>(value || selectedKeys || defaultSelectedKeys),
+  const [uncontrolled, setUncontrolled] = useState<Set<Key>>(
+    () => new Set(Array.from(value || selectedKeys || defaultSelectedKeys || [], String)),
   );
-  const selected = new Set<Key>(value || selectedKeys || uncontrolled);
+  // Keys are always compared and emitted as strings so numeric ids match string keys.
+  const selected = new Set<Key>(Array.from(value || selectedKeys || uncontrolled, String));
   const fieldId = useFieldId(id);
   const toggle = (key: Key) => {
     if (selectionMode === 'none') {
       return;
     }
-    const next = new Set(selectionMode === 'multiple' ? selected : []);
-    if (next.has(key)) {
-      next.delete(key);
+    const itemKey = String(key);
+    const next = new Set<Key>(selectionMode === 'multiple' ? selected : []);
+    if (next.has(itemKey)) {
+      next.delete(itemKey);
     } else {
-      next.add(key);
+      next.add(itemKey);
     }
     if (!value && !selectedKeys) {
       setUncontrolled(next);
@@ -123,15 +127,52 @@ export function List({
     );
   }
 
+  // Roving tabindex: the container is the single tab stop and the arrow keys move
+  // focus between the options (which are focusable programmatically only).
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    props.onKeyDown?.(event);
+
+    if (event.defaultPrevented || !['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
+      return;
+    }
+
+    const options = Array.from(
+      event.currentTarget.querySelectorAll<HTMLElement>(
+        '[role="option"]:not([aria-disabled="true"])',
+      ),
+    );
+
+    if (options.length === 0) {
+      return;
+    }
+
+    const current = options.indexOf(document.activeElement as HTMLElement);
+    let next = 0;
+
+    if (event.key === 'ArrowDown') {
+      next = current < 0 ? 0 : Math.min(current + 1, options.length - 1);
+    } else if (event.key === 'ArrowUp') {
+      next = current < 0 ? options.length - 1 : Math.max(current - 1, 0);
+    } else if (event.key === 'End') {
+      next = options.length - 1;
+    }
+
+    event.preventDefault();
+    options[next]?.focus();
+  };
+
   const listbox = (
     <ListContext.Provider value={{ kind: 'native', selected, toggle }}>
       <div
         id={fieldId}
         role="listbox"
         aria-multiselectable={selectionMode === 'multiple' || undefined}
+        tabIndex={0}
         {...props}
+        data-slot="list"
         className={classes}
         style={{ ...style, ...getHighlightColor(highlightColor) }}
+        onKeyDown={handleKeyDown}
       >
         {children || renderEmptyState?.({})}
       </div>
@@ -159,9 +200,6 @@ export interface ListItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'id'
   textValue?: string;
 }
 
-const itemClasses =
-  'text-sm flex items-center justify-between px-2 py-1.5 gap-3 min-w-[120px] cursor-pointer outline-none rounded hover:bg-interactive data-[highlighted]:bg-interactive data-[disabled]:text-fg-disabled data-[selected]:font-semibold';
-
 export function ListItem({
   id,
   value,
@@ -181,7 +219,8 @@ export function ListItem({
         {...props}
         value={itemValue}
         disabled={isDisabled}
-        className={cn(itemClasses, className)}
+        data-slot="list-item"
+        className={listItem({ className })}
       >
         <BaseSelect.ItemText>{children}</BaseSelect.ItemText>
         {showCheckmark && (
@@ -201,7 +240,8 @@ export function ListItem({
         {...props}
         value={String(itemValue)}
         disabled={isDisabled}
-        className={cn(itemClasses, className)}
+        data-slot="list-item"
+        className={listItem({ className })}
       >
         {children}
         {showCheckmark && (
@@ -215,17 +255,19 @@ export function ListItem({
     );
   }
 
-  const isSelected = context.selected.has(itemValue);
+  const isSelected = context.selected.has(String(itemValue));
   return (
     <div
       {...props}
       id={id === undefined ? undefined : String(id)}
       role="option"
-      tabIndex={isDisabled ? undefined : 0}
+      tabIndex={isDisabled ? undefined : -1}
       aria-disabled={isDisabled || undefined}
       aria-selected={isSelected}
       data-selected={isSelected || undefined}
-      className={cn(itemClasses, className)}
+      data-disabled={isDisabled || undefined}
+      data-slot="list-item"
+      className={listItem({ className })}
       onClick={event => {
         onClick?.(event);
         if (!event.defaultPrevented && !isDisabled) {

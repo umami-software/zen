@@ -117,6 +117,7 @@
 				"components/checkbox-group",
 				"components/combobox",
 				"components/date-picker",
+				"components/field",
 				"components/input-group",
 				"components/number-field",
 				{

@@ -1,22 +1,29 @@
-import { Text, type TextProps } from './Text';
+import { forwardRef, type LabelHTMLAttributes } from 'react';
+import type { FontSize, FontWeight, Responsive } from '@/lib/types';
+import { cn, mapFontSize, mapFontWeight } from './lib/tailwind';
 
-export interface LabelProps extends Omit<TextProps, 'as' | 'render'> {
-  htmlFor?: string;
+export const labelClasses = [
+  'flex items-center gap-2 text-sm leading-none font-medium select-none',
+  'peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
+  'group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50',
+];
+
+export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
+  /** @deprecated Use `className` instead. Kept for backwards compatibility. */
+  size?: Responsive<FontSize>;
+  /** @deprecated Use `className` instead. Kept for backwards compatibility. */
+  weight?: Responsive<FontWeight>;
 }
 
-export function Label({
-  size = 'sm',
-  weight = 'semibold',
-  lineHeight = 'loose',
-  ...props
-}: LabelProps) {
-  return (
-    <Text
+export const Label = forwardRef<HTMLLabelElement, LabelProps>(
+  ({ size, weight, className, ...props }, ref) => (
+    <label
       {...props}
-      size={size}
-      weight={weight}
-      lineHeight={lineHeight}
-      render={renderProps => <label {...renderProps} />}
+      ref={ref}
+      data-slot="label"
+      className={cn(labelClasses, mapFontSize(size), mapFontWeight(weight), className)}
     />
-  );
-}
+  ),
+);
+
+Label.displayName = 'Label';

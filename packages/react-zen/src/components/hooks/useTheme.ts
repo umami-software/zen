@@ -107,8 +107,7 @@ export const useTheme = create<ThemeState>((set, get) => ({
   initPalette: (preferred?: Palette) => {
     if (typeof window === 'undefined') return;
 
-    const stored = localStorage.getItem(PALETTE_STORAGE_KEY) as Palette | null;
-    const initial = preferred || (stored && PALETTES.includes(stored) ? stored : null) || 'neutral';
+    const initial = preferred || getStoredPalette();
 
     set({ palette: initial });
     applyPalette(initial);

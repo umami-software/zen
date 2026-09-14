@@ -26,6 +26,9 @@ export function Loading({
   return (
     <Box
       {...props}
+      role="status"
+      aria-label={props['aria-label'] ?? 'Loading'}
+      data-slot="loading"
       className={cn(
         'relative flex justify-center items-center flex-1 pointer-events-none',
         placementClasses[placement],

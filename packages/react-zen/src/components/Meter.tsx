@@ -29,20 +29,31 @@ export function Meter({
       min={minValue}
       max={maxValue}
       format={formatOptions}
+      data-slot="meter"
       className={cn('flex flex-col gap-1 w-full', className)}
     >
       {(label || showValue) && (
-        <div className="flex items-center justify-between gap-3">
-          {label && <BaseMeter.Label render={<Label />}>{label}</BaseMeter.Label>}
+        <div data-slot="meter-header" className="flex items-center justify-between gap-3">
+          {label && (
+            <BaseMeter.Label data-slot="meter-label" render={<Label />}>
+              {label}
+            </BaseMeter.Label>
+          )}
           {showValue && (
             <Text className="tabular-nums">
-              <BaseMeter.Value />
+              <BaseMeter.Value data-slot="meter-value" />
             </Text>
           )}
         </div>
       )}
-      <BaseMeter.Track className="relative overflow-hidden w-full h-2 rounded-full bg-interactive">
-        <BaseMeter.Indicator className="h-full rounded-full bg-primary transition-all" />
+      <BaseMeter.Track
+        data-slot="meter-track"
+        className="relative overflow-hidden w-full h-2 rounded-full bg-interactive"
+      >
+        <BaseMeter.Indicator
+          data-slot="meter-indicator"
+          className="h-full rounded-full bg-primary transition-all"
+        />
       </BaseMeter.Track>
     </BaseMeter.Root>
   );

@@ -9,10 +9,12 @@ export function Separator({ orientation = 'horizontal', className, ...props }: S
   return (
     <BaseSeparator
       {...props}
+      data-slot="separator"
       orientation={orientation}
       className={cn(
         'shrink-0 bg-edge-muted',
-        orientation === 'horizontal' ? 'h-px w-full' : 'w-px self-stretch',
+        'data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full',
+        'data-[orientation=vertical]:w-px data-[orientation=vertical]:self-stretch',
         className,
       )}
     />

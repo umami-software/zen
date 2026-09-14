@@ -1,12 +1,8 @@
-import {
-  forwardRef,
-  type HTMLAttributes,
-  type InputHTMLAttributes,
-  type MouseEvent,
-  type TextareaHTMLAttributes,
-} from 'react';
+import { forwardRef, type HTMLAttributes, type MouseEvent } from 'react';
 import { Button, type ButtonProps } from './Button';
+import { Input, type InputProps, inputGroupControlClasses } from './Input';
 import { cn } from './lib/tailwind';
+import { Textarea, type TextareaProps } from './Textarea';
 import { type InputFieldVariants, inputField } from './variants';
 
 export interface InputGroupProps extends HTMLAttributes<HTMLDivElement>, InputFieldVariants {}
@@ -43,10 +39,12 @@ export interface InputGroupAddonProps extends HTMLAttributes<HTMLDivElement> {
 const addonClasses: Record<InputGroupAddonAlign, string> = {
   // Inline addons must not add vertical padding around their buttons; the
   // input's padding determines the height of a single-line control.
-  'inline-start': 'order-first ps-3 py-0',
-  'inline-end': 'order-last pe-3 py-0',
-  'block-start': 'order-first w-full justify-start px-3 pt-3 pb-2',
-  'block-end': 'order-last w-full justify-start px-3 pt-2 pb-3',
+  'inline-start': 'order-first ps-3 py-0 has-[>button]:-ms-1.5',
+  'inline-end': 'order-last pe-3 py-0 has-[>button]:-me-1.5',
+  'block-start':
+    'order-first w-full justify-start px-3 pt-3 pb-2 group-has-[>input]/input-group:pt-2.5',
+  'block-end':
+    'order-last w-full justify-start px-3 pt-2 pb-3 group-has-[>input]/input-group:pb-2.5',
 };
 
 export const InputGroupAddon = forwardRef<HTMLDivElement, InputGroupAddonProps>(
@@ -71,7 +69,7 @@ export const InputGroupAddon = forwardRef<HTMLDivElement, InputGroupAddonProps>(
         data-slot="input-group-addon"
         data-align={align}
         className={cn(
-          'flex h-auto shrink-0 cursor-text items-center justify-center gap-2 text-sm text-fg-muted',
+          'flex h-auto shrink-0 cursor-text select-none items-center justify-center gap-2 text-sm font-medium text-fg-muted',
           "[&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
           addonClasses[align],
           className,
@@ -90,13 +88,6 @@ export interface InputGroupButtonProps extends Omit<ButtonProps, 'size'> {
   size?: InputGroupButtonSize;
 }
 
-const buttonSizeClasses: Record<InputGroupButtonSize, string> = {
-  xs: 'h-6 gap-1 rounded px-1.5 py-0 text-sm',
-  sm: 'h-8 gap-2 rounded px-2 py-0 text-sm',
-  'icon-xs': 'size-6 rounded p-0',
-  'icon-sm': 'size-8 rounded p-0',
-};
-
 export const InputGroupButton = forwardRef<HTMLButtonElement, InputGroupButtonProps>(
   ({ className, size = 'xs', type = 'button', variant = 'quiet', ...props }, ref) => (
     <Button
@@ -104,12 +95,11 @@ export const InputGroupButton = forwardRef<HTMLButtonElement, InputGroupButtonPr
       ref={ref}
       type={type}
       variant={variant}
-      size="xs"
-      data-size={size}
+      size={size}
+      data-slot="input-group-button"
       className={cn(
-        'shrink-0 shadow-none',
+        'shrink-0 rounded shadow-none',
         "[&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        buttonSizeClasses[size],
         className,
       )}
     />
@@ -134,35 +124,28 @@ export const InputGroupText = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpa
 
 InputGroupText.displayName = 'InputGroupText';
 
-export const InputGroupInput = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(
+export const InputGroupInput = forwardRef<HTMLInputElement, InputProps>(
   ({ className, ...props }, ref) => (
-    <input
+    <Input
       {...props}
       ref={ref}
       data-slot="input-group-control"
-      className={cn(
-        'min-w-0 flex-1 bg-transparent px-3 py-2 text-sm outline-none placeholder:text-fg-muted disabled:cursor-not-allowed',
-        className,
-      )}
+      className={cn(inputGroupControlClasses, 'px-3', className)}
     />
   ),
 );
 
 InputGroupInput.displayName = 'InputGroupInput';
 
-export const InputGroupTextarea = forwardRef<
-  HTMLTextAreaElement,
-  TextareaHTMLAttributes<HTMLTextAreaElement>
->(({ className, ...props }, ref) => (
-  <textarea
-    {...props}
-    ref={ref}
-    data-slot="input-group-control"
-    className={cn(
-      'min-w-0 w-full flex-1 bg-transparent p-3 text-sm outline-none placeholder:text-fg-muted disabled:cursor-not-allowed',
-      className,
-    )}
-  />
-));
+export const InputGroupTextarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
+  ({ className, ...props }, ref) => (
+    <Textarea
+      {...props}
+      ref={ref}
+      data-slot="input-group-control"
+      className={cn(inputGroupControlClasses, 'min-h-16 resize-none p-3', className)}
+    />
+  ),
+);
 
 InputGroupTextarea.displayName = 'InputGroupTextarea';

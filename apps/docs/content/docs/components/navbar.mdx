@@ -1,5 +1,6 @@
 ---
 title: Navbar
+description: "A horizontal navigation bar for website headers."
 ---
 
 import { Example, Menu, MenuItem, Navbar, NavbarItem } from '../../../mdx-components';
@@ -76,6 +77,9 @@ A horizontal navigation bar for website headers. Built on an accessible navigati
 <PropertiesTable>
   <ResponseField name="label" type="string">Item label. When set, the item becomes a trigger and its children render in the dropdown.</ResponseField>
 </PropertiesTable>
+
+A `Menu` rendered inside a `NavbarItem` dropdown automatically uses the `plain` variant, so it does
+not paint a second border and shadow on top of the navbar popup.
 
 ### NavbarLink
 

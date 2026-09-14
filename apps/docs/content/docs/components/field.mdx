@@ -1,0 +1,208 @@
+---
+title: Field
+description: "Field is a set of low level building blocks for composing accessible form controls with a label, a description and an error message."
+---
+
+import {
+  Box,
+  Checkbox,
+  Column,
+  Example,
+  Field,
+  FieldContent,
+  FieldControl,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+  Input,
+  Textarea,
+} from '../../../mdx-components';
+
+Field is a set of low level building blocks for composing accessible form controls with a label,
+a description and an error message. Use `FieldControl` to connect native `Input` and `Textarea`
+elements to the field label, description, disabled state, and validation.
+
+<Example>
+  <Box width="300px" maxWidth="100%">
+    <Field>
+      <FieldLabel>Email</FieldLabel>
+      <FieldControl render={<Input type="email" placeholder="ada@example.com" />} />
+      <FieldDescription>We will never share your address.</FieldDescription>
+    </Field>
+  </Box>
+
+  ```jsx
+  <Field>
+    <FieldLabel>Email</FieldLabel>
+    <FieldControl render={<Input type="email" placeholder="ada@example.com" />} />
+    <FieldDescription>We will never share your address.</FieldDescription>
+  </Field>
+  ```
+</Example>
+
+## Error message
+
+`FieldError` renders with `role="alert"` so assistive technology announces the message.
+
+<Example>
+  <Box width="300px" maxWidth="100%">
+    <Field>
+      <FieldLabel>Username</FieldLabel>
+      <FieldControl defaultValue="ada" render={<Input aria-invalid />} />
+      <FieldError>That username is already taken.</FieldError>
+    </Field>
+  </Box>
+
+  ```jsx
+  <Field>
+    <FieldLabel>Username</FieldLabel>
+    <FieldControl defaultValue="ada" render={<Input aria-invalid />} />
+    <FieldError>That username is already taken.</FieldError>
+  </Field>
+  ```
+</Example>
+
+## Textarea
+
+<Example>
+  <Box width="300px" maxWidth="100%">
+    <Field>
+      <FieldLabel>Bio</FieldLabel>
+      <FieldControl render={<Textarea placeholder="Tell us about yourself" />} />
+      <FieldDescription>Markdown is supported.</FieldDescription>
+    </Field>
+  </Box>
+
+  ```jsx
+  <Field>
+    <FieldLabel>Bio</FieldLabel>
+    <FieldControl render={<Textarea placeholder="Tell us about yourself" />} />
+  </Field>
+  ```
+</Example>
+
+## Horizontal orientation
+
+Use `FieldContent` to stack a title and description next to a control.
+
+<Example>
+  <Box width="400px" maxWidth="100%">
+    <Field orientation="horizontal">
+      <Checkbox />
+      <FieldContent>
+        <FieldLabel>Email notifications</FieldLabel>
+        <FieldDescription>Get notified when someone mentions you.</FieldDescription>
+      </FieldContent>
+    </Field>
+  </Box>
+
+  ```jsx
+  <Field orientation="horizontal">
+    <Checkbox />
+    <FieldContent>
+      <FieldLabel>Email notifications</FieldLabel>
+      <FieldDescription>Get notified when someone mentions you.</FieldDescription>
+    </FieldContent>
+  </Field>
+  ```
+</Example>
+
+## Field group
+
+`FieldGroup` stacks multiple fields, and `FieldSeparator` divides them.
+
+<Example>
+  <Box width="300px" maxWidth="100%">
+    <FieldGroup>
+      <Field>
+        <FieldLabel>First name</FieldLabel>
+        <FieldControl render={<Input placeholder="Ada" />} />
+      </Field>
+      <FieldSeparator />
+      <Field>
+        <FieldLabel>Last name</FieldLabel>
+        <FieldControl render={<Input placeholder="Lovelace" />} />
+      </Field>
+    </FieldGroup>
+  </Box>
+
+  ```jsx
+  <FieldGroup>
+    <Field>
+      <FieldLabel>First name</FieldLabel>
+      <FieldControl render={<Input placeholder="Ada" />} />
+    </Field>
+    <FieldSeparator />
+    <Field>
+      <FieldLabel>Last name</FieldLabel>
+      <FieldControl render={<Input placeholder="Lovelace" />} />
+    </Field>
+  </FieldGroup>
+  ```
+</Example>
+
+## Fieldset
+
+<Example>
+  <Box width="300px" maxWidth="100%">
+    <FieldSet>
+      <FieldLegend>Address</FieldLegend>
+      <Field>
+        <FieldLabel>Street</FieldLabel>
+        <FieldControl render={<Input placeholder="123 Main St" />} />
+      </Field>
+      <Field>
+        <FieldLabel>City</FieldLabel>
+        <FieldControl render={<Input placeholder="London" />} />
+      </Field>
+    </FieldSet>
+  </Box>
+
+  ```jsx
+  <FieldSet>
+    <FieldLegend>Address</FieldLegend>
+    <Field>
+      <FieldLabel>Street</FieldLabel>
+      <FieldControl render={<Input placeholder="123 Main St" />} />
+    </Field>
+    <Field>
+      <FieldLabel>City</FieldLabel>
+      <FieldControl render={<Input placeholder="London" />} />
+    </Field>
+  </FieldSet>
+  ```
+</Example>
+
+## Component props
+
+### Field
+
+<PropertiesTable>
+  <ResponseField name="orientation" type="FieldOrientation">"vertical" | "horizontal" | "responsive"</ResponseField>
+  <ResponseField name="name" type="string">Identifies the field when a form is submitted</ResponseField>
+  <ResponseField name="disabled" type="boolean">Disables every control inside the field</ResponseField>
+  <ResponseField name="invalid" type="boolean">Marks the field as invalid when validation is handled externally</ResponseField>
+  <ResponseField name="validate" type="(value, formValues) => string | string[] | null">Custom validation function</ResponseField>
+</PropertiesTable>
+
+### FieldLegend
+
+<PropertiesTable>
+  <ResponseField name="variant" type="'legend' | 'label'">Controls the legend text size</ResponseField>
+</PropertiesTable>
+
+### FieldError
+
+<PropertiesTable>
+  <ResponseField name="match" type="boolean | keyof ValidityState">When to show the message. Defaults to always when children are supplied</ResponseField>
+</PropertiesTable>
+
+### FieldSeparator
+
+<PropertiesTable>
+  <ResponseField name="children" type="ReactNode">Optional label rendered on top of the separator line</ResponseField>
+</PropertiesTable>

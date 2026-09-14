@@ -1,3 +1,4 @@
+import { Popover as BasePopover } from '@base-ui/react/popover';
 import type { ButtonHTMLAttributes } from 'react';
 import { useState } from 'react';
 import { CalendarDays } from '@/components/icons';
@@ -6,9 +7,9 @@ import { useFieldId } from './hooks/useFieldId';
 import { Icon } from './Icon';
 import { Label } from './Label';
 import { cn } from './lib/tailwind';
-import { DialogTrigger } from './OverlayTrigger';
-import { Popover } from './Popover';
 import { inputField } from './variants';
+import './Overlay.css';
+import './Popover.css';
 
 export interface DatePickerProps {
   id?: string;
@@ -21,8 +22,12 @@ export interface DatePickerProps {
   locale?: string;
   isDisabled?: boolean;
   isReadOnly?: boolean;
+  isOpen?: boolean;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
   formatOptions?: Intl.DateTimeFormatOptions;
-  onChange?: (date: Date) => void;
+  /** Receives `undefined` when the selected date is cleared. */
+  onChange?: (date: Date | undefined) => void;
   triggerProps?: ButtonHTMLAttributes<HTMLButtonElement>;
   /** @deprecated Use `triggerProps` instead. */
   buttonProps?: ButtonHTMLAttributes<HTMLButtonElement>;
@@ -41,6 +46,9 @@ export function DatePicker({
   locale,
   isDisabled,
   isReadOnly,
+  isOpen,
+  defaultOpen,
+  onOpenChange,
   formatOptions = { dateStyle: 'medium' },
   onChange,
   triggerProps,
@@ -49,57 +57,83 @@ export function DatePicker({
   className,
 }: DatePickerProps) {
   const fieldId = useFieldId(id ?? triggerProps?.id ?? buttonProps?.id);
-  const [isOpen, setIsOpen] = useState(false);
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen ?? false);
   const [uncontrolledValue, setUncontrolledValue] = useState<Date | undefined>(defaultValue);
   const date = value ?? uncontrolledValue;
+  const open = isOpen ?? uncontrolledOpen;
+  const disabled = isDisabled ?? triggerProps?.disabled ?? buttonProps?.disabled;
 
-  const handleChange = (nextDate: Date) => {
+  const setOpen = (nextOpen: boolean) => {
+    if (isOpen === undefined) {
+      setUncontrolledOpen(nextOpen);
+    }
+    onOpenChange?.(nextOpen);
+  };
+
+  const handleChange = (nextDate: Date | undefined) => {
+    if (isReadOnly) {
+      return;
+    }
+
     if (value === undefined) {
       setUncontrolledValue(nextDate);
     }
     onChange?.(nextDate);
-    setIsOpen(false);
+    setOpen(false);
   };
 
   return (
-    <div className={cn('flex flex-col gap-1', className)}>
+    <div className={cn('flex flex-col gap-1', className)} data-slot="date-picker">
       {label && <Label htmlFor={fieldId}>{label}</Label>}
-      <DialogTrigger overlayType="popover" isOpen={isOpen} onOpenChange={setIsOpen}>
-        <button
-          type="button"
-          disabled={isDisabled}
-          {...buttonProps}
-          {...triggerProps}
-          id={fieldId}
-          className={inputField({
-            className: cn(
-              'w-full justify-start gap-3 px-3 py-0 whitespace-nowrap cursor-pointer outline-none',
-              'hover:border-edge-strong focus-visible:border-edge-strong',
-              buttonProps?.className,
-              triggerProps?.className,
-            ),
-          })}
-        >
-          <Icon size="sm">
-            <CalendarDays />
-          </Icon>
-          {date ? (
-            new Intl.DateTimeFormat(locale, formatOptions).format(date)
-          ) : (
-            <span className="text-fg-muted">{placeholder}</span>
-          )}
-        </button>
-        <Popover className="bg-surface-overlay border border-edge-muted rounded-lg shadow-lg p-4">
-          <Calendar
-            {...calendarProps}
-            value={date}
-            minValue={minValue}
-            maxValue={maxValue}
-            isReadOnly={isReadOnly}
-            onChange={handleChange}
-          />
-        </Popover>
-      </DialogTrigger>
+      <BasePopover.Root open={open} onOpenChange={setOpen}>
+        <BasePopover.Trigger
+          render={
+            <button
+              type="button"
+              {...buttonProps}
+              {...triggerProps}
+              id={fieldId}
+              data-slot="date-picker-trigger"
+              disabled={disabled}
+              aria-readonly={isReadOnly || undefined}
+              className={inputField({
+                className: cn(
+                  'w-full justify-start gap-3 px-3 py-0 whitespace-nowrap cursor-pointer outline-none',
+                  'hover:border-edge-strong',
+                  buttonProps?.className,
+                  triggerProps?.className,
+                ),
+              })}
+            >
+              <Icon size="sm">
+                <CalendarDays />
+              </Icon>
+              {date ? (
+                new Intl.DateTimeFormat(locale, formatOptions).format(date)
+              ) : (
+                <span className="text-fg-muted">{placeholder}</span>
+              )}
+            </button>
+          }
+        />
+        <BasePopover.Portal>
+          <BasePopover.Positioner sideOffset={4} className="zen-layer-floating">
+            <BasePopover.Popup
+              data-slot="date-picker-popup"
+              className="zen-popover outline-none bg-surface-overlay border border-edge rounded-lg shadow-lg p-4"
+            >
+              <Calendar
+                {...calendarProps}
+                value={date}
+                minValue={minValue}
+                maxValue={maxValue}
+                isReadOnly={isReadOnly}
+                onChange={handleChange}
+              />
+            </BasePopover.Popup>
+          </BasePopover.Positioner>
+        </BasePopover.Portal>
+      </BasePopover.Root>
     </div>
   );
 }

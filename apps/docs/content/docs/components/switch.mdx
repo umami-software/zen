@@ -1,5 +1,6 @@
 ---
 title: Switch
+description: "A switch allows a user to turn a setting on or off."
 ---
 
 import { Example, Switch } from '../../../mdx-components';
@@ -31,9 +32,11 @@ A switch allows a user to turn a setting on or off.
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="label" type="string">Label text displayed above the switch</ResponseField>
+  <ResponseField name="label" type="string">Label text rendered next to the switch (`children` works the same way)</ResponseField>
+  <ResponseField name="size" type="'sm' | 'md'">Track size (default: "md")</ResponseField>
   <ResponseField name="isSelected" type="boolean">Controlled selected state</ResponseField>
   <ResponseField name="defaultSelected" type="boolean">Default selected state</ResponseField>
   <ResponseField name="isDisabled" type="boolean">Disables the switch</ResponseField>
   <ResponseField name="onChange" type="(isSelected: boolean) => void">Called when state changes</ResponseField>
+  <ResponseField name="value" type="string | boolean">A string is forwarded to the form input as the submitted value. A boolean is a deprecated alias for `isSelected` — prefer `isSelected`.</ResponseField>
 </PropertiesTable>

@@ -3,6 +3,7 @@ import {
   type HTMLAttributes,
   type KeyboardEvent,
   type MouseEvent,
+  type ReactNode,
   type TableHTMLAttributes,
   type TdHTMLAttributes,
   type ThHTMLAttributes,
@@ -13,6 +14,7 @@ import {
   useMemo,
   useState,
 } from 'react';
+import { Checkbox, type CheckboxProps } from './Checkbox';
 import {
   TableSelectionContext,
   type TableSelectionMode,
@@ -47,6 +49,30 @@ const alignClasses = {
   center: 'justify-center',
   end: 'justify-end',
 };
+
+const INTERACTIVE_SELECTOR =
+  'a, button, input, select, textarea, [role="button"], [role="checkbox"]';
+
+/* -------------------------------------------------------------------------- */
+/*                                 Container                                  */
+/* -------------------------------------------------------------------------- */
+
+export interface TableContainerProps extends HTMLAttributes<HTMLDivElement> {}
+
+/** Scroll container for a `Table`. */
+export function TableContainer({ className, ...props }: TableContainerProps) {
+  return (
+    <div
+      {...props}
+      data-slot="table-container"
+      className={cn('relative w-full overflow-x-auto', className)}
+    />
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                   Table                                    */
+/* -------------------------------------------------------------------------- */
 
 export function Table({
   children,
@@ -139,7 +165,13 @@ export function Table({
 
   return (
     <TableSelectionContext.Provider value={selection}>
-      <table {...props} className={cn('grid text-sm w-full relative', className)}>
+      <table
+        {...props}
+        role="table"
+        data-slot="table"
+        data-selection-mode={selectionMode}
+        className={cn('grid text-sm w-full relative', className)}
+      >
         {children}
       </table>
     </TableSelectionContext.Provider>
@@ -155,13 +187,15 @@ export function TableHeader({ children, className, style, ...props }: TableHeade
   return (
     <thead
       {...props}
+      role="rowgroup"
+      data-slot="table-header"
       className={cn(
         '[&>tr]:grid [&>tr]:border-b [&>tr]:border-edge [&>tr]:[grid-template-columns:var(--grid-cols)]',
         className,
       )}
       style={{ '--grid-cols': cols } as CSSProperties}
     >
-      <tr>
+      <tr role="row" data-slot="table-header-row">
         <TableSelectionScopeContext.Provider value={{ type: 'header' }}>
           {children}
         </TableSelectionScopeContext.Provider>
@@ -176,19 +210,66 @@ export function TableBody({
   ...props
 }: HTMLAttributes<HTMLTableSectionElement>) {
   return (
-    <tbody {...props} className={cn('contents', className)}>
+    <tbody {...props} role="rowgroup" data-slot="table-body" className={cn('contents', className)}>
       {children}
     </tbody>
   );
 }
 
+export interface TableFooterProps extends HTMLAttributes<HTMLTableSectionElement> {
+  style?: CSSProperties;
+}
+
+export function TableFooter({ children, className, style, ...props }: TableFooterProps) {
+  const cols = style?.gridTemplateColumns || gridTemplateColumns;
+  return (
+    <tfoot
+      {...props}
+      role="rowgroup"
+      data-slot="table-footer"
+      className={cn(
+        'font-medium',
+        '[&>tr]:grid [&>tr]:border-t [&>tr]:border-edge [&>tr]:[grid-template-columns:var(--grid-cols)]',
+        className,
+      )}
+      style={{ '--grid-cols': cols } as CSSProperties}
+    >
+      <tr role="row" data-slot="table-footer-row">
+        {children}
+      </tr>
+    </tfoot>
+  );
+}
+
+export interface TableCaptionProps extends HTMLAttributes<HTMLTableCaptionElement> {}
+
+export function TableCaption({ className, ...props }: TableCaptionProps) {
+  return (
+    <caption
+      {...props}
+      data-slot="table-caption"
+      className={cn('mt-4 text-sm text-fg-muted', className)}
+    />
+  );
+}
+
 export function TableRow({ children, className, style, id, ...props }: TableRowProps) {
   const generatedId = useId();
-  const rowKey = id ?? generatedId;
   const selection = useContext(TableSelectionContext);
   const isSelectable = selection !== null && selection.selectionMode !== 'none';
+
+  if (process.env.NODE_ENV !== 'production' && isSelectable && id === undefined) {
+    console.warn(
+      '[react-zen] <TableRow> requires a stable `id` when the table has a selection mode. ' +
+        'A generated id is used as a fallback, which resets the selection whenever the row remounts.',
+    );
+  }
+
+  const rowKey = id !== undefined ? String(id) : generatedId;
   const isSelected = selection?.selectedKeys.has(rowKey) ?? false;
   const registerRow = selection?.registerRow;
+  // Roving tab stop: only the first row participates in the tab sequence.
+  const firstRowKey = selection ? selection.rowKeys.values().next().value : undefined;
 
   useEffect(() => registerRow?.(rowKey), [registerRow, rowKey]);
 
@@ -199,10 +280,7 @@ export function TableRow({ children, className, style, id, ...props }: TableRowP
       return;
     }
 
-    if (
-      event.target instanceof Element &&
-      event.target.closest('a, button, input, select, textarea, [role="button"], [role="checkbox"]')
-    ) {
+    if (event.target instanceof Element && event.target.closest(INTERACTIVE_SELECTOR)) {
       return;
     }
 
@@ -212,13 +290,16 @@ export function TableRow({ children, className, style, id, ...props }: TableRowP
   return (
     <tr
       {...props}
+      role="row"
+      data-slot="table-row"
       data-row-id={id}
       data-selected={isSelected || undefined}
-      aria-selected={isSelectable ? isSelected : props['aria-selected']}
-      tabIndex={isSelectable ? (props.tabIndex ?? 0) : props.tabIndex}
+      aria-selected={isSelectable ? isSelected : undefined}
+      tabIndex={isSelectable ? (props.tabIndex ?? (rowKey === firstRowKey ? 0 : -1)) : undefined}
       className={cn(
         'grid border-b border-edge-muted min-h-10',
-        isSelectable && 'cursor-pointer data-[selected]:bg-interactive',
+        isSelectable &&
+          'cursor-pointer outline-none data-[selected]:bg-interactive focus-visible:ring-[3px] focus-visible:ring-focus-ring/50',
         className,
       )}
       style={{ gridTemplateColumns, ...style }}
@@ -228,15 +309,23 @@ export function TableRow({ children, className, style, id, ...props }: TableRowP
       }}
       onKeyDown={event => {
         props.onKeyDown?.(event);
+        if (event.defaultPrevented || !isSelectable) {
+          return;
+        }
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          const sibling =
+            event.key === 'ArrowDown'
+              ? event.currentTarget.nextElementSibling
+              : event.currentTarget.previousElementSibling;
+          if (sibling instanceof HTMLElement) {
+            event.preventDefault();
+            sibling.focus();
+          }
+          return;
+        }
         if (
-          !event.defaultPrevented &&
           (event.key === 'Enter' || event.key === ' ') &&
-          !(
-            event.target instanceof Element &&
-            event.target.closest(
-              'a, button, input, select, textarea, [role="button"], [role="checkbox"]',
-            )
-          )
+          !(event.target instanceof Element && event.target.closest(INTERACTIVE_SELECTOR))
         ) {
           event.preventDefault();
           selection?.setRowSelected(rowKey, !isSelected);
@@ -260,7 +349,9 @@ export function TableColumn({
   return (
     <th
       {...props}
+      role="columnheader"
       scope="col"
+      data-slot="table-column"
       className={cn(
         'flex p-2 text-left font-bold flex-1 first:pl-0 last:pr-0',
         align && alignClasses[align],
@@ -272,10 +363,15 @@ export function TableColumn({
   );
 }
 
+/** Alias of `TableColumn` matching the shadcn naming. */
+export const TableHead = TableColumn;
+
 export function TableCell({ children, className, align, ...props }: TableCellProps) {
   return (
     <td
       {...props}
+      role="cell"
+      data-slot="table-cell"
       className={cn(
         'flex p-2 flex-1 first:pl-0 last:pr-0',
         '[&_a]:font-medium [&_a]:underline [&_a]:decoration-edge [&_a]:underline-offset-4',
@@ -286,5 +382,66 @@ export function TableCell({ children, className, align, ...props }: TableCellPro
     >
       {children}
     </td>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*                             Selection checkbox                             */
+/* -------------------------------------------------------------------------- */
+
+export interface TableSelectionCheckboxProps
+  extends Omit<CheckboxProps, 'isSelected' | 'isIndeterminate' | 'defaultSelected'> {
+  children?: ReactNode;
+}
+
+/**
+ * A `Checkbox` wired up to the enclosing `Table` selection state. Renders the
+ * "select all" checkbox inside a `TableHeader` and a row checkbox inside a
+ * `TableRow`.
+ */
+export function TableSelectionCheckbox({
+  isDisabled,
+  onChange,
+  ...props
+}: TableSelectionCheckboxProps) {
+  const selection = useContext(TableSelectionContext);
+  const scope = useContext(TableSelectionScopeContext);
+
+  if (!selection || !scope) {
+    return null;
+  }
+
+  const isHeader = scope.type === 'header';
+  const selectedRowCount = Array.from(selection.rowKeys).filter(key =>
+    selection.selectedKeys.has(key),
+  ).length;
+  const checked = isHeader
+    ? selection.rowKeys.size > 0 && selectedRowCount === selection.rowKeys.size
+    : scope.rowKey
+      ? selection.selectedKeys.has(scope.rowKey)
+      : false;
+  const indeterminate =
+    isHeader && selectedRowCount > 0 && selectedRowCount < selection.rowKeys.size;
+
+  return (
+    <Checkbox
+      {...props}
+      aria-label={props['aria-label'] ?? (isHeader ? 'Select all rows' : 'Select row')}
+      isSelected={checked}
+      isIndeterminate={indeterminate}
+      isDisabled={
+        isDisabled ||
+        selection.selectionMode === 'none' ||
+        (isHeader && selection.selectionMode !== 'multiple')
+      }
+      onChange={selected => {
+        onChange?.(selected);
+        if (isHeader) {
+          selection.setAllSelected(selected);
+        } else if (scope.rowKey) {
+          selection.setRowSelected(scope.rowKey, selected);
+        }
+      }}
+    />
   );
 }

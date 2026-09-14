@@ -7,13 +7,7 @@ export function SearchDelayExample() {
   return (
     <Column gap="4">
       <SearchField delay={1000} onSearch={setValue} />
-      <TextField
-        name="search"
-        label="Search value"
-        value={value}
-        defaultValue={value}
-        isReadOnly={true}
-      />
+      <TextField name="search" label="Search value" value={value} isReadOnly={true} />
     </Column>
   );
 }

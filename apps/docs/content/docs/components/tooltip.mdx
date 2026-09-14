@@ -1,5 +1,6 @@
 ---
 title: Tooltip
+description: "A tooltip displays a description of an element on hover or focus."
 ---
 
 import { Button, Example, FloatingTooltip, FloatingTooltipExample, Tooltip, TooltipTrigger } from '../../../mdx-components';
@@ -117,5 +118,9 @@ A tooltip displays a description of an element on hover or focus.
 <PropertiesTable>
   <ResponseField name="placement" type="Placement">"top" | "bottom" | "left" | "right"</ResponseField>
   <ResponseField name="showArrow" type="boolean">Shows an arrow pointing to the trigger</ResponseField>
-  <ResponseField name="offset" type="number">Distance from the trigger element</ResponseField>
+  <ResponseField name="sideOffset" type="number">Distance from the trigger element (default: 4)</ResponseField>
+  <ResponseField name="positionerClassName" type="string">Extra classes for the positioner element</ResponseField>
 </PropertiesTable>
+
+`TooltipContent` is an alias of `Tooltip`. Tooltip grouping delays are configured once through
+`ZenProvider`'s `tooltip` prop rather than per trigger.

@@ -1,5 +1,6 @@
 ---
 title: Context Menu
+description: "A context menu opens a menu at the pointer position when a user right clicks the trigger area."
 ---
 
 import { Box, ContextMenu, Example, Menu, MenuItem, MenuSeparator } from '../../../mdx-components';
@@ -46,5 +47,17 @@ Pass two children: the trigger element followed by a `Menu`.
 
 <PropertiesTable>
   <ResponseField name="children" type="ReactNode">Trigger element followed by a Menu</ResponseField>
+  <ResponseField name="isOpen" type="boolean">Controlled open state</ResponseField>
   <ResponseField name="onOpenChange" type="(open: boolean) => void">Called when the menu opens or closes</ResponseField>
+</PropertiesTable>
+
+Remaining root props (`defaultOpen`, `actionsRef`, `orientation`, …) are forwarded to the underlying
+Base UI `ContextMenu.Root`.
+
+## Parts
+
+<PropertiesTable>
+  <ResponseField name="ContextMenuRoot" type="component">The Base UI root, for explicit composition</ResponseField>
+  <ResponseField name="ContextMenuTrigger" type="component">The right-click target</ResponseField>
+  <ResponseField name="ContextMenuContent" type="component">The menu popup. Accepts all `Menu` props</ResponseField>
 </PropertiesTable>

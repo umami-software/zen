@@ -23,6 +23,7 @@ export function Collapsible({
   return (
     <BaseCollapsible.Root
       {...props}
+      data-slot="collapsible"
       open={isExpanded}
       defaultOpen={defaultExpanded}
       disabled={isDisabled}
@@ -42,10 +43,12 @@ export function CollapsibleTrigger({ className, children, ...props }: Collapsibl
   return (
     <BaseCollapsible.Trigger
       {...props}
+      data-slot="collapsible-trigger"
       className={cn(
         'flex items-center gap-2 cursor-pointer outline-none text-sm',
-        'focus-visible:ring-2 focus-visible:ring-focus-ring rounded',
+        'focus-visible:ring-[3px] focus-visible:ring-focus-ring/50 rounded',
         'disabled:text-fg-disabled disabled:cursor-default',
+        'data-disabled:text-fg-disabled data-disabled:cursor-default',
         className,
       )}
     >
@@ -62,9 +65,10 @@ export function CollapsiblePanel({ className, children, ...props }: CollapsibleP
   return (
     <BaseCollapsible.Panel
       {...props}
+      data-slot="collapsible-panel"
       className={cn(
         'overflow-hidden transition-all duration-300 ease-out',
-        'h-[var(--collapsible-panel-height)] data-[starting-style]:h-0 data-[ending-style]:h-0',
+        'h-(--collapsible-panel-height) data-[starting-style]:h-0 data-[ending-style]:h-0',
         className,
       )}
     >

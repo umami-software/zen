@@ -1,5 +1,6 @@
 ---
 title: Command
+description: "A command palette for searching and running actions with keyboard navigation."
 ---
 
 import { Button, Calendar, Command, CommandDialog, CommandDialogExample, CommandEmpty, CommandExample, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, Example } from '../../../mdx-components';
@@ -98,15 +99,38 @@ with the `isOpen` and `onOpenChange` props.
 
 <PropertiesTable>
   <ResponseField name="icon" type="ReactNode">Icon displayed before the label</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the item</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the item (`disabled` is also accepted)</ResponseField>
   <ResponseField name="value" type="string">Value used for filtering (defaults to text content)</ResponseField>
   <ResponseField name="keywords" type="string[]">Additional keywords used when filtering</ResponseField>
   <ResponseField name="onSelect" type="(value: string) => void">Called when the item is selected</ResponseField>
 </PropertiesTable>
 
+### CommandList
+
+<PropertiesTable>
+  <ResponseField name="maxHeight" type="string | number">Wraps the list in a `ScrollArea` capped at this height. Without it the list scrolls natively at `max-h-[300px]`</ResponseField>
+</PropertiesTable>
+
+### CommandShortcut
+
+Renders a right-aligned muted `<span>` for keyboard shortcut hints inside a `CommandItem`.
+
+```jsx
+<CommandItem>
+  Settings
+  <CommandShortcut>⌘S</CommandShortcut>
+</CommandItem>
+```
+
 ### CommandDialog
 
 <PropertiesTable>
-  <ResponseField name="isOpen" type="boolean">Whether the dialog is open</ResponseField>
+  <ResponseField name="open" type="boolean">Whether the dialog is open (`isOpen` is an accepted alias)</ResponseField>
   <ResponseField name="onOpenChange" type="(open: boolean) => void">Called when the open state changes</ResponseField>
 </PropertiesTable>
+
+## Anatomy
+
+Every part exposes a `data-slot` attribute: `command`, `command-input-wrapper`, `command-input`,
+`command-list`, `command-empty`, `command-group`, `command-separator`, `command-item`, and
+`command-shortcut`. Inside `CommandDialog` the input wrapper grows to `h-12`.

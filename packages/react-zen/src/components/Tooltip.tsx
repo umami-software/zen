@@ -1,5 +1,5 @@
 import { Tooltip as BaseTooltip } from '@base-ui/react/tooltip';
-import type { HTMLAttributes, ReactNode } from 'react';
+import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
 import { Box } from './Box';
 import { cn } from './lib/tailwind';
 import { tooltip } from './variants';
@@ -9,15 +9,18 @@ export interface TooltipProps extends Omit<BaseTooltip.Positioner.Props, 'childr
   children?: ReactNode;
   showArrow?: boolean;
   className?: string;
+  /** Positioner class name. Merged with the internal layer/isolation classes. */
+  positionerClassName?: string;
   placement?: BaseTooltip.Positioner.Props['side'];
 }
 
 export function Tooltip({
   children,
   className,
+  positionerClassName,
   placement,
   side,
-  sideOffset = 8,
+  sideOffset = 4,
   showArrow,
   ...props
 }: TooltipProps) {
@@ -25,21 +28,32 @@ export function Tooltip({
     <BaseTooltip.Portal>
       <BaseTooltip.Positioner
         {...props}
-        className="zen-layer-floating"
         side={placement ?? side}
         sideOffset={sideOffset}
+        className={cn('zen-layer-floating isolate', positionerClassName)}
       >
-        <BaseTooltip.Popup className={cn('zen-popover group', tooltip(), className)}>
+        <BaseTooltip.Popup
+          data-slot="tooltip"
+          className={cn(
+            'group w-fit max-w-xs outline-none',
+            'origin-(--transform-origin) transition-[transform,opacity] duration-200 ease-out',
+            'data-starting-style:opacity-0 data-starting-style:scale-95',
+            'data-ending-style:opacity-0 data-ending-style:scale-95 data-ending-style:ease-in',
+            'motion-reduce:transition-none',
+            tooltip(),
+            className,
+          )}
+        >
           {showArrow && (
             <BaseTooltip.Arrow
-              style={({ side }) => ({
-                width: 12,
-                height: 6,
-                ...(side === 'top' && { bottom: -6, transform: 'rotate(180deg)' }),
-                ...(side === 'bottom' && { top: -6 }),
-                ...(side === 'left' && { right: -9, transform: 'rotate(90deg)' }),
-                ...(side === 'right' && { left: -9, transform: 'rotate(-90deg)' }),
-              })}
+              data-slot="tooltip-arrow"
+              className={cn(
+                'w-3 h-1.5',
+                'data-[side=top]:-bottom-1.5 data-[side=top]:rotate-180',
+                'data-[side=bottom]:-top-1.5',
+                'data-[side=left]:-right-[9px] data-[side=left]:rotate-90',
+                'data-[side=right]:-left-[9px] data-[side=right]:-rotate-90',
+              )}
             >
               <svg aria-hidden="true" viewBox="0 0 12 6" className="block w-full h-full">
                 <path d="M0 6 6 0l6 6Z" className="fill-surface-inverted" />
@@ -53,20 +67,27 @@ export function Tooltip({
   );
 }
 
+/** Explicit, shadcn-style alias for the positioned tooltip surface. */
+export const TooltipContent = Tooltip;
+export type TooltipContentProps = TooltipProps;
+
 export interface TooltipBubbleProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
   showArrow?: boolean;
 }
 
-export function TooltipBubble({
-  children,
-  className,
-  color: _color,
-  ...props
-}: TooltipBubbleProps) {
-  return (
-    <Box {...props} className={className}>
+/** An unpositioned tooltip surface, used by `FloatingTooltip` and for custom positioning. */
+export const TooltipBubble = forwardRef<HTMLDivElement, TooltipBubbleProps>(
+  ({ children, className, color: _color, showArrow: _showArrow, ...props }, ref) => (
+    <Box
+      {...props}
+      ref={ref}
+      data-slot="tooltip-bubble"
+      className={cn('w-fit max-w-xs', tooltip(), className)}
+    >
       {children}
     </Box>
-  );
-}
+  ),
+);
+
+TooltipBubble.displayName = 'TooltipBubble';

@@ -1,5 +1,6 @@
 ---
 title: ComboBox
+description: "A combo box combines a text input with a listbox, allowing users to filter a list of options to items matching a query."
 ---
 
 import { ComboBox, ComboBoxEmptyExample, Example, ListItem, Text } from '../../../mdx-components';
@@ -33,8 +34,8 @@ A combo box combines a text input with a listbox, allowing users to filter a lis
 
 ## Empty state
 
-When filtering returns no matches, the combo box displays a helpful empty state. Use
-`renderEmptyState` to replace it with custom content.
+When filtering returns no matches, the combo box displays a helpful empty state. Use `emptyState`
+to replace it with custom content (`renderEmptyState` is still supported but deprecated).
 
 <Example>
   <ComboBoxEmptyExample />
@@ -54,8 +55,21 @@ When filtering returns no matches, the combo box displays a helpful empty state.
   <ResponseField name="defaultInputValue" type="string">Default input value</ResponseField>
   <ResponseField name="selectedKey" type="string">Controlled selected key</ResponseField>
   <ResponseField name="defaultSelectedKey" type="string">Default selected key</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the combobox</ResponseField>
+  <ResponseField name="isDisabled" type="boolean">Disables the combobox (`disabled` is also accepted)</ResponseField>
+  <ResponseField name="showClear" type="boolean">Shows a clear button while the input has a value</ResponseField>
+  <ResponseField name="showIcon" type="boolean">Shows the open/close trigger button (default: true)</ResponseField>
+  <ResponseField name="aria-invalid" type="boolean">Marks the input as invalid</ResponseField>
   <ResponseField name="onInputChange" type="(value: string) => void">Called when input changes</ResponseField>
   <ResponseField name="onSelectionChange" type="(key: string) => void">Called when selection changes</ResponseField>
-  <ResponseField name="renderEmptyState" type="Function">Replaces the default empty-state message</ResponseField>
+  <ResponseField name="emptyState" type="ReactNode">Replaces the default empty-state message</ResponseField>
+  <ResponseField name="renderEmptyState" type="Function">Deprecated alias for `emptyState`</ResponseField>
+  <ResponseField name="itemToStringLabel" type="(item) => string">Resolves the display label for an item</ResponseField>
+  <ResponseField name="itemToStringValue" type="(item) => string">Resolves the form value for an item</ResponseField>
 </PropertiesTable>
+
+## Anatomy
+
+Items are handed to Base UI as `{ label, value }` objects, so filtering and label resolution happen
+inside the primitive. The rendered parts expose `data-slot` attributes: `combobox`,
+`combobox-input`, `combobox-clear`, `combobox-trigger`, `combobox-positioner`, `combobox-content`,
+and `combobox-empty`.

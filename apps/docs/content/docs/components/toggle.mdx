@@ -1,5 +1,6 @@
 ---
 title: Toggle
+description: "A toggle button allows a user to toggle a selection on or off, for example switching between two states or modes."
 ---
 
 import { Example, Toggle } from '../../../mdx-components';
@@ -18,8 +19,13 @@ A toggle button allows a user to toggle a selection on or off, for example switc
 
 <PropertiesTable>
   <ResponseField name="label" type="string">Label text displayed above the toggle</ResponseField>
+  <ResponseField name="variant" type="'default' | 'outline'">Visual style (default: "default")</ResponseField>
+  <ResponseField name="size" type="'sm' | 'md' | 'lg'">Control size (default: "md")</ResponseField>
   <ResponseField name="isSelected" type="boolean">Controlled selected state</ResponseField>
   <ResponseField name="defaultSelected" type="boolean">Default selected state</ResponseField>
   <ResponseField name="isDisabled" type="boolean">Disables the toggle</ResponseField>
   <ResponseField name="onChange" type="(isSelected: boolean) => void">Called when state changes</ResponseField>
+  <ResponseField name="onPressedChange" type="(pressed: boolean, event: Event) => void">Base UI passthrough, called alongside `onChange`</ResponseField>
 </PropertiesTable>
+
+The `toggleVariants` helper is exported so other components (such as `ToggleGroupItem`) can share the same styles.
