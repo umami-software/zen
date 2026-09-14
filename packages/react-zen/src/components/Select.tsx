@@ -1,7 +1,6 @@
 import { Select as BaseSelect } from '@base-ui/react/select';
 import { Children, isValidElement, type ReactNode, useState } from 'react';
 import { ChevronRight } from '@/components/icons';
-import { Button, type ButtonProps } from './Button';
 import { Column } from './Column';
 import { useFieldId } from './hooks/useFieldId';
 import { Icon } from './Icon';
@@ -11,6 +10,7 @@ import { Loading } from './Loading';
 import { cn } from './lib/tailwind';
 import { ScrollArea } from './ScrollArea';
 import { SearchField } from './SearchField';
+import { inputField } from './variants';
 import './Overlay.css';
 
 export interface SelectValueRenderProps {
@@ -72,7 +72,9 @@ export interface SelectProps
   alignItemWithTrigger?: boolean;
   onSearch?: (value: string) => void;
   onChange?: (value: string | number | null) => void;
-  buttonProps?: ButtonProps;
+  triggerProps?: BaseSelect.Trigger.Props;
+  /** @deprecated Use `triggerProps` instead. */
+  buttonProps?: BaseSelect.Trigger.Props;
   listProps?: ListProps;
   popoverProps?: BaseSelect.Positioner.Props;
   renderValue?: ReactNode | ((values: SelectValueRenderProps) => ReactNode);
@@ -95,6 +97,7 @@ export function Select({
   alignItemWithTrigger = false,
   onSearch,
   onChange,
+  triggerProps,
   buttonProps,
   listProps,
   popoverProps,
@@ -140,13 +143,17 @@ export function Select({
       >
         {label && <Label htmlFor={fieldId}>{label}</Label>}
         <BaseSelect.Trigger
-          render={
-            <Button
-              variant="outline"
-              {...buttonProps}
-              className={cn('w-full justify-between', buttonProps?.className)}
-            />
-          }
+          {...buttonProps}
+          {...triggerProps}
+          className={inputField({
+            className: cn(
+              'w-full justify-between gap-2 px-3 py-0 whitespace-nowrap cursor-pointer outline-none',
+              'hover:border-edge-strong focus-visible:border-edge-strong',
+              'data-[placeholder]:text-fg-muted',
+              buttonProps?.className,
+              triggerProps?.className,
+            ),
+          })}
         >
           <BaseSelect.Value placeholder={placeholder}>
             {selected => {
@@ -174,15 +181,22 @@ export function Select({
             sideOffset={4}
             alignItemWithTrigger={alignItemWithTrigger}
             {...popoverProps}
-            className={cn('zen-layer-floating', popoverProps?.className)}
+            className={cn(
+              'zen-layer-floating',
+              // Base UI positions the element with inline `position/top/left/transform`
+              // styles, so fullscreen must override them with `!important`.
+              isFullscreen && 'fixed! inset-0! w-auto! h-auto! transform-none!',
+              popoverProps?.className,
+            )}
           >
             <BaseSelect.Popup
               className={cn(
                 'zen-popover bg-surface-overlay border border-edge rounded-md shadow-lg outline-none',
-                isFullscreen && 'zen-popover-fullscreen fixed inset-0 rounded-none',
+                isFullscreen &&
+                  'zen-popover-fullscreen size-full rounded-none border-0 shadow-none overflow-hidden',
               )}
             >
-              <Column gap="2" padding="2">
+              <Column gap="2" padding="2" className={cn(isFullscreen && 'h-full min-h-0')}>
                 {allowSearch && (
                   <SearchField
                     className="-mx-2 -mt-2 w-auto rounded-t-md rounded-b-none border-0 border-b border-edge shadow-none focus-within:border-edge"
@@ -210,12 +224,12 @@ export function Select({
                 )}
                 <ListPrimitiveProvider kind="select">
                   <ScrollArea
-                    maxHeight={maxHeight}
+                    maxHeight={isFullscreen ? undefined : maxHeight}
+                    className={cn(isFullscreen && 'flex-1 min-h-0')}
                     style={{ display: isLoading || isEmpty ? 'none' : undefined }}
                   >
                     <List
                       {...listProps}
-                      isFullscreen={isFullscreen}
                       className={cn('overflow-visible', listProps?.className)}
                       style={listProps?.style}
                     >

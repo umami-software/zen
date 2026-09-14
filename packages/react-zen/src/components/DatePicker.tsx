@@ -1,6 +1,6 @@
+import type { ButtonHTMLAttributes } from 'react';
 import { useState } from 'react';
 import { CalendarDays } from '@/components/icons';
-import { Button, type ButtonProps } from './Button';
 import { Calendar, type CalendarProps } from './Calendar';
 import { useFieldId } from './hooks/useFieldId';
 import { Icon } from './Icon';
@@ -8,6 +8,7 @@ import { Label } from './Label';
 import { cn } from './lib/tailwind';
 import { DialogTrigger } from './OverlayTrigger';
 import { Popover } from './Popover';
+import { inputField } from './variants';
 
 export interface DatePickerProps {
   id?: string;
@@ -22,7 +23,9 @@ export interface DatePickerProps {
   isReadOnly?: boolean;
   formatOptions?: Intl.DateTimeFormatOptions;
   onChange?: (date: Date) => void;
-  buttonProps?: ButtonProps;
+  triggerProps?: ButtonHTMLAttributes<HTMLButtonElement>;
+  /** @deprecated Use `triggerProps` instead. */
+  buttonProps?: ButtonHTMLAttributes<HTMLButtonElement>;
   calendarProps?: Partial<CalendarProps>;
   className?: string;
 }
@@ -40,11 +43,12 @@ export function DatePicker({
   isReadOnly,
   formatOptions = { dateStyle: 'medium' },
   onChange,
+  triggerProps,
   buttonProps,
   calendarProps,
   className,
 }: DatePickerProps) {
-  const fieldId = useFieldId(id ?? buttonProps?.id);
+  const fieldId = useFieldId(id ?? triggerProps?.id ?? buttonProps?.id);
   const [isOpen, setIsOpen] = useState(false);
   const [uncontrolledValue, setUncontrolledValue] = useState<Date | undefined>(defaultValue);
   const date = value ?? uncontrolledValue;
@@ -61,12 +65,20 @@ export function DatePicker({
     <div className={cn('flex flex-col gap-1', className)}>
       {label && <Label htmlFor={fieldId}>{label}</Label>}
       <DialogTrigger overlayType="popover" isOpen={isOpen} onOpenChange={setIsOpen}>
-        <Button
-          variant="outline"
-          isDisabled={isDisabled}
+        <button
+          type="button"
+          disabled={isDisabled}
           {...buttonProps}
+          {...triggerProps}
           id={fieldId}
-          className={cn('justify-start gap-3 font-normal', buttonProps?.className)}
+          className={inputField({
+            className: cn(
+              'w-full justify-start gap-3 px-3 py-0 whitespace-nowrap cursor-pointer outline-none',
+              'hover:border-edge-strong focus-visible:border-edge-strong',
+              buttonProps?.className,
+              triggerProps?.className,
+            ),
+          })}
         >
           <Icon size="sm">
             <CalendarDays />
@@ -76,7 +88,7 @@ export function DatePicker({
           ) : (
             <span className="text-fg-muted">{placeholder}</span>
           )}
-        </Button>
+        </button>
         <Popover className="bg-surface-overlay border border-edge-muted rounded-lg shadow-lg p-4">
           <Calendar
             {...calendarProps}

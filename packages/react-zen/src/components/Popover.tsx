@@ -27,12 +27,20 @@ export function Popover({
 }: PopoverProps) {
   return (
     <BasePopover.Portal>
-      <BasePopover.Positioner {...props} className="zen-layer-floating">
+      <BasePopover.Positioner
+        {...props}
+        className={cn(
+          'zen-layer-floating',
+          // Base UI positions the element with inline `position/top/left/transform`
+          // styles, so fullscreen must override them with `!important`.
+          isFullscreen && 'fixed! inset-0! w-auto! h-auto! transform-none!',
+        )}
+      >
         <BasePopover.Popup
           className={cn(
             'zen-popover outline-none',
             isFullscreen &&
-              'zen-popover-fullscreen block border-0 rounded-none fixed inset-0 overflow-auto bg-surface',
+              'zen-popover-fullscreen block size-full border-0 rounded-none overflow-auto bg-surface',
             className,
           )}
         >

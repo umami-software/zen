@@ -67,17 +67,18 @@ export type ButtonVariants = VariantProps<typeof button>;
 export const inputField = tv({
   base: [
     'relative flex items-center',
-    'text-sm rounded border border-edge bg-surface shadow-sm',
-    'leading-6 text-fg transition-colors',
+    'h-9 text-sm rounded border border-edge bg-surface shadow-sm',
+    'text-fg transition-colors',
     'focus-within:border-edge-strong',
     'has-[input:read-only]:bg-surface-raised has-[textarea:read-only]:bg-surface-raised',
     'has-[:disabled]:bg-surface-disabled has-[:disabled]:opacity-50',
+    'disabled:bg-surface-disabled disabled:opacity-50 disabled:cursor-not-allowed',
   ],
   variants: {
     variant: {
       default: '',
       quiet:
-        'rounded-none border-transparent bg-transparent shadow-none focus-within:border-b-edge focus-within:border-x-transparent focus-within:border-t-transparent',
+        'h-auto rounded-none border-transparent bg-transparent shadow-none focus-within:border-b-edge focus-within:border-x-transparent focus-within:border-t-transparent',
     },
   },
   defaultVariants: {
