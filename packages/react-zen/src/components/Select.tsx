@@ -210,7 +210,10 @@ export function Select({
                 }}
           </BaseSelect.Value>
           {showIcon && (
-            <BaseSelect.Icon data-slot="select-icon" className="text-fg-muted">
+            <BaseSelect.Icon
+              data-slot="select-icon"
+              className="flex shrink-0 items-center justify-center text-fg-muted"
+            >
               <Icon aria-hidden="true" size="sm">
                 <ChevronDown />
               </Icon>

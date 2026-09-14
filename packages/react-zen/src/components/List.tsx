@@ -224,7 +224,7 @@ export function ListItem({
       >
         <BaseSelect.ItemText>{children}</BaseSelect.ItemText>
         {showCheckmark && (
-          <BaseSelect.ItemIndicator>
+          <BaseSelect.ItemIndicator className="flex shrink-0 items-center justify-center">
             <Icon aria-hidden="true">
               <Check />
             </Icon>
@@ -245,7 +245,7 @@ export function ListItem({
       >
         {children}
         {showCheckmark && (
-          <BaseCombobox.ItemIndicator>
+          <BaseCombobox.ItemIndicator className="flex shrink-0 items-center justify-center">
             <Icon aria-hidden="true">
               <Check />
             </Icon>
