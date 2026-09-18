@@ -35,8 +35,6 @@ import {
   Menu,
   MenuItem,
   MenuSection,
-  Navbar,
-  NavbarItem,
   PageHeader,
   PageHeaderActions,
   PageHeaderTitle,
@@ -860,17 +858,6 @@ export function PlaygroundExample() {
                   <Button variant="primary">Create</Button>
                 </PageHeaderActions>
               </PageHeader>
-              <Navbar>
-                <NavbarItem>
-                  <Text weight="medium">Overview</Text>
-                </NavbarItem>
-                <NavbarItem>
-                  <Text color="muted">Activity</Text>
-                </NavbarItem>
-                <NavbarItem>
-                  <Text color="muted">Settings</Text>
-                </NavbarItem>
-              </Navbar>
               <Tabs defaultSelectedKey="preview">
                 <TabList>
                   <Tab id="preview">Preview</Tab>
