@@ -3,7 +3,7 @@ import type { FontSize, FontWeight, Responsive } from '@/lib/types';
 import { cn, mapFontSize, mapFontWeight } from './lib/tailwind';
 
 export const labelClasses = [
-  'flex items-center gap-2 text-sm leading-none font-medium select-none',
+  'flex items-center gap-2 text-sm leading-none font-semibold select-none',
   'peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
   'group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50',
 ];

@@ -1005,34 +1005,20 @@ export function PlaygroundExample() {
                 FORM FIELDS
               </Text>
               <Grid columns={{ base: '1', xl: '2' }} gap="4">
-                <Column gap="1">
-                  <TextField label="Name" placeholder="Ada Lovelace" />
-                </Column>
-                <Column gap="1">
-                  <PasswordField label="Password" defaultValue="password" />
-                </Column>
-                <Column gap="1">
-                  <SearchField label="Search" placeholder="Search components..." />
-                </Column>
-                <Column gap="1">
-                  <Label>Role</Label>
-                  <Select defaultValue="designer">
-                    <ListItem id="designer">Designer</ListItem>
-                    <ListItem id="engineer">Engineer</ListItem>
-                    <ListItem id="manager">Manager</ListItem>
-                  </Select>
-                </Column>
-                <Column gap="1">
-                  <Label>Framework</Label>
-                  <ComboBox defaultValue="react">
-                    <ListItem id="react">React</ListItem>
-                    <ListItem id="vue">Vue</ListItem>
-                    <ListItem id="svelte">Svelte</ListItem>
-                  </ComboBox>
-                </Column>
-                <Column gap="1">
-                  <TextField label="Read only" value="Locked value" isReadOnly />
-                </Column>
+                <TextField label="Name" placeholder="Ada Lovelace" />
+                <PasswordField label="Password" defaultValue="password" />
+                <SearchField label="Search" placeholder="Search components..." />
+                <Select label="Role" defaultValue="designer">
+                  <ListItem id="designer">Designer</ListItem>
+                  <ListItem id="engineer">Engineer</ListItem>
+                  <ListItem id="manager">Manager</ListItem>
+                </Select>
+                <ComboBox label="Framework" defaultValue="react">
+                  <ListItem id="react">React</ListItem>
+                  <ListItem id="vue">Vue</ListItem>
+                  <ListItem id="svelte">Svelte</ListItem>
+                </ComboBox>
+                <TextField label="Read only" value="Locked value" isReadOnly />
               </Grid>
             </Column>
 

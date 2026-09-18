@@ -181,7 +181,7 @@ export function List({
 
   if (label) {
     return (
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-2">
         <Label htmlFor={fieldId}>{label}</Label>
         {listbox}
       </div>

@@ -67,7 +67,7 @@ export const OTPField = forwardRef<HTMLDivElement, OTPFieldProps>(function OTPFi
   const labelId = `${fieldId}-label`;
 
   return (
-    <div data-slot="otp-field" className="flex flex-col gap-1">
+    <div data-slot="otp-field" className="flex flex-col gap-2">
       {label && (
         <Label id={labelId} htmlFor={`${fieldId}-0`}>
           {label}

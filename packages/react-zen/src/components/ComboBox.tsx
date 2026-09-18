@@ -177,7 +177,7 @@ export function ComboBox({
         onChange?.(next);
       }}
     >
-      <div data-slot="combobox" className={cn('relative flex flex-col gap-1', className)}>
+      <div data-slot="combobox" className={cn('relative flex flex-col gap-2', className)}>
         {label && <Label htmlFor={inputId}>{label}</Label>}
         <BaseCombobox.InputGroup render={<InputGroup />}>
           <BaseCombobox.Input

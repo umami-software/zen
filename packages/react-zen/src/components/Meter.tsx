@@ -30,7 +30,7 @@ export function Meter({
       max={maxValue}
       format={formatOptions}
       data-slot="meter"
-      className={cn('flex flex-col gap-1 w-full', className)}
+      className={cn('flex flex-col gap-2 w-full', className)}
     >
       {(label || showValue) && (
         <div data-slot="meter-header" className="flex items-center justify-between gap-3">

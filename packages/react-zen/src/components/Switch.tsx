@@ -92,7 +92,7 @@ export function Switch({
       {labelContent ? (
         <Label
           htmlFor={fieldId}
-          className="cursor-pointer peer-data-disabled:cursor-not-allowed peer-data-disabled:opacity-50"
+          className="cursor-pointer font-normal peer-data-disabled:cursor-not-allowed peer-data-disabled:opacity-50"
         >
           {labelContent}
         </Label>

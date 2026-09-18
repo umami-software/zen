@@ -140,7 +140,7 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(functi
 
   if (label) {
     return (
-      <div data-slot="search-field" className="flex flex-col gap-1">
+      <div data-slot="search-field" className="flex flex-col gap-2">
         <Label htmlFor={fieldId}>{label}</Label>
         {input}
       </div>

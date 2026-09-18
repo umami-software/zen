@@ -98,7 +98,7 @@ export function ToggleGroup({
 
   if (label) {
     return (
-      <div className="inline-flex flex-col gap-1">
+      <div className="inline-flex flex-col gap-2">
         <Label id={labelId}>{label}</Label>
         {group}
       </div>

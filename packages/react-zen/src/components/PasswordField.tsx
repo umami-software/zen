@@ -77,7 +77,7 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
 
     if (label) {
       return (
-        <div data-slot="password-field" className="flex flex-col gap-1">
+        <div data-slot="password-field" className="flex flex-col gap-2">
           <Label htmlFor={fieldId}>{label}</Label>
           {input}
         </div>

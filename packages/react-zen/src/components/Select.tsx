@@ -157,7 +157,7 @@ export function Select({
   const { className: triggerClassName, ...restTriggerProps } = mergedTriggerProps;
 
   return (
-    <div data-slot="select" className={cn('flex flex-col gap-1', className)}>
+    <div data-slot="select" className={cn('flex flex-col gap-2', className)}>
       <BaseSelect.Root
         {...props}
         id={fieldId}

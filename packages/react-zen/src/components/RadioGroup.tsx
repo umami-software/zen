@@ -73,13 +73,18 @@ export function Radio({ children, className, isDisabled, id, ...props }: RadioPr
       >
         <BaseRadio.Indicator
           data-slot="radio-indicator"
-          className="size-2 rounded-full bg-primary data-unchecked:hidden"
+          keepMounted
+          className={cn(
+            'size-2 rounded-full bg-primary',
+            'transition-[transform,opacity] duration-200 ease-out motion-reduce:transition-none',
+            'data-unchecked:scale-0 data-unchecked:opacity-0',
+          )}
         />
       </BaseRadio.Root>
       {children ? (
         <Label
           htmlFor={fieldId}
-          className="cursor-pointer peer-data-disabled:cursor-not-allowed peer-data-disabled:opacity-50"
+          className="cursor-pointer font-normal peer-data-disabled:cursor-not-allowed peer-data-disabled:opacity-50"
         >
           {children}
         </Label>

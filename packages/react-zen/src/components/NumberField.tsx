@@ -70,7 +70,7 @@ export const NumberField = forwardRef<HTMLDivElement, NumberFieldProps>(function
       required={isRequired ?? required}
       format={formatOptions ?? format}
       onValueChange={value => onChange?.(value)}
-      className={cn('flex flex-col gap-1', className)}
+      className={cn('flex flex-col gap-2', className)}
     >
       {label && <Label htmlFor={fieldId}>{label}</Label>}
       <BaseNumberField.Group

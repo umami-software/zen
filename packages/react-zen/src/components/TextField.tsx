@@ -146,7 +146,7 @@ export const TextField = forwardRef<FieldElement, TextFieldProps>(function TextF
   }
 
   return (
-    <BaseField.Root data-slot="text-field" className="flex flex-col gap-1">
+    <BaseField.Root data-slot="text-field" className="flex flex-col gap-2">
       {label && <Label htmlFor={fieldId}>{label}</Label>}
       {input}
       {description && <FieldDescription id={descriptionId}>{description}</FieldDescription>}

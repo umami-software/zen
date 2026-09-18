@@ -12,11 +12,11 @@ import { Separator } from './Separator';
 export type FieldOrientation = 'vertical' | 'horizontal' | 'responsive';
 
 const fieldOrientationClasses: Record<FieldOrientation, string> = {
-  vertical: 'flex-col gap-1 *:w-full [&>.sr-only]:w-auto',
+  vertical: 'flex-col gap-2 *:w-full [&>.sr-only]:w-auto',
   horizontal:
     'flex-row items-center gap-2 has-[>[data-slot=field-content]]:items-start [&>[data-slot=field-label]]:flex-auto',
   responsive:
-    'flex-col gap-1 *:w-full @md/field-group:flex-row @md/field-group:items-center @md/field-group:gap-2 @md/field-group:*:w-auto',
+    'flex-col gap-2 *:w-full @md/field-group:flex-row @md/field-group:items-center @md/field-group:gap-2 @md/field-group:*:w-auto',
 };
 
 export interface FieldProps extends BaseField.Root.Props {

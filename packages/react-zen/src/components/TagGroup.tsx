@@ -37,7 +37,7 @@ export function TagGroup({ label, children, className, onRemove, ...props }: Tag
         remove: key => onRemove?.(new Set([key])),
       }}
     >
-      <div {...props} data-slot="tag-group" className={cn('flex flex-col gap-1', className)}>
+      <div {...props} data-slot="tag-group" className={cn('flex flex-col gap-2', className)}>
         {label && <Label>{label}</Label>}
         <ul data-slot="tag-group-list" className="flex list-none flex-wrap gap-1 p-0 m-0">
           {children}

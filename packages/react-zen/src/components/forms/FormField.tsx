@@ -41,7 +41,7 @@ export function FormField({
     [description && descriptionId, invalid && errorId].filter(Boolean).join(' ') || undefined;
 
   return (
-    <Column {...props} gap="1" className={className}>
+    <Column {...props} gap="2" className={className}>
       {label && <Label htmlFor={fieldId}>{label}</Label>}
       <FormController name={name} control={control} rules={rules}>
         {({ field }) => {

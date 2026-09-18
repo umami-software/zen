@@ -25,7 +25,7 @@ const checkboxStyles = tv({
       'flex items-center justify-center text-current',
       "[&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-3.5",
     ],
-    label: 'cursor-pointer peer-disabled:cursor-default peer-disabled:opacity-50',
+    label: 'cursor-pointer font-normal peer-disabled:cursor-default peer-disabled:opacity-50',
   },
 });
 

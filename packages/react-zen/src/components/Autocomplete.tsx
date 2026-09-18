@@ -67,7 +67,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           if (!details.isCanceled) onChange?.(value);
         }}
       >
-        <div data-slot="autocomplete" className={cn('relative flex flex-col gap-1', className)}>
+        <div data-slot="autocomplete" className={cn('relative flex flex-col gap-2', className)}>
           {label && <Label htmlFor={inputId}>{label}</Label>}
           <InputGroup>
             <BaseAutocomplete.Input

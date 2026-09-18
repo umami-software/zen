@@ -83,7 +83,7 @@ export function DatePicker({
   };
 
   return (
-    <div className={cn('flex flex-col gap-1', className)} data-slot="date-picker">
+    <div className={cn('flex flex-col gap-2', className)} data-slot="date-picker">
       {label && <Label htmlFor={fieldId}>{label}</Label>}
       <BasePopover.Root open={open} onOpenChange={setOpen}>
         <BasePopover.Trigger

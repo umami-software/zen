@@ -44,7 +44,7 @@ export function FormFieldArray({
   const errorMessage = errors[name]?.message as string;
 
   return (
-    <Column {...props} gap="1" className={className}>
+    <Column {...props} gap="2" className={className}>
       {label && <Label htmlFor={fieldId}>{label}</Label>}
       {description && <Text color="muted">{description}</Text>}
       {errorMessage && (
