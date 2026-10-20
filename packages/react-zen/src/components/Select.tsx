@@ -1,5 +1,5 @@
 import { Select as BaseSelect } from '@base-ui/react/select';
-import { Children, isValidElement, type ReactNode, useMemo, useState } from 'react';
+import { Children, isValidElement, type ReactNode, useEffect, useMemo, useState } from 'react';
 import { ChevronDown, ChevronUp } from '@/components/icons';
 import { useFieldId } from './hooks/useFieldId';
 import { Icon } from './Icon';
@@ -66,6 +66,11 @@ export interface SelectProps
   /** Size of the trigger. Emits `data-size` on the trigger element. */
   size?: 'sm' | 'md';
   allowSearch?: boolean;
+  /**
+   * Search text shown in the search field. It seeds the field and replaces its text whenever
+   * it changes (e.g. to clear it); typing updates the field immediately and is reported
+   * through `onSearch`, so keep this in sync from `onSearch`.
+   */
   searchValue?: string;
   searchDelay?: number;
   isFullscreen?: boolean;
@@ -117,7 +122,13 @@ export function Select({
   ...props
 }: SelectProps) {
   const fieldId = useFieldId(id);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(searchValue ?? '');
+
+  // The field is always driven by `search`, so keystrokes show immediately even when
+  // `onSearch` is debounced; an outside `searchValue` change replaces the text.
+  useEffect(() => {
+    if (searchValue !== undefined) setSearch(searchValue);
+  }, [searchValue]);
 
   const normalizedItems = useMemo(
     () =>
@@ -257,7 +268,6 @@ export function Select({
                     onSearch?.(value);
                   }}
                   delay={searchDelay}
-                  defaultValue={searchValue}
                   autoFocus
                   onKeyDown={event => {
                     // Keep typeahead/selection keys working on the list, but stop the

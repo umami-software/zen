@@ -172,7 +172,7 @@ the selected option with the trigger value instead.
   <ResponseField name="size" type="'sm' | 'md'">Trigger size. Emits `data-size` on the trigger (default: `md`)</ResponseField>
   <ResponseField name="isFullscreen" type="boolean">Opens options in fullscreen mode</ResponseField>
   <ResponseField name="allowSearch" type="boolean">Enables search within options</ResponseField>
-  <ResponseField name="searchValue" type="string">Controlled search field value</ResponseField>
+  <ResponseField name="searchValue" type="string">Search field text. Sets the initial text and replaces it whenever it changes; keep it in sync from `onSearch`</ResponseField>
   <ResponseField name="searchDelay" type="number">Debounce delay for search</ResponseField>
   <ResponseField name="maxHeight" type="string | number">Max height of the dropdown list. When set, the list is wrapped in a `ScrollArea`; otherwise the popup scrolls itself and shows scroll arrows</ResponseField>
   <ResponseField name="showIcon" type="boolean">Show chevron icon on trigger button (default: true)</ResponseField>
