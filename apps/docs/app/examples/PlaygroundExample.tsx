@@ -853,38 +853,40 @@ export function PlaygroundExample() {
               <Text size="xs" weight="semibold" color="muted">
                 PAGE STRUCTURE & NAVIGATION
               </Text>
-              <PageHeader>
-                <PageHeaderTitle
-                  breadcrumb={
-                    <Breadcrumbs>
-                      <Breadcrumb>
-                        <a href="#playground">Workspace</a>
-                      </Breadcrumb>
-                      <Breadcrumb>Overview</Breadcrumb>
-                    </Breadcrumbs>
-                  }
-                  title="Design system preview"
-                  description="See token changes across the component library."
-                />
-                <PageHeaderActions>
-                  <Button variant="outline">Share</Button>
-                  <Button variant="primary">Create</Button>
-                </PageHeaderActions>
-              </PageHeader>
-              <Tabs defaultSelectedKey="preview">
-                <TabList>
-                  <Tab id="preview">Preview</Tab>
-                  <Tab id="tokens">Tokens</Tab>
-                  <Tab id="disabled" isDisabled>
-                    Disabled
-                  </Tab>
-                </TabList>
-                <TabPanel id="preview">
-                  Components inherit the variables configured in the sidebar.
-                </TabPanel>
-                <TabPanel id="tokens">Token values update immediately.</TabPanel>
-                <TabPanel id="disabled">Disabled tab content.</TabPanel>
-              </Tabs>
+              <Column gap="6">
+                <PageHeader>
+                  <PageHeaderTitle
+                    breadcrumb={
+                      <Breadcrumbs>
+                        <Breadcrumb>
+                          <a href="#playground">Workspace</a>
+                        </Breadcrumb>
+                        <Breadcrumb>Overview</Breadcrumb>
+                      </Breadcrumbs>
+                    }
+                    title="Design system preview"
+                    description="See token changes across the component library."
+                  />
+                  <PageHeaderActions>
+                    <Button variant="outline">Share</Button>
+                    <Button variant="primary">Create</Button>
+                  </PageHeaderActions>
+                </PageHeader>
+                <Tabs defaultSelectedKey="preview">
+                  <TabList>
+                    <Tab id="preview">Preview</Tab>
+                    <Tab id="tokens">Tokens</Tab>
+                    <Tab id="disabled" isDisabled>
+                      Disabled
+                    </Tab>
+                  </TabList>
+                  <TabPanel id="preview">
+                    Components inherit the variables configured in the sidebar.
+                  </TabPanel>
+                  <TabPanel id="tokens">Token values update immediately.</TabPanel>
+                  <TabPanel id="disabled">Disabled tab content.</TabPanel>
+                </Tabs>
+              </Column>
             </Column>
 
             {/* Typography */}
@@ -1027,31 +1029,33 @@ export function PlaygroundExample() {
               <Text size="xs" weight="semibold" color="muted">
                 SELECTION CONTROLS
               </Text>
-              <Row gap="5" wrap="wrap" alignItems="center">
-                <Toggle isSelected={watching} onChange={setWatching}>
-                  {watching ? 'Watching' : 'Watch'}
-                </Toggle>
-                <Checkbox isSelected={notifyTeammates} onChange={setNotifyTeammates}>
-                  Notify teammates
-                </Checkbox>
-                <Switch isSelected={isPublic} onChange={setIsPublic}>
-                  Public project
-                </Switch>
-              </Row>
-              <RadioGroup label="Plan" defaultValue="pro">
-                <Radio value="starter">Starter</Radio>
-                <Radio value="pro">Professional</Radio>
-                <Radio value="enterprise">Enterprise</Radio>
-              </RadioGroup>
-              <Column maxWidth="md">
-                <Slider
-                  label={`Upload progress: ${sliderValue}%`}
-                  value={sliderValue}
-                  onChange={setSliderValue}
-                  min={0}
-                  max={100}
-                  showValue={false}
-                />
+              <Column gap="6">
+                <Row gap="5" wrap="wrap" alignItems="center">
+                  <Toggle isSelected={watching} onChange={setWatching}>
+                    {watching ? 'Watching' : 'Watch'}
+                  </Toggle>
+                  <Checkbox isSelected={notifyTeammates} onChange={setNotifyTeammates}>
+                    Notify teammates
+                  </Checkbox>
+                  <Switch isSelected={isPublic} onChange={setIsPublic}>
+                    Public project
+                  </Switch>
+                </Row>
+                <RadioGroup label="Plan" defaultValue="pro">
+                  <Radio value="starter">Starter</Radio>
+                  <Radio value="pro">Professional</Radio>
+                  <Radio value="enterprise">Enterprise</Radio>
+                </RadioGroup>
+                <Column maxWidth="md">
+                  <Slider
+                    label={`Upload progress: ${sliderValue}%`}
+                    value={sliderValue}
+                    onChange={setSliderValue}
+                    min={0}
+                    max={100}
+                    showValue={false}
+                  />
+                </Column>
               </Column>
             </Column>
 
@@ -1060,48 +1064,50 @@ export function PlaygroundExample() {
               <Text size="xs" weight="semibold" color="muted">
                 DATA DISPLAY
               </Text>
-              <Grid columns={{ base: '1', xl: '2' }} gap="5">
-                <DataCard
-                  data={[
-                    { label: 'Owner', value: 'Ada Lovelace' },
-                    { label: 'Status', value: 'Active' },
-                    { label: 'Updated', value: 'Today' },
-                  ]}
-                />
-                <Box border borderRadius="lg" padding="3">
-                  <List
-                    label="Recent projects"
-                    selectionMode="single"
-                    defaultSelectedKeys={['analytics']}
+              <Column gap="6">
+                <Grid columns={{ base: '1', xl: '2' }} gap="5">
+                  <DataCard
+                    data={[
+                      { label: 'Owner', value: 'Ada Lovelace' },
+                      { label: 'Status', value: 'Active' },
+                      { label: 'Updated', value: 'Today' },
+                    ]}
+                  />
+                  <Box border borderRadius="lg" padding="3">
+                    <List
+                      label="Recent projects"
+                      selectionMode="single"
+                      defaultSelectedKeys={['analytics']}
+                    >
+                      <ListItem id="analytics">Analytics dashboard</ListItem>
+                      <ListItem id="commerce">Commerce storefront</ListItem>
+                      <ListItem id="docs">Documentation site</ListItem>
+                    </List>
+                  </Box>
+                </Grid>
+                <TagGroup label="Technologies">
+                  <Tag id="react" variant="primary">
+                    React
+                  </Tag>
+                  <Tag id="typescript" variant="outline">
+                    TypeScript
+                  </Tag>
+                  <Tag id="css">CSS</Tag>
+                </TagGroup>
+                <Box overflow="auto">
+                  <DataTable
+                    data={[
+                      { id: 'one', component: 'Button', category: 'Actions', status: 'Stable' },
+                      { id: 'two', component: 'DataTable', category: 'Data', status: 'Stable' },
+                      { id: 'three', component: 'Calendar', category: 'Input', status: 'Stable' },
+                    ]}
                   >
-                    <ListItem id="analytics">Analytics dashboard</ListItem>
-                    <ListItem id="commerce">Commerce storefront</ListItem>
-                    <ListItem id="docs">Documentation site</ListItem>
-                  </List>
+                    <DataColumn id="component" label="Component" width="1.5fr" />
+                    <DataColumn id="category" label="Category" />
+                    <DataColumn id="status" label="Status" />
+                  </DataTable>
                 </Box>
-              </Grid>
-              <TagGroup label="Technologies">
-                <Tag id="react" variant="primary">
-                  React
-                </Tag>
-                <Tag id="typescript" variant="outline">
-                  TypeScript
-                </Tag>
-                <Tag id="css">CSS</Tag>
-              </TagGroup>
-              <Box overflow="auto">
-                <DataTable
-                  data={[
-                    { id: 'one', component: 'Button', category: 'Actions', status: 'Stable' },
-                    { id: 'two', component: 'DataTable', category: 'Data', status: 'Stable' },
-                    { id: 'three', component: 'Calendar', category: 'Input', status: 'Stable' },
-                  ]}
-                >
-                  <DataColumn id="component" label="Component" width="1.5fr" />
-                  <DataColumn id="category" label="Category" />
-                  <DataColumn id="status" label="Status" />
-                </DataTable>
-              </Box>
+              </Column>
             </Column>
 
             {/* Menu and calendar */}
@@ -1109,112 +1115,116 @@ export function PlaygroundExample() {
               <Text size="xs" weight="semibold" color="muted">
                 MENU & CALENDAR
               </Text>
-              <Grid columns={{ base: '1', xl: '2' }} gap="6" alignItems="start">
-                <Menu selectionMode="single" defaultSelectedKeys={['overview']}>
-                  <MenuSection title="Workspace">
-                    <MenuItem id="overview" icon={<Layers />}>
-                      Overview
-                    </MenuItem>
-                    <MenuItem id="activity" icon={<Sparkles />}>
-                      Activity
-                    </MenuItem>
-                    <MenuItem id="disabled" isDisabled>
-                      Disabled item
-                    </MenuItem>
-                  </MenuSection>
-                </Menu>
-              </Grid>
-              <Box border borderRadius="lg" padding="3" width="fit">
-                <Calendar
-                  value={calendarValue}
-                  onChange={setCalendarValue}
-                  defaultValue={calendarValue}
-                />
-              </Box>
+              <Column gap="6">
+                <Grid columns={{ base: '1', xl: '2' }} gap="6" alignItems="start">
+                  <Menu selectionMode="single" defaultSelectedKeys={['overview']}>
+                    <MenuSection title="Workspace">
+                      <MenuItem id="overview" icon={<Layers />}>
+                        Overview
+                      </MenuItem>
+                      <MenuItem id="activity" icon={<Sparkles />}>
+                        Activity
+                      </MenuItem>
+                      <MenuItem id="disabled" isDisabled>
+                        Disabled item
+                      </MenuItem>
+                    </MenuSection>
+                  </Menu>
+                </Grid>
+                <Box border borderRadius="lg" padding="3" width="fit">
+                  <Calendar
+                    value={calendarValue}
+                    onChange={setCalendarValue}
+                    defaultValue={calendarValue}
+                  />
+                </Box>
+              </Column>
             </Column>
 
             {/* Progress and loading */}
-            <Column gap="5">
+            <Column gap="3">
               <Text size="xs" weight="semibold" color="muted">
                 PROGRESS & LOADING
               </Text>
-              <Grid columns="1" gap="5">
-                <Box border borderRadius="lg" padding="5">
-                  <Column gap="4">
-                    <Row gap="3" alignItems="center">
-                      <Box backgroundColor="interactive" borderRadius="md" padding="2">
-                        <FileArchive size={20} />
-                      </Box>
-                      <Column gap="1" flexGrow="1">
-                        <Text weight="semibold">Uploading brand-assets.zip</Text>
-                        <Text size="sm" color="muted">
-                          42.6 MB of 65.5 MB
+              <Column gap="6">
+                <Grid columns="1" gap="5">
+                  <Box border borderRadius="lg" padding="5">
+                    <Column gap="4">
+                      <Row gap="3" alignItems="center">
+                        <Box backgroundColor="interactive" borderRadius="md" padding="2">
+                          <FileArchive size={20} />
+                        </Box>
+                        <Column gap="1" flexGrow="1">
+                          <Text weight="semibold">Uploading brand-assets.zip</Text>
+                          <Text size="sm" color="muted">
+                            42.6 MB of 65.5 MB
+                          </Text>
+                        </Column>
+                        <Text size="sm" weight="semibold">
+                          {sliderValue}%
                         </Text>
+                      </Row>
+                      <ProgressBar value={sliderValue} />
+                      <Row justifyContent="space-between" alignItems="center">
+                        <Row gap="2" alignItems="center">
+                          <Spinner size="sm" />
+                          <Text size="sm" color="muted">
+                            Encrypting and uploading
+                          </Text>
+                        </Row>
+                        <Button variant="quiet" size="xs">
+                          Cancel
+                        </Button>
+                      </Row>
+                    </Column>
+                  </Box>
+                  <Box border borderRadius="lg" padding="5">
+                    <Row gap="5" alignItems="center">
+                      <ProgressCircle value={sliderValue} showPercentage />
+                      <Column gap="2">
+                        <Row gap="2" alignItems="center">
+                          <Users size={18} />
+                          <Text weight="semibold">Importing contacts</Text>
+                        </Row>
+                        <Text size="sm" color="muted">
+                          650 of 1,000 records imported
+                        </Text>
+                        <Row gap="2" alignItems="center">
+                          <Dots size="sm" />
+                          <Text size="sm" color="muted">
+                            Checking for duplicates
+                          </Text>
+                        </Row>
                       </Column>
-                      <Text size="sm" weight="semibold">
-                        {sliderValue}%
-                      </Text>
                     </Row>
-                    <ProgressBar value={sliderValue} />
-                    <Row justifyContent="space-between" alignItems="center">
-                      <Row gap="2" alignItems="center">
-                        <Spinner size="sm" />
-                        <Text size="sm" color="muted">
-                          Encrypting and uploading
-                        </Text>
-                      </Row>
-                      <Button variant="quiet" size="xs">
-                        Cancel
-                      </Button>
+                  </Box>
+                </Grid>
+                <Grid columns="1" gap="5">
+                  <Box border borderRadius="lg" padding="4">
+                    <Row gap="3" alignItems="center">
+                      <SkeletonAvatar />
+                      <Column gap="2" flexGrow="1">
+                        <Skeleton height="1rem" width="45%" />
+                        <SkeletonText lines={2} />
+                      </Column>
                     </Row>
-                  </Column>
-                </Box>
-                <Box border borderRadius="lg" padding="5">
-                  <Row gap="5" alignItems="center">
-                    <ProgressCircle value={sliderValue} showPercentage />
-                    <Column gap="2">
-                      <Row gap="2" alignItems="center">
-                        <Users size={18} />
-                        <Text weight="semibold">Importing contacts</Text>
-                      </Row>
-                      <Text size="sm" color="muted">
-                        650 of 1,000 records imported
-                      </Text>
-                      <Row gap="2" alignItems="center">
-                        <Dots size="sm" />
-                        <Text size="sm" color="muted">
-                          Checking for duplicates
-                        </Text>
-                      </Row>
-                    </Column>
-                  </Row>
-                </Box>
-              </Grid>
-              <Grid columns="1" gap="5">
-                <Box border borderRadius="lg" padding="4">
-                  <Row gap="3" alignItems="center">
-                    <SkeletonAvatar />
-                    <Column gap="2" flexGrow="1">
-                      <Skeleton height="1rem" width="45%" />
-                      <SkeletonText lines={2} />
-                    </Column>
-                  </Row>
-                </Box>
-                <Box border borderRadius="lg">
-                  <Empty>
-                    <EmptyHeader>
-                      <EmptyMedia variant="icon">
-                        <Inbox />
-                      </EmptyMedia>
-                      <EmptyTitle>No messages</EmptyTitle>
-                      <EmptyDescription>New messages will appear here.</EmptyDescription>
-                    </EmptyHeader>
-                    <EmptyContent>
-                      <Button variant="primary">Compose</Button>
-                    </EmptyContent>
-                  </Empty>
-                </Box>
-              </Grid>
+                  </Box>
+                  <Box border borderRadius="lg">
+                    <Empty>
+                      <EmptyHeader>
+                        <EmptyMedia variant="icon">
+                          <Inbox />
+                        </EmptyMedia>
+                        <EmptyTitle>No messages</EmptyTitle>
+                        <EmptyDescription>New messages will appear here.</EmptyDescription>
+                      </EmptyHeader>
+                      <EmptyContent>
+                        <Button variant="primary">Compose</Button>
+                      </EmptyContent>
+                    </Empty>
+                  </Box>
+                </Grid>
+              </Column>
             </Column>
 
             {/* Display */}
@@ -1222,51 +1232,53 @@ export function PlaygroundExample() {
               <Text size="xs" weight="semibold" color="muted">
                 DISPLAY
               </Text>
-              <Row gap="5" wrap="wrap" alignItems="center">
-                <AvatarGroup>
-                  <Avatar alt="Ada Lovelace" />
-                  <Avatar alt="Grace Hopper" />
-                  <Avatar alt="Alan Turing" />
-                </AvatarGroup>
-                <Avatar alt="Linus Torvalds" size="sm" />
-                <Text size="sm" color="muted">
-                  Press{' '}
-                  <KbdGroup>
-                    <Kbd>⌘</Kbd>
-                    <Kbd>K</Kbd>
-                  </KbdGroup>{' '}
-                  to search
-                </Text>
-              </Row>
-              <Column maxWidth="md">
-                <Meter label="Storage used" value={60} showValue />
+              <Column gap="6">
+                <Row gap="5" wrap="wrap" alignItems="center">
+                  <AvatarGroup>
+                    <Avatar alt="Ada Lovelace" />
+                    <Avatar alt="Grace Hopper" />
+                    <Avatar alt="Alan Turing" />
+                  </AvatarGroup>
+                  <Avatar alt="Linus Torvalds" size="sm" />
+                  <Text size="sm" color="muted">
+                    Press{' '}
+                    <KbdGroup>
+                      <Kbd>⌘</Kbd>
+                      <Kbd>K</Kbd>
+                    </KbdGroup>{' '}
+                    to search
+                  </Text>
+                </Row>
+                <Column maxWidth="md">
+                  <Meter label="Storage used" value={60} showValue />
+                </Column>
+                <Separator />
+                <Box overflow="auto">
+                  <Table>
+                    <TableHeader>
+                      <TableColumn>Name</TableColumn>
+                      <TableColumn>Role</TableColumn>
+                      <TableColumn>Status</TableColumn>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell>Ada Lovelace</TableCell>
+                        <TableCell>Designer</TableCell>
+                        <TableCell>
+                          <Badge variant="success">Active</Badge>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Grace Hopper</TableCell>
+                        <TableCell>Engineer</TableCell>
+                        <TableCell>
+                          <Badge variant="warning">Invited</Badge>
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </Box>
               </Column>
-              <Separator />
-              <Box overflow="auto">
-                <Table>
-                  <TableHeader>
-                    <TableColumn>Name</TableColumn>
-                    <TableColumn>Role</TableColumn>
-                    <TableColumn>Status</TableColumn>
-                  </TableHeader>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell>Ada Lovelace</TableCell>
-                      <TableCell>Designer</TableCell>
-                      <TableCell>
-                        <Badge variant="success">Active</Badge>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Grace Hopper</TableCell>
-                      <TableCell>Engineer</TableCell>
-                      <TableCell>
-                        <Badge variant="warning">Invited</Badge>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </Box>
             </Column>
 
             {/* Status */}
@@ -1274,31 +1286,33 @@ export function PlaygroundExample() {
               <Text size="xs" weight="semibold" color="muted">
                 STATUS
               </Text>
-              <Row gap="3" wrap="wrap">
-                <StatusLight variant="info">Info</StatusLight>
-                <StatusLight variant="success">Success</StatusLight>
-                <StatusLight variant="warning">Warning</StatusLight>
-                <StatusLight variant="error">Error</StatusLight>
-              </Row>
-              <Row gap="2" wrap="wrap" alignItems="center">
-                <Badge>Default</Badge>
-                <Badge variant="primary">Primary</Badge>
-                <Badge variant="outline">Outline</Badge>
-                <Badge variant="info">Info</Badge>
-                <Badge variant="success">Success</Badge>
-                <Badge variant="warning">Warning</Badge>
-                <Badge variant="error">Error</Badge>
-                <Badge size="sm">Small</Badge>
-              </Row>
-              <Column gap="2">
-                <Alert>
-                  <AlertTitle>Heads up!</AlertTitle>
-                  <AlertDescription>This is a default alert message.</AlertDescription>
-                </Alert>
-                <Alert variant="danger">
-                  <AlertTitle>Error</AlertTitle>
-                  <AlertDescription>Something went wrong.</AlertDescription>
-                </Alert>
+              <Column gap="6">
+                <Row gap="3" wrap="wrap">
+                  <StatusLight variant="info">Info</StatusLight>
+                  <StatusLight variant="success">Success</StatusLight>
+                  <StatusLight variant="warning">Warning</StatusLight>
+                  <StatusLight variant="error">Error</StatusLight>
+                </Row>
+                <Row gap="2" wrap="wrap" alignItems="center">
+                  <Badge>Default</Badge>
+                  <Badge variant="primary">Primary</Badge>
+                  <Badge variant="outline">Outline</Badge>
+                  <Badge variant="info">Info</Badge>
+                  <Badge variant="success">Success</Badge>
+                  <Badge variant="warning">Warning</Badge>
+                  <Badge variant="error">Error</Badge>
+                  <Badge size="sm">Small</Badge>
+                </Row>
+                <Column gap="2">
+                  <Alert>
+                    <AlertTitle>Heads up!</AlertTitle>
+                    <AlertDescription>This is a default alert message.</AlertDescription>
+                  </Alert>
+                  <Alert variant="danger">
+                    <AlertTitle>Error</AlertTitle>
+                    <AlertDescription>Something went wrong.</AlertDescription>
+                  </Alert>
+                </Column>
               </Column>
             </Column>
           </Column>
