@@ -6,6 +6,9 @@ import {
   Alert,
   AlertDescription,
   AlertTitle,
+  Avatar,
+  AvatarGroup,
+  Badge,
   Blockquote,
   Box,
   Breadcrumb,
@@ -28,6 +31,8 @@ import {
   EmptyTitle,
   Grid,
   Heading,
+  Kbd,
+  KbdGroup,
   Label,
   List,
   ListItem,
@@ -35,6 +40,7 @@ import {
   Menu,
   MenuItem,
   MenuSection,
+  Meter,
   PageHeader,
   PageHeaderActions,
   PageHeaderTitle,
@@ -46,6 +52,7 @@ import {
   Row,
   SearchField,
   Select,
+  Separator,
   Skeleton,
   SkeletonAvatar,
   SkeletonText,
@@ -55,6 +62,12 @@ import {
   Switch,
   Tab,
   TabList,
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
   TabPanel,
   Tabs,
   Tag,
@@ -1204,6 +1217,58 @@ export function PlaygroundExample() {
               </Grid>
             </Column>
 
+            {/* Display */}
+            <Column gap="3">
+              <Text size="xs" weight="semibold" color="muted">
+                DISPLAY
+              </Text>
+              <Row gap="5" wrap="wrap" alignItems="center">
+                <AvatarGroup>
+                  <Avatar alt="Ada Lovelace" />
+                  <Avatar alt="Grace Hopper" />
+                  <Avatar alt="Alan Turing" />
+                </AvatarGroup>
+                <Avatar alt="Linus Torvalds" size="sm" />
+                <Text size="sm" color="muted">
+                  Press{' '}
+                  <KbdGroup>
+                    <Kbd>⌘</Kbd>
+                    <Kbd>K</Kbd>
+                  </KbdGroup>{' '}
+                  to search
+                </Text>
+              </Row>
+              <Column maxWidth="md">
+                <Meter label="Storage used" value={60} showValue />
+              </Column>
+              <Separator />
+              <Box overflow="auto">
+                <Table>
+                  <TableHeader>
+                    <TableColumn>Name</TableColumn>
+                    <TableColumn>Role</TableColumn>
+                    <TableColumn>Status</TableColumn>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Ada Lovelace</TableCell>
+                      <TableCell>Designer</TableCell>
+                      <TableCell>
+                        <Badge variant="success">Active</Badge>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Grace Hopper</TableCell>
+                      <TableCell>Engineer</TableCell>
+                      <TableCell>
+                        <Badge variant="warning">Invited</Badge>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </Box>
+            </Column>
+
             {/* Status */}
             <Column gap="3">
               <Text size="xs" weight="semibold" color="muted">
@@ -1214,6 +1279,16 @@ export function PlaygroundExample() {
                 <StatusLight variant="success">Success</StatusLight>
                 <StatusLight variant="warning">Warning</StatusLight>
                 <StatusLight variant="error">Error</StatusLight>
+              </Row>
+              <Row gap="2" wrap="wrap" alignItems="center">
+                <Badge>Default</Badge>
+                <Badge variant="primary">Primary</Badge>
+                <Badge variant="outline">Outline</Badge>
+                <Badge variant="info">Info</Badge>
+                <Badge variant="success">Success</Badge>
+                <Badge variant="warning">Warning</Badge>
+                <Badge variant="error">Error</Badge>
+                <Badge size="sm">Small</Badge>
               </Row>
               <Column gap="2">
                 <Alert>
