@@ -2,7 +2,7 @@ import { Tabs as BaseTabs } from '@base-ui/react/tabs';
 import type { ReactNode } from 'react';
 import { cn } from './lib/tailwind';
 
-export type TabListVariant = 'line' | 'default';
+export type TabListVariant = 'line' | 'pill';
 
 export interface TabsProps
   extends Omit<BaseTabs.Root.Props, 'value' | 'defaultValue' | 'onValueChange'> {
@@ -21,7 +21,7 @@ export interface TabListProps extends BaseTabs.List.Props {
   children?: ReactNode;
   /**
    * `line` renders an underlined tab list with an animated indicator.
-   * `default` renders a pill-style segmented control.
+   * `pill` renders a segmented control with the active tab raised on a muted track.
    *
    * @default 'line'
    */
@@ -90,9 +90,10 @@ export function TabList({ children, className, variant = 'line', ...props }: Tab
           'data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch',
           'data-[orientation=vertical]:border-b-0 data-[orientation=vertical]:border-r',
         ],
-        variant === 'default' && [
-          'w-fit gap-1 rounded bg-interactive p-[3px]',
-          'data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch',
+        variant === 'pill' && [
+          'h-9 w-fit rounded-[calc(var(--zen-radius)+3px)] bg-interactive p-[3px]',
+          'data-[orientation=vertical]:h-fit data-[orientation=vertical]:flex-col',
+          'data-[orientation=vertical]:items-stretch',
         ],
         className,
       )}
@@ -142,11 +143,17 @@ export function Tab({ id, value, isDisabled, href, children, className, ...props
         "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         // `line` variant — the active underline is drawn by <TabIndicator />.
         'group-data-[variant=line]/tabs-list:py-2',
-        // `default` (pill) variant
-        'group-data-[variant=default]/tabs-list:flex-1 group-data-[variant=default]/tabs-list:rounded',
-        'group-data-[variant=default]/tabs-list:px-3 group-data-[variant=default]/tabs-list:py-1',
-        'group-data-[variant=default]/tabs-list:data-active:bg-surface',
-        'group-data-[variant=default]/tabs-list:data-active:shadow-sm',
+        // `pill` variant
+        'group-data-[variant=pill]/tabs-list:h-[calc(100%-1px)] group-data-[variant=pill]/tabs-list:flex-1',
+        'group-data-[variant=pill]/tabs-list:gap-1.5 group-data-[variant=pill]/tabs-list:px-2',
+        'group-data-[variant=pill]/tabs-list:py-1 group-data-[variant=pill]/tabs-list:font-medium',
+        'group-data-[variant=pill]/tabs-list:rounded-[var(--zen-radius)]',
+        'group-data-[variant=pill]/tabs-list:border group-data-[variant=pill]/tabs-list:border-transparent',
+        'group-data-[variant=pill]/tabs-list:data-active:bg-surface',
+        'group-data-[variant=pill]/tabs-list:data-active:shadow-sm',
+        'group-data-[variant=pill]/tabs-list:data-disabled:text-fg-muted',
+        'group-data-[variant=pill]/tabs-list:data-disabled:opacity-50',
+        'group-data-[variant=pill]/tabs-list:data-[orientation=vertical]:justify-start',
         className,
       )}
     >

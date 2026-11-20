@@ -33,6 +33,36 @@ Tabs organize content into multiple sections and allow users to navigate between
   ```
 </Example>
 
+## Pill
+
+Use `variant="pill"` for a segmented control with the active tab raised on a muted track.
+
+<Example>
+  <Tabs>
+    <TabList variant="pill">
+      <Tab id="one">One</Tab>
+      <Tab id="two">Two</Tab>
+      <Tab id="three">Three</Tab>
+    </TabList>
+    <TabPanel id="one">Content for tab one.</TabPanel>
+    <TabPanel id="two">Content for tab two.</TabPanel>
+    <TabPanel id="three">Content for tab three.</TabPanel>
+  </Tabs>
+
+  ```jsx
+  <Tabs>
+    <TabList variant="pill">
+      <Tab id="one">One</Tab>
+      <Tab id="two">Two</Tab>
+      <Tab id="three">Three</Tab>
+    </TabList>
+    <TabPanel id="one">Content for tab one.</TabPanel>
+    <TabPanel id="two">Content for tab two.</TabPanel>
+    <TabPanel id="three">Content for tab three.</TabPanel>
+  </Tabs>
+  ```
+</Example>
+
 ## Disabled
 
 <Example>
@@ -97,6 +127,12 @@ Tabs organize content into multiple sections and allow users to navigate between
   <ResponseField name="selectedKey" type="string">Controlled selected tab key</ResponseField>
   <ResponseField name="defaultSelectedKey" type="string">Default selected tab key</ResponseField>
   <ResponseField name="onSelectionChange" type="(key: string) => void">Called when selection changes</ResponseField>
+</PropertiesTable>
+
+### TabList
+
+<PropertiesTable>
+  <ResponseField name="variant" type="'line' | 'pill'">`line` underlines the active tab with an animated indicator; `pill` renders a segmented control (default: `line`)</ResponseField>
 </PropertiesTable>
 
 ### Tab
