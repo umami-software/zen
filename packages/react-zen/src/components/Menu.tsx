@@ -441,7 +441,8 @@ export function MenuItem({
       aria-checked={selectionMode === 'none' ? undefined : isSelected}
       data-selected={isSelected || undefined}
       data-disabled={isDisabled || undefined}
-      className={itemClassName}
+      // Static items have no Base UI highlight tracking, so pointer hover is styled directly.
+      className={cn(itemClassName, !isDisabled && 'hover:bg-interactive')}
       onClick={event => {
         onClick?.(event);
         if (!event.defaultPrevented) {
