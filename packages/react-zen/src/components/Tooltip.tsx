@@ -36,7 +36,7 @@ export function Tooltip({
           data-slot="tooltip"
           className={cn(
             'group w-fit max-w-xs outline-none',
-            'origin-(--transform-origin) transition-[transform,opacity] duration-200 ease-out',
+            'origin-(--transform-origin) transition-[scale,opacity] duration-200 ease-out',
             'data-starting-style:opacity-0 data-starting-style:scale-95',
             'data-ending-style:opacity-0 data-ending-style:scale-95 data-ending-style:ease-in',
             'motion-reduce:transition-none',

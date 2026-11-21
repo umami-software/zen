@@ -37,7 +37,7 @@ export const PreviewCardContent = forwardRef<HTMLDivElement, PreviewCardContentP
           className={state =>
             cn(
               'w-80 max-w-(--available-width) max-h-(--available-height) overflow-y-auto rounded-md border border-edge bg-surface-overlay p-4 text-sm text-fg shadow-lg outline-none',
-              'origin-(--transform-origin) transition-[transform,opacity] duration-200 ease-out',
+              'origin-(--transform-origin) transition-[scale,opacity] duration-200 ease-out',
               'data-starting-style:opacity-0 data-starting-style:scale-95',
               'data-ending-style:opacity-0 data-ending-style:scale-95 data-ending-style:ease-in',
               'motion-reduce:transition-none',

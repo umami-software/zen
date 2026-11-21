@@ -76,7 +76,7 @@ export function Radio({ children, className, isDisabled, id, ...props }: RadioPr
           keepMounted
           className={cn(
             'size-2 rounded-full bg-primary',
-            'transition-[transform,opacity] duration-200 ease-out motion-reduce:transition-none',
+            'transition-[scale,opacity] duration-200 ease-out motion-reduce:transition-none',
             'data-unchecked:scale-0 data-unchecked:opacity-0',
           )}
         />

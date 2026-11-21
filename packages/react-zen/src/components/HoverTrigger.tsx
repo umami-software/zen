@@ -71,7 +71,7 @@ export function HoverTrigger({
             className={cn(
               'max-w-(--available-width) max-h-(--available-height) overflow-y-auto outline-none',
               'bg-surface-overlay border border-edge rounded-lg shadow-lg p-4',
-              'origin-(--transform-origin) transition-[transform,opacity] duration-200 ease-out',
+              'origin-(--transform-origin) transition-[scale,opacity] duration-200 ease-out',
               'data-starting-style:opacity-0 data-starting-style:scale-95',
               'data-ending-style:opacity-0 data-ending-style:scale-95 data-ending-style:ease-in',
               'motion-reduce:transition-none',

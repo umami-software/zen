@@ -9,7 +9,7 @@ import './Popover.css';
 
 /** Shared enter/exit motion for floating popups (mirrors the old `.zen-popover` CSS). */
 const motionClassName = [
-  'origin-(--transform-origin) transition-[transform,opacity] duration-200 ease-out',
+  'origin-(--transform-origin) transition-[scale,opacity] duration-200 ease-out',
   'data-starting-style:opacity-0 data-starting-style:scale-95',
   'data-ending-style:opacity-0 data-ending-style:scale-95 data-ending-style:ease-in',
   'motion-reduce:transition-none motion-reduce:data-starting-style:scale-100 motion-reduce:data-ending-style:scale-100',

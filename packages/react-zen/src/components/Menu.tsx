@@ -52,7 +52,7 @@ const MenuSubmenuTriggerContext = createContext<MenuPrimitiveKind | null>(null);
 export const MenuVariantContext = createContext<MenuVariant | null>(null);
 
 const motionClassName = [
-  'origin-(--transform-origin) transition-[transform,opacity] duration-200 ease-out',
+  'origin-(--transform-origin) transition-[scale,opacity] duration-200 ease-out',
   'data-starting-style:opacity-0 data-starting-style:scale-95',
   'data-ending-style:opacity-0 data-ending-style:scale-95 data-ending-style:ease-in',
   'motion-reduce:transition-none',
