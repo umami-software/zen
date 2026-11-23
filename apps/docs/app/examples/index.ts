@@ -28,6 +28,12 @@ export { SearchDelayExample } from './SearchDelayExample';
 export { SelectSearchExample } from './SelectSearchExample';
 export { SelectValueExample } from './SelectValueExample';
 export { SheetExample } from './SheetExample';
+export {
+  SidebarControlledExample,
+  SidebarExample,
+  SidebarSkeletonExample,
+  SidebarVariantsExample,
+} from './SidebarExample';
 export { RemovableTagGroupExample } from './TagGroupExample';
 export { ThemeButtonExample } from './ThemeButtonExample';
 export {

@@ -482,3 +482,42 @@ export const tag = tv({
 });
 
 export type TagVariants = VariantProps<typeof tag>;
+
+// Sidebar menu button variants
+export const sidebarMenuButton = tv({
+  base: [
+    'peer/menu-button group/menu-button flex w-full items-center gap-2 overflow-hidden',
+    'rounded p-2 text-left text-sm text-fg cursor-pointer outline-none',
+    'transition-[width,height,padding]',
+    'hover:bg-interactive active:bg-interactive-hover',
+    'focus-visible:ring-2 focus-visible:ring-focus-ring',
+    'disabled:pointer-events-none disabled:opacity-50',
+    'aria-disabled:pointer-events-none aria-disabled:opacity-50',
+    'data-active:bg-interactive data-active:font-medium',
+    'data-popup-open:bg-interactive data-panel-open:hover:bg-interactive',
+    // Leave room for a `SidebarMenuAction` rendered beside the button.
+    'group-has-data-[sidebar=menu-action]/menu-item:pr-8',
+    'group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2!',
+    '[&>span:last-child]:truncate [&_svg]:size-4 [&_svg]:shrink-0',
+  ],
+  variants: {
+    variant: {
+      default: '',
+      outline: [
+        'bg-surface shadow-[0_0_0_1px_var(--zen-border)]',
+        'hover:shadow-[0_0_0_1px_var(--zen-border-strong)]',
+      ],
+    },
+    size: {
+      sm: 'h-7 text-xs',
+      md: 'h-8 text-sm',
+      lg: 'h-12 text-sm group-data-[collapsible=icon]:p-0!',
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+    size: 'md',
+  },
+});
+
+export type SidebarMenuButtonVariants = VariantProps<typeof sidebarMenuButton>;

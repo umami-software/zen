@@ -414,6 +414,45 @@ function MyComponent() {
 </MenuTrigger>
 ```
 
+### Sidebar
+
+Composable app sidebar (shadcn/ui port on Base UI). Collapses off canvas or to icons on desktop, renders as a `Sheet` below `md`, and toggles with Cmd/Ctrl+B.
+
+```tsx
+<SidebarProvider>
+  <Sidebar collapsible="icon" variant="sidebar">
+    <SidebarHeader>{/* logo / team switcher */}</SidebarHeader>
+    <SidebarContent>
+      <SidebarGroup>
+        <SidebarGroupLabel>Platform</SidebarGroupLabel>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton isActive tooltip="Home" render={<a href="/" />}>
+                <Home />
+                <span>Home</span>
+              </SidebarMenuButton>
+              <SidebarMenuBadge>12</SidebarMenuBadge>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+    </SidebarContent>
+    <SidebarFooter>{/* user menu */}</SidebarFooter>
+    <SidebarRail />
+  </Sidebar>
+  <SidebarInset>
+    <SidebarTrigger />
+    {children}
+  </SidebarInset>
+</SidebarProvider>
+
+// Read or change state from any child
+const { state, open, setOpen, isMobile, toggleSidebar } = useSidebar();
+```
+
+`variant`: `sidebar` | `floating` | `inset`. `collapsible`: `offcanvas` | `icon` | `none`. `side`: `left` | `right`. Control with `open`/`onOpenChange` on `SidebarProvider`; disable the shortcut with `keyboardShortcut={false}`.
+
 ### Tables
 
 ```tsx
@@ -631,7 +670,7 @@ type Responsive<T> = T | Partial<Record<'base'|'sm'|'md'|'lg'|'xl'|'2xl', T>>;
 
 | Category | Components |
 |----------|------------|
-| Layout | Box, Flexbox, Row, Column, Grid, Container, Navbar |
+| Layout | Box, Flexbox, Row, Column, Grid, Container, Navbar, Sidebar |
 | Buttons | Button, LoadingButton, CopyButton, ThemeButton |
 | Typography | Text, Heading, Label, Code, CodeBlock, Blockquote |
 | Forms | Form, FormField, FormFieldArray, FormSubmitButton, FormResetButton |

@@ -149,6 +149,7 @@
 				"components/menubar",
 				"components/navbar",
 				"components/pagination",
+				"components/sidebar",
 				"components/tabs",
 				"components/toolbar",
 				"components/theme-button",
