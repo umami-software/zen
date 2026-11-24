@@ -50,7 +50,12 @@ async function buildSafelist() {
     '',
   ].join('\n');
 
-  await fs.writeFile(SAFELIST_FILE, output, 'utf-8');
+  // Only write when the content changes: the file lives in a watched directory,
+  // so an unconditional write would retrigger the watcher in an endless loop.
+  const current = await fs.readFile(SAFELIST_FILE, 'utf-8').catch(() => null);
+  if (current !== output) {
+    await fs.writeFile(SAFELIST_FILE, output, 'utf-8');
+  }
 }
 
 async function buildMinimalCSS() {
@@ -92,9 +97,17 @@ async function watchCSS() {
     }, 100);
   };
 
+  // Rebuild on stylesheet changes, and on lib/tailwind.ts, which safelist.css is
+  // generated from. safelist.css itself is an output, so its changes are ignored.
+  const isInput = filename => {
+    const file = filename.replace(/\\/g, '/');
+    if (file.endsWith('safelist.css')) return false;
+    return file.endsWith('.css') || file.endsWith('lib/tailwind.ts');
+  };
+
   for (const dir of ['./src/components', './src/styles']) {
     watch(dir, { recursive: true }, (event, filename) => {
-      if (filename?.endsWith('.css')) {
+      if (filename && isInput(filename)) {
         console.log(`CSS change detected: ${filename}`);
         rebuild();
       }

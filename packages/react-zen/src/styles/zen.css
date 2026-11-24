@@ -21,6 +21,21 @@
   height: var(--icon-size);
 }
 
+/* Fields have a solid background in light mode (shadcn's are transparent), so
+   they read as fields on tinted surfaces, like outline buttons do. InputGroup
+   covers TextField, PasswordField, SearchField, NumberField and Combobox. Dark
+   mode keeps shadcn's `dark:bg-input/30`; TextField variant="quiet" stays
+   transparent. */
+:is(
+    [data-slot="input"],
+    [data-slot="textarea"],
+    [data-slot="select-trigger"],
+    [data-slot="input-otp-slot"],
+    .group\/input-group:not([data-variant="quiet"])
+  ):not(.dark *) {
+  background-color: var(--background);
+}
+
 /* Labels are semibold (shadcn's are font-medium). Covers Label, FieldLabel,
    FieldTitle, and FieldLegend when used as a label (e.g. CheckboxGroup). */
 [data-slot="label"],

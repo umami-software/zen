@@ -137,6 +137,7 @@ export const TextField = forwardRef<FieldElement, TextFieldProps>(function TextF
   const control = (
     <InputGroup
       data-slot="text-field"
+      data-variant={isQuiet ? 'quiet' : undefined}
       data-disabled={props.disabled ? 'true' : undefined}
       className={cn(
         isQuiet &&
