@@ -21,9 +21,10 @@ A segmented control that allows users to choose between light, dark, or system t
 - Highlights the currently selected option
 - Persists the mode preference to localStorage
 - Automatically responds to system theme changes when "system" is selected
+- Applies the theme through `useTheme`, which toggles the `dark` class on the document root
 
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="className" type="string">Additional CSS classes</ResponseField>
+  <PropertiesTable.Row name="className" type="string">Additional CSS classes</PropertiesTable.Row>
 </PropertiesTable>

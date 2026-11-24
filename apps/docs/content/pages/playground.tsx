@@ -15,20 +15,20 @@ export default function PlaygroundPage() {
           <Heading as="h1" size="4xl" weight="bold">
             Playground
           </Heading>
-          <Text size="lg" color="muted">
+          <Text size="lg" color="muted-foreground">
             Experiment with CSS variables to customize the look and feel of Zen components. Changes
             are applied in real-time to the preview panel.
           </Text>
         </Column>
         <Row justifyContent="flex-end" alignItems="center" gap="4">
           <Row alignItems="center" gap="2">
-            <Text size="sm" color="muted">
+            <Text size="sm" color="muted-foreground">
               Palette
             </Text>
             <PaletteSwitcher />
           </Row>
           <Row alignItems="center" gap="2">
-            <Text size="sm" color="muted">
+            <Text size="sm" color="muted-foreground">
               Theme
             </Text>
             <ThemeButton variant="outline" />

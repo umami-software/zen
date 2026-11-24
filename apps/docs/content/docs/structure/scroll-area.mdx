@@ -1,33 +1,95 @@
 ---
 title: Scroll Area
-description: "A scroll area provides scrollable content with custom styled scrollbars."
+description: "Augments native scroll functionality for custom, cross-browser styling."
 ---
 
-import { Box, Example, ScrollArea } from '../../../mdx-components';
+import { Box, Column, Example, Row, ScrollArea, ScrollBar, Separator, Text } from '../../../mdx-components';
 
-A scroll area provides scrollable content with custom styled scrollbars.
+Augments native scroll functionality for custom, cross-browser styling. Give the `ScrollArea` a
+fixed height (or width) and its content scrolls inside it with a styled scrollbar.
 
 <Example>
-  <Box width="300px" border borderRadius="lg" padding="2">
-    <ScrollArea maxHeight={200}>
-      {Array.from({ length: 20 }, (_, i) => (
-        <Box key={i} paddingX="3" paddingY="2">Row {i + 1}</Box>
-      ))}
+  <Box width="192px" height="288px" border borderRadius="md">
+    <ScrollArea className="h-full">
+      <Box padding="4">
+        <Text as="h4" size="sm" weight="medium">Tags</Text>
+        {Array.from({ length: 50 }, (_, i) => `v1.2.0-beta.${50 - i}`).map(tag => (
+          <Column key={tag} gap="2" paddingTop="2">
+            <Separator />
+            <Text size="sm">{tag}</Text>
+          </Column>
+        ))}
+      </Box>
     </ScrollArea>
   </Box>
 
   ```jsx
-  <ScrollArea maxHeight={200}>
-    {Array.from({ length: 20 }, (_, i) => (
-      <Box key={i} paddingX="3" paddingY="2">Row {i + 1}</Box>
-    ))}
-  </ScrollArea>
+  <Box width="192px" height="288px" border borderRadius="md">
+    <ScrollArea className="h-full">
+      <Box padding="4">
+        <Text as="h4" size="sm" weight="medium">Tags</Text>
+        {Array.from({ length: 50 }, (_, i) => `v1.2.0-beta.${50 - i}`).map(tag => (
+          <Column key={tag} gap="2" paddingTop="2">
+            <Separator />
+            <Text size="sm">{tag}</Text>
+          </Column>
+        ))}
+      </Box>
+    </ScrollArea>
+  </Box>
   ```
 </Example>
 
-## Component props
+## Horizontal
+
+`ScrollArea` renders a vertical scrollbar. Add a `ScrollBar` with `orientation="horizontal"` to
+scroll sideways.
+
+<Example>
+  <Box width="384px" maxWidth="100%" border borderRadius="md">
+    <ScrollArea>
+      <Row gap="4" padding="4" width="max-content">
+        {['Ornella Binni', 'Tom Byrom', 'Vladimir Malyavko', 'Jane Doe', 'Marc Rivera'].map(artist => (
+          <Box key={artist} width="160px">
+            <Box height="200px" backgroundColor="muted" borderRadius="md" />
+            <Text as="p" size="xs" color="muted-foreground">
+              Photo by {artist}
+            </Text>
+          </Box>
+        ))}
+      </Row>
+      <ScrollBar orientation="horizontal" />
+    </ScrollArea>
+  </Box>
+
+  ```jsx
+  <Box width="384px" maxWidth="100%" border borderRadius="md">
+    <ScrollArea>
+      <Row gap="4" padding="4" width="max-content">
+        {['Ornella Binni', 'Tom Byrom', 'Vladimir Malyavko', 'Jane Doe', 'Marc Rivera'].map(artist => (
+          <Box key={artist} width="160px">
+            <Box height="200px" backgroundColor="muted" borderRadius="md" />
+            <Text as="p" size="xs" color="muted-foreground">
+              Photo by {artist}
+            </Text>
+          </Box>
+        ))}
+      </Row>
+      <ScrollBar orientation="horizontal" />
+    </ScrollArea>
+  </Box>
+  ```
+</Example>
+
+## Parts
+
+### ScrollArea
+
+The Base UI `ScrollArea.Root`, with the viewport, a vertical `ScrollBar` and the corner built in.
+Set its size with `className` or a sized parent.
+
+### ScrollBar
 
 <PropertiesTable>
-  <ResponseField name="maxHeight" type="string | number">Maximum height of the scrollable viewport</ResponseField>
-  <ResponseField name="orientation" type="string">"vertical" | "horizontal" | "both" (default: "vertical")</ResponseField>
+  <PropertiesTable.Row name="orientation" type="string">"vertical" | "horizontal" (default: "vertical")</PropertiesTable.Row>
 </PropertiesTable>

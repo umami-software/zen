@@ -21,6 +21,9 @@ An inline code element for displaying code snippets, file names, commands, or te
 
 ## Component props
 
+Code renders a `code` element with a monospace font and a `muted` background. It extends [Text](/docs/typography/text) and accepts all Text props except `as`.
+
 <PropertiesTable>
-  <ResponseField name="children" type="ReactNode">Code content</ResponseField>
+  <PropertiesTable.Row name="children" type="ReactNode">Code content</PropertiesTable.Row>
+  <PropertiesTable.Row name="size" type="Responsive<FontSize>">Font size (default: "sm")</PropertiesTable.Row>
 </PropertiesTable>

@@ -5,7 +5,7 @@ description: "A specialized text input for search functionality, featuring a sea
 
 import { Box, Example, SearchDelayExample, SearchField } from '../../../mdx-components';
 
-A specialized text input for search functionality, featuring a search icon and clear button. Provides familiar search UX patterns with keyboard support and accessible labeling.
+A specialized text input for search functionality, featuring a search icon and clear button. Provides familiar search UX patterns with keyboard support and accessible labeling. It is built on the shadcn `InputGroup`.
 
 <Example>
   <Box width="300px">
@@ -29,7 +29,22 @@ A specialized text input for search functionality, featuring a search icon and c
   ```
 </Example>
 
+## Label
+
+<Example>
+  <Box width="300px">
+    <SearchField label="Search" placeholder="Search websites" />
+  </Box>
+
+  ```jsx
+  <SearchField label="Search" placeholder="Search websites" />
+  ```
+</Example>
+
 ## With delay
+
+`onSearch` is debounced by `delay`. It fires immediately when the user presses <kbd>Enter</kbd> or
+clears the field.
 
 <Example>
   <Box width="300px">
@@ -37,18 +52,24 @@ A specialized text input for search functionality, featuring a search icon and c
   </Box>
 
   ```jsx
-  <SearchField delay={300} onSearch={(value) => console.log(value)} />
+  const [value, setValue] = useState('abc');
+
+  <SearchField delay={1000} onSearch={setValue} />
+  <TextField name="search" label="Search value" value={value} readOnly />
   ```
 </Example>
 
 ## Component props
 
+Native `input` props are passed to the input. `onChange` receives the native change event.
+
 <PropertiesTable>
-  <ResponseField name="label" type="string">Label text displayed above the field</ResponseField>
-  <ResponseField name="placeholder" type="string">Placeholder text</ResponseField>
-  <ResponseField name="value" type="string">Controlled value</ResponseField>
-  <ResponseField name="defaultValue" type="string">Default value (uncontrolled)</ResponseField>
-  <ResponseField name="delay" type="number">Debounce delay in ms before onSearch fires (default: 0)</ResponseField>
-  <ResponseField name="onChange" type="(value: string) => void">Called on every change</ResponseField>
-  <ResponseField name="onSearch" type="(value: string) => void">Called after delay (debounced)</ResponseField>
+  <PropertiesTable.Row name="label" type="ReactNode">Label displayed above the field</PropertiesTable.Row>
+  <PropertiesTable.Row name="placeholder" type="string">Placeholder text</PropertiesTable.Row>
+  <PropertiesTable.Row name="value" type="string">Controlled value</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultValue" type="string">Initial value (uncontrolled)</PropertiesTable.Row>
+  <PropertiesTable.Row name="delay" type="number">Debounce delay in ms before `onSearch` fires (default: 0)</PropertiesTable.Row>
+  <PropertiesTable.Row name="onValueChange" type="(value: string) => void">Called with the new value on every change (and on clear)</PropertiesTable.Row>
+  <PropertiesTable.Row name="onSearch" type="(value: string) => void">Called with the search term, debounced by `delay`</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the field</PropertiesTable.Row>
 </PropertiesTable>

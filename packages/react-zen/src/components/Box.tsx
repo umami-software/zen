@@ -152,7 +152,8 @@ export interface BoxProps extends Omit<HTMLAttributes<HTMLElement>, 'color'> {
   order?: number;
   zIndex?: number;
 
-  theme?: string;
+  /** Scopes dark-mode tokens to this subtree (adds the `dark` class). */
+  theme?: 'dark';
 
   // State styles
   hover?: StateStyles;
@@ -306,7 +307,7 @@ export const Box = forwardRef(function Box(
     mapAlignSelf(alignSelf),
     mapJustifyContent(justifyContent),
     mapJustifyItems(justifyItems),
-    theme && `${theme}-theme`,
+    theme === 'dark' && 'dark',
     mapStateStyles('hover', hover),
     mapStateStyles('focus', focus),
     mapStateStyles('active', active),

@@ -1,6 +1,18 @@
-# SKILL.md - Using @umami/react-zen
+# SKILL.md - Using @umami/react-zen 1.0
 
 This guide covers how to use the zen component library in your React applications.
+
+Zen 1.0 is built on [shadcn/ui](https://ui.shadcn.com/) (**base-vega** style) on
+[Base UI](https://base-ui.com/), styled with Tailwind CSS v4. It has two kinds of components:
+
+- **shadcn components** (Button, Badge, Dialog, DropdownMenu, Select, Tabs, Tooltip, Checkbox,
+  Switch, Table, Sidebar, …) are the unmodified shadcn base-vega components, exported with shadcn's
+  names and parts. Their shadcn docs apply as written.
+- **Zen components** add layout and typography primitives with style props (Box, Row, Column, Grid,
+  Text, Heading), richer fields (TextField, PasswordField, SearchField, NumberField, DatePicker),
+  react-hook-form forms, DataTable, List, TagGroup, toasts, ConfirmationDialog and theming.
+
+Upgrading from 0.x? Read `MIGRATION-1.0.md` and run its codemod once.
 
 ## Installation
 
@@ -8,10 +20,23 @@ This guide covers how to use the zen component library in your React application
 pnpm add @umami/react-zen
 ```
 
-Import the stylesheet in your app entry point:
+### With Tailwind CSS (recommended)
+
+In your main stylesheet:
+
+```css
+@import "tailwindcss";
+@import "@umami/react-zen/styles.css";
+
+@source "../node_modules/@umami/react-zen/dist";
+```
+
+The `@source` path is relative to the stylesheet. There is no Tailwind config or preset.
+
+### Without Tailwind CSS
 
 ```tsx
-import '@umami/react-zen/styles.css';
+import '@umami/react-zen/styles.full.css';
 ```
 
 ## Setup
@@ -21,12 +46,8 @@ Wrap your app with `ZenProvider`:
 ```tsx
 import { ZenProvider } from '@umami/react-zen';
 
-function App() {
-  return (
-    <ZenProvider theme="light" palette="neutral">
-      {children}
-    </ZenProvider>
-  );
+function App({ children }) {
+  return <ZenProvider palette="neutral">{children}</ZenProvider>;
 }
 ```
 
@@ -34,28 +55,51 @@ function App() {
 
 | Prop | Values | Description |
 |------|--------|-------------|
-| `theme` | `'light'` \| `'dark'` | Color theme |
-| `colorScheme` | `'light'` \| `'dark'` \| `'system'` | System preference support |
-| `palette` | `'neutral'` \| `'slate'` \| `'gray'` \| `'zinc'` \| `'stone'` | Color palette |
-| `toast` | `{ duration: number }` | Toast defaults |
+| `theme` | `'light'` \| `'dark'` | Force a theme |
+| `colorScheme` | `'light'` \| `'dark'` \| `'system'` | Initial scheme when nothing is stored |
+| `palette` | `'neutral'` \| `'stone'` \| `'zinc'` \| `'mauve'` \| `'olive'` \| `'mist'` \| `'taupe'` | Color palette (shadcn base colors) |
+| `toast` | `{ duration?: number, position?: ... }` | Toast defaults |
+| `tooltip` | `TooltipProvider` props (`delay`, `closeDelay`, `timeout`) | Shared tooltip settings |
 
-## Components
+`ZenProvider` wraps children in `TooltipProvider` and `ToastProvider`.
 
-### Layout
+## Theme
 
-#### Box
+- **Tokens** are the shadcn CSS variables: `--background`, `--foreground`, `--card`, `--popover`,
+  `--primary`, `--secondary`, `--muted`, `--muted-foreground`, `--accent`, `--destructive`,
+  `--border`, `--input`, `--ring`, `--chart-1..5`, `--sidebar-*`, `--radius`. Zen adds
+  `--success`, `--warning` and `--info`. Each is also a Tailwind color (`bg-muted`,
+  `text-muted-foreground`, `bg-success/10`).
+- **Dark mode** is the `.dark` class (on `<html>`, or any ancestor). `data-theme` is not used.
+- **Palettes** are selected with `<html data-palette="zinc">` (or `ZenProvider palette`).
+- **Fonts**: Zen ships none. Components inherit the app font; set `--font-sans` / `--font-mono`
+  in your Tailwind `@theme`.
+- **Customize** by overriding the shadcn variables on `:root` and `.dark` after importing Zen's
+  stylesheet. Any shadcn theme works.
+
+```css
+:root {
+  --primary: oklch(0.546 0.245 262.881);
+  --radius: 0.5rem;
+}
+.dark {
+  --primary: oklch(0.707 0.165 254.624);
+}
+```
+
+## Layout
+
+### Box
 
 Universal container with styling props:
 
 ```tsx
-<Box padding="4" margin="2" backgroundColor="surface-raised" borderRadius="lg">
+<Box padding="4" margin="2" backgroundColor="muted" borderRadius="lg" border>
   Content
 </Box>
 ```
 
-#### Flexbox, Row, Column
-
-Flex layouts with gap, alignment, and justification:
+### Flexbox, Row, Column
 
 ```tsx
 <Row gap="4" justifyContent="space-between" alignItems="center">
@@ -68,26 +112,27 @@ Flex layouts with gap, alignment, and justification:
   <Text>Second</Text>
 </Column>
 
-<Flexbox direction="row" wrap="wrap" gap="2">
+<Flexbox direction={{ base: 'column', md: 'row' }} wrap="wrap" gap="2">
   {items.map(item => <Item key={item.id} />)}
 </Flexbox>
 ```
 
-#### Grid
-
-CSS Grid layout:
+### Grid and Container
 
 ```tsx
-<Grid columns="3" gap="4">
+<Grid columns={{ base: '1', md: '3' }} gap="4">
   <Box>1</Box>
   <Box>2</Box>
   <Box>3</Box>
 </Grid>
+
+<Container>Centered, max-width content</Container>
+<Container fluid>Full width</Container>
 ```
 
 ### Responsive Props
 
-All layout props support responsive values:
+Most style props take a responsive object. Breakpoints: `base`, `sm`, `md`, `lg`, `xl`, `2xl`.
 
 ```tsx
 <Box
@@ -99,70 +144,83 @@ All layout props support responsive values:
 </Box>
 ```
 
-Breakpoints: `base`, `sm`, `md`, `lg`, `xl`, `2xl`
+### Color props
 
-### Buttons
+`color`, `backgroundColor`, `borderColor` (and their `hover`/`focus`/`active` versions),
+`decorationColor`, and Icon `strokeColor`/`fillColor` take **a theme token name or a Tailwind palette
+color**. The value becomes the class: `backgroundColor="muted"` → `bg-muted`.
+
+- Text: `foreground`, `muted-foreground`, `primary`, `primary-foreground`, `secondary-foreground`,
+  `accent-foreground`, `background`, `card-foreground`, `popover-foreground`
+- Background: `background`, `card`, `popover`, `primary`, `secondary`, `muted`, `accent`,
+  `foreground`, `sidebar`
+- Border: `border`, `input`, `ring`, `primary`
+- All three: `destructive`, `success`, `warning`, `info`, `transparent`, any Tailwind color
+  (`red`, `blue-500`), or `true` for the default (`foreground` / `muted` / `border`)
 
 ```tsx
-// Variants
-<Button variant="default">Default</Button>
-<Button variant="primary">Primary</Button>
-<Button variant="outline">Outline</Button>
-<Button variant="quiet">Quiet</Button>
-<Button variant="danger">Danger</Button>
-
-// Sizes
-<Button size="xs">Extra Small</Button>
-<Button size="sm">Small</Button>
-<Button size="md">Medium</Button>
-<Button size="lg">Large</Button>
-<Button size="xl">Extra Large</Button>
-
-// With loading state
-<LoadingButton isLoading={loading} variant="primary">
-  Submit
-</LoadingButton>
-
-// Copy to clipboard
-<CopyButton value="text to copy" />
-
-// Theme toggle
-<ThemeButton />
+<Text color="muted-foreground">Muted text</Text>
+<Box backgroundColor="card" border borderColor="input">Card-like panel</Box>
+<Box backgroundColor="blue-50">Palette color (doesn't follow dark mode)</Box>
 ```
 
-### Typography
+## Typography
 
 ```tsx
-// Headings
-<Heading size="6xl">Hero</Heading>
 <Heading size="4xl">Page Title</Heading>
-<Heading size="2xl">Section</Heading>
 <Heading size="lg">Subsection</Heading>
 
-// Text
 <Text>Default text</Text>
-<Text size="sm" color="muted">Small muted text</Text>
-<Text weight="bold" color="primary">Bold primary</Text>
+<Text size="sm" color="muted-foreground">Small muted text</Text>
+<Text weight="bold" color="destructive">Bold error text</Text>
 
-// Code
 <Code>inline code</Code>
-<CodeBlock language="typescript">{code}</CodeBlock>
+<Blockquote>Quoted text</Blockquote>
 ```
 
-### Form System
+## Buttons
 
-The form system is built on react-hook-form:
+shadcn Button. Variants: `default` (primary, the default), `secondary`, `outline`, `ghost`,
+`destructive`, `link`. Sizes: `default`, `xs`, `sm`, `lg`, `icon`, `icon-xs`, `icon-sm`, `icon-lg`.
 
 ```tsx
-import { Form, FormField, FormSubmitButton, TextField } from '@umami/react-zen';
+<Button>Save</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="destructive">Delete</Button>
+<Button variant="outline" size="icon" aria-label="Settings"><Settings /></Button>
+<Button disabled onClick={handleClick}>Disabled</Button>
+
+// Zen buttons take the same props
+<LoadingButton loading={saving}>Submit</LoadingButton>
+<CopyButton value="text to copy" />
+<ThemeButton />            // toggles .dark; `target` scopes it to one element
+```
+
+Icons come from `lucide-react` (`import { Settings } from 'lucide-react'`). Wrap them in `Icon` for
+size and color props: `<Icon size="lg" color="muted-foreground"><Check /></Icon>`.
+
+## Forms
+
+The form system is built on react-hook-form. `Form` takes `useForm` options (`defaultValues`,
+`mode`, …) or a `form` instance.
+
+```tsx
+import {
+  Button,
+  Form,
+  FormButtons,
+  FormField,
+  FormResetButton,
+  FormSubmitButton,
+  PasswordField,
+  TextField,
+} from '@umami/react-zen';
 
 function LoginForm() {
-  const handleSubmit = (data) => {
-    console.log(data);
-  };
-
   return (
-    <Form onSubmit={handleSubmit} defaultValues={{ email: '', password: '' }}>
+    <Form onSubmit={data => console.log(data)} defaultValues={{ email: '', password: '' }}>
       <FormField
         name="email"
         label="Email"
@@ -172,56 +230,75 @@ function LoginForm() {
         <TextField type="email" />
       </FormField>
 
-      <FormField
-        name="password"
-        label="Password"
-        rules={{ required: 'Password is required', minLength: 8 }}
-      >
+      <FormField name="password" label="Password" rules={{ required: 'Password is required' }}>
         <PasswordField />
       </FormField>
 
       <FormButtons>
         <FormResetButton>Reset</FormResetButton>
-        <FormSubmitButton variant="primary">Login</FormSubmitButton>
+        <FormSubmitButton>Login</FormSubmitButton>
       </FormButtons>
     </Form>
   );
 }
 ```
 
-#### Form Fields
+`FormField` binds its child by type: `checked`/`onCheckedChange` (Checkbox, Switch),
+`pressed`/`onPressedChange` (Toggle), native `value`/`onChange` (Input, Textarea, native elements),
+and `value`/`onValueChange` for everything else (TextField, Select, RadioGroup, NumberField, …).
+A render-function child gets `{ field, fieldState, context, controlProps }` and wires the control
+itself. `FormSubmitButton` takes `loading`, `disabled` and Button variants; `FormButtons` is a plain
+`flex justify-end gap-3` div.
+
+### Fields
 
 ```tsx
-// Text input
-<TextField placeholder="Enter text" />
-
-// Password with visibility toggle
-<PasswordField />
-
-// Search with debouncing
-<SearchField onSearch={handleSearch} delay={300} />
-
-// Checkbox
-<Checkbox>Remember me</Checkbox>
-
-// Radio group
-<RadioGroup label="Size">
-  <Radio value="sm">Small</Radio>
-  <Radio value="md">Medium</Radio>
-  <Radio value="lg">Large</Radio>
-</RadioGroup>
-
-// Switch
-<Switch>Enable notifications</Switch>
-
-// Toggle buttons
-<ToggleGroup>
-  <Toggle id="bold">Bold</Toggle>
-  <Toggle id="italic">Italic</Toggle>
-</ToggleGroup>
+<TextField label="Name" placeholder="Enter text" onValueChange={setName} />
+<TextField label="Notes" asTextArea />
+<PasswordField label="Password" />
+<SearchField label="Search" delay={300} onSearch={handleSearch} />
+<NumberField label="Quantity" min={0} max={10} onValueChange={setQty} />
+<DatePicker label="Date" value={date} onValueChange={setDate} />
 ```
 
-#### Dynamic Field Arrays
+`onChange` on these fields is the native input event; use `onValueChange` for the value.
+
+### shadcn controls
+
+Checkbox and Switch take no label children. Pair them with `Field` + `FieldLabel` (or `Label`):
+
+```tsx
+<Field orientation="horizontal">
+  <Checkbox id="terms" checked={agreed} onCheckedChange={setAgreed} />
+  <FieldLabel htmlFor="terms">Accept terms</FieldLabel>
+</Field>
+
+<RadioGroup value={size} onValueChange={setSize}>
+  <Field orientation="horizontal">
+    <RadioGroupItem value="sm" id="size-sm" />
+    <FieldLabel htmlFor="size-sm">Small</FieldLabel>
+  </Field>
+</RadioGroup>
+
+<ToggleGroup value={formats} onValueChange={setFormats} multiple>
+  <ToggleGroupItem value="bold" aria-label="Bold"><Bold /></ToggleGroupItem>
+  <ToggleGroupItem value="italic" aria-label="Italic"><Italic /></ToggleGroupItem>
+</ToggleGroup>
+
+<Select value={country} onValueChange={setCountry}>
+  <SelectTrigger className="w-48">
+    <SelectValue placeholder="Country" />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem value="us">United States</SelectItem>
+    <SelectItem value="uk">United Kingdom</SelectItem>
+  </SelectContent>
+</Select>
+```
+
+For a searchable select use the `Combobox` parts.
+
+### Dynamic Field Arrays
 
 ```tsx
 <FormFieldArray name="items" label="Items">
@@ -232,129 +309,129 @@ function LoginForm() {
           <FormField name={`items.${index}.name`}>
             <TextField />
           </FormField>
-          <Button onClick={() => remove(index)}>Remove</Button>
+          <Button variant="ghost" onClick={() => remove(index)}>Remove</Button>
         </Row>
       ))}
-      <Button onClick={() => append({ name: '' })}>Add Item</Button>
+      <Button variant="outline" onClick={() => append({ name: '' })}>Add Item</Button>
     </>
   )}
 </FormFieldArray>
 ```
 
-### Select & ComboBox
+## List and TagGroup
 
 ```tsx
-// Basic select
-<Select label="Country">
-  <ListItem id="us">United States</ListItem>
-  <ListItem id="uk">United Kingdom</ListItem>
-  <ListItem id="ca">Canada</ListItem>
-</Select>
-
-// Searchable select
-<Select label="Country" allowSearch onSearch={handleSearch}>
-  <ListItem id="us">United States</ListItem>
-  <ListItem id="uk">United Kingdom</ListItem>
-</Select>
-
-// With sections
-<Select label="Location">
-  <ListSection title="North America">
-    <ListItem id="us">United States</ListItem>
-    <ListItem id="ca">Canada</ListItem>
-  </ListSection>
-  <ListSection title="Europe">
-    <ListItem id="uk">United Kingdom</ListItem>
-    <ListItem id="de">Germany</ListItem>
-  </ListSection>
-</Select>
-
-// ComboBox (allows custom input)
-<ComboBox label="Fruit" allowsCustomValue>
-  <ListItem id="apple">Apple</ListItem>
-  <ListItem id="banana">Banana</ListItem>
-</ComboBox>
-```
-
-### List
-
-```tsx
-<List selectionMode="single" onSelectionChange={handleSelect}>
-  <ListItem id="1">Option 1</ListItem>
-  <ListItem id="2">Option 2</ListItem>
+<List selectionMode="single" value={selected} onValueChange={setSelected}>
+  <ListItem value="1">Option 1</ListItem>
+  <ListItem value="2">Option 2</ListItem>
   <ListSeparator />
-  <ListItem id="3">Option 3</ListItem>
+  <ListItem value="3">Option 3</ListItem>
 </List>
+
+<TagGroup label="Skills" onRemove={value => removeTag(value)}>
+  <Tag value="react">React</Tag>
+  <Tag value="ts" variant="outline">TypeScript</Tag>
+</TagGroup>
 ```
 
-### Dialogs & Modals
+List `value` is always a `string[]`.
+
+## Overlays
+
+All overlays are shadcn parts. Triggers use Base UI's `render` prop to render your own element.
 
 ```tsx
-// Confirmation dialog
+<Dialog>
+  <DialogTrigger render={<Button variant="outline" />}>Open</DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Edit profile</DialogTitle>
+      <DialogDescription>Make changes to your profile.</DialogDescription>
+    </DialogHeader>
+    <DialogFooter>
+      <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
+      <Button>Save</Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+
+<DropdownMenu>
+  <DropdownMenuTrigger render={<Button variant="outline" />}>Options</DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuItem onClick={edit}>Edit</DropdownMenuItem>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem variant="destructive" onClick={remove}>Delete</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+
+<Tooltip>
+  <TooltipTrigger render={<Button variant="outline" />}>Hover me</TooltipTrigger>
+  <TooltipContent>Helpful information</TooltipContent>
+</Tooltip>
+
+<Popover>
+  <PopoverTrigger render={<Button variant="outline" />}>Click me</PopoverTrigger>
+  <PopoverContent>Popover content</PopoverContent>
+</Popover>
+
+<Tabs defaultValue="account">
+  <TabsList>
+    <TabsTrigger value="account">Account</TabsTrigger>
+    <TabsTrigger value="password">Password</TabsTrigger>
+  </TabsList>
+  <TabsContent value="account">…</TabsContent>
+  <TabsContent value="password">…</TabsContent>
+</Tabs>
+```
+
+Also available: `AlertDialog`, `Sheet`, `Drawer`, `HoverCard`, `ContextMenu`, `Menubar`, `Command`.
+
+### ConfirmationDialog
+
+A Zen AlertDialog that makes the user type a value before confirming:
+
+```tsx
 <ConfirmationDialog
-  title="Delete item?"
-  message="This action cannot be undone."
+  trigger={<Button variant="destructive">Delete</Button>}
+  title="Delete website?"
+  description="This action cannot be undone."
+  value="my-website"
   confirmLabel="Delete"
-  cancelLabel="Cancel"
-  onConfirm={handleDelete}
->
-  <Button variant="danger">Delete</Button>
-</ConfirmationDialog>
-
-// Alert dialog
-<AlertDialog title="Error" message="Something went wrong">
-  <Button>Show Error</Button>
-</AlertDialog>
-
-// Custom dialog
-<DialogTrigger>
-  <Button>Open</Button>
-  <Modal position="center">
-    <Dialog>
-      <Heading slot="title">Dialog Title</Heading>
-      <Text>Dialog content</Text>
-    </Dialog>
-  </Modal>
-</DialogTrigger>
+  onConfirm={handleDelete}   // a returned promise keeps the dialog open until it resolves
+/>
 ```
 
-Modal positions: `center`, `left`, `right`, `top`, `bottom`, `fullscreen`
+Or control it with `open` / `onOpenChange`. `variant` sets the confirm button (default
+`destructive`).
 
-### Feedback Components
+## Feedback
 
 ```tsx
-// Alert
 <Alert>
   <AlertTitle>Heads up!</AlertTitle>
   <AlertDescription>Informational message</AlertDescription>
 </Alert>
-<Alert variant="danger">
+<Alert variant="destructive">
   <AlertTitle>Error</AlertTitle>
   <AlertDescription>Something went wrong.</AlertDescription>
 </Alert>
 
-// Empty state
-<Empty>
-  <EmptyHeader>
-    <EmptyMedia variant="icon"><Inbox /></EmptyMedia>
-    <EmptyTitle>No messages</EmptyTitle>
-    <EmptyDescription>New messages will appear here.</EmptyDescription>
-  </EmptyHeader>
-  <EmptyContent><Button>Compose</Button></EmptyContent>
-</Empty>
+<Badge>Default</Badge>
+<Badge variant="secondary">Secondary</Badge>
+<Badge variant="outline">Outline</Badge>
+<Badge variant="destructive">Error</Badge>
 
-// Loading indicators
 <Loading />
-<Spinner size="lg" />
-<ProgressBar value={75} />
+<Spinner />
+<Progress value={75} />
 <ProgressCircle value={50} />
+<Skeleton className="h-4 w-32" />
 
-// Status light
-<StatusLight variant="success">Active</StatusLight>
-<StatusLight variant="error">Failed</StatusLight>
+<StatusLight variant="success">Active</StatusLight>      // success | warning | destructive | info | muted
+<StatusLight variant="destructive">Failed</StatusLight>
 ```
 
-### Toast Notifications
+## Toast Notifications
 
 ```tsx
 import { useToast } from '@umami/react-zen';
@@ -362,61 +439,58 @@ import { useToast } from '@umami/react-zen';
 function MyComponent() {
   const { toast } = useToast();
 
-  const showToast = () => {
-    toast('Operation successful', {
-      variant: 'success',
-      duration: 3000,
-    });
-  };
-
-  const showToastWithActions = () => {
-    toast('File deleted', {
-      title: 'Deleted',
-      variant: 'info',
-      actions: ['Undo', 'Dismiss'],
-      onClose: (action) => {
-        if (action === 'Undo') {
-          // Handle undo
-        }
-      },
-    });
-  };
-
-  return <Button onClick={showToast}>Show Toast</Button>;
+  return (
+    <Button
+      onClick={() =>
+        toast('File deleted', {
+          title: 'Deleted',
+          variant: 'success', // default | success | destructive
+          actions: ['Undo'],
+          onClose: action => {
+            if (action === 'Undo') restore();
+          },
+        })
+      }
+    >
+      Delete
+    </Button>
+  );
 }
 ```
 
-### Tooltips & Popovers
+## Data
 
 ```tsx
-// Tooltip
-<Tooltip content="Helpful information">
-  <Button>Hover me</Button>
-</Tooltip>
+<DataTable data={rows} selectionMode="multiple" selectedRows={ids} onSelectedRowsChange={setIds}>
+  <DataColumn id="name" label="Name" />
+  <DataColumn id="email" label="Email" />
+  <DataColumn id="status" label="Status">
+    {row => <StatusLight variant="success">{row.status}</StatusLight>}
+  </DataColumn>
+</DataTable>
 
-// Popover
-<Popover trigger={<Button>Click me</Button>}>
-  <Text>Popover content</Text>
-</Popover>
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Name</TableHead>
+      <TableHead>Email</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>John Doe</TableCell>
+      <TableCell>john@example.com</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
 ```
 
-### Menu
+DataTable rows are keyed by their `id`.
 
-```tsx
-<MenuTrigger>
-  <Button>Options</Button>
-  <Menu onAction={handleAction}>
-    <MenuItem id="edit">Edit</MenuItem>
-    <MenuItem id="duplicate">Duplicate</MenuItem>
-    <MenuSeparator />
-    <MenuItem id="delete">Delete</MenuItem>
-  </Menu>
-</MenuTrigger>
-```
+## Sidebar
 
-### Sidebar
-
-Composable app sidebar (shadcn/ui port on Base UI). Collapses off canvas or to icons on desktop, renders as a `Sheet` below `md`, and toggles with Cmd/Ctrl+B.
+The shadcn Sidebar. Collapses off canvas or to icons on desktop, renders as a `Sheet` below `md`,
+and toggles with Cmd/Ctrl+B.
 
 ```tsx
 <SidebarProvider>
@@ -432,7 +506,6 @@ Composable app sidebar (shadcn/ui port on Base UI). Collapses off canvas or to i
                 <Home />
                 <span>Home</span>
               </SidebarMenuButton>
-              <SidebarMenuBadge>12</SidebarMenuBadge>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroupContent>
@@ -447,237 +520,93 @@ Composable app sidebar (shadcn/ui port on Base UI). Collapses off canvas or to i
   </SidebarInset>
 </SidebarProvider>
 
-// Read or change state from any child
 const { state, open, setOpen, isMobile, toggleSidebar } = useSidebar();
 ```
 
-`variant`: `sidebar` | `floating` | `inset`. `collapsible`: `offcanvas` | `icon` | `none`. `side`: `left` | `right`. Control with `open`/`onOpenChange` on `SidebarProvider`; disable the shortcut with `keyboardShortcut={false}`.
-
-### Tables
+## Theming Hooks
 
 ```tsx
-<Table>
-  <TableHeader>
-    <TableColumn>Name</TableColumn>
-    <TableColumn>Email</TableColumn>
-    <TableColumn>Status</TableColumn>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>John Doe</TableCell>
-      <TableCell>john@example.com</TableCell>
-      <TableCell><StatusLight variant="success">Active</StatusLight></TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-```
-
-### Icons
-
-```tsx
-import { Icon, Check, ChevronRight, X } from '@umami/react-zen';
-
-// Built-in icons
-<Check />
-<ChevronRight />
-<X />
-
-// Icon wrapper with props
-<Icon size="lg" color="primary">
-  <Check />
-</Icon>
-
-// Icon sizes: xs, sm, md, lg, xl
-// Icon colors: primary, muted, disabled, or any theme color
-```
-
-### Badges
-
-```tsx
-// Semantic variants
-<Badge variant="default">Default</Badge>
-<Badge variant="primary">Primary</Badge>
-<Badge variant="outline">Outline</Badge>
-<Badge variant="success">Success</Badge>
-<Badge variant="warning">Warning</Badge>
-<Badge variant="error">Error</Badge>
-<Badge variant="info">Info</Badge>
-
-// Color variants — every Tailwind base color is supported:
-// slate, gray, zinc, neutral, stone, red, orange, amber, yellow, lime,
-// green, emerald, teal, cyan, sky, blue, indigo, violet, purple, fuchsia,
-// pink, rose
-<Badge variant="blue">Blue</Badge>
-<Badge variant="emerald">Emerald</Badge>
-<Badge variant="rose">Rose</Badge>
-
-// Sizes
-<Badge size="sm">Small</Badge>
-<Badge size="md">Medium</Badge>
-```
-
-Color variants use a soft tint that stays readable in both light and dark themes.
-
-### Tags
-
-```tsx
-<TagGroup
-  label="Skills"
-  items={[
-    { id: '1', name: 'React' },
-    { id: '2', name: 'TypeScript' },
-  ]}
-  onRemove={handleRemove}
-/>
-```
-
-### Calendar
-
-```tsx
-<Calendar
-  value={selectedDate}
-  onChange={setSelectedDate}
-  minValue={today}
-/>
-```
-
-## Theming
-
-### useTheme Hook
-
-```tsx
-import { useTheme } from '@umami/react-zen';
+import { PALETTES, useTheme } from '@umami/react-zen';
 
 function ThemeControls() {
   const { theme, palette, setTheme, setPalette } = useTheme();
 
   return (
     <Row gap="2">
-      <Button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
-        Toggle Theme
+      <Button variant="outline" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+        Toggle theme
       </Button>
-      <Select value={palette} onChange={setPalette}>
-        <ListItem id="neutral">Neutral</ListItem>
-        <ListItem id="slate">Slate</ListItem>
-        <ListItem id="zinc">Zinc</ListItem>
+      <Select value={palette} onValueChange={setPalette}>
+        <SelectTrigger>
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {PALETTES.map(p => (
+            <SelectItem key={p} value={p}>{p}</SelectItem>
+          ))}
+        </SelectContent>
       </Select>
     </Row>
   );
 }
 ```
 
-### Semantic Colors
-
-Use semantic color tokens for consistent theming:
-
-**Text colors:** `foreground-primary`, `foreground-muted`, `foreground-disabled`
-
-**Background colors:** `surface-base`, `surface-raised`, `surface-sunken`, `surface-overlay`, `surface-inverted`
-
-**Interactive colors:** `interactive`, `interactive-hover`, `interactive-pressed`
-
-**Status colors:** `status-error`, `status-success`, `status-warning`, `status-info`
-
-```tsx
-<Text color="foreground-muted">Muted text</Text>
-<Box backgroundColor="surface-raised">Raised surface</Box>
-<Box backgroundColor="status-success">Success background</Box>
-```
+`ThemeSwitcher` is a ready-made light/dark switch.
 
 ## Utility Hooks
 
-### useBreakpoint
-
 ```tsx
-import { useBreakpoint } from '@umami/react-zen';
-
-function ResponsiveComponent() {
-  const breakpoint = useBreakpoint();
-
-  if (breakpoint === 'base' || breakpoint === 'sm') {
-    return <MobileView />;
-  }
-  return <DesktopView />;
-}
+const breakpoint = useBreakpoint();         // 'base' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
+const debouncedQuery = useDebounce(query, 300);
+const isMobile = useIsMobile();
 ```
 
-### useDebounce
+## Render Prop
+
+Base UI components take a `render` prop to swap the rendered element, which is how you use a router
+link:
 
 ```tsx
-import { useDebounce } from '@umami/react-zen';
-
-function SearchComponent() {
-  const [query, setQuery] = useState('');
-  const debouncedQuery = useDebounce(query, 300);
-
-  useEffect(() => {
-    if (debouncedQuery) {
-      search(debouncedQuery);
-    }
-  }, [debouncedQuery]);
-
-  return <TextField value={query} onChange={setQuery} />;
-}
-```
-
-## Render Props Pattern
-
-Many components support custom rendering via the `render` prop:
-
-```tsx
-// Render as a link
 <Button render={<a href="/page" />}>Go to page</Button>
-
-// Render with router Link
 <Button render={<Link to="/page" />}>Navigate</Button>
-
-// Render function for full control
-<Button render={(props) => <CustomComponent {...props} />}>
-  Custom
-</Button>
 ```
 
 ## TypeScript
 
-All components are fully typed. Key types:
+Component prop types are exported (`BoxProps`, `TextProps`, `FormFieldProps`, …), as are `Theme`
+and `Palette`. Derive prop value types from them:
 
 ```tsx
-import type {
-  ButtonProps,
-  TextProps,
-  BoxProps,
-  FormFieldProps,
-  Responsive,
-  FontColor,
-  BackgroundColor,
-} from '@umami/react-zen';
+import type { BoxProps, Palette, TextProps, Theme } from '@umami/react-zen';
 
-// Responsive type for props
-type Responsive<T> = T | Partial<Record<'base'|'sm'|'md'|'lg'|'xl'|'2xl', T>>;
+type BackgroundColor = BoxProps['backgroundColor'];
+type TextColor = TextProps['color'];
 ```
 
 ## Best Practices
 
-1. **Use semantic colors** instead of raw Tailwind colors for theme consistency
-2. **Prefer component props over raw `className`** — reach for a component's built-in props (e.g. `<Box color="muted">` rather than `<Box className="text-foreground-muted">`) so styling stays theme-aware and consistent
-3. **Use responsive props** for mobile-first responsive design
-4. **Use FormField** wrapper for all form inputs to get labels, descriptions, and error handling
-5. **Use Row/Column** for simple layouts, Flexbox for complex ones
-6. **Use composition** - components are designed to work together
-7. **Leverage render props** when you need custom element rendering
+1. **Use theme tokens** (`muted-foreground`, `muted`, `border`) rather than palette colors so UI
+   follows dark mode and the palette.
+2. **Prefer component props over raw `className`** on Zen layout components
+   (`<Text color="muted-foreground">` rather than `<Text className="text-muted-foreground">`).
+   shadcn components are styled with `variant`, `size` and `className`.
+3. **Use responsive props** for mobile-first responsive design.
+4. **Use FormField** for form inputs to get labels, descriptions and error handling.
+5. **Use Row/Column** for simple layouts, Flexbox for complex ones.
+6. **Follow shadcn's docs** for shadcn components: names, parts and props are unchanged.
 
 ## Component Reference
 
 | Category | Components |
 |----------|------------|
-| Layout | Box, Flexbox, Row, Column, Grid, Container, Navbar, Sidebar |
-| Buttons | Button, LoadingButton, CopyButton, ThemeButton |
-| Typography | Text, Heading, Label, Code, CodeBlock, Blockquote |
-| Forms | Form, FormField, FormFieldArray, FormSubmitButton, FormResetButton |
-| Inputs | TextField, PasswordField, SearchField, Checkbox, RadioGroup, Switch, Toggle |
-| Selection | Select, ComboBox, List, ListItem, ListSection, TagGroup |
-| Feedback | Alert, Empty, Toast, Loading, Spinner, ProgressBar, StatusLight, Badge |
-| Overlays | Dialog, Modal, AlertDialog, ConfirmationDialog, Popover, Tooltip, Menu |
-| Data | Table, DataTable, DataCard, Breadcrumbs |
-| Media | Image, Icon |
-| Theme | ZenProvider, ThemeSwitcher, PaletteSwitcher |
+| Layout | Box, Flexbox, Row, Column, Grid, Container, Navbar, Sidebar, Separator, ScrollArea, Resizable, AspectRatio |
+| Buttons | Button, ButtonGroup, LoadingButton, CopyButton, ThemeButton, Toggle, ToggleGroup, Toolbar |
+| Typography | Text, Heading, Code, Blockquote, Label, Kbd |
+| Forms | Form, FormField, FormFieldArray, FormController, FormButtons, FormSubmitButton, FormResetButton, Field |
+| Inputs | TextField, PasswordField, SearchField, NumberField, DatePicker, Input, InputGroup, Textarea, InputOTP, Checkbox, CheckboxGroup, RadioGroup, Switch, Slider |
+| Selection | Select, Combobox, Autocomplete, Command, List, TagGroup |
+| Feedback | Alert, Badge, Empty, Toast, Loading, Spinner, Skeleton, Progress, ProgressCircle, Meter, StatusLight |
+| Overlays | Dialog, AlertDialog, ConfirmationDialog, Sheet, Drawer, Popover, HoverCard, Tooltip, FloatingTooltip, DropdownMenu, ContextMenu, Menubar |
+| Data | Table, DataTable, DataCard, Card, Breadcrumb, Pagination, Carousel, Calendar, Accordion, Collapsible, Tabs |
+| Media | Image, Icon, Avatar |
+| Theme | ZenProvider, ThemeButton, ThemeSwitcher, useTheme |

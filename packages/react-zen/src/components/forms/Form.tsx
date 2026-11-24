@@ -6,8 +6,8 @@ import {
   type UseFormReturn,
   useForm,
 } from 'react-hook-form';
-import { Alert, AlertTitle } from '@/components/Alert';
-import { cn } from '../lib/tailwind';
+import { Alert, AlertTitle } from '@/components/ui/alert';
+import { cn } from '@/lib/utils';
 
 export interface FormProps extends UseFormProps, Omit<HTMLAttributes<HTMLFormElement>, 'children'> {
   autoComplete?: string;
@@ -97,15 +97,13 @@ export function Form({
       <form
         {...props}
         autoComplete={autoComplete}
-        className={cn('flex flex-col relative text-sm gap-3', className)}
+        className={cn('relative flex flex-col gap-6', className)}
         onSubmit={onSubmit ? handleSubmit(onSubmit) : undefined}
         onKeyDown={onKeyDown}
       >
         {error && (
-          <Alert variant="danger">
-            <AlertTitle className="justify-self-center">
-              {error instanceof Error ? error?.message : error}
-            </AlertTitle>
+          <Alert variant="destructive">
+            <AlertTitle>{error instanceof Error ? error?.message : error}</AlertTitle>
           </Alert>
         )}
         {typeof children === 'function' ? children(formValues) : children}

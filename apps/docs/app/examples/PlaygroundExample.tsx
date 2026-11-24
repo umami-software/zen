@@ -2,33 +2,58 @@
 
 import {
   Accordion,
+  AccordionContent,
   AccordionItem,
+  AccordionTrigger,
   Alert,
   AlertDescription,
   AlertTitle,
   Avatar,
+  AvatarFallback,
   AvatarGroup,
   Badge,
   Blockquote,
   Box,
   Breadcrumb,
-  Breadcrumbs,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
   Button,
   Calendar,
   Checkbox,
   Code,
   Column,
-  ComboBox,
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
   DataCard,
   DataColumn,
   DataTable,
   Dots,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
   Empty,
   EmptyContent,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
+  Field,
+  FieldLabel,
+  FieldLegend,
+  FieldSet,
   Grid,
   Heading,
   Kbd,
@@ -37,39 +62,38 @@ import {
   List,
   ListItem,
   LoadingButton,
-  Menu,
-  MenuItem,
-  MenuSection,
   Meter,
   PageHeader,
   PageHeaderActions,
   PageHeaderTitle,
   PasswordField,
-  ProgressBar,
+  Progress,
   ProgressCircle,
-  Radio,
   RadioGroup,
+  RadioGroupItem,
   Row,
   SearchField,
   Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
   Separator,
   Skeleton,
-  SkeletonAvatar,
-  SkeletonText,
   Slider,
   Spinner,
   StatusLight,
   Switch,
-  Tab,
-  TabList,
   Table,
   TableBody,
   TableCell,
-  TableColumn,
+  TableHead,
   TableHeader,
   TableRow,
-  TabPanel,
   Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
   Tag,
   TagGroup,
   Text,
@@ -77,7 +101,7 @@ import {
   Toggle,
   useToast,
 } from '@umami/react-zen';
-import { FileArchive, Inbox, Layers, Sparkles, Users } from 'lucide-react';
+import { FileArchive, Inbox, Layers, Settings, Sparkles, Trash2, Users } from 'lucide-react';
 import { useRef, useState } from 'react';
 
 // Tailwind color palette
@@ -187,42 +211,23 @@ const tailwindColors = [
   { label: 'pink-900', value: '#831843' },
 ];
 
+// Sentinel for "use the value from the active palette and color mode".
+const THEME_DEFAULT = 'theme';
+
+const colorOptions = [{ label: 'Theme default', value: THEME_DEFAULT }, ...tailwindColors];
+
 // Preset value options
 const radiusOptions = [
-  { label: 'none', value: '0px' },
-  { label: 'sm', value: '0.125rem' },
-  { label: 'md', value: '0.375rem' },
-  { label: 'lg', value: '0.5rem' },
-  { label: 'xl', value: '0.75rem' },
-  { label: '2xl', value: '1rem' },
-  { label: '3xl', value: '1.5rem' },
-  { label: 'full', value: '9999px' },
-];
-
-const shadowOptions = [
-  { label: 'none', value: 'none' },
-  { label: 'sm', value: '0 1px 2px 0 rgb(0 0 0 / 0.05)' },
-  { label: 'md', value: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' },
-  { label: 'lg', value: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)' },
-  { label: 'xl', value: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)' },
-  { label: '2xl', value: '0 25px 50px -12px rgb(0 0 0 / 0.25)' },
-  { label: 'inner', value: 'inset 0 2px 4px 0 rgb(0 0 0 / 0.05)' },
-];
-
-const spacingOptions = [
-  { label: '0', value: '0px' },
-  { label: '1', value: '0.25rem' },
-  { label: '2', value: '0.5rem' },
-  { label: '3', value: '0.75rem' },
-  { label: '4', value: '1rem' },
-  { label: '5', value: '1.25rem' },
-  { label: '6', value: '1.5rem' },
-  { label: '8', value: '2rem' },
-  { label: '10', value: '2.5rem' },
-  { label: '12', value: '3rem' },
+  { label: 'Theme default', value: THEME_DEFAULT },
+  { label: 'none', value: '0rem' },
+  { label: 'sm', value: '0.3rem' },
+  { label: 'md', value: '0.5rem' },
+  { label: 'lg', value: '0.75rem' },
+  { label: 'xl', value: '1rem' },
 ];
 
 const fontOptions = [
+  { label: 'Theme default', value: THEME_DEFAULT },
   { label: 'System', value: 'system-ui, sans-serif' },
   { label: 'Inter', value: "'Inter', sans-serif" },
   { label: 'Roboto', value: "'Roboto', sans-serif" },
@@ -235,6 +240,7 @@ const fontOptions = [
 ];
 
 const fontMonoOptions = [
+  { label: 'Theme default', value: THEME_DEFAULT },
   { label: 'System Mono', value: 'ui-monospace, monospace' },
   { label: 'JetBrains Mono', value: "'JetBrains Mono', monospace" },
   { label: 'Fira Code', value: "'Fira Code', monospace" },
@@ -253,307 +259,58 @@ interface SelectOption {
 interface CSSVariable {
   name: string;
   label: string;
-  defaultValue: string;
-  type?: 'color' | 'select';
-  options?: SelectOption[];
+  type: 'color' | 'select';
+  options: SelectOption[];
 }
 
-// Defaults - affects borderRadius={true}, shadow={true}, padding={true}, gap={true}
+function colorVariable(name: string, label: string): CSSVariable {
+  return { name, label, type: 'color', options: colorOptions };
+}
+
+// Shape and fonts
 const defaultsVariables: CSSVariable[] = [
-  {
-    name: '--zen-radius',
-    label: 'Border Radius',
-    defaultValue: '0.375rem',
-    type: 'select',
-    options: radiusOptions,
-  },
-  {
-    name: '--zen-shadow',
-    label: 'Shadow',
-    defaultValue: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-    type: 'select',
-    options: shadowOptions,
-  },
-  {
-    name: '--zen-padding-x',
-    label: 'Padding X',
-    defaultValue: '0.75rem',
-    type: 'select',
-    options: spacingOptions,
-  },
-  {
-    name: '--zen-padding-y',
-    label: 'Padding Y',
-    defaultValue: '0.5rem',
-    type: 'select',
-    options: spacingOptions,
-  },
-  {
-    name: '--zen-gap',
-    label: 'Gap',
-    defaultValue: '0.75rem',
-    type: 'select',
-    options: spacingOptions,
-  },
-  {
-    name: '--zen-font-family',
-    label: 'Font Family',
-    defaultValue: 'system-ui, sans-serif',
-    type: 'select',
-    options: fontOptions,
-  },
-  {
-    name: '--zen-font-family-mono',
-    label: 'Font Mono',
-    defaultValue: 'ui-monospace, monospace',
-    type: 'select',
-    options: fontMonoOptions,
-  },
+  { name: '--radius', label: 'Radius', type: 'select', options: radiusOptions },
+  { name: '--font-sans', label: 'Font Sans', type: 'select', options: fontOptions },
+  { name: '--font-mono', label: 'Font Mono', type: 'select', options: fontMonoOptions },
 ];
 
-// Surface variables - affects backgrounds
-const surfaceVariables: CSSVariable[] = [
-  {
-    name: '--zen-surface',
-    label: 'Base',
-    defaultValue: '#ffffff',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-surface-raised',
-    label: 'Raised',
-    defaultValue: '#fafafa',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-surface-sunken',
-    label: 'Sunken',
-    defaultValue: '#f5f5f5',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-surface-overlay',
-    label: 'Overlay',
-    defaultValue: '#ffffff',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-surface-inverted',
-    label: 'Inverted',
-    defaultValue: '#171717',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-surface-disabled',
-    label: 'Disabled',
-    defaultValue: '#fafafa',
-    type: 'color',
-    options: tailwindColors,
-  },
-];
-
-// Text variables - affects text colors
-const textVariables: CSSVariable[] = [
-  {
-    name: '--zen-fg',
-    label: 'Primary',
-    defaultValue: '#171717',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-fg-muted',
-    label: 'Muted',
-    defaultValue: '#737373',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-fg-disabled',
-    label: 'Disabled',
-    defaultValue: '#a3a3a3',
-    type: 'color',
-    options: tailwindColors,
-  },
-];
-
-// Primary variables - accent/brand color for buttons, links, etc.
+// Brand color for default buttons, badges, switches and sliders
 const primaryVariables: CSSVariable[] = [
-  {
-    name: '--zen-primary',
-    label: 'Primary',
-    defaultValue: '#171717',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-primary-fg',
-    label: 'Foreground',
-    defaultValue: '#ffffff',
-    type: 'color',
-    options: tailwindColors,
-  },
+  colorVariable('--primary', 'Primary'),
+  colorVariable('--primary-foreground', 'Primary foreground'),
 ];
 
-// Border variables - affects borders
+// Backgrounds
+const surfaceVariables: CSSVariable[] = [
+  colorVariable('--background', 'Background'),
+  colorVariable('--card', 'Card'),
+  colorVariable('--popover', 'Popover'),
+  colorVariable('--secondary', 'Secondary'),
+  colorVariable('--muted', 'Muted'),
+  colorVariable('--accent', 'Accent'),
+];
+
+// Text colors
+const textVariables: CSSVariable[] = [
+  colorVariable('--foreground', 'Foreground'),
+  colorVariable('--muted-foreground', 'Muted foreground'),
+  colorVariable('--secondary-foreground', 'Secondary foreground'),
+  colorVariable('--accent-foreground', 'Accent foreground'),
+];
+
+// Borders, inputs and focus rings
 const borderVariables: CSSVariable[] = [
-  {
-    name: '--zen-border',
-    label: 'Default',
-    defaultValue: '#d4d4d4',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-border-muted',
-    label: 'Muted',
-    defaultValue: '#e5e5e5',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-border-strong',
-    label: 'Strong',
-    defaultValue: '#a3a3a3',
-    type: 'color',
-    options: tailwindColors,
-  },
+  colorVariable('--border', 'Border'),
+  colorVariable('--input', 'Input'),
+  colorVariable('--ring', 'Ring'),
 ];
 
-// Interactive variables - affects buttons, toggles, checkboxes
-const interactiveVariables: CSSVariable[] = [
-  {
-    name: '--zen-interactive-bg',
-    label: 'Background',
-    defaultValue: '#f5f5f5',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-interactive-bg-hover',
-    label: 'Hover',
-    defaultValue: '#e5e5e5',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-interactive-bg-pressed',
-    label: 'Pressed',
-    defaultValue: '#d4d4d4',
-    type: 'color',
-    options: tailwindColors,
-  },
-];
-
-// Focus variables - affects focus rings
-const focusVariables: CSSVariable[] = [
-  {
-    name: '--zen-focus-ring',
-    label: 'Ring',
-    defaultValue: '#a3a3a3',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-focus-offset',
-    label: 'Offset',
-    defaultValue: '#ffffff',
-    type: 'color',
-    options: tailwindColors,
-  },
-];
-
-// Status variables - affects alerts, status lights
+// Status colors (destructive is shadcn, the rest are Zen extensions)
 const statusVariables: CSSVariable[] = [
-  {
-    name: '--zen-status-info',
-    label: 'Info',
-    defaultValue: '#3b82f6',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-status-info-bg',
-    label: 'Info BG',
-    defaultValue: '#eff6ff',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-status-info-fg',
-    label: 'Info Text',
-    defaultValue: '#1e3a8a',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-status-success',
-    label: 'Success',
-    defaultValue: '#22c55e',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-status-success-bg',
-    label: 'Success BG',
-    defaultValue: '#f0fdf4',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-status-success-fg',
-    label: 'Success Text',
-    defaultValue: '#14532d',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-status-warning',
-    label: 'Warning',
-    defaultValue: '#eab308',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-status-warning-bg',
-    label: 'Warning BG',
-    defaultValue: '#fefce8',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-status-warning-fg',
-    label: 'Warning Text',
-    defaultValue: '#713f12',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-status-error',
-    label: 'Error',
-    defaultValue: '#ef4444',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-status-error-bg',
-    label: 'Error BG',
-    defaultValue: '#fef2f2',
-    type: 'color',
-    options: tailwindColors,
-  },
-  {
-    name: '--zen-status-error-fg',
-    label: 'Error Text',
-    defaultValue: '#7f1d1d',
-    type: 'color',
-    options: tailwindColors,
-  },
+  colorVariable('--destructive', 'Destructive'),
+  colorVariable('--success', 'Success'),
+  colorVariable('--warning', 'Warning'),
+  colorVariable('--info', 'Info'),
 ];
 
 const allVariables = [
@@ -562,10 +319,21 @@ const allVariables = [
   ...surfaceVariables,
   ...textVariables,
   ...borderVariables,
-  ...interactiveVariables,
-  ...focusVariables,
   ...statusVariables,
 ];
+
+function ColorChip({ color }: { color: string }) {
+  return (
+    <Box
+      width="4"
+      height="4"
+      borderRadius="sm"
+      border
+      flexShrink="0"
+      style={{ backgroundColor: color === THEME_DEFAULT ? 'transparent' : color }}
+    />
+  );
+}
 
 function VariableInput({
   variable,
@@ -576,82 +344,48 @@ function VariableInput({
   value: string;
   onChange: (name: string, value: string) => void;
 }) {
-  if (variable.type === 'select' && variable.options) {
-    const selectedOption = variable.options.find(opt => opt.value === value);
-    return (
-      <Column gap="1">
-        <Label size="sm" weight="medium">
-          {variable.label}
-        </Label>
-        <Select
-          value={value}
-          onChange={key => onChange(variable.name, key as string)}
-          renderValue={selectedOption?.label || 'Select...'}
-        >
-          {variable.options.map(opt => (
-            <ListItem key={opt.value} id={opt.value}>
-              {opt.label}
-            </ListItem>
-          ))}
-        </Select>
-      </Column>
-    );
-  }
-
-  if (variable.type === 'color' && variable.options) {
-    const selectedOption = variable.options.find(opt => opt.value === value);
-    return (
-      <Column gap="1">
-        <Label size="sm" weight="medium">
-          {variable.label}
-        </Label>
-        <Select
-          value={value}
-          onChange={key => onChange(variable.name, key as string)}
-          maxHeight={300}
-          renderValue={
-            selectedOption ? (
-              <Row gap="2" alignItems="center">
-                <Box
-                  width="4"
-                  height="4"
-                  borderRadius="sm"
-                  border
-                  style={{ backgroundColor: selectedOption.value }}
-                />
-                <Text size="sm">{selectedOption.label}</Text>
-              </Row>
-            ) : (
-              'Select...'
-            )
-          }
-        >
-          {variable.options.map(opt => (
-            <ListItem key={opt.value} id={opt.value}>
-              <Row gap="2" alignItems="center">
-                <Box
-                  width="4"
-                  height="4"
-                  borderRadius="sm"
-                  border
-                  style={{ backgroundColor: opt.value }}
-                />
-                <Text size="sm">{opt.label}</Text>
-              </Row>
-            </ListItem>
-          ))}
-        </Select>
-      </Column>
-    );
-  }
+  const id = `playground${variable.name}`;
 
   return (
-    <Column gap="1">
-      <Label>{variable.label}</Label>
-      <Text size="sm" color="muted" style={{ fontFamily: 'var(--zen-font-family-mono)' }}>
-        {value}
-      </Text>
-    </Column>
+    <Field>
+      <FieldLabel htmlFor={id}>{variable.label}</FieldLabel>
+      <Select
+        items={variable.options}
+        value={value}
+        onValueChange={next => onChange(variable.name, (next as string) ?? THEME_DEFAULT)}
+      >
+        <SelectTrigger id={id} className="w-full">
+          <SelectValue>
+            {(current: string) => {
+              const option = variable.options.find(opt => opt.value === current);
+              if (variable.type === 'color') {
+                return (
+                  <Row gap="2" alignItems="center">
+                    <ColorChip color={current} />
+                    <Text size="sm">{option?.label ?? current}</Text>
+                  </Row>
+                );
+              }
+              return option?.label ?? current;
+            }}
+          </SelectValue>
+        </SelectTrigger>
+        <SelectContent className="max-h-72">
+          {variable.options.map(opt => (
+            <SelectItem key={opt.value} value={opt.value}>
+              {variable.type === 'color' ? (
+                <Row gap="2" alignItems="center">
+                  <ColorChip color={opt.value} />
+                  <Text size="sm">{opt.label}</Text>
+                </Row>
+              ) : (
+                opt.label
+              )}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </Field>
   );
 }
 
@@ -667,20 +401,20 @@ function VariableSection({
   onChange: (name: string, value: string) => void;
 }) {
   return (
-    <AccordionItem id={title}>
-      <Text>{title}</Text>
-      <Box paddingY="2" paddingX="2">
-        <Column gap="2">
+    <AccordionItem value={title}>
+      <AccordionTrigger>{title}</AccordionTrigger>
+      <AccordionContent>
+        <Column gap="3" paddingX="1" paddingY="2">
           {variables.map(variable => (
             <VariableInput
               key={variable.name}
               variable={variable}
-              value={values[variable.name] || variable.defaultValue}
+              value={values[variable.name] ?? THEME_DEFAULT}
               onChange={onChange}
             />
           ))}
         </Column>
-      </Box>
+      </AccordionContent>
     </AccordionItem>
   );
 }
@@ -705,51 +439,69 @@ const loadGoogleFont = (fontFamily: string) => {
   document.head.appendChild(link);
 };
 
+const frameworks = ['React', 'Vue', 'Svelte', 'Solid', 'Angular'];
+
+const roles = [
+  { label: 'Designer', value: 'designer' },
+  { label: 'Engineer', value: 'engineer' },
+  { label: 'Manager', value: 'manager' },
+];
+
+const plans = [
+  { label: 'Starter', value: 'starter' },
+  { label: 'Professional', value: 'pro' },
+  { label: 'Enterprise', value: 'enterprise' },
+];
+
+function SectionTitle({ children }: { children: string }) {
+  return (
+    <Text size="xs" weight="semibold" color="muted-foreground">
+      {children}
+    </Text>
+  );
+}
+
 export function PlaygroundExample() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
-  const [values, setValues] = useState<Record<string, string>>(() => {
-    const initial: Record<string, string> = {};
-    allVariables.forEach(v => {
-      initial[v.name] = v.defaultValue;
-    });
-    return initial;
-  });
+  const [values, setValues] = useState<Record<string, string>>({});
 
   const [watching, setWatching] = useState(true);
   const [notifyTeammates, setNotifyTeammates] = useState(true);
   const [isPublic, setIsPublic] = useState(true);
   const [sliderValue, setSliderValue] = useState(65);
-  const [calendarValue, setCalendarValue] = useState(new Date());
+  const [calendarValue, setCalendarValue] = useState<Date | undefined>(new Date());
+  const [menuView, setMenuView] = useState('overview');
 
   const handleChange = (name: string, value: string) => {
     setValues(prev => ({ ...prev, [name]: value }));
 
+    const container = containerRef.current;
+    if (!container) return;
+
+    if (value === THEME_DEFAULT) {
+      container.style.removeProperty(name);
+      return;
+    }
+
     // Load Google Font if it's a font-family change
-    if (name === '--zen-font-family' || name === '--zen-font-family-mono') {
+    if (name === '--font-sans' || name === '--font-mono') {
       loadGoogleFont(value);
     }
 
-    if (containerRef.current) {
-      containerRef.current.style.setProperty(name, value);
-    }
+    container.style.setProperty(name, value);
   };
 
   const handleReset = () => {
-    const resetValues: Record<string, string> = {};
+    setValues({});
     allVariables.forEach(v => {
-      resetValues[v.name] = v.defaultValue;
+      containerRef.current?.style.removeProperty(v.name);
     });
-    setValues(resetValues);
-    if (containerRef.current) {
-      allVariables.forEach(v => {
-        containerRef.current?.style.removeProperty(v.name);
-      });
-    }
   };
 
   const handleExport = () => {
     const css = Object.entries(values)
+      .filter(([, value]) => value !== THEME_DEFAULT)
       .map(([name, value]) => `  ${name}: ${value};`)
       .join('\n');
     navigator.clipboard.writeText(`:root {\n${css}\n}`);
@@ -759,18 +511,17 @@ export function PlaygroundExample() {
   return (
     <Box
       ref={containerRef}
-      backgroundColor="surface"
+      backgroundColor="background"
+      color="foreground"
       borderRadius="lg"
       border
       overflow="hidden"
-      style={{
-        fontFamily: 'var(--zen-font-family)',
-      }}
+      className="font-sans"
     >
       <Row alignItems="stretch">
         {/* Controls Sidebar */}
         <Box
-          backgroundColor="surface-raised"
+          backgroundColor="muted"
           padding="6"
           width="300px"
           border="left"
@@ -779,20 +530,18 @@ export function PlaygroundExample() {
         >
           <Column gap="3">
             <Row justifyContent="space-between" alignItems="center">
-              <Text size="sm" weight="semibold" color="muted">
-                CSS VARIABLES
-              </Text>
+              <SectionTitle>CSS VARIABLES</SectionTitle>
               <Row gap="2">
-                <Button variant="outline" size="xs" onPress={handleExport}>
+                <Button variant="outline" size="xs" onClick={handleExport}>
                   Copy
                 </Button>
-                <Button variant="outline" size="xs" onPress={handleReset}>
+                <Button variant="outline" size="xs" onClick={handleReset}>
                   Reset
                 </Button>
               </Row>
             </Row>
 
-            <Accordion allowsMultipleExpanded defaultExpandedKeys={['Defaults', 'Primary']}>
+            <Accordion multiple defaultValue={['Defaults', 'Primary']}>
               <VariableSection
                 title="Defaults"
                 variables={defaultsVariables}
@@ -824,18 +573,6 @@ export function PlaygroundExample() {
                 onChange={handleChange}
               />
               <VariableSection
-                title="Interactive"
-                variables={interactiveVariables}
-                values={values}
-                onChange={handleChange}
-              />
-              <VariableSection
-                title="Focus"
-                variables={focusVariables}
-                values={values}
-                onChange={handleChange}
-              />
-              <VariableSection
                 title="Status"
                 variables={statusVariables}
                 values={values}
@@ -846,107 +583,98 @@ export function PlaygroundExample() {
         </Box>
 
         {/* Preview Content */}
-        <Box padding="8" flexGrow="1">
+        <Box padding="8" flexGrow="1" minWidth="0">
           <Column gap="12">
             {/* Page structure */}
             <Column gap="3">
-              <Text size="xs" weight="semibold" color="muted">
-                PAGE STRUCTURE & NAVIGATION
-              </Text>
+              <SectionTitle>PAGE STRUCTURE & NAVIGATION</SectionTitle>
               <Column gap="6">
                 <PageHeader>
                   <PageHeaderTitle
                     breadcrumb={
-                      <Breadcrumbs>
-                        <Breadcrumb>
-                          <a href="#playground">Workspace</a>
-                        </Breadcrumb>
-                        <Breadcrumb>Overview</Breadcrumb>
-                      </Breadcrumbs>
+                      <Breadcrumb>
+                        <BreadcrumbList>
+                          <BreadcrumbItem>
+                            <BreadcrumbLink href="#playground">Workspace</BreadcrumbLink>
+                          </BreadcrumbItem>
+                          <BreadcrumbSeparator />
+                          <BreadcrumbItem>
+                            <BreadcrumbPage>Overview</BreadcrumbPage>
+                          </BreadcrumbItem>
+                        </BreadcrumbList>
+                      </Breadcrumb>
                     }
                     title="Design system preview"
                     description="See token changes across the component library."
                   />
                   <PageHeaderActions>
                     <Button variant="outline">Share</Button>
-                    <Button variant="primary">Create</Button>
+                    <Button>Create</Button>
                   </PageHeaderActions>
                 </PageHeader>
-                <Tabs defaultSelectedKey="preview">
-                  <TabList>
-                    <Tab id="preview">Preview</Tab>
-                    <Tab id="tokens">Tokens</Tab>
-                    <Tab id="disabled" isDisabled>
+                <Tabs defaultValue="preview">
+                  <TabsList>
+                    <TabsTrigger value="preview">Preview</TabsTrigger>
+                    <TabsTrigger value="tokens">Tokens</TabsTrigger>
+                    <TabsTrigger value="disabled" disabled>
                       Disabled
-                    </Tab>
-                  </TabList>
-                  <TabPanel id="preview">
-                    Components inherit the variables configured in the sidebar.
-                  </TabPanel>
-                  <TabPanel id="tokens">Token values update immediately.</TabPanel>
-                  <TabPanel id="disabled">Disabled tab content.</TabPanel>
+                    </TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="preview">
+                    <Text>Components inherit the variables configured in the sidebar.</Text>
+                  </TabsContent>
+                  <TabsContent value="tokens">
+                    <Text>Token values update immediately.</Text>
+                  </TabsContent>
+                  <TabsContent value="disabled">
+                    <Text>Disabled tab content.</Text>
+                  </TabsContent>
                 </Tabs>
               </Column>
             </Column>
 
             {/* Typography */}
             <Column gap="3">
-              <Text size="xs" weight="semibold" color="muted">
-                TYPOGRAPHY
-              </Text>
+              <SectionTitle>TYPOGRAPHY</SectionTitle>
               <Heading size="2xl">The quick brown fox</Heading>
-              <Text>Regular text using the configured font-family variable.</Text>
-              <Text size="sm" color="muted">
+              <Text>Regular text using the --font-sans variable.</Text>
+              <Text size="sm" color="muted-foreground">
                 Muted text provides supporting context and secondary information.
               </Text>
               <Text>
-                Inline values such as <Code>--zen-surface-raised</Code> use the monospace font.
+                Inline values such as <Code>--muted-foreground</Code> use the monospace font.
               </Text>
               <Blockquote>
                 Good design makes the relationship between content and action feel obvious.
               </Blockquote>
             </Column>
 
-            {/* Defaults and surfaces */}
+            {/* Surfaces and layout defaults */}
             <Column gap="3">
-              <Text size="xs" weight="semibold" color="muted">
-                LAYOUT, SURFACES & DEFAULTS
-              </Text>
+              <SectionTitle>LAYOUT, SURFACES & DEFAULTS</SectionTitle>
               <Grid columns={{ base: '1', xl: '3' }} gap="3">
-                <Box backgroundColor="surface" border borderRadius padding="3" minWidth="100px">
+                <Box backgroundColor="background" border borderRadius padding="3" minWidth="100px">
                   <Column gap="1">
-                    <Text size="xs" color="muted">
-                      Base
+                    <Text size="xs" color="muted-foreground">
+                      Background
                     </Text>
-                    <Text>Primary text</Text>
+                    <Text>Foreground text</Text>
                   </Column>
                 </Box>
-                <Box
-                  backgroundColor="surface-raised"
-                  border
-                  borderRadius
-                  padding="3"
-                  minWidth="100px"
-                >
+                <Box backgroundColor="card" border borderRadius padding="3" minWidth="100px">
                   <Column gap="1">
-                    <Text size="xs" color="muted">
-                      Raised
+                    <Text size="xs" color="muted-foreground">
+                      Card
                     </Text>
-                    <Text>Primary text</Text>
+                    <Text color="card-foreground">Card foreground</Text>
                   </Column>
                 </Box>
-                <Box
-                  backgroundColor="surface-sunken"
-                  border
-                  borderRadius
-                  padding="3"
-                  minWidth="100px"
-                >
+                <Box backgroundColor="muted" border borderRadius padding="3" minWidth="100px">
                   <Column gap="1">
-                    <Text size="xs" color="muted">
-                      Sunken
+                    <Text size="xs" color="muted-foreground">
+                      Muted
                     </Text>
-                    <Text color="muted">Muted text</Text>
+                    <Text color="muted-foreground">Muted foreground</Text>
                   </Column>
                 </Box>
               </Grid>
@@ -964,96 +692,132 @@ export function PlaygroundExample() {
 
             {/* Borders */}
             <Column gap="3">
-              <Text size="xs" weight="semibold" color="muted">
-                BORDERS
-              </Text>
+              <SectionTitle>BORDERS</SectionTitle>
               <Row gap="3" wrap="wrap">
                 <Box border borderRadius padding="3">
-                  <Text>Default border</Text>
+                  <Text>Border</Text>
                 </Box>
-                <Box borderColor="muted" border borderRadius padding="3">
-                  <Text>Muted border</Text>
+                <Box borderColor="input" border borderRadius padding="3">
+                  <Text>Input border</Text>
                 </Box>
-                <Box borderColor="strong" border borderRadius padding="3">
-                  <Text>Strong border</Text>
+                <Box borderColor="ring" border borderRadius padding="3">
+                  <Text>Ring border</Text>
                 </Box>
               </Row>
             </Column>
 
             {/* Actions */}
             <Column gap="3">
-              <Text size="xs" weight="semibold" color="muted">
-                ACTIONS
-              </Text>
+              <SectionTitle>ACTIONS</SectionTitle>
               <Row gap="3" wrap="wrap" alignItems="center">
-                <Button variant="primary">Primary</Button>
                 <Button>Default</Button>
+                <Button variant="secondary">Secondary</Button>
                 <Button variant="outline">Outline</Button>
-                <Button variant="quiet">Quiet</Button>
-                <Button variant="danger">Danger</Button>
-                <LoadingButton isLoading>Loading</LoadingButton>
+                <Button variant="ghost">Ghost</Button>
+                <Button variant="destructive">Destructive</Button>
+                <Button variant="link">Link</Button>
+                <LoadingButton loading>Loading</LoadingButton>
               </Row>
               <Row gap="3" wrap="wrap">
-                <Button variant="outline" onPress={() => toast('The toast component is working')}>
+                <Button variant="outline" onClick={() => toast('The toast component is working')}>
                   Show toast
                 </Button>
-                <Button isDisabled>Disabled</Button>
+                <Button variant="secondary" disabled>
+                  Disabled
+                </Button>
               </Row>
             </Column>
 
             {/* Form fields */}
             <Column gap="3">
-              <Text size="xs" weight="semibold" color="muted">
-                FORM FIELDS
-              </Text>
+              <SectionTitle>FORM FIELDS</SectionTitle>
               <Grid columns={{ base: '1', xl: '2' }} gap="4">
                 <TextField label="Name" placeholder="Ada Lovelace" />
                 <PasswordField label="Password" defaultValue="password" />
                 <SearchField label="Search" placeholder="Search components..." />
-                <Select label="Role" defaultValue="designer">
-                  <ListItem id="designer">Designer</ListItem>
-                  <ListItem id="engineer">Engineer</ListItem>
-                  <ListItem id="manager">Manager</ListItem>
-                </Select>
-                <ComboBox label="Framework" defaultValue="react">
-                  <ListItem id="react">React</ListItem>
-                  <ListItem id="vue">Vue</ListItem>
-                  <ListItem id="svelte">Svelte</ListItem>
-                </ComboBox>
-                <TextField label="Read only" value="Locked value" isReadOnly />
+                <Field>
+                  <FieldLabel htmlFor="playground-role">Role</FieldLabel>
+                  <Select items={roles} defaultValue="designer">
+                    <SelectTrigger id="playground-role" className="w-full">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {roles.map(role => (
+                        <SelectItem key={role.value} value={role.value}>
+                          {role.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </Field>
+                <Field>
+                  <FieldLabel htmlFor="playground-framework">Framework</FieldLabel>
+                  <Combobox items={frameworks} defaultValue="React">
+                    <ComboboxInput id="playground-framework" placeholder="Select a framework" />
+                    <ComboboxContent>
+                      <ComboboxEmpty>No frameworks found.</ComboboxEmpty>
+                      <ComboboxList>
+                        {(item: string) => (
+                          <ComboboxItem key={item} value={item}>
+                            {item}
+                          </ComboboxItem>
+                        )}
+                      </ComboboxList>
+                    </ComboboxContent>
+                  </Combobox>
+                </Field>
+                <TextField label="Read only" value="Locked value" readOnly />
               </Grid>
             </Column>
 
             {/* Selection controls */}
             <Column gap="3">
-              <Text size="xs" weight="semibold" color="muted">
-                SELECTION CONTROLS
-              </Text>
+              <SectionTitle>SELECTION CONTROLS</SectionTitle>
               <Column gap="6">
                 <Row gap="5" wrap="wrap" alignItems="center">
-                  <Toggle isSelected={watching} onChange={setWatching}>
+                  <Toggle variant="outline" pressed={watching} onPressedChange={setWatching}>
                     {watching ? 'Watching' : 'Watch'}
                   </Toggle>
-                  <Checkbox isSelected={notifyTeammates} onChange={setNotifyTeammates}>
-                    Notify teammates
-                  </Checkbox>
-                  <Switch isSelected={isPublic} onChange={setIsPublic}>
-                    Public project
-                  </Switch>
+                  <Field orientation="horizontal" className="w-auto">
+                    <Checkbox
+                      id="playground-notify"
+                      checked={notifyTeammates}
+                      onCheckedChange={setNotifyTeammates}
+                    />
+                    <FieldLabel htmlFor="playground-notify">Notify teammates</FieldLabel>
+                  </Field>
+                  <Field orientation="horizontal" className="w-auto">
+                    <Switch
+                      id="playground-public"
+                      checked={isPublic}
+                      onCheckedChange={setIsPublic}
+                    />
+                    <FieldLabel htmlFor="playground-public">Public project</FieldLabel>
+                  </Field>
                 </Row>
-                <RadioGroup label="Plan" defaultValue="pro">
-                  <Radio value="starter">Starter</Radio>
-                  <Radio value="pro">Professional</Radio>
-                  <Radio value="enterprise">Enterprise</Radio>
-                </RadioGroup>
-                <Column maxWidth="md">
+                <FieldSet>
+                  <FieldLegend variant="label">Plan</FieldLegend>
+                  <RadioGroup defaultValue="pro">
+                    {plans.map(plan => (
+                      <Field key={plan.value} orientation="horizontal">
+                        <RadioGroupItem value={plan.value} id={`playground-plan-${plan.value}`} />
+                        <FieldLabel htmlFor={`playground-plan-${plan.value}`}>
+                          {plan.label}
+                        </FieldLabel>
+                      </Field>
+                    ))}
+                  </RadioGroup>
+                </FieldSet>
+                <Column maxWidth="md" gap="3">
+                  <Label>Upload progress: {sliderValue}%</Label>
                   <Slider
-                    label={`Upload progress: ${sliderValue}%`}
+                    aria-label="Upload progress"
                     value={sliderValue}
-                    onChange={setSliderValue}
+                    onValueChange={value =>
+                      setSliderValue(Array.isArray(value) ? value[0] : (value as number))
+                    }
                     min={0}
                     max={100}
-                    showValue={false}
                   />
                 </Column>
               </Column>
@@ -1061,9 +825,7 @@ export function PlaygroundExample() {
 
             {/* Data display */}
             <Column gap="3">
-              <Text size="xs" weight="semibold" color="muted">
-                DATA DISPLAY
-              </Text>
+              <SectionTitle>DATA DISPLAY</SectionTitle>
               <Column gap="6">
                 <Grid columns={{ base: '1', xl: '2' }} gap="5">
                   <DataCard
@@ -1077,22 +839,22 @@ export function PlaygroundExample() {
                     <List
                       label="Recent projects"
                       selectionMode="single"
-                      defaultSelectedKeys={['analytics']}
+                      defaultValue={['analytics']}
                     >
-                      <ListItem id="analytics">Analytics dashboard</ListItem>
-                      <ListItem id="commerce">Commerce storefront</ListItem>
-                      <ListItem id="docs">Documentation site</ListItem>
+                      <ListItem value="analytics">Analytics dashboard</ListItem>
+                      <ListItem value="commerce">Commerce storefront</ListItem>
+                      <ListItem value="docs">Documentation site</ListItem>
                     </List>
                   </Box>
                 </Grid>
                 <TagGroup label="Technologies">
-                  <Tag id="react" variant="primary">
-                    React
-                  </Tag>
-                  <Tag id="typescript" variant="outline">
+                  <Tag value="react">React</Tag>
+                  <Tag value="typescript" variant="outline">
                     TypeScript
                   </Tag>
-                  <Tag id="css">CSS</Tag>
+                  <Tag value="css" variant="secondary">
+                    CSS
+                  </Tag>
                 </TagGroup>
                 <Box overflow="auto">
                   <DataTable
@@ -1112,51 +874,63 @@ export function PlaygroundExample() {
 
             {/* Menu and calendar */}
             <Column gap="3">
-              <Text size="xs" weight="semibold" color="muted">
-                MENU & CALENDAR
-              </Text>
+              <SectionTitle>MENU & CALENDAR</SectionTitle>
               <Column gap="6">
-                <Grid columns={{ base: '1', xl: '2' }} gap="6" alignItems="start">
-                  <Menu selectionMode="single" defaultSelectedKeys={['overview']}>
-                    <MenuSection title="Workspace">
-                      <MenuItem id="overview" icon={<Layers />}>
-                        Overview
-                      </MenuItem>
-                      <MenuItem id="activity" icon={<Sparkles />}>
-                        Activity
-                      </MenuItem>
-                      <MenuItem id="disabled" isDisabled>
-                        Disabled item
-                      </MenuItem>
-                    </MenuSection>
-                  </Menu>
-                </Grid>
-                <Box border borderRadius="lg" padding="3" width="fit">
-                  <Calendar
-                    value={calendarValue}
-                    onChange={setCalendarValue}
-                    defaultValue={calendarValue}
-                  />
+                <Row gap="3" wrap="wrap" alignItems="center">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger render={<Button variant="outline" />}>
+                      <Layers />
+                      Workspace
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-48">
+                      <DropdownMenuGroup>
+                        <DropdownMenuLabel>View</DropdownMenuLabel>
+                        <DropdownMenuRadioGroup value={menuView} onValueChange={setMenuView}>
+                          <DropdownMenuRadioItem value="overview">
+                            <Layers />
+                            Overview
+                          </DropdownMenuRadioItem>
+                          <DropdownMenuRadioItem value="activity">
+                            <Sparkles />
+                            Activity
+                          </DropdownMenuRadioItem>
+                        </DropdownMenuRadioGroup>
+                      </DropdownMenuGroup>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuGroup>
+                        <DropdownMenuItem>
+                          <Settings />
+                          Settings
+                        </DropdownMenuItem>
+                        <DropdownMenuItem disabled>Disabled item</DropdownMenuItem>
+                        <DropdownMenuItem variant="destructive">
+                          <Trash2 />
+                          Delete
+                        </DropdownMenuItem>
+                      </DropdownMenuGroup>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </Row>
+                <Box border borderRadius="lg" width="fit">
+                  <Calendar mode="single" selected={calendarValue} onSelect={setCalendarValue} />
                 </Box>
               </Column>
             </Column>
 
             {/* Progress and loading */}
             <Column gap="3">
-              <Text size="xs" weight="semibold" color="muted">
-                PROGRESS & LOADING
-              </Text>
+              <SectionTitle>PROGRESS & LOADING</SectionTitle>
               <Column gap="6">
                 <Grid columns="1" gap="5">
                   <Box border borderRadius="lg" padding="5">
                     <Column gap="4">
                       <Row gap="3" alignItems="center">
-                        <Box backgroundColor="interactive" borderRadius="md" padding="2">
+                        <Box backgroundColor="muted" borderRadius="md" padding="2">
                           <FileArchive size={20} />
                         </Box>
                         <Column gap="1" flexGrow="1">
                           <Text weight="semibold">Uploading brand-assets.zip</Text>
-                          <Text size="sm" color="muted">
+                          <Text size="sm" color="muted-foreground">
                             42.6 MB of 65.5 MB
                           </Text>
                         </Column>
@@ -1164,15 +938,15 @@ export function PlaygroundExample() {
                           {sliderValue}%
                         </Text>
                       </Row>
-                      <ProgressBar value={sliderValue} />
+                      <Progress value={sliderValue} aria-label="Upload progress" />
                       <Row justifyContent="space-between" alignItems="center">
                         <Row gap="2" alignItems="center">
-                          <Spinner size="sm" />
-                          <Text size="sm" color="muted">
+                          <Spinner />
+                          <Text size="sm" color="muted-foreground">
                             Encrypting and uploading
                           </Text>
                         </Row>
-                        <Button variant="quiet" size="xs">
+                        <Button variant="ghost" size="xs">
                           Cancel
                         </Button>
                       </Row>
@@ -1186,12 +960,12 @@ export function PlaygroundExample() {
                           <Users size={18} />
                           <Text weight="semibold">Importing contacts</Text>
                         </Row>
-                        <Text size="sm" color="muted">
+                        <Text size="sm" color="muted-foreground">
                           650 of 1,000 records imported
                         </Text>
                         <Row gap="2" alignItems="center">
                           <Dots size="sm" />
-                          <Text size="sm" color="muted">
+                          <Text size="sm" color="muted-foreground">
                             Checking for duplicates
                           </Text>
                         </Row>
@@ -1202,10 +976,11 @@ export function PlaygroundExample() {
                 <Grid columns="1" gap="5">
                   <Box border borderRadius="lg" padding="4">
                     <Row gap="3" alignItems="center">
-                      <SkeletonAvatar />
+                      <Skeleton className="size-10 shrink-0 rounded-full" />
                       <Column gap="2" flexGrow="1">
-                        <Skeleton height="1rem" width="45%" />
-                        <SkeletonText lines={2} />
+                        <Skeleton className="h-4 w-[45%]" />
+                        <Skeleton className="h-4 w-full" />
+                        <Skeleton className="h-4 w-4/5" />
                       </Column>
                     </Row>
                   </Box>
@@ -1219,7 +994,7 @@ export function PlaygroundExample() {
                         <EmptyDescription>New messages will appear here.</EmptyDescription>
                       </EmptyHeader>
                       <EmptyContent>
-                        <Button variant="primary">Compose</Button>
+                        <Button>Compose</Button>
                       </EmptyContent>
                     </Empty>
                   </Box>
@@ -1229,18 +1004,24 @@ export function PlaygroundExample() {
 
             {/* Display */}
             <Column gap="3">
-              <Text size="xs" weight="semibold" color="muted">
-                DISPLAY
-              </Text>
+              <SectionTitle>DISPLAY</SectionTitle>
               <Column gap="6">
                 <Row gap="5" wrap="wrap" alignItems="center">
                   <AvatarGroup>
-                    <Avatar alt="Ada Lovelace" />
-                    <Avatar alt="Grace Hopper" />
-                    <Avatar alt="Alan Turing" />
+                    <Avatar>
+                      <AvatarFallback>AL</AvatarFallback>
+                    </Avatar>
+                    <Avatar>
+                      <AvatarFallback>GH</AvatarFallback>
+                    </Avatar>
+                    <Avatar>
+                      <AvatarFallback>AT</AvatarFallback>
+                    </Avatar>
                   </AvatarGroup>
-                  <Avatar alt="Linus Torvalds" size="sm" />
-                  <Text size="sm" color="muted">
+                  <Avatar size="sm">
+                    <AvatarFallback>LT</AvatarFallback>
+                  </Avatar>
+                  <Text size="sm" color="muted-foreground">
                     Press{' '}
                     <KbdGroup>
                       <Kbd>⌘</Kbd>
@@ -1256,23 +1037,25 @@ export function PlaygroundExample() {
                 <Box overflow="auto">
                   <Table>
                     <TableHeader>
-                      <TableColumn>Name</TableColumn>
-                      <TableColumn>Role</TableColumn>
-                      <TableColumn>Status</TableColumn>
+                      <TableRow>
+                        <TableHead>Name</TableHead>
+                        <TableHead>Role</TableHead>
+                        <TableHead>Status</TableHead>
+                      </TableRow>
                     </TableHeader>
                     <TableBody>
                       <TableRow>
                         <TableCell>Ada Lovelace</TableCell>
                         <TableCell>Designer</TableCell>
                         <TableCell>
-                          <Badge variant="success">Active</Badge>
+                          <StatusLight variant="success">Active</StatusLight>
                         </TableCell>
                       </TableRow>
                       <TableRow>
                         <TableCell>Grace Hopper</TableCell>
                         <TableCell>Engineer</TableCell>
                         <TableCell>
-                          <Badge variant="warning">Invited</Badge>
+                          <StatusLight variant="warning">Invited</StatusLight>
                         </TableCell>
                       </TableRow>
                     </TableBody>
@@ -1283,32 +1066,28 @@ export function PlaygroundExample() {
 
             {/* Status */}
             <Column gap="3">
-              <Text size="xs" weight="semibold" color="muted">
-                STATUS
-              </Text>
+              <SectionTitle>STATUS</SectionTitle>
               <Column gap="6">
                 <Row gap="3" wrap="wrap">
                   <StatusLight variant="info">Info</StatusLight>
                   <StatusLight variant="success">Success</StatusLight>
                   <StatusLight variant="warning">Warning</StatusLight>
-                  <StatusLight variant="error">Error</StatusLight>
+                  <StatusLight variant="destructive">Destructive</StatusLight>
+                  <StatusLight variant="muted">Muted</StatusLight>
                 </Row>
                 <Row gap="2" wrap="wrap" alignItems="center">
                   <Badge>Default</Badge>
-                  <Badge variant="primary">Primary</Badge>
+                  <Badge variant="secondary">Secondary</Badge>
                   <Badge variant="outline">Outline</Badge>
-                  <Badge variant="info">Info</Badge>
-                  <Badge variant="success">Success</Badge>
-                  <Badge variant="warning">Warning</Badge>
-                  <Badge variant="error">Error</Badge>
-                  <Badge size="sm">Small</Badge>
+                  <Badge variant="destructive">Destructive</Badge>
+                  <Badge variant="ghost">Ghost</Badge>
                 </Row>
                 <Column gap="2">
                   <Alert>
                     <AlertTitle>Heads up!</AlertTitle>
                     <AlertDescription>This is a default alert message.</AlertDescription>
                   </Alert>
-                  <Alert variant="danger">
+                  <Alert variant="destructive">
                     <AlertTitle>Error</AlertTitle>
                     <AlertDescription>Something went wrong.</AlertDescription>
                   </Alert>

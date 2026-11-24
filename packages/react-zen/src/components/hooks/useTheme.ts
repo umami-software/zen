@@ -2,9 +2,9 @@ import { useEffect, useLayoutEffect } from 'react';
 import { create } from 'zustand';
 
 export type Theme = 'light' | 'dark';
-export type Palette = 'neutral' | 'slate' | 'gray' | 'zinc' | 'stone';
+export type Palette = 'neutral' | 'stone' | 'zinc' | 'mauve' | 'olive' | 'mist' | 'taupe';
 
-export const PALETTES: Palette[] = ['neutral', 'slate', 'gray', 'zinc', 'stone'];
+export const PALETTES: Palette[] = ['neutral', 'stone', 'zinc', 'mauve', 'olive', 'mist', 'taupe'];
 
 interface ThemeState {
   theme: Theme;
@@ -52,12 +52,7 @@ function resolveTheme(preferred?: Theme, colorScheme?: 'light' | 'dark' | 'syste
 
 function applyTheme(theme: Theme) {
   if (typeof window === 'undefined') return;
-  document.documentElement.setAttribute('data-theme', theme);
-  if (theme === 'dark') {
-    document.documentElement.classList.add('dark');
-  } else {
-    document.documentElement.classList.remove('dark');
-  }
+  document.documentElement.classList.toggle('dark', theme === 'dark');
 }
 
 function applyPalette(palette: Palette) {
@@ -89,7 +84,6 @@ export const useTheme = create<ThemeState>((set, get) => ({
     const state = get();
     if (theme !== state.theme) {
       set({ theme });
-      document.documentElement.setAttribute('data-theme', theme);
     }
     if (palette !== state.palette) {
       set({ palette });

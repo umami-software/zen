@@ -1,12 +1,17 @@
 'use client';
 import { Tag, TagGroup } from '@umami/react-zen';
+import { useState } from 'react';
 
 export function RemovableTagGroupExample() {
+  const [tags, setTags] = useState(['JavaScript', 'TypeScript', 'Python']);
+
   return (
-    <TagGroup label="Skills" onRemove={keys => console.log('Remove:', [...keys])}>
-      <Tag id="javascript">JavaScript</Tag>
-      <Tag id="typescript">TypeScript</Tag>
-      <Tag id="python">Python</Tag>
+    <TagGroup label="Skills" onRemove={value => setTags(tags.filter(tag => tag !== value))}>
+      {tags.map(tag => (
+        <Tag key={tag} value={tag}>
+          {tag}
+        </Tag>
+      ))}
     </TagGroup>
   );
 }

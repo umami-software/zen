@@ -12,11 +12,11 @@ export default function HomePage() {
       <Heading as="h1" size="4xl" align="center">
         Build beautiful, consistent UI
       </Heading>
-      <Text size="lg" color="muted" align="center" style={{ maxWidth: '600px' }}>
+      <Text size="lg" color="muted-foreground" align="center" style={{ maxWidth: '600px' }}>
         Zen is a complete design system and component library — accessible components, layout
         primitives, and design tokens.
       </Text>
-      <Button variant="primary" render={<Link to="/docs" />}>
+      <Button render={<Link to="/docs" />} nativeButton={false}>
         Get Started
       </Button>
     </Column>

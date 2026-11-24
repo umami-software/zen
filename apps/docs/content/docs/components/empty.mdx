@@ -20,7 +20,7 @@ Displays a placeholder when a view has no content. Compose an `Empty` from an
         <EmptyDescription>You don't have any messages yet.</EmptyDescription>
       </EmptyHeader>
       <EmptyContent>
-        <Button variant="primary">Compose message</Button>
+        <Button>Compose message</Button>
       </EmptyContent>
     </Empty>
   </Box>
@@ -35,7 +35,7 @@ Displays a placeholder when a view has no content. Compose an `Empty` from an
       <EmptyDescription>You don't have any messages yet.</EmptyDescription>
     </EmptyHeader>
     <EmptyContent>
-      <Button variant="primary">Compose message</Button>
+      <Button>Compose message</Button>
     </EmptyContent>
   </Empty>
   ```
@@ -58,7 +58,7 @@ illustrations.
         <EmptyDescription>Invite people to start collaborating.</EmptyDescription>
       </EmptyHeader>
       <EmptyContent>
-        <Button variant="primary">Invite member</Button>
+        <Button>Invite member</Button>
       </EmptyContent>
     </Empty>
   </Box>
@@ -73,7 +73,7 @@ illustrations.
       <EmptyDescription>Invite people to start collaborating.</EmptyDescription>
     </EmptyHeader>
     <EmptyContent>
-      <Button variant="primary">Invite member</Button>
+      <Button>Invite member</Button>
     </EmptyContent>
   </Empty>
   ```
@@ -95,8 +95,8 @@ Place buttons or links inside `EmptyContent`.
       </EmptyHeader>
       <EmptyContent>
         <Row gap="2">
-          <Button variant="primary">Try again</Button>
-          <Button variant="quiet">Contact support</Button>
+          <Button>Try again</Button>
+          <Button variant="outline">Contact support</Button>
         </Row>
       </EmptyContent>
     </Empty>
@@ -113,8 +113,8 @@ Place buttons or links inside `EmptyContent`.
     </EmptyHeader>
     <EmptyContent>
       <Row gap="2">
-        <Button variant="primary">Try again</Button>
-        <Button variant="quiet">Contact support</Button>
+        <Button>Try again</Button>
+        <Button variant="outline">Contact support</Button>
       </Row>
     </EmptyContent>
   </Empty>
@@ -148,8 +148,8 @@ Place buttons or links inside `EmptyContent`.
 ### EmptyMedia
 
 <PropertiesTable>
-  <ResponseField name="variant" type="'default' | 'icon'">Media style (default: "default"). Use "icon" for a muted icon container.</ResponseField>
-  <ResponseField name="children" type="ReactNode">An svg icon, avatar, or other media</ResponseField>
+  <PropertiesTable.Row name="variant" type="'default' | 'icon'">Media style (default: "default"). Use "icon" for a muted icon container.</PropertiesTable.Row>
+  <PropertiesTable.Row name="children" type="ReactNode">An svg icon, avatar, or other media</PropertiesTable.Row>
 </PropertiesTable>
 
 `Empty`, `EmptyHeader`, `EmptyMedia`, `EmptyTitle`, and `EmptyContent` accept

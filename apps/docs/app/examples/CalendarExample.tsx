@@ -1,15 +1,16 @@
-import { Calendar, Column, TextField } from '@umami/react-zen';
+'use client';
+import { Calendar, Column, Text } from '@umami/react-zen';
 import { useState } from 'react';
 
 export function CalendarExample() {
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState<Date | undefined>(new Date());
 
   return (
-    <Column width="500px" alignItems="center" gap>
-      <Calendar value={date} onChange={setDate} />
-      <Column width="100%">
-        <TextField value={date.toString()} isReadOnly />
-      </Column>
+    <Column alignItems="center" gap="3">
+      <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-lg border" />
+      <Text size="sm" color="muted-foreground">
+        {date ? date.toDateString() : 'No date selected'}
+      </Text>
     </Column>
   );
 }

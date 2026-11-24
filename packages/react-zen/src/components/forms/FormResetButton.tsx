@@ -1,36 +1,30 @@
-import type { ReactNode } from 'react';
+import type { ComponentProps } from 'react';
 import { type FieldValues, useFormContext } from 'react-hook-form';
-import { Button, type ButtonProps } from '../Button';
+import { Button } from '@/components/ui/button';
 
-export interface FormResetButtonProps extends ButtonProps {
-  children?: ReactNode;
-  values?: FieldValues | { [p: string]: any };
+export interface FormResetButtonProps extends Omit<ComponentProps<typeof Button>, 'type'> {
+  /** Values to reset the form to. Defaults to the form's `defaultValues`. */
+  values?: FieldValues;
 }
 
 export function FormResetButton({
   values,
-  children,
-  onPress,
+  variant = 'outline',
   onClick,
   ...props
 }: FormResetButtonProps) {
   const { reset } = useFormContext();
 
-  const handleClick = (e: any) => {
-    onClick?.(e);
+  const handleClick: FormResetButtonProps['onClick'] = event => {
+    onClick?.(event);
 
-    if (e.defaultPrevented) {
+    if (event.defaultPrevented) {
       return;
     }
 
     // reset() with no values restores the form's defaultValues
     reset(values);
-    onPress?.(e);
   };
 
-  return (
-    <Button {...props} type="reset" onClick={handleClick}>
-      {children}
-    </Button>
-  );
+  return <Button {...props} type="reset" variant={variant} onClick={handleClick} />;
 }

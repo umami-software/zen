@@ -4,25 +4,33 @@ description: "Zen is Umami's design system and React component library."
 ---
 
 **Zen** is [Umami's](https://umami.is) design system and React component library. It brings
-together design tokens, layout primitives, and accessible controls for building consistent web
+together a theme, layout primitives, and accessible controls for building consistent web
 interfaces.
 
 Use Zen as the foundation for a complete interface or adopt individual pieces in your own
-application. This documentation covers installation, component APIs, and design tokens.
+application. This documentation covers installation, component APIs, and the theme.
 
 Source code is available on [GitHub](https://github.com/umami-software/react-zen).
 
 ## Implementation
 
-The current components follow [shadcn](https://ui.shadcn.com/) conventions and use
-[Base UI](https://base-ui.com/) primitives for interactive behavior. Styling is implemented with
-[Tailwind CSS](https://tailwindcss.com/) and CSS custom properties.
+Zen is built on [shadcn/ui](https://ui.shadcn.com/), with [Base UI](https://base-ui.com/)
+primitives for interactive behavior and [Tailwind CSS](https://tailwindcss.com/) v4 for styling.
+
+- **shadcn components** (Button, Dialog, DropdownMenu, Select, Tabs, Tooltip and the rest) are the
+  unmodified shadcn components, exported with shadcn's names and parts. Their
+  [shadcn documentation](https://ui.shadcn.com/docs/components) applies as written.
+- **Zen components** add what shadcn doesn't have: layout and typography primitives with style props
+  (Box, Row, Column, Grid, Text, Heading), richer fields (TextField, SearchField, NumberField,
+  DatePicker), forms built on react-hook-form, DataTable, toasts, theming and more.
+- **The theme** is the shadcn token set (`--background`, `--primary`, `--muted`, …) with
+  palettes, `.dark` mode and a few additional tokens of Zen's own. See
+  [colors](/docs/design/colors) for the full list.
 
 ## What is included
 
-- Design tokens for [color](/docs/design/colors), [type](/docs/design/fonts),
-  [spacing](/docs/design/spacing), [shadows](/docs/design/shadows), and
-  [borders](/docs/design/borders)
+- A theme with [colors](/docs/design/colors), [palettes and dark mode](/docs/design/themes), and
+  [customization](/docs/design/customization) through shadcn CSS variables
 - Layout and typography primitives
 - Form controls and interactive components
 - Reusable interface patterns and composed components
@@ -38,7 +46,7 @@ import { Button, ZenProvider } from '@umami/react-zen';
 export function App() {
   return (
     <ZenProvider>
-      <Button variant="primary">Save</Button>
+      <Button>Save</Button>
     </ZenProvider>
   );
 }

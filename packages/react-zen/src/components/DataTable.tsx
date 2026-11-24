@@ -1,63 +1,82 @@
 import {
   Children,
+  type ComponentProps,
+  type CSSProperties,
   createElement,
   type HTMLAttributes,
-  type ReactElement,
+  isValidElement,
   type ReactNode,
+  useState,
 } from 'react';
 import { DataCard } from '@/components/DataCard';
 import { Grid } from '@/components/Grid';
-import { mapIdProperty } from '@/lib/utils';
-import { cn } from './lib/tailwind';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Table,
   TableBody,
   TableCell,
-  type TableCellProps,
-  TableColumn,
+  TableHead,
   TableHeader,
-  type TableProps,
   TableRow,
-} from './Table';
+} from '@/components/ui/table';
+import { cn, mapIdProperty } from '@/lib/utils';
 
-export interface DataTableProps extends TableProps {
+const SELECTION_COLUMN_WIDTH = '2rem';
+
+const alignClasses = {
+  start: 'justify-start text-left',
+  center: 'justify-center text-center',
+  end: 'justify-end text-right',
+};
+
+export type DataTableSelectionMode = 'none' | 'single' | 'multiple';
+
+export interface DataTableProps extends ComponentProps<typeof Table> {
   data?: any[];
   displayMode?: 'table' | 'cards';
+  /** Adds a checkbox column for selecting rows. Rows are keyed by their `id`. */
+  selectionMode?: DataTableSelectionMode;
+  /** Selected row ids (controlled). */
+  selectedRows?: string[];
+  /** Initially selected row ids (uncontrolled). */
+  defaultSelectedRows?: string[];
+  /** Called with the new list of selected row ids. */
+  onSelectedRowsChange?: (selectedRows: string[]) => void;
 }
 
 export function DataTable({
   data = [],
   displayMode = 'table',
+  selectionMode = 'none',
+  selectedRows: selectedRowsProp,
+  defaultSelectedRows = [],
+  onSelectedRowsChange,
   className,
   children,
   ...props
 }: DataTableProps) {
+  const [uncontrolledSelectedRows, setUncontrolledSelectedRows] = useState(defaultSelectedRows);
+  const selectedRows = selectedRowsProp ?? uncontrolledSelectedRows;
+
   const rows = mapIdProperty(data);
-  const widths: string[] = [];
+  const rowIds = rows.map(row => String(row.id));
 
-  const columns = Children.map(children as ReactElement, (child?: ReactElement<any, any>) => {
-    if (child) {
-      widths.push(child?.props?.width || '1fr');
+  const columns = Children.toArray(children)
+    .filter(isValidElement)
+    .map(child => child.props as DataColumnProps);
 
-      return { ...(child?.props as DataColumnProps) };
-    }
-    return null;
-  })?.filter(n => n);
-
-  const gridTemplateColumns = widths.join(' ');
+  const visibleColumns = columns.filter(({ hidden }) => !hidden);
 
   if (displayMode === 'cards') {
     return (
-      <Grid id="grid" width="100%" gap="6">
+      <Grid width="100%" gap="6">
         {rows.map((row, index) => {
-          const items = columns
-            ?.filter(({ hidden }) => !hidden)
-            .map(({ id, label, children }) => {
-              const value =
-                typeof children === 'function' ? children(row, index) : (children ?? row[id]);
+          const items = visibleColumns.map(({ id, label, children }) => {
+            const value =
+              typeof children === 'function' ? children(row, index) : (children ?? row[id]);
 
-              return { id, label, value };
-            });
+            return { id, label, value };
+          });
 
           return <DataCard key={`${row.id}-${index}`} data={items} />;
         })}
@@ -65,50 +84,112 @@ export function DataTable({
     );
   }
 
+  const isSelectable = selectionMode !== 'none';
+
+  const gridTemplateColumns = [
+    ...(isSelectable ? [SELECTION_COLUMN_WIDTH] : []),
+    ...visibleColumns.map(({ width }) => width || '1fr'),
+  ].join(' ');
+
+  const rowStyle: CSSProperties = { gridTemplateColumns };
+
+  const setSelectedRows = (next: string[]) => {
+    if (selectedRowsProp === undefined) {
+      setUncontrolledSelectedRows(next);
+    }
+    onSelectedRowsChange?.(next);
+  };
+
+  const setRowSelected = (rowId: string, checked: boolean) => {
+    if (selectionMode === 'single') {
+      setSelectedRows(checked ? [rowId] : []);
+      return;
+    }
+
+    setSelectedRows(
+      checked
+        ? [...selectedRows.filter(id => id !== rowId), rowId]
+        : selectedRows.filter(id => id !== rowId),
+    );
+  };
+
+  const selectedCount = rowIds.filter(id => selectedRows.includes(id)).length;
+  const allSelected = rowIds.length > 0 && selectedCount === rowIds.length;
+
   return (
-    <Table {...props} data-slot="data-table" className={cn('relative text-sm', className)}>
-      <TableHeader style={{ gridTemplateColumns }}>
-        {columns?.map(({ id, label, as, hidden, width, ...columnProps }) => {
-          if (hidden) {
-            return null;
-          }
-
-          return (
-            <TableColumn {...columnProps} key={id} id={id}>
+    <Table
+      {...props}
+      data-slot="data-table"
+      data-selection-mode={isSelectable ? selectionMode : undefined}
+      className={cn('grid', className)}
+    >
+      <TableHeader className="contents">
+        <TableRow className="grid hover:bg-transparent" style={rowStyle}>
+          {isSelectable && (
+            <TableHead className="flex items-center">
+              {selectionMode === 'multiple' && (
+                <Checkbox
+                  aria-label="Select all rows"
+                  checked={allSelected}
+                  indeterminate={selectedCount > 0 && !allSelected}
+                  onCheckedChange={checked => setSelectedRows(checked ? rowIds : [])}
+                />
+              )}
+            </TableHead>
+          )}
+          {visibleColumns.map(({ id, label, align }) => (
+            <TableHead key={id} className={cn('flex items-center', align && alignClasses[align])}>
               {label}
-            </TableColumn>
-          );
-        })}
+            </TableHead>
+          ))}
+        </TableRow>
       </TableHeader>
-      <TableBody>
+      <TableBody className="contents">
         {rows.map((row, index) => {
-          const rowId = row.id !== undefined && row.id !== null ? String(row.id) : undefined;
+          const rowId = String(row.id);
+          const isSelected = isSelectable && selectedRows.includes(rowId);
 
           return (
-            <TableRow key={rowId ?? `row-${index}`} id={rowId} style={{ gridTemplateColumns }}>
-              {columns?.map(
+            <TableRow
+              key={rowId}
+              data-row-id={rowId}
+              data-state={isSelected ? 'selected' : undefined}
+              className="grid"
+              style={rowStyle}
+            >
+              {isSelectable && (
+                <TableCell className="flex items-center">
+                  <Checkbox
+                    aria-label="Select row"
+                    checked={isSelected}
+                    onCheckedChange={checked => setRowSelected(rowId, checked)}
+                  />
+                </TableCell>
+              )}
+              {visibleColumns.map(
                 ({
                   id,
                   label: _label,
                   width: _width,
+                  hidden: _hidden,
                   as,
-                  hidden,
-                  className,
+                  align,
+                  className: cellClassName,
                   children,
                   ...cellProps
                 }) => {
-                  if (hidden) {
-                    return null;
-                  }
-
                   const value =
                     typeof children === 'function' ? children(row, index) : children || row[id];
 
                   return (
                     <TableCell
-                      {...(cellProps as TableCellProps)}
+                      {...cellProps}
                       key={id}
-                      className={cn('items-center', className)}
+                      className={cn(
+                        'flex min-w-0 items-center whitespace-normal',
+                        align && alignClasses[align],
+                        cellClassName,
+                      )}
                     >
                       {as ? createElement(as, {}, value) : value}
                     </TableCell>
@@ -123,14 +204,14 @@ export function DataTable({
   );
 }
 
-export interface DataColumnProps extends Omit<HTMLAttributes<any>, 'children'> {
+export interface DataColumnProps extends Omit<HTMLAttributes<HTMLTableCellElement>, 'children'> {
   id: string;
   label?: ReactNode;
   align?: 'start' | 'center' | 'end';
   width?: string;
   as?: string;
   hidden?: boolean;
-  children?: ReactNode | ((row: any, index: number) => void);
+  children?: ReactNode | ((row: any, index: number) => ReactNode);
 }
 
 export function DataColumn(_props: DataColumnProps) {

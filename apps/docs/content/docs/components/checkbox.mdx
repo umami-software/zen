@@ -1,47 +1,109 @@
 ---
 title: Checkbox
-description: "A checkbox allows a user to select multiple items from a list of individual items, or to mark one individual item as selected."
+description: "A control that allows the user to toggle between checked and not checked."
 ---
 
-import { Checkbox, Example } from '../../../mdx-components';
+import { Box, Checkbox, Example, Field, FieldContent, FieldDescription, FieldGroup, FieldLabel } from '../../../mdx-components';
 
-A checkbox allows a user to select multiple items from a list of individual items, or to mark one individual item as selected.
+A control that allows the user to toggle between checked and not checked. `Checkbox` renders only
+the box, so pair it with a `FieldLabel` (or `Label`) using `id` and `htmlFor`.
 
 <Example>
-  <Checkbox>Accept terms and conditions.</Checkbox>
+  <Field orientation="horizontal">
+    <Checkbox id="terms" />
+    <FieldLabel htmlFor="terms">Accept terms and conditions</FieldLabel>
+  </Field>
 
   ```jsx
-  <Checkbox>Accept terms and conditions.</Checkbox>
+  <Field orientation="horizontal">
+    <Checkbox id="terms" />
+    <FieldLabel htmlFor="terms">Accept terms and conditions</FieldLabel>
+  </Field>
   ```
 </Example>
 
-## Indeterminate
+## Description
+
+Wrap the label and a description in `FieldContent`.
 
 <Example>
-  <Checkbox isIndeterminate={true}>Accept terms and conditions.</Checkbox>
+  <Box width="350px" maxWidth="100%">
+    <Field orientation="horizontal">
+      <Checkbox id="notifications" defaultChecked />
+      <FieldContent>
+        <FieldLabel htmlFor="notifications">Enable notifications</FieldLabel>
+        <FieldDescription>You can enable or disable notifications at any time.</FieldDescription>
+      </FieldContent>
+    </Field>
+  </Box>
 
   ```jsx
-  <Checkbox isIndeterminate>Accept terms and conditions.</Checkbox>
+  <Field orientation="horizontal">
+    <Checkbox id="notifications" defaultChecked />
+    <FieldContent>
+      <FieldLabel htmlFor="notifications">Enable notifications</FieldLabel>
+      <FieldDescription>You can enable or disable notifications at any time.</FieldDescription>
+    </FieldContent>
+  </Field>
   ```
 </Example>
 
-## Disabled
+## States
 
 <Example>
-  <Checkbox isDisabled={true}>Accept terms and conditions.</Checkbox>
+  <FieldGroup>
+    <Field orientation="horizontal">
+      <Checkbox id="indeterminate" indeterminate />
+      <FieldLabel htmlFor="indeterminate">Indeterminate</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <Checkbox id="disabled" disabled />
+      <FieldLabel htmlFor="disabled">Disabled</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <Checkbox id="invalid" aria-invalid />
+      <FieldLabel htmlFor="invalid">Invalid</FieldLabel>
+    </Field>
+  </FieldGroup>
 
   ```jsx
-  <Checkbox isDisabled>Accept terms and conditions.</Checkbox>
+  <FieldGroup>
+    <Field orientation="horizontal">
+      <Checkbox id="indeterminate" indeterminate />
+      <FieldLabel htmlFor="indeterminate">Indeterminate</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <Checkbox id="disabled" disabled />
+      <FieldLabel htmlFor="disabled">Disabled</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <Checkbox id="invalid" aria-invalid />
+      <FieldLabel htmlFor="invalid">Invalid</FieldLabel>
+    </Field>
+  </FieldGroup>
   ```
 </Example>
+
+## Controlled
+
+```jsx
+const [checked, setChecked] = useState(false);
+
+<Checkbox id="subscribe" checked={checked} onCheckedChange={setChecked} />
+```
+
+To manage a set of checkboxes as one value, use `CheckboxGroup`.
 
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="label" type="string">Label text (alternative to children)</ResponseField>
-  <ResponseField name="isSelected" type="boolean">Controlled selected state</ResponseField>
-  <ResponseField name="defaultSelected" type="boolean">Default selected state</ResponseField>
-  <ResponseField name="isIndeterminate" type="boolean">Shows indeterminate state</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the checkbox</ResponseField>
-  <ResponseField name="onChange" type="(isSelected: boolean) => void">Called when state changes</ResponseField>
+  <PropertiesTable.Row name="checked" type="boolean">Controlled checked state</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultChecked" type="boolean">Initial checked state when uncontrolled (default: false)</PropertiesTable.Row>
+  <PropertiesTable.Row name="onCheckedChange" type="(checked, eventDetails) => void">Called when the checkbox is toggled</PropertiesTable.Row>
+  <PropertiesTable.Row name="indeterminate" type="boolean">Shows a mixed state, neither checked nor unchecked</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the checkbox</PropertiesTable.Row>
+  <PropertiesTable.Row name="readOnly" type="boolean">Prevents the user from changing the state</PropertiesTable.Row>
+  <PropertiesTable.Row name="required" type="boolean">Requires the checkbox to be checked before a form is submitted</PropertiesTable.Row>
+  <PropertiesTable.Row name="name" type="string">Field name for form submission</PropertiesTable.Row>
+  <PropertiesTable.Row name="value" type="string">Value submitted with the form when checked</PropertiesTable.Row>
 </PropertiesTable>

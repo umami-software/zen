@@ -1,13 +1,15 @@
 import { animated, useTransition } from '@react-spring/web';
-import { type RefObject, useEffect, useRef, useState } from 'react';
+import { type ComponentProps, type RefObject, useEffect, useRef, useState } from 'react';
+import { type Theme, useTheme } from '@/components/hooks/useTheme';
 import { Moon, Sun } from '@/components/icons';
-import { Button, type ButtonProps } from './Button';
-import { type Theme, useTheme } from './hooks/useTheme';
-import { Icon } from './Icon';
-import type { PressEvent } from './lib/interaction';
-import { cn } from './lib/tailwind';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
-export interface ThemeButtonProps extends Omit<ButtonProps, 'target'> {
+export interface ThemeButtonProps extends Omit<ComponentProps<typeof Button>, 'children'> {
+  /**
+   * Scope the theme to this element instead of the document. The button toggles the
+   * `dark` class on the target only.
+   */
   target?: RefObject<HTMLElement | null> | HTMLElement;
 }
 
@@ -16,19 +18,15 @@ function getElement(target: RefObject<HTMLElement | null> | HTMLElement): HTMLEl
 }
 
 function applyTheme(element: HTMLElement, theme: Theme) {
-  element.setAttribute('data-theme', theme);
-  if (theme === 'dark') {
-    element.classList.add('dark');
-  } else {
-    element.classList.remove('dark');
-  }
+  element.classList.toggle('dark', theme === 'dark');
 }
 
 export function ThemeButton({
   className,
-  variant = 'quiet',
+  variant = 'ghost',
+  size = 'icon',
   target,
-  onPress,
+  onClick,
   ...props
 }: ThemeButtonProps) {
   const globalTheme = useTheme();
@@ -64,7 +62,7 @@ export function ThemeButton({
     },
   });
 
-  function handleClick(e: PressEvent) {
+  const handleClick: ThemeButtonProps['onClick'] = event => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
 
     if (isLocal && target) {
@@ -77,26 +75,28 @@ export function ThemeButton({
       globalTheme.setTheme(newTheme);
     }
 
-    onPress?.(e);
-  }
+    onClick?.(event);
+  };
 
   return (
     <Button
       {...props}
-      className={cn(
-        'w-[42px] flex justify-center items-center cursor-pointer [&>div]:flex [&>div]:justify-center [&>div]:items-center [&>div]:absolute',
-        className,
-      )}
       variant={variant}
-      onPress={handleClick}
+      size={size}
+      aria-label={props['aria-label'] ?? 'Toggle theme'}
+      className={cn('relative overflow-hidden', className)}
+      onClick={handleClick}
     >
       {transitions((style, item) => (
-        // @ts-expect-error
-        <animated.div key={item} style={style}>
-          <Icon size="sm">{item === 'light' ? <Sun /> : <Moon />}</Icon>
+        // @ts-expect-error react-spring's animated types lag behind React 19
+        <animated.div
+          key={item}
+          style={style}
+          className="absolute inset-0 flex items-center justify-center"
+        >
+          {item === 'light' ? <Sun /> : <Moon />}
         </animated.div>
       ))}
-      &nbsp;
     </Button>
   );
 }

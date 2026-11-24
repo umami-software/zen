@@ -1,11 +1,8 @@
 import { animated, useTransition } from '@react-spring/web';
 import { useEffect, useState } from 'react';
-import { Box } from '@/components/Box';
-import { Column } from '@/components/Column';
 import { removeToast, useToast } from '@/components/hooks/useToast';
-import { cn } from '@/components/lib/tailwind';
 import { Toast } from '@/components/toast/Toast';
-import '../Overlay.css';
+import { cn } from '@/lib/utils';
 
 export type ToastPosition =
   | 'top-left'
@@ -32,8 +29,6 @@ const positionClasses: Record<ToastPosition, string> = {
   left: 'top-1/2 left-4 -translate-y-1/2 items-start',
   right: 'top-1/2 right-4 -translate-y-1/2 items-end',
 };
-
-const AnimatedBox = animated(Box);
 
 export function Toaster({ duration = 0, position = 'bottom-right' }: ToasterProps) {
   const { toasts } = useToast();
@@ -70,13 +65,12 @@ export function Toaster({ duration = 0, position = 'bottom-right' }: ToasterProp
   }, [duration, toasts, hovered]);
 
   return (
-    <Column
-      gap="2"
+    <div
       role="region"
       aria-live="polite"
       aria-label="Notifications"
       data-slot="toaster"
-      className={cn('zen-layer-toast fixed', positionClasses[position])}
+      className={cn('fixed z-50 flex flex-col gap-2', positionClasses[position])}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -84,11 +78,12 @@ export function Toaster({ duration = 0, position = 'bottom-right' }: ToasterProp
         const { id, ...props } = item;
 
         return (
-          <AnimatedBox key={id} style={style}>
+          // @ts-expect-error react-spring's animated types lag behind React 19
+          <animated.div key={id} style={style}>
             <Toast {...props} id={id} onClose={() => removeToast(id)} />
-          </AnimatedBox>
+          </animated.div>
         );
       })}
-    </Column>
+    </div>
   );
 }

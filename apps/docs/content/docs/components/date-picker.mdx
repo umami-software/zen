@@ -5,7 +5,8 @@ description: "A date picker allows a user to select a date from a popup calendar
 
 import { DatePicker, DatePickerExample, Example } from '../../../mdx-components';
 
-A date picker allows a user to select a date from a popup calendar.
+A date picker allows a user to select a date from a popup calendar. It combines the shadcn
+`Popover`, `Calendar` and an outline `Button` trigger.
 
 <Example>
   <DatePicker label="Date" />
@@ -37,13 +38,33 @@ Dates are formatted with `Intl.DateTimeFormat` using the `locale` and `formatOpt
   ```
 </Example>
 
+## Min and max
+
+Dates outside `min` and `max` are disabled in the calendar.
+
+<Example>
+  <DatePicker
+    label="Date"
+    min={new Date(Date.now() - 7 * 86400000)}
+    max={new Date(Date.now() + 7 * 86400000)}
+  />
+
+  ```jsx
+  <DatePicker
+    label="Date"
+    min={new Date(Date.now() - 7 * 86400000)}
+    max={new Date(Date.now() + 7 * 86400000)}
+  />
+  ```
+</Example>
+
 ## Disabled
 
 <Example>
-  <DatePicker label="Date" isDisabled />
+  <DatePicker label="Date" disabled />
 
   ```jsx
-  <DatePicker label="Date" isDisabled />
+  <DatePicker label="Date" disabled />
   ```
 </Example>
 
@@ -55,27 +76,27 @@ Dates are formatted with `Intl.DateTimeFormat` using the `locale` and `formatOpt
   ```jsx
   const [date, setDate] = useState();
 
-  <DatePicker label="Date" value={date} onChange={setDate} />
+  <DatePicker label="Date" value={date} onValueChange={setDate} />
   ```
 </Example>
 
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="label" type="string">Label text displayed above the picker</ResponseField>
-  <ResponseField name="value" type="Date">Controlled date value</ResponseField>
-  <ResponseField name="defaultValue" type="Date">Default date value</ResponseField>
-  <ResponseField name="minValue" type="Date">Minimum selectable date</ResponseField>
-  <ResponseField name="maxValue" type="Date">Maximum selectable date</ResponseField>
-  <ResponseField name="placeholder" type="string">Text shown when no date is selected (default: "Select date")</ResponseField>
-  <ResponseField name="locale" type="string">Locale used to format the displayed date</ResponseField>
-  <ResponseField name="formatOptions" type="Intl.DateTimeFormatOptions">{"Date format options (default: { dateStyle: \"medium\" })"}</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the picker</ResponseField>
-  <ResponseField name="isReadOnly" type="boolean">Prevents changing the value</ResponseField>
-  <ResponseField name="isOpen" type="boolean">Controlled open state of the popover</ResponseField>
-  <ResponseField name="defaultOpen" type="boolean">Default open state of the popover</ResponseField>
-  <ResponseField name="onOpenChange" type="(open: boolean) => void">Called when the popover opens or closes</ResponseField>
-  <ResponseField name="onChange" type="(date: Date | undefined) => void">Called when a date is selected. Receives `undefined` when the date is cleared.</ResponseField>
-  <ResponseField name="triggerProps" type="ButtonHTMLAttributes">Props passed to the trigger element (`buttonProps` is a deprecated alias)</ResponseField>
-  <ResponseField name="calendarProps" type="Partial<CalendarProps>">Props passed to the popup calendar</ResponseField>
+  <PropertiesTable.Row name="label" type="ReactNode">Label displayed above the picker</PropertiesTable.Row>
+  <PropertiesTable.Row name="value" type="Date">Controlled date value</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultValue" type="Date">Initial date value</PropertiesTable.Row>
+  <PropertiesTable.Row name="onValueChange" type="(date: Date | undefined) => void">Called when a date is selected. Receives `undefined` when the date is cleared.</PropertiesTable.Row>
+  <PropertiesTable.Row name="min" type="Date">Earliest selectable date</PropertiesTable.Row>
+  <PropertiesTable.Row name="max" type="Date">Latest selectable date</PropertiesTable.Row>
+  <PropertiesTable.Row name="placeholder" type="ReactNode">Content shown when no date is selected (default: "Select date")</PropertiesTable.Row>
+  <PropertiesTable.Row name="locale" type="string">BCP 47 locale used to format the displayed date</PropertiesTable.Row>
+  <PropertiesTable.Row name="formatOptions" type="Intl.DateTimeFormatOptions">{"Date format options (default: { dateStyle: \"medium\" })"}</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the picker</PropertiesTable.Row>
+  <PropertiesTable.Row name="readOnly" type="boolean">Prevents changing the value</PropertiesTable.Row>
+  <PropertiesTable.Row name="open" type="boolean">Controlled open state of the popover</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultOpen" type="boolean">Initial open state of the popover</PropertiesTable.Row>
+  <PropertiesTable.Row name="onOpenChange" type="(open: boolean) => void">Called when the popover opens or closes</PropertiesTable.Row>
+  <PropertiesTable.Row name="triggerProps" type="ButtonProps">Props passed to the trigger `Button`</PropertiesTable.Row>
+  <PropertiesTable.Row name="calendarProps" type="CalendarProps">Props passed to the popup `Calendar` (except `mode`, `selected`, `onSelect`, `required`)</PropertiesTable.Row>
 </PropertiesTable>

@@ -18,6 +18,7 @@ import type {
 import { type RenderProp, resolveRender } from './lib/render';
 import {
   cn,
+  mapDecorationColor,
   mapFontSize,
   mapFontWeight,
   mapLetterSpacing,
@@ -123,7 +124,7 @@ export function Text({
     underline && 'underline',
     strikethrough && 'line-through',
     mapTextDecorationStyle(decorationStyle),
-    decorationColorStr && `decoration-${decorationColorStr}`,
+    mapDecorationColor(decorationColorStr),
     className,
   );
 

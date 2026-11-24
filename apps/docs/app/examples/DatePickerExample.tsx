@@ -8,8 +8,12 @@ export function DatePickerExample() {
 
   return (
     <Column width="300px" gap>
-      <DatePicker label="Date" value={date} onChange={setDate} />
-      <TextField value={date ? date.toDateString() : 'No date selected'} isReadOnly />
+      <DatePicker label="Date" value={date} onValueChange={setDate} />
+      <TextField
+        label="Selected"
+        value={date ? date.toDateString() : 'No date selected'}
+        readOnly
+      />
     </Column>
   );
 }

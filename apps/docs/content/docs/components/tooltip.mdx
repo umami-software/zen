@@ -1,126 +1,185 @@
 ---
 title: Tooltip
-description: "A tooltip displays a description of an element on hover or focus."
+description: "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it."
 ---
 
-import { Button, Example, FloatingTooltip, FloatingTooltipExample, Tooltip, TooltipTrigger } from '../../../mdx-components';
+import { Button, Example, FloatingTooltipExample, Kbd, Lucide, Row, Tooltip, TooltipContent, TooltipTrigger } from '../../../mdx-components';
 
-A tooltip displays a description of an element on hover or focus.
+A popup that displays information related to an element when the element receives keyboard focus
+or the mouse hovers over it. Use the `render` prop on `TooltipTrigger` to render it as your own
+button.
 
 <Example>
-  <TooltipTrigger delay={0}>
-    <Button variant="secondary">Hover me</Button>
-    <Tooltip>Hello</Tooltip>
-  </TooltipTrigger>
+  <Tooltip>
+    <TooltipTrigger render={<Button variant="outline" />}>Hover</TooltipTrigger>
+    <TooltipContent>
+      <p>Add to library</p>
+    </TooltipContent>
+  </Tooltip>
 
   ```jsx
-  <TooltipTrigger delay={0}>
-    <Button variant="secondary">Hover me</Button>
-    <Tooltip>Hello</Tooltip>
-  </TooltipTrigger>
+  <Tooltip>
+    <TooltipTrigger render={<Button variant="outline" />}>Hover</TooltipTrigger>
+    <TooltipContent>
+      <p>Add to library</p>
+    </TooltipContent>
+  </Tooltip>
   ```
 </Example>
 
-## Placement
+## Side
+
+`side` on `TooltipContent` places the tooltip, and `align` aligns it along that side.
 
 <Example>
-  <TooltipTrigger delay={0}>
-    <Button variant="secondary">Top</Button>
-    <Tooltip placement="top">Hello</Tooltip>
-  </TooltipTrigger>
-  <TooltipTrigger delay={0}>
-    <Button variant="secondary">Left</Button>
-    <Tooltip placement="left">Hello</Tooltip>
-  </TooltipTrigger>
-  <TooltipTrigger delay={0}>
-    <Button variant="secondary">Right</Button>
-    <Tooltip placement="right">Hello</Tooltip>
-  </TooltipTrigger>
-  <TooltipTrigger delay={0}>
-    <Button variant="secondary">Bottom</Button>
-    <Tooltip placement="bottom">Hello</Tooltip>
-  </TooltipTrigger>
+  <Row gap="2" wrap="wrap" justifyContent="center">
+    <Tooltip>
+      <TooltipTrigger render={<Button variant="outline" />}>Left</TooltipTrigger>
+      <TooltipContent side="left">Left</TooltipContent>
+    </Tooltip>
+    <Tooltip>
+      <TooltipTrigger render={<Button variant="outline" />}>Top</TooltipTrigger>
+      <TooltipContent side="top">Top</TooltipContent>
+    </Tooltip>
+    <Tooltip>
+      <TooltipTrigger render={<Button variant="outline" />}>Bottom</TooltipTrigger>
+      <TooltipContent side="bottom">Bottom</TooltipContent>
+    </Tooltip>
+    <Tooltip>
+      <TooltipTrigger render={<Button variant="outline" />}>Right</TooltipTrigger>
+      <TooltipContent side="right">Right</TooltipContent>
+    </Tooltip>
+  </Row>
 
   ```jsx
-  <TooltipTrigger delay={0}>
-    <Button variant="secondary">Top</Button>
-    <Tooltip placement="top">Hello</Tooltip>
-  </TooltipTrigger>
-  <TooltipTrigger delay={0}>
-    <Button variant="secondary">Left</Button>
-    <Tooltip placement="left">Hello</Tooltip>
-  </TooltipTrigger>
-  <TooltipTrigger delay={0}>
-    <Button variant="secondary">Right</Button>
-    <Tooltip placement="right">Hello</Tooltip>
-  </TooltipTrigger>
-  <TooltipTrigger delay={0}>
-    <Button variant="secondary">Bottom</Button>
-    <Tooltip placement="bottom">Hello</Tooltip>
-  </TooltipTrigger>
+  <Tooltip>
+    <TooltipTrigger render={<Button variant="outline" />}>Left</TooltipTrigger>
+    <TooltipContent side="left">Left</TooltipContent>
+  </Tooltip>
+  <Tooltip>
+    <TooltipTrigger render={<Button variant="outline" />}>Top</TooltipTrigger>
+    <TooltipContent side="top">Top</TooltipContent>
+  </Tooltip>
+  <Tooltip>
+    <TooltipTrigger render={<Button variant="outline" />}>Bottom</TooltipTrigger>
+    <TooltipContent side="bottom">Bottom</TooltipContent>
+  </Tooltip>
+  <Tooltip>
+    <TooltipTrigger render={<Button variant="outline" />}>Right</TooltipTrigger>
+    <TooltipContent side="right">Right</TooltipContent>
+  </Tooltip>
   ```
 </Example>
 
-## With arrow
+## Icon button
+
+Tooltips are a good way to label icon-only buttons. Content can include a keyboard shortcut.
 
 <Example>
-  <TooltipTrigger delay={0}>
-    <Button variant="secondary">Top</Button>
-    <Tooltip placement="top" showArrow>Hello</Tooltip>
-  </TooltipTrigger>
-  <TooltipTrigger delay={0}>
-    <Button variant="secondary">Left</Button>
-    <Tooltip placement="left" showArrow>Hello</Tooltip>
-  </TooltipTrigger>
-  <TooltipTrigger delay={0}>
-    <Button variant="secondary">Right</Button>
-    <Tooltip placement="right" showArrow>Hello</Tooltip>
-  </TooltipTrigger>
-  <TooltipTrigger delay={0}>
-    <Button variant="secondary">Bottom</Button>
-    <Tooltip placement="bottom" showArrow>Hello</Tooltip>
-  </TooltipTrigger>
+  <Tooltip>
+    <TooltipTrigger render={<Button variant="outline" size="icon" aria-label="Save" />}>
+      <Lucide.Save />
+    </TooltipTrigger>
+    <TooltipContent>
+      Save <Kbd>⌘S</Kbd>
+    </TooltipContent>
+  </Tooltip>
 
   ```jsx
-  <TooltipTrigger delay={0}>
-    <Button variant="secondary">Top</Button>
-    <Tooltip placement="top" showArrow>Hello</Tooltip>
-  </TooltipTrigger>
-  <TooltipTrigger delay={0}>
-    <Button variant="secondary">Left</Button>
-    <Tooltip placement="left" showArrow>Hello</Tooltip>
-  </TooltipTrigger>
-  <TooltipTrigger delay={0}>
-    <Button variant="secondary">Right</Button>
-    <Tooltip placement="right" showArrow>Hello</Tooltip>
-  </TooltipTrigger>
-  <TooltipTrigger delay={0}>
-    <Button variant="secondary">Bottom</Button>
-    <Tooltip placement="bottom" showArrow>Hello</Tooltip>
-  </TooltipTrigger>
+  <Tooltip>
+    <TooltipTrigger render={<Button variant="outline" size="icon" aria-label="Save" />}>
+      <Lucide.Save />
+    </TooltipTrigger>
+    <TooltipContent>
+      Save <Kbd>⌘S</Kbd>
+    </TooltipContent>
+  </Tooltip>
   ```
 </Example>
+
+## Disabled button
+
+A disabled button doesn't fire pointer events. Wrap it in a `span` so the tooltip can still show.
+
+<Example>
+  <Tooltip>
+    <TooltipTrigger render={<span tabIndex={0} />}>
+      <Button variant="outline" disabled>
+        Disabled
+      </Button>
+    </TooltipTrigger>
+    <TooltipContent>This feature is unavailable</TooltipContent>
+  </Tooltip>
+
+  ```jsx
+  <Tooltip>
+    <TooltipTrigger render={<span tabIndex={0} />}>
+      <Button variant="outline" disabled>
+        Disabled
+      </Button>
+    </TooltipTrigger>
+    <TooltipContent>This feature is unavailable</TooltipContent>
+  </Tooltip>
+  ```
+</Example>
+
+## Provider
+
+`ZenProvider` wraps the app in a `TooltipProvider`, which shares the open delay across tooltips so
+moving between them opens the next one instantly. Configure it with `ZenProvider`'s `tooltip` prop,
+for example `<ZenProvider tooltip={{ delay: 300 }}>`. Set `delay` and `closeDelay` on a single
+`TooltipTrigger` to override it.
 
 ## Floating
+
+`FloatingTooltip` is a Zen component that follows the cursor. Show it with `open`.
 
 <Example>
   <FloatingTooltipExample />
 
   ```jsx
-  <FloatingTooltip label="Floating tooltip">
-    <Button>Hover me</Button>
+  const [show, setShow] = useState(false);
+
+  <Box
+    backgroundColor="muted"
+    borderRadius
+    width="400px"
+    height="300px"
+    onMouseEnter={() => setShow(true)}
+    onMouseLeave={() => setShow(false)}
+  />
+  <FloatingTooltip open={show}>
+    <Text color="background">Hello</Text>
   </FloatingTooltip>
   ```
 </Example>
 
-## Component props
+## Parts
+
+### Tooltip
 
 <PropertiesTable>
-  <ResponseField name="placement" type="Placement">"top" | "bottom" | "left" | "right"</ResponseField>
-  <ResponseField name="showArrow" type="boolean">Shows an arrow pointing to the trigger</ResponseField>
-  <ResponseField name="sideOffset" type="number">Distance from the trigger element (default: 4)</ResponseField>
-  <ResponseField name="positionerClassName" type="string">Extra classes for the positioner element</ResponseField>
+  <PropertiesTable.Row name="open" type="boolean">Controlled open state</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultOpen" type="boolean">Initial open state when uncontrolled</PropertiesTable.Row>
+  <PropertiesTable.Row name="onOpenChange" type="(open: boolean, details) => void">Called when the tooltip opens or closes</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Prevents the tooltip from opening</PropertiesTable.Row>
 </PropertiesTable>
 
-`TooltipContent` is an alias of `Tooltip`. Tooltip grouping delays are configured once through
-`ZenProvider`'s `tooltip` prop rather than per trigger.
+### TooltipTrigger
+
+<PropertiesTable>
+  <PropertiesTable.Row name="render" type="ReactElement | function">Replaces the rendered `button`, e.g. `render={<Button variant="outline" />}`</PropertiesTable.Row>
+  <PropertiesTable.Row name="delay" type="number">Milliseconds before opening. Overrides the provider</PropertiesTable.Row>
+  <PropertiesTable.Row name="closeDelay" type="number">Milliseconds before closing. Overrides the provider</PropertiesTable.Row>
+</PropertiesTable>
+
+### TooltipContent
+
+<PropertiesTable>
+  <PropertiesTable.Row name="side" type="string">"top" | "right" | "bottom" | "left" | "inline-start" | "inline-end" (default: "top")</PropertiesTable.Row>
+  <PropertiesTable.Row name="align" type="string">"start" | "center" | "end" (default: "center")</PropertiesTable.Row>
+  <PropertiesTable.Row name="sideOffset" type="number">Distance from the trigger in pixels (default: 4)</PropertiesTable.Row>
+  <PropertiesTable.Row name="alignOffset" type="number">Offset along the alignment axis in pixels (default: 0)</PropertiesTable.Row>
+</PropertiesTable>
+
+`TooltipProvider` is also exported, for apps that don't use `ZenProvider`.

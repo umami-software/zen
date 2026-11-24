@@ -1,22 +1,36 @@
 ---
 title: Input Group
-description: "Input groups compose controls with icons, text, and actions without overlaying content or adding manual input padding."
+description: "Add icons, text, buttons and keyboard hints to inputs and textareas."
 ---
 
-import { Box, Column, Example, InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText, InputGroupTextarea, Lucide } from '../../../mdx-components';
+import {
+  Box,
+  Column,
+  Example,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+  InputGroupTextarea,
+  Kbd,
+  Lucide,
+  Spinner,
+} from '../../../mdx-components';
 
-Input groups compose controls with icons, text, and actions without overlaying content or adding
-manual input padding. Keep addons after the control in the DOM and use `align` to place them
-visually.
-
-## Leading icon
+Add icons, text, buttons and keyboard hints to inputs and textareas, without overlaying content or
+padding the input by hand. Place `InputGroupAddon` after the control in the DOM and use `align` to
+position it.
 
 <Example>
   <Box width="300px" maxWidth="100%">
     <InputGroup>
       <InputGroupInput placeholder="Search..." />
-      <InputGroupAddon align="inline-start">
+      <InputGroupAddon>
         <Lucide.Search />
+      </InputGroupAddon>
+      <InputGroupAddon align="inline-end">
+        <Kbd>⌘K</Kbd>
       </InputGroupAddon>
     </InputGroup>
   </Box>
@@ -24,20 +38,25 @@ visually.
   ```jsx
   <InputGroup>
     <InputGroupInput placeholder="Search..." />
-    <InputGroupAddon align="inline-start">
-      <Search />
+    <InputGroupAddon>
+      <Lucide.Search />
+    </InputGroupAddon>
+    <InputGroupAddon align="inline-end">
+      <Kbd>⌘K</Kbd>
     </InputGroupAddon>
   </InputGroup>
   ```
 </Example>
 
-## Leading and trailing text
+## Text
+
+Use `InputGroupText` for prefixes and suffixes such as currency or units.
 
 <Example>
   <Box width="300px" maxWidth="100%">
     <InputGroup>
       <InputGroupInput placeholder="0.00" inputMode="decimal" />
-      <InputGroupAddon align="inline-start">
+      <InputGroupAddon>
         <InputGroupText>$</InputGroupText>
       </InputGroupAddon>
       <InputGroupAddon align="inline-end">
@@ -48,8 +67,8 @@ visually.
 
   ```jsx
   <InputGroup>
-    <InputGroupInput placeholder="0.00" />
-    <InputGroupAddon align="inline-start">
+    <InputGroupInput placeholder="0.00" inputMode="decimal" />
+    <InputGroupAddon>
       <InputGroupText>$</InputGroupText>
     </InputGroupAddon>
     <InputGroupAddon align="inline-end">
@@ -59,27 +78,64 @@ visually.
   ```
 </Example>
 
-## Trailing action
+## Button
+
+`InputGroupButton` is a compact `Button` sized for the group. It takes the `xs`, `sm`, `icon-xs` and
+`icon-sm` sizes and any `Button` variant (default: `ghost`).
 
 <Example>
-  <Box width="300px" maxWidth="100%">
+  <Column gap width="300px" maxWidth="100%">
     <InputGroup>
-      <InputGroupInput defaultValue="https://zen.umami.is" readOnly />
+      <InputGroupInput defaultValue="https://zen.umami.is" aria-label="URL" readOnly />
       <InputGroupAddon align="inline-end">
         <InputGroupButton size="icon-xs" aria-label="Copy URL">
           <Lucide.Copy />
         </InputGroupButton>
       </InputGroupAddon>
     </InputGroup>
+    <InputGroup>
+      <InputGroupInput placeholder="Enter your email" aria-label="Email" />
+      <InputGroupAddon align="inline-end">
+        <InputGroupButton variant="secondary">Subscribe</InputGroupButton>
+      </InputGroupAddon>
+    </InputGroup>
+  </Column>
+
+  ```jsx
+  <InputGroup>
+    <InputGroupInput defaultValue="https://zen.umami.is" aria-label="URL" readOnly />
+    <InputGroupAddon align="inline-end">
+      <InputGroupButton size="icon-xs" aria-label="Copy URL">
+        <Lucide.Copy />
+      </InputGroupButton>
+    </InputGroupAddon>
+  </InputGroup>
+  <InputGroup>
+    <InputGroupInput placeholder="Enter your email" aria-label="Email" />
+    <InputGroupAddon align="inline-end">
+      <InputGroupButton variant="secondary">Subscribe</InputGroupButton>
+    </InputGroupAddon>
+  </InputGroup>
+  ```
+</Example>
+
+## Spinner
+
+<Example>
+  <Box width="300px" maxWidth="100%">
+    <InputGroup>
+      <InputGroupInput placeholder="Checking availability..." disabled />
+      <InputGroupAddon align="inline-end">
+        <Spinner />
+      </InputGroupAddon>
+    </InputGroup>
   </Box>
 
   ```jsx
   <InputGroup>
-    <InputGroupInput defaultValue="https://zen.umami.is" readOnly />
+    <InputGroupInput placeholder="Checking availability..." disabled />
     <InputGroupAddon align="inline-end">
-      <InputGroupButton size="icon-xs" aria-label="Copy URL">
-        <Copy />
-      </InputGroupButton>
+      <Spinner />
     </InputGroupAddon>
   </InputGroup>
   ```
@@ -87,14 +143,16 @@ visually.
 
 ## Textarea
 
+Use the `block-start` and `block-end` alignments to place addons above or below a textarea.
+
 <Example>
-  <Box width="300px" maxWidth="100%">
+  <Box width="350px" maxWidth="100%">
     <InputGroup>
-      <InputGroupTextarea defaultValue="Grouped textarea content" rows={4} />
-      <InputGroupAddon align="block-start" className="justify-between pb-0">
-        <InputGroupText>Notes</InputGroupText>
-        <InputGroupButton size="icon-xs" aria-label="Copy notes">
-          <Lucide.Copy />
+      <InputGroupTextarea placeholder="Ask, search or chat..." rows={3} />
+      <InputGroupAddon align="block-end">
+        <InputGroupText>52% used</InputGroupText>
+        <InputGroupButton variant="default" size="icon-xs" className="ml-auto" aria-label="Send">
+          <Lucide.ArrowUp />
         </InputGroupButton>
       </InputGroupAddon>
     </InputGroup>
@@ -102,43 +160,69 @@ visually.
 
   ```jsx
   <InputGroup>
-    <InputGroupTextarea rows={4} />
-    <InputGroupAddon align="block-start">
-      <InputGroupText>Notes</InputGroupText>
-      <InputGroupButton size="icon-xs" aria-label="Copy notes">
-        <Copy />
+    <InputGroupTextarea placeholder="Ask, search or chat..." rows={3} />
+    <InputGroupAddon align="block-end">
+      <InputGroupText>52% used</InputGroupText>
+      <InputGroupButton variant="default" size="icon-xs" className="ml-auto" aria-label="Send">
+        <Lucide.ArrowUp />
       </InputGroupButton>
     </InputGroupAddon>
   </InputGroup>
   ```
 </Example>
 
-## States and RTL
+## States
+
+`InputGroup` follows the disabled and invalid state of its control.
 
 <Example>
   <Column gap width="300px" maxWidth="100%">
     <InputGroup>
-      <InputGroupInput value="Read only" readOnly />
+      <InputGroupInput defaultValue="Disabled" aria-label="Disabled" disabled />
       <InputGroupAddon align="inline-end">
         <Lucide.Lock />
       </InputGroupAddon>
     </InputGroup>
     <InputGroup>
-      <InputGroupInput value="Disabled" disabled />
+      <InputGroupInput defaultValue="not-an-email" aria-label="Email" aria-invalid />
       <InputGroupAddon align="inline-end">
-        <Lucide.Lock />
+        <Lucide.CircleAlert />
       </InputGroupAddon>
     </InputGroup>
-    <div dir="rtl">
-      <InputGroup>
-        <InputGroupInput placeholder="بحث..." />
-        <InputGroupAddon align="inline-start">
-          <Lucide.Search />
-        </InputGroupAddon>
-      </InputGroup>
-    </div>
   </Column>
+
+  ```jsx
+  <InputGroup>
+    <InputGroupInput defaultValue="Disabled" aria-label="Disabled" disabled />
+    <InputGroupAddon align="inline-end">
+      <Lucide.Lock />
+    </InputGroupAddon>
+  </InputGroup>
+  <InputGroup>
+    <InputGroupInput defaultValue="not-an-email" aria-label="Email" aria-invalid />
+    <InputGroupAddon align="inline-end">
+      <Lucide.CircleAlert />
+    </InputGroupAddon>
+  </InputGroup>
+  ```
 </Example>
 
-For custom controls, add `data-slot="input-group-control"` so addons can focus the control and the
-group can apply consistent state styling.
+For a custom control, add `data-slot="input-group-control"` so that clicking an addon focuses it and
+the group picks up its focus and invalid styles.
+
+## Component props
+
+### InputGroupAddon
+
+<PropertiesTable>
+  <PropertiesTable.Row name="align" type="string">"inline-start" | "inline-end" | "block-start" | "block-end" (default: "inline-start")</PropertiesTable.Row>
+</PropertiesTable>
+
+### InputGroupButton
+
+<PropertiesTable>
+  <PropertiesTable.Row name="size" type="string">"xs" | "sm" | "icon-xs" | "icon-sm" (default: "xs")</PropertiesTable.Row>
+  <PropertiesTable.Row name="variant" type="ButtonVariant">Any `Button` variant (default: "ghost")</PropertiesTable.Row>
+</PropertiesTable>
+
+`InputGroupInput` and `InputGroupTextarea` accept the native `input` and `textarea` props.

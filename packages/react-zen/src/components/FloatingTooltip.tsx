@@ -1,28 +1,26 @@
-import { useEffect, useRef, useState } from 'react';
-import { TooltipBubble, type TooltipBubbleProps } from '@/components/Tooltip';
-import { cn } from './lib/tailwind';
-import './Overlay.css';
+import { type HTMLAttributes, useEffect, useRef, useState } from 'react';
+import { cn } from '@/lib/utils';
 
 const EDGE_PADDING = 8;
 const POINTER_OFFSET = 10;
 
-export interface FloatingTooltipProps extends TooltipBubbleProps {
-  /** Set to `false` to detach the pointer listener without unmounting. Defaults to `true`. */
-  isOpen?: boolean;
+export interface FloatingTooltipProps extends HTMLAttributes<HTMLDivElement> {
+  /** Set to `false` to hide the tooltip and detach the pointer listener without unmounting. Defaults to `true`. */
+  open?: boolean;
 }
 
 export function FloatingTooltip({
   className,
   style,
   children,
-  isOpen = true,
+  open = true,
   ...props
 }: FloatingTooltipProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: -1000, y: -1000 });
 
   useEffect(() => {
-    if (!isOpen || typeof window === 'undefined') {
+    if (!open || typeof window === 'undefined') {
       return;
     }
 
@@ -65,20 +63,22 @@ export function FloatingTooltip({
         cancelAnimationFrame(frame);
       }
     };
-  }, [isOpen]);
+  }, [open]);
 
   return (
-    <TooltipBubble
+    <div
       {...props}
       ref={ref}
       role="tooltip"
+      data-slot="floating-tooltip"
+      hidden={!open}
       className={cn(
-        'zen-layer-floating fixed pointer-events-none -translate-x-1/2 -translate-y-[calc(100%+10px)]',
+        'pointer-events-none fixed z-50 inline-flex w-fit max-w-xs -translate-x-1/2 -translate-y-[calc(100%+10px)] items-center gap-1.5 rounded-md bg-foreground px-3 py-1.5 text-xs text-background',
         className,
       )}
       style={{ ...style, left: position.x, top: position.y }}
     >
       {children}
-    </TooltipBubble>
+    </div>
   );
 }

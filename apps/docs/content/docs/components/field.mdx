@@ -1,16 +1,14 @@
 ---
 title: Field
-description: "Field is a set of low level building blocks for composing accessible form controls with a label, a description and an error message."
+description: "Combine labels, controls and help text to compose accessible form fields."
 ---
 
 import {
   Box,
   Checkbox,
-  Column,
   Example,
   Field,
   FieldContent,
-  FieldControl,
   FieldDescription,
   FieldError,
   FieldGroup,
@@ -19,26 +17,27 @@ import {
   FieldSeparator,
   FieldSet,
   Input,
+  Switch,
   Textarea,
 } from '../../../mdx-components';
 
-Field is a set of low level building blocks for composing accessible form controls with a label,
-a description and an error message. Use `FieldControl` to connect native `Input` and `Textarea`
-elements to the field label, description, disabled state, and validation.
+Combine labels, controls and help text to compose accessible form fields. The field parts handle
+layout only, so connect a `FieldLabel` to its control with `htmlFor` and `id`. To bind fields to
+form state and validation, use `Form` and `FormField`.
 
 <Example>
   <Box width="300px" maxWidth="100%">
     <Field>
-      <FieldLabel>Email</FieldLabel>
-      <FieldControl render={<Input type="email" placeholder="ada@example.com" />} />
+      <FieldLabel htmlFor="email">Email</FieldLabel>
+      <Input id="email" type="email" placeholder="ada@example.com" />
       <FieldDescription>We will never share your address.</FieldDescription>
     </Field>
   </Box>
 
   ```jsx
   <Field>
-    <FieldLabel>Email</FieldLabel>
-    <FieldControl render={<Input type="email" placeholder="ada@example.com" />} />
+    <FieldLabel htmlFor="email">Email</FieldLabel>
+    <Input id="email" type="email" placeholder="ada@example.com" />
     <FieldDescription>We will never share your address.</FieldDescription>
   </Field>
   ```
@@ -46,21 +45,23 @@ elements to the field label, description, disabled state, and validation.
 
 ## Error message
 
-`FieldError` renders with `role="alert"` so assistive technology announces the message.
+Set `data-invalid` on `Field` to color the label, and `aria-invalid` on the control. `FieldError`
+renders with `role="alert"`. It also accepts an `errors` array, such as the errors from a form
+library.
 
 <Example>
   <Box width="300px" maxWidth="100%">
-    <Field>
-      <FieldLabel>Username</FieldLabel>
-      <FieldControl defaultValue="ada" render={<Input aria-invalid />} />
+    <Field data-invalid>
+      <FieldLabel htmlFor="username">Username</FieldLabel>
+      <Input id="username" defaultValue="ada" aria-invalid />
       <FieldError>That username is already taken.</FieldError>
     </Field>
   </Box>
 
   ```jsx
-  <Field>
-    <FieldLabel>Username</FieldLabel>
-    <FieldControl defaultValue="ada" render={<Input aria-invalid />} />
+  <Field data-invalid>
+    <FieldLabel htmlFor="username">Username</FieldLabel>
+    <Input id="username" defaultValue="ada" aria-invalid />
     <FieldError>That username is already taken.</FieldError>
   </Field>
   ```
@@ -71,61 +72,85 @@ elements to the field label, description, disabled state, and validation.
 <Example>
   <Box width="300px" maxWidth="100%">
     <Field>
-      <FieldLabel>Bio</FieldLabel>
-      <FieldControl render={<Textarea placeholder="Tell us about yourself" />} />
+      <FieldLabel htmlFor="bio">Bio</FieldLabel>
+      <Textarea id="bio" placeholder="Tell us about yourself" />
       <FieldDescription>Markdown is supported.</FieldDescription>
     </Field>
   </Box>
 
   ```jsx
   <Field>
-    <FieldLabel>Bio</FieldLabel>
-    <FieldControl render={<Textarea placeholder="Tell us about yourself" />} />
+    <FieldLabel htmlFor="bio">Bio</FieldLabel>
+    <Textarea id="bio" placeholder="Tell us about yourself" />
+    <FieldDescription>Markdown is supported.</FieldDescription>
   </Field>
   ```
 </Example>
 
 ## Horizontal orientation
 
-Use `FieldContent` to stack a title and description next to a control.
+Use `orientation="horizontal"` for checkboxes and switches, and `FieldContent` to stack a label and
+description next to the control.
 
 <Example>
   <Box width="400px" maxWidth="100%">
-    <Field orientation="horizontal">
-      <Checkbox />
-      <FieldContent>
-        <FieldLabel>Email notifications</FieldLabel>
-        <FieldDescription>Get notified when someone mentions you.</FieldDescription>
-      </FieldContent>
-    </Field>
+    <FieldGroup>
+      <Field orientation="horizontal">
+        <Checkbox id="mentions" defaultChecked />
+        <FieldContent>
+          <FieldLabel htmlFor="mentions">Email notifications</FieldLabel>
+          <FieldDescription>Get notified when someone mentions you.</FieldDescription>
+        </FieldContent>
+      </Field>
+      <Field orientation="horizontal">
+        <FieldContent>
+          <FieldLabel htmlFor="marketing">Marketing emails</FieldLabel>
+          <FieldDescription>Receive news about products and features.</FieldDescription>
+        </FieldContent>
+        <Switch id="marketing" />
+      </Field>
+    </FieldGroup>
   </Box>
 
   ```jsx
-  <Field orientation="horizontal">
-    <Checkbox />
-    <FieldContent>
-      <FieldLabel>Email notifications</FieldLabel>
-      <FieldDescription>Get notified when someone mentions you.</FieldDescription>
-    </FieldContent>
-  </Field>
+  <FieldGroup>
+    <Field orientation="horizontal">
+      <Checkbox id="mentions" defaultChecked />
+      <FieldContent>
+        <FieldLabel htmlFor="mentions">Email notifications</FieldLabel>
+        <FieldDescription>Get notified when someone mentions you.</FieldDescription>
+      </FieldContent>
+    </Field>
+    <Field orientation="horizontal">
+      <FieldContent>
+        <FieldLabel htmlFor="marketing">Marketing emails</FieldLabel>
+        <FieldDescription>Receive news about products and features.</FieldDescription>
+      </FieldContent>
+      <Switch id="marketing" />
+    </Field>
+  </FieldGroup>
   ```
 </Example>
 
 ## Field group
 
-`FieldGroup` stacks multiple fields, and `FieldSeparator` divides them.
+`FieldGroup` stacks fields, and `FieldSeparator` divides them, with an optional label.
 
 <Example>
   <Box width="300px" maxWidth="100%">
     <FieldGroup>
       <Field>
-        <FieldLabel>First name</FieldLabel>
-        <FieldControl render={<Input placeholder="Ada" />} />
+        <FieldLabel htmlFor="first-name">First name</FieldLabel>
+        <Input id="first-name" placeholder="Ada" />
       </Field>
-      <FieldSeparator />
       <Field>
-        <FieldLabel>Last name</FieldLabel>
-        <FieldControl render={<Input placeholder="Lovelace" />} />
+        <FieldLabel htmlFor="last-name">Last name</FieldLabel>
+        <Input id="last-name" placeholder="Lovelace" />
+      </Field>
+      <FieldSeparator>Optional</FieldSeparator>
+      <Field>
+        <FieldLabel htmlFor="company">Company</FieldLabel>
+        <Input id="company" placeholder="Analytical Engines Ltd" />
       </Field>
     </FieldGroup>
   </Box>
@@ -133,13 +158,17 @@ Use `FieldContent` to stack a title and description next to a control.
   ```jsx
   <FieldGroup>
     <Field>
-      <FieldLabel>First name</FieldLabel>
-      <FieldControl render={<Input placeholder="Ada" />} />
+      <FieldLabel htmlFor="first-name">First name</FieldLabel>
+      <Input id="first-name" placeholder="Ada" />
     </Field>
-    <FieldSeparator />
     <Field>
-      <FieldLabel>Last name</FieldLabel>
-      <FieldControl render={<Input placeholder="Lovelace" />} />
+      <FieldLabel htmlFor="last-name">Last name</FieldLabel>
+      <Input id="last-name" placeholder="Lovelace" />
+    </Field>
+    <FieldSeparator>Optional</FieldSeparator>
+    <Field>
+      <FieldLabel htmlFor="company">Company</FieldLabel>
+      <Input id="company" placeholder="Analytical Engines Ltd" />
     </Field>
   </FieldGroup>
   ```
@@ -147,62 +176,76 @@ Use `FieldContent` to stack a title and description next to a control.
 
 ## Fieldset
 
+`FieldSet` renders a `fieldset` with a `FieldLegend` and an optional description.
+
 <Example>
   <Box width="300px" maxWidth="100%">
     <FieldSet>
       <FieldLegend>Address</FieldLegend>
-      <Field>
-        <FieldLabel>Street</FieldLabel>
-        <FieldControl render={<Input placeholder="123 Main St" />} />
-      </Field>
-      <Field>
-        <FieldLabel>City</FieldLabel>
-        <FieldControl render={<Input placeholder="London" />} />
-      </Field>
+      <FieldDescription>Where should we send your order?</FieldDescription>
+      <FieldGroup>
+        <Field>
+          <FieldLabel htmlFor="street">Street</FieldLabel>
+          <Input id="street" placeholder="123 Main St" />
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="city">City</FieldLabel>
+          <Input id="city" placeholder="London" />
+        </Field>
+      </FieldGroup>
     </FieldSet>
   </Box>
 
   ```jsx
   <FieldSet>
     <FieldLegend>Address</FieldLegend>
-    <Field>
-      <FieldLabel>Street</FieldLabel>
-      <FieldControl render={<Input placeholder="123 Main St" />} />
-    </Field>
-    <Field>
-      <FieldLabel>City</FieldLabel>
-      <FieldControl render={<Input placeholder="London" />} />
-    </Field>
+    <FieldDescription>Where should we send your order?</FieldDescription>
+    <FieldGroup>
+      <Field>
+        <FieldLabel htmlFor="street">Street</FieldLabel>
+        <Input id="street" placeholder="123 Main St" />
+      </Field>
+      <Field>
+        <FieldLabel htmlFor="city">City</FieldLabel>
+        <Input id="city" placeholder="London" />
+      </Field>
+    </FieldGroup>
   </FieldSet>
   ```
 </Example>
+
+## Parts
+
+- `Field` wraps one control with its label, description and error.
+- `FieldLabel` is a `label`. `FieldTitle` is a non-label heading for a field.
+- `FieldDescription` is help text. `FieldError` is a validation message.
+- `FieldContent` stacks a label and description, for horizontal fields.
+- `FieldGroup` stacks several fields. `FieldSeparator` divides them.
+- `FieldSet` and `FieldLegend` group related fields under a legend.
 
 ## Component props
 
 ### Field
 
 <PropertiesTable>
-  <ResponseField name="orientation" type="FieldOrientation">"vertical" | "horizontal" | "responsive"</ResponseField>
-  <ResponseField name="name" type="string">Identifies the field when a form is submitted</ResponseField>
-  <ResponseField name="disabled" type="boolean">Disables every control inside the field</ResponseField>
-  <ResponseField name="invalid" type="boolean">Marks the field as invalid when validation is handled externally</ResponseField>
-  <ResponseField name="validate" type="(value, formValues) => string | string[] | null">Custom validation function</ResponseField>
+  <PropertiesTable.Row name="orientation" type="string">"vertical" | "horizontal" | "responsive" (default: "vertical")</PropertiesTable.Row>
+  <PropertiesTable.Row name="data-invalid" type="boolean">Applies the invalid style to the field</PropertiesTable.Row>
 </PropertiesTable>
 
 ### FieldLegend
 
 <PropertiesTable>
-  <ResponseField name="variant" type="'legend' | 'label'">Controls the legend text size</ResponseField>
+  <PropertiesTable.Row name="variant" type="string">"legend" | "label" (default: "legend"). Use "label" for label-sized text</PropertiesTable.Row>
 </PropertiesTable>
 
 ### FieldError
 
 <PropertiesTable>
-  <ResponseField name="match" type="boolean | keyof ValidityState">When to show the message. Defaults to always when children are supplied</ResponseField>
+  <PropertiesTable.Row name="errors" type="Array<{ message?: string }>">Errors to show when there are no children. Duplicates are removed, and several are shown as a list</PropertiesTable.Row>
 </PropertiesTable>
 
 ### FieldSeparator
 
 <PropertiesTable>
-  <ResponseField name="children" type="ReactNode">Optional label rendered on top of the separator line</ResponseField>
+  <PropertiesTable.Row name="children" type="ReactNode">Optional label shown on the separator line</PropertiesTable.Row>
 </PropertiesTable>

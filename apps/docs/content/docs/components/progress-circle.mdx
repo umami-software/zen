@@ -5,7 +5,7 @@ description: "A circular progress indicator that visually represents completion 
 
 import { Example, ProgressCircle } from '../../../mdx-components';
 
-A circular progress indicator that visually represents completion status. Ideal for compact spaces, dashboards, or when you want a more visually distinctive progress display than a bar.
+A circular progress indicator that visually represents completion status. Ideal for compact spaces, dashboards, or when you want a more visually distinctive progress display than a bar. It is built on Base UI's `Progress`.
 
 <Example>
   <ProgressCircle value={45} />
@@ -25,11 +25,35 @@ A circular progress indicator that visually represents completion status. Ideal 
   ```
 </Example>
 
+## Custom range
+
+<Example>
+  <ProgressCircle value={3} min={0} max={4} showPercentage />
+
+  ```jsx
+  <ProgressCircle value={3} min={0} max={4} showPercentage />
+  ```
+</Example>
+
+## Indeterminate
+
+Pass `value={null}` when progress is unknown.
+
+<Example>
+  <ProgressCircle value={null} />
+
+  ```jsx
+  <ProgressCircle value={null} />
+  ```
+</Example>
+
 ## Component props
 
+Other Base UI `Progress.Root` props (`format`, `locale`, `getAriaValueText`, …) are passed through.
+
 <PropertiesTable>
-  <ResponseField name="value" type="number">Current progress value</ResponseField>
-  <ResponseField name="minValue" type="number">Minimum value (default: 0)</ResponseField>
-  <ResponseField name="maxValue" type="number">Maximum value (default: 100)</ResponseField>
-  <ResponseField name="showPercentage" type="boolean">Shows percentage text in center</ResponseField>
+  <PropertiesTable.Row name="value" type="number | null">Current progress value. `null` is indeterminate</PropertiesTable.Row>
+  <PropertiesTable.Row name="min" type="number">Minimum value (default: 0)</PropertiesTable.Row>
+  <PropertiesTable.Row name="max" type="number">Maximum value (default: 100)</PropertiesTable.Row>
+  <PropertiesTable.Row name="showPercentage" type="boolean">Shows the formatted value in the center</PropertiesTable.Row>
 </PropertiesTable>

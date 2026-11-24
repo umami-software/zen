@@ -1,0 +1,157 @@
+---
+title: Hover Card
+description: "Shows a preview of content behind a link when the user hovers over it."
+---
+
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Button,
+  Column,
+  Example,
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+  Row,
+  Text,
+} from '../../../mdx-components';
+
+Shows a preview of content behind a link when the user hovers over it, for sighted mouse users. It
+is built on the Base UI `PreviewCard`. Keep essential information out of a hover card, since touch
+and keyboard users may never see it. Use a `Popover` for content that opens on click.
+
+<Example>
+  <HoverCard>
+    <HoverCardTrigger href="https://github.com/umami-software" render={<Button variant="link" />}>
+      @umami-software
+    </HoverCardTrigger>
+    <HoverCardContent>
+      <Row gap="3">
+        <Avatar>
+          <AvatarImage src="https://github.com/umami-software.png" alt="umami" />
+          <AvatarFallback>UM</AvatarFallback>
+        </Avatar>
+        <Column gap="1">
+          <Text size="sm" weight="semibold">@umami-software</Text>
+          <Text size="sm">Simple, fast, privacy-focused web analytics.</Text>
+          <Text size="xs" color="muted-foreground">Joined July 2020</Text>
+        </Column>
+      </Row>
+    </HoverCardContent>
+  </HoverCard>
+
+  ```jsx
+  <HoverCard>
+    <HoverCardTrigger href="https://github.com/umami-software" render={<Button variant="link" />}>
+      @umami-software
+    </HoverCardTrigger>
+    <HoverCardContent>
+      <Row gap="3">
+        <Avatar>
+          <AvatarImage src="https://github.com/umami-software.png" alt="umami" />
+          <AvatarFallback>UM</AvatarFallback>
+        </Avatar>
+        <Column gap="1">
+          <Text size="sm" weight="semibold">@umami-software</Text>
+          <Text size="sm">Simple, fast, privacy-focused web analytics.</Text>
+          <Text size="xs" color="muted-foreground">Joined July 2020</Text>
+        </Column>
+      </Row>
+    </HoverCardContent>
+  </HoverCard>
+  ```
+</Example>
+
+## Delay
+
+Set `delay` and `closeDelay` on `HoverCardTrigger`, in milliseconds.
+
+<Example>
+  <HoverCard>
+    <HoverCardTrigger delay={100} closeDelay={100} render={<Button variant="outline" />}>
+      Hover me
+    </HoverCardTrigger>
+    <HoverCardContent>
+      <Text size="sm">Opens after 100ms and closes 100ms after the pointer leaves.</Text>
+    </HoverCardContent>
+  </HoverCard>
+
+  ```jsx
+  <HoverCard>
+    <HoverCardTrigger delay={100} closeDelay={100} render={<Button variant="outline" />}>
+      Hover me
+    </HoverCardTrigger>
+    <HoverCardContent>
+      <Text size="sm">Opens after 100ms and closes 100ms after the pointer leaves.</Text>
+    </HoverCardContent>
+  </HoverCard>
+  ```
+</Example>
+
+## Side
+
+Use `side` and `align` on `HoverCardContent` to position the card.
+
+<Example direction="row">
+  <HoverCard>
+    <HoverCardTrigger render={<Button variant="outline" />}>Top</HoverCardTrigger>
+    <HoverCardContent side="top">
+      <Text size="sm">Shown above the trigger.</Text>
+    </HoverCardContent>
+  </HoverCard>
+  <HoverCard>
+    <HoverCardTrigger render={<Button variant="outline" />}>Right</HoverCardTrigger>
+    <HoverCardContent side="right">
+      <Text size="sm">Shown to the right of the trigger.</Text>
+    </HoverCardContent>
+  </HoverCard>
+
+  ```jsx
+  <HoverCard>
+    <HoverCardTrigger render={<Button variant="outline" />}>Top</HoverCardTrigger>
+    <HoverCardContent side="top">
+      <Text size="sm">Shown above the trigger.</Text>
+    </HoverCardContent>
+  </HoverCard>
+  <HoverCard>
+    <HoverCardTrigger render={<Button variant="outline" />}>Right</HoverCardTrigger>
+    <HoverCardContent side="right">
+      <Text size="sm">Shown to the right of the trigger.</Text>
+    </HoverCardContent>
+  </HoverCard>
+  ```
+</Example>
+
+## Parts
+
+- `HoverCard` is the root. It holds the open state.
+- `HoverCardTrigger` is the element that opens the card on hover. It renders a link by default; use `render` to change the element.
+- `HoverCardContent` is the card, rendered in a portal.
+
+## Component props
+
+### HoverCard
+
+<PropertiesTable>
+  <PropertiesTable.Row name="open" type="boolean">Controlled open state</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultOpen" type="boolean">Initial open state when uncontrolled (default: false)</PropertiesTable.Row>
+  <PropertiesTable.Row name="onOpenChange" type="(open, eventDetails) => void">Called when the card opens or closes</PropertiesTable.Row>
+</PropertiesTable>
+
+### HoverCardTrigger
+
+<PropertiesTable>
+  <PropertiesTable.Row name="delay" type="number">Milliseconds to wait before opening (default: 600)</PropertiesTable.Row>
+  <PropertiesTable.Row name="closeDelay" type="number">Milliseconds to wait before closing (default: 300)</PropertiesTable.Row>
+  <PropertiesTable.Row name="render" type="ReactElement | function">Replaces the rendered element</PropertiesTable.Row>
+</PropertiesTable>
+
+### HoverCardContent
+
+<PropertiesTable>
+  <PropertiesTable.Row name="side" type="string">"top" | "bottom" | "left" | "right" | "inline-start" | "inline-end" (default: "bottom")</PropertiesTable.Row>
+  <PropertiesTable.Row name="align" type="string">"start" | "center" | "end" (default: "center")</PropertiesTable.Row>
+  <PropertiesTable.Row name="sideOffset" type="number">Distance from the trigger in pixels (default: 4)</PropertiesTable.Row>
+  <PropertiesTable.Row name="alignOffset" type="number">Offset along the alignment axis in pixels (default: 4)</PropertiesTable.Row>
+</PropertiesTable>

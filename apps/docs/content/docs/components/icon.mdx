@@ -89,6 +89,40 @@ A wrapper around SVG elements to help control size, color and rotation.
   ```
 </Example>
 
+## Colors
+
+`color` takes a theme token name or a Tailwind palette color.
+
+<Example direction="row" gap="4">
+  <Icon size="lg" color="muted-foreground">
+    <Lucide.CircleCheck />
+  </Icon>
+  <Icon size="lg" color="success">
+    <Lucide.CircleCheck />
+  </Icon>
+  <Icon size="lg" color="destructive">
+    <Lucide.CircleX />
+  </Icon>
+  <Icon size="lg" color="violet-500">
+    <Lucide.Star />
+  </Icon>
+
+  ```jsx
+  <Icon size="lg" color="muted-foreground">
+    <Lucide.CircleCheck />
+  </Icon>
+  <Icon size="lg" color="success">
+    <Lucide.CircleCheck />
+  </Icon>
+  <Icon size="lg" color="destructive">
+    <Lucide.CircleX />
+  </Icon>
+  <Icon size="lg" color="violet-500">
+    <Lucide.Star />
+  </Icon>
+  ```
+</Example>
+
 ## Fill and stroke colors
 
 Control SVG fill and stroke colors using the `fillColor` and `strokeColor` props.
@@ -120,10 +154,10 @@ Control SVG fill and stroke colors using the `fillColor` and `strokeColor` props
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="size" type="IconSize">"xs" | "sm" | "md" | "lg" | "xl" (default: "sm")</ResponseField>
-  <ResponseField name="color" type="FontColor">Icon color</ResponseField>
-  <ResponseField name="rotate" type="number">Rotation in degrees</ResponseField>
-  <ResponseField name="strokeWidth" type="StrokeWidth">"0.5" | "1" | "1.5" | "2" | "3" | "4"</ResponseField>
-  <ResponseField name="strokeColor" type="StrokeColor">SVG stroke color (semantic, Tailwind color, or color-shade)</ResponseField>
-  <ResponseField name="fillColor" type="FillColor">SVG fill color (semantic, Tailwind color, or color-shade)</ResponseField>
+  <PropertiesTable.Row name="size" type="IconSize">"xs" | "sm" | "md" | "lg" | "xl" (default: "sm")</PropertiesTable.Row>
+  <PropertiesTable.Row name="color" type="FontColor">Icon color: a theme token (`foreground`, `muted-foreground`, `primary`, `destructive`, `success`, ...) or a Tailwind color (`blue`, `blue-500`)</PropertiesTable.Row>
+  <PropertiesTable.Row name="rotate" type="number">Rotation in degrees</PropertiesTable.Row>
+  <PropertiesTable.Row name="strokeWidth" type="StrokeWidth">"0.5" | "1" | "1.5" | "2" | "3" | "4"</PropertiesTable.Row>
+  <PropertiesTable.Row name="strokeColor" type="StrokeColor">SVG stroke color (theme token or Tailwind color)</PropertiesTable.Row>
+  <PropertiesTable.Row name="fillColor" type="FillColor">SVG fill color (theme token or Tailwind color)</PropertiesTable.Row>
 </PropertiesTable>

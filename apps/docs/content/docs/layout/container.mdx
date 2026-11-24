@@ -3,26 +3,24 @@ title: Container
 description: "A centered wrapper that constrains content to a maximum width."
 ---
 
-import { Button, Container, DataColumn, DataTable, Dialog, DialogTrigger, Example, Modal, Text } from '../../../mdx-components';
+import { Button, Container, DataColumn, DataTable, Dialog, DialogContent, DialogTrigger, Example, Text } from '../../../mdx-components';
 
 A centered wrapper that constrains content to a maximum width. Essential for readable line lengths and consistent page layouts, especially for text-heavy content like articles or documentation.
 
 <Example>
-  <DialogTrigger>
-    <Button>Show container</Button>
-    <Modal>
-      <Dialog>
-        <Container>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-          sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-          est laborum.
-        </Container>
-      </Dialog>
-    </Modal>
-  </DialogTrigger>
+  <Dialog>
+    <DialogTrigger render={<Button variant="outline" />}>Show container</DialogTrigger>
+    <DialogContent className="sm:max-w-[calc(100%-2rem)]">
+      <Container className="rounded-md bg-muted py-4">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+        sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+        est laborum.
+      </Container>
+    </DialogContent>
+  </Dialog>
 
   ```jsx
   <Container>
@@ -31,16 +29,17 @@ A centered wrapper that constrains content to a maximum width. Essential for rea
   ```
 </Example>
 
-The container at each breakpoint has a `max-width`.
+The container is full width with `1rem` of horizontal padding, and has a `max-width` at each breakpoint.
 
 <Example>
   <DataTable
     data={[
-      { name: 'xs', width: '520px', maxWidth: '500px' },
-      { name: 'sm', width: '768px', maxWidth: '740px' },
-      { name: 'md', width: '1024px', maxWidth: '1000px' },
-      { name: 'lg', width: '1280px', maxWidth: '1240px' },
-      { name: 'xl', width: '1640px', maxWidth: '1600px' },
+      { id: 'base', name: 'base', width: '0px', maxWidth: 'none (full width)' },
+      { id: 'sm', name: 'sm', width: '640px', maxWidth: '500px' },
+      { id: 'md', name: 'md', width: '768px', maxWidth: '740px' },
+      { id: 'lg', name: 'lg', width: '1024px', maxWidth: '1000px' },
+      { id: 'xl', name: 'xl', width: '1280px', maxWidth: '1240px' },
+      { id: '2xl', name: '2xl', width: '1536px', maxWidth: '1600px' },
     ]}
   >
     <DataColumn id="name" label="Size" />
@@ -52,8 +51,8 @@ The container at each breakpoint has a `max-width`.
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="isCentered" type="boolean">Centers the container horizontally (default: true)</ResponseField>
-  <ResponseField name="isFluid" type="boolean">Makes the container full width with no max-width constraint</ResponseField>
+  <PropertiesTable.Row name="centered" type="boolean">Centers the container horizontally (default: true)</PropertiesTable.Row>
+  <PropertiesTable.Row name="fluid" type="boolean">Makes the container full width with no max-width constraint and no padding</PropertiesTable.Row>
 </PropertiesTable>
 
 Container also extends all [Box](/docs/layout/box) props.

@@ -17,25 +17,39 @@ Status lights are used to color code categories and labels commonly found in dat
 
 ## Variants
 
+The variants use the theme's `success`, `warning`, `destructive` and `info` tokens.
+
 <Example direction="column">
   <StatusLight variant="success">Success</StatusLight>
-  <StatusLight variant="error">Error</StatusLight>
   <StatusLight variant="warning">Warning</StatusLight>
-  <StatusLight variant="active">Active</StatusLight>
-  <StatusLight variant="inactive">Inactive</StatusLight>
+  <StatusLight variant="destructive">Destructive</StatusLight>
+  <StatusLight variant="info">Info</StatusLight>
+  <StatusLight variant="muted">Muted</StatusLight>
 
   ```jsx
   <StatusLight variant="success">Success</StatusLight>
-  <StatusLight variant="error">Error</StatusLight>
   <StatusLight variant="warning">Warning</StatusLight>
-  <StatusLight variant="active">Active</StatusLight>
-  <StatusLight variant="inactive">Inactive</StatusLight>
+  <StatusLight variant="destructive">Destructive</StatusLight>
+  <StatusLight variant="info">Info</StatusLight>
+  <StatusLight variant="muted">Muted</StatusLight>
+  ```
+</Example>
+
+## Custom color
+
+<Example direction="column">
+  <StatusLight color="#8b5cf6">Purple</StatusLight>
+  <StatusLight color="var(--chart-2)">Chart 2</StatusLight>
+
+  ```jsx
+  <StatusLight color="#8b5cf6">Purple</StatusLight>
+  <StatusLight color="var(--chart-2)">Chart 2</StatusLight>
   ```
 </Example>
 
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="variant" type="StatusVariant">"success" | "warning" | "error" | "active" | "inactive" | "none"</ResponseField>
-  <ResponseField name="color" type="string">Custom color (overrides variant)</ResponseField>
+  <PropertiesTable.Row name="variant" type="string">"success" | "warning" | "destructive" | "info" | "muted" (default: "muted")</PropertiesTable.Row>
+  <PropertiesTable.Row name="color" type="string">Any CSS color for the dot. Overrides `variant`</PropertiesTable.Row>
 </PropertiesTable>

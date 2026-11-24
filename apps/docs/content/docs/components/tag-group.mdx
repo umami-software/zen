@@ -5,72 +5,89 @@ description: "A tag group displays a collection of tags that can optionally be r
 
 import { Column, Example, RemovableTagGroupExample, Tag, TagGroup } from '../../../mdx-components';
 
-A tag group displays a collection of tags that can optionally be removed.
+A tag group displays a collection of tags that can optionally be removed. Each `Tag` is a shadcn
+`Badge`.
 
 <Example>
   <TagGroup label="Categories">
-    <Tag id="react">React</Tag>
-    <Tag id="vue">Vue</Tag>
-    <Tag id="angular">Angular</Tag>
+    <Tag value="react">React</Tag>
+    <Tag value="vue">Vue</Tag>
+    <Tag value="angular">Angular</Tag>
   </TagGroup>
 
   ```jsx
   <TagGroup label="Categories">
-    <Tag id="react">React</Tag>
-    <Tag id="vue">Vue</Tag>
-    <Tag id="angular">Angular</Tag>
+    <Tag value="react">React</Tag>
+    <Tag value="vue">Vue</Tag>
+    <Tag value="angular">Angular</Tag>
   </TagGroup>
   ```
 </Example>
 
 ## Removable
 
-Add `onRemove` to make tags removable. An X button will appear on each tag.
+Add `onRemove` to make tags removable. An X button appears on each tag, and a focused tag can be
+removed with <kbd>Backspace</kbd> or <kbd>Delete</kbd>. `onRemove` receives the tag's `value`.
 
 <Example>
   <RemovableTagGroupExample />
 
   ```jsx
-  <TagGroup label="Skills" onRemove={keys => console.log('Remove:', [...keys])}>
-    <Tag id="javascript">JavaScript</Tag>
-    <Tag id="typescript">TypeScript</Tag>
-    <Tag id="python">Python</Tag>
+  const [tags, setTags] = useState(['JavaScript', 'TypeScript', 'Python']);
+
+  <TagGroup label="Skills" onRemove={value => setTags(tags.filter(tag => tag !== value))}>
+    {tags.map(tag => (
+      <Tag key={tag} value={tag}>
+        {tag}
+      </Tag>
+    ))}
   </TagGroup>
   ```
 </Example>
 
 ## Variants
 
+`variant` takes the shadcn `Badge` variants.
+
 <Example>
   <Column gap="3">
-    <TagGroup label="Default">
-      <Tag id="one">Default</Tag>
-      <Tag id="two">Tags</Tag>
+    <TagGroup label="Secondary">
+      <Tag>Secondary</Tag>
+      <Tag>Tags</Tag>
     </TagGroup>
     <TagGroup label="Outline">
-      <Tag id="one" variant="outline">Outline</Tag>
-      <Tag id="two" variant="outline">Tags</Tag>
+      <Tag variant="outline">Outline</Tag>
+      <Tag variant="outline">Tags</Tag>
     </TagGroup>
-    <TagGroup label="Primary">
-      <Tag id="one" variant="primary">Primary</Tag>
-      <Tag id="two" variant="primary">Tags</Tag>
+    <TagGroup label="Default">
+      <Tag variant="default">Default</Tag>
+      <Tag variant="default">Tags</Tag>
+    </TagGroup>
+    <TagGroup label="Destructive">
+      <Tag variant="destructive">Destructive</Tag>
+      <Tag variant="destructive">Tags</Tag>
     </TagGroup>
   </Column>
 
   ```jsx
-  <TagGroup label="Default">
-    <Tag id="one">Default</Tag>
-    <Tag id="two">Tags</Tag>
+  <TagGroup label="Secondary">
+    <Tag>Secondary</Tag>
+    <Tag>Tags</Tag>
   </TagGroup>
 
   <TagGroup label="Outline">
-    <Tag id="one" variant="outline">Outline</Tag>
-    <Tag id="two" variant="outline">Tags</Tag>
+    <Tag variant="outline">Outline</Tag>
+    <Tag variant="outline">Tags</Tag>
   </TagGroup>
 
-  <TagGroup label="Primary">
-    <Tag id="one" variant="primary">Primary</Tag>
-    <Tag id="two" variant="primary">Tags</Tag>
+  <TagGroup label="Default">
+    <Tag variant="default">Default</Tag>
+    <Tag variant="default">Tags</Tag>
+  </TagGroup>
+
+  <TagGroup label="Destructive">
+    <Tag variant="destructive">Destructive</Tag>
+    <Tag variant="destructive">Tags</Tag>
   </TagGroup>
   ```
 </Example>
@@ -80,15 +97,14 @@ Add `onRemove` to make tags removable. An X button will appear on each tag.
 ### TagGroup
 
 <PropertiesTable>
-  <ResponseField name="label" type="string">Label text displayed above the group</ResponseField>
-  <ResponseField name="onRemove" type="(keys: Set<Key>) => void">Called when tags are removed. Enables remove buttons.</ResponseField>
-  <ResponseField name="disabledKeys" type="Iterable<Key>">Keys of tags that cannot be removed</ResponseField>
+  <PropertiesTable.Row name="label" type="ReactNode">Label displayed above the group</PropertiesTable.Row>
+  <PropertiesTable.Row name="onRemove" type="(value: string) => void">Called with the removed tag's `value`. Enables remove buttons</PropertiesTable.Row>
 </PropertiesTable>
 
 ### Tag
 
 <PropertiesTable>
-  <ResponseField name="id" type="string">Unique tag identifier (required)</ResponseField>
-  <ResponseField name="variant" type="&quot;default&quot; | &quot;outline&quot; | &quot;primary&quot;">Visual style variant</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the tag</ResponseField>
+  <PropertiesTable.Row name="value" type="string">Identifies the tag in `onRemove`. Defaults to the text content when it is a string</PropertiesTable.Row>
+  <PropertiesTable.Row name="variant" type="string">"secondary" | "default" | "outline" | "destructive" | "ghost" | "link" (default: "secondary")</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the tag so it cannot be removed</PropertiesTable.Row>
 </PropertiesTable>

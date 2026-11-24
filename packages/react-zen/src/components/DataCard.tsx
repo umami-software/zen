@@ -25,8 +25,8 @@ export function DataCard({ data = [], labelWidth = 'auto', ...props }: DataCardP
         return (
           // biome-ignore lint/suspicious/noArrayIndexKey: rows are static display data
           <Fragment key={index}>
-            <Row paddingY="3" border="bottom" borderColor="muted" paddingRight="6">
-              <Text weight="bold">{row?.label}</Text>
+            <Row paddingY="3" border="bottom" paddingRight="6">
+              <Text weight="medium">{row?.label}</Text>
             </Row>
             <Row paddingY="3" border="bottom">
               <Text>{row?.value}</Text>

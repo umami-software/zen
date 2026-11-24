@@ -1,42 +1,106 @@
 ---
 title: Switch
-description: "A switch allows a user to turn a setting on or off."
+description: "A control that allows the user to toggle between checked and not checked."
 ---
 
-import { Example, Switch } from '../../../mdx-components';
+import { Example, Field, FieldContent, FieldDescription, FieldLabel, Switch } from '../../../mdx-components';
 
-A switch allows a user to turn a setting on or off.
+A control that allows the user to toggle between checked and not checked. `Switch` renders only the
+control, so give it a label with `Field` and `FieldLabel`.
 
 <Example>
-  <Switch>Low power mode</Switch>
+  <Field orientation="horizontal" className="w-fit">
+    <Switch id="airplane-mode" />
+    <FieldLabel htmlFor="airplane-mode">Airplane Mode</FieldLabel>
+  </Field>
 
   ```jsx
-  <Switch>Low power mode</Switch>
+  <Field orientation="horizontal" className="w-fit">
+    <Switch id="airplane-mode" />
+    <FieldLabel htmlFor="airplane-mode">Airplane Mode</FieldLabel>
+  </Field>
+  ```
+</Example>
+
+## Size
+
+<Example>
+  <Field orientation="horizontal" className="w-fit">
+    <Switch id="switch-sm" size="sm" defaultChecked />
+    <FieldLabel htmlFor="switch-sm">Small</FieldLabel>
+  </Field>
+  <Field orientation="horizontal" className="w-fit">
+    <Switch id="switch-default" defaultChecked />
+    <FieldLabel htmlFor="switch-default">Default</FieldLabel>
+  </Field>
+
+  ```jsx
+  <Field orientation="horizontal" className="w-fit">
+    <Switch id="switch-sm" size="sm" defaultChecked />
+    <FieldLabel htmlFor="switch-sm">Small</FieldLabel>
+  </Field>
+  <Field orientation="horizontal" className="w-fit">
+    <Switch id="switch-default" defaultChecked />
+    <FieldLabel htmlFor="switch-default">Default</FieldLabel>
+  </Field>
+  ```
+</Example>
+
+## With description
+
+<Example>
+  <Field orientation="horizontal" className="max-w-sm">
+    <FieldContent>
+      <FieldLabel htmlFor="marketing-emails">Marketing emails</FieldLabel>
+      <FieldDescription>Receive emails about new products and features.</FieldDescription>
+    </FieldContent>
+    <Switch id="marketing-emails" defaultChecked />
+  </Field>
+
+  ```jsx
+  <Field orientation="horizontal" className="max-w-sm">
+    <FieldContent>
+      <FieldLabel htmlFor="marketing-emails">Marketing emails</FieldLabel>
+      <FieldDescription>Receive emails about new products and features.</FieldDescription>
+    </FieldContent>
+    <Switch id="marketing-emails" defaultChecked />
+  </Field>
   ```
 </Example>
 
 ## Disabled
 
 <Example>
-  <Switch isDisabled>Disabled off</Switch>
-  <Switch defaultSelected={true} isDisabled>
-    Disabled on
-  </Switch>
+  <Field orientation="horizontal" className="w-fit" data-disabled="true">
+    <Switch id="switch-disabled" disabled />
+    <FieldLabel htmlFor="switch-disabled">Disabled</FieldLabel>
+  </Field>
 
   ```jsx
-  <Switch isDisabled>Disabled off</Switch>
-  <Switch defaultSelected isDisabled>Disabled on</Switch>
+  <Field orientation="horizontal" className="w-fit" data-disabled="true">
+    <Switch id="switch-disabled" disabled />
+    <FieldLabel htmlFor="switch-disabled">Disabled</FieldLabel>
+  </Field>
   ```
 </Example>
+
+## Controlled
+
+```jsx
+const [checked, setChecked] = useState(false);
+
+<Switch checked={checked} onCheckedChange={setChecked} />
+```
 
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="label" type="string">Label text rendered next to the switch (`children` works the same way)</ResponseField>
-  <ResponseField name="size" type="'sm' | 'md'">Track size (default: "md")</ResponseField>
-  <ResponseField name="isSelected" type="boolean">Controlled selected state</ResponseField>
-  <ResponseField name="defaultSelected" type="boolean">Default selected state</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the switch</ResponseField>
-  <ResponseField name="onChange" type="(isSelected: boolean) => void">Called when state changes</ResponseField>
-  <ResponseField name="value" type="string | boolean">A string is forwarded to the form input as the submitted value. A boolean is a deprecated alias for `isSelected` — prefer `isSelected`.</ResponseField>
+  <PropertiesTable.Row name="checked" type="boolean">Controlled checked state</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultChecked" type="boolean">Initial checked state when uncontrolled</PropertiesTable.Row>
+  <PropertiesTable.Row name="onCheckedChange" type="(checked: boolean, details) => void">Called when the state changes</PropertiesTable.Row>
+  <PropertiesTable.Row name="size" type="string">"sm" | "default" (default: "default")</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the switch</PropertiesTable.Row>
+  <PropertiesTable.Row name="readOnly" type="boolean">Prevents changing the state</PropertiesTable.Row>
+  <PropertiesTable.Row name="required" type="boolean">Requires the switch to be on before submitting a form</PropertiesTable.Row>
+  <PropertiesTable.Row name="name" type="string">Form field name</PropertiesTable.Row>
 </PropertiesTable>

@@ -2,8 +2,10 @@
 
 import {
   Collapsible,
-  CollapsiblePanel,
+  CollapsibleContent,
   CollapsibleTrigger,
+  Field,
+  FieldLabel,
   Row,
   Separator,
   Sidebar,
@@ -15,7 +17,6 @@ import {
   SidebarGroupLabel,
   SidebarHeader,
   SidebarInset,
-  type SidebarInsetProps,
   SidebarMenu,
   SidebarMenuAction,
   SidebarMenuBadge,
@@ -25,9 +26,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-  type SidebarProps,
   SidebarProvider,
-  type SidebarProviderProps,
   SidebarRail,
   SidebarTrigger,
   Switch,
@@ -47,7 +46,7 @@ import {
   Settings2,
   Users,
 } from 'lucide-react';
-import { useState } from 'react';
+import { type ComponentProps, useState } from 'react';
 
 const mainItems = [
   { title: 'Home', icon: Home },
@@ -64,12 +63,12 @@ const projects = ['Marketing site', 'Docs', 'Mobile app'];
  * Docs demos render inside a bordered frame instead of the full viewport. The provider becomes
  * the positioning context and the sidebar container switches from `fixed` to `absolute`.
  */
-function SidebarFrame({ className, ...props }: SidebarProviderProps) {
+function SidebarFrame({ className, ...props }: ComponentProps<typeof SidebarProvider>) {
   return (
     <SidebarProvider
       {...props}
       className={[
-        'relative h-[28rem] min-h-0 w-full overflow-hidden rounded-lg border border-edge text-left',
+        'relative h-[28rem] min-h-0 w-full overflow-hidden rounded-lg border border-border text-left',
         className,
       ]
         .filter(Boolean)
@@ -78,19 +77,28 @@ function SidebarFrame({ className, ...props }: SidebarProviderProps) {
   );
 }
 
-function DemoSidebar({ active, onSelect, ...props }: SidebarProps & DemoSelection) {
+interface DemoSelection {
+  active: string;
+  onSelect: (title: string) => void;
+}
+
+function DemoSidebar({
+  active,
+  onSelect,
+  ...props
+}: ComponentProps<typeof Sidebar> & DemoSelection) {
   return (
     <Sidebar {...props} className="absolute h-full">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" tooltip="Acme Inc">
-              <div className="flex aspect-square size-8 items-center justify-center rounded bg-primary text-primary-fg">
+              <div className="flex aspect-square size-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
                 <Globe />
               </div>
               <div className="grid flex-1 text-left leading-tight">
                 <span className="truncate font-medium">Acme Inc</span>
-                <span className="truncate text-xs text-fg-muted">Analytics</span>
+                <span className="truncate text-xs text-muted-foreground">Analytics</span>
               </div>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>
@@ -115,13 +123,13 @@ function DemoSidebar({ active, onSelect, ...props }: SidebarProps & DemoSelectio
                   {item.badge && <SidebarMenuBadge>{item.badge}</SidebarMenuBadge>}
                 </SidebarMenuItem>
               ))}
-              <Collapsible defaultExpanded render={<SidebarMenuItem />}>
+              <Collapsible defaultOpen render={<SidebarMenuItem />}>
                 <CollapsibleTrigger render={<SidebarMenuButton tooltip="Settings" />}>
                   <Settings2 />
                   <span>Settings</span>
                   <ChevronRight className="ml-auto transition-transform group-data-panel-open/menu-button:rotate-90" />
                 </CollapsibleTrigger>
-                <CollapsiblePanel>
+                <CollapsibleContent>
                   <SidebarMenuSub>
                     {settingsItems.map(title => (
                       <SidebarMenuSubItem key={title}>
@@ -135,7 +143,7 @@ function DemoSidebar({ active, onSelect, ...props }: SidebarProps & DemoSelectio
                       </SidebarMenuSubItem>
                     ))}
                   </SidebarMenuSub>
-                </CollapsiblePanel>
+                </CollapsibleContent>
               </Collapsible>
             </SidebarMenu>
           </SidebarGroupContent>
@@ -172,12 +180,12 @@ function DemoSidebar({ active, onSelect, ...props }: SidebarProps & DemoSelectio
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" tooltip="Jane Doe">
-              <div className="flex aspect-square size-8 items-center justify-center rounded-full bg-interactive text-xs font-medium">
+              <div className="flex aspect-square size-8 items-center justify-center rounded-full bg-muted text-xs font-medium">
                 JD
               </div>
               <div className="grid flex-1 text-left leading-tight">
                 <span className="truncate font-medium">Jane Doe</span>
-                <span className="truncate text-xs text-fg-muted">jane@example.com</span>
+                <span className="truncate text-xs text-muted-foreground">jane@example.com</span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -188,29 +196,21 @@ function DemoSidebar({ active, onSelect, ...props }: SidebarProps & DemoSelectio
   );
 }
 
-interface DemoSelection {
-  active: string;
-  onSelect: (title: string) => void;
-}
-
-function DemoInset({ active, ...props }: SidebarInsetProps & { active: string }) {
+function DemoInset({ active, ...props }: ComponentProps<typeof SidebarInset> & { active: string }) {
   return (
     <SidebarInset {...props}>
-      <header className="flex h-12 shrink-0 items-center gap-2 border-b border-edge px-3">
+      <header className="flex h-12 shrink-0 items-center gap-2 border-b border-border px-3">
         <SidebarTrigger />
-        <Separator
-          orientation="vertical"
-          className="data-[orientation=vertical]:h-4 data-[orientation=vertical]:self-center"
-        />
+        <Separator orientation="vertical" className="data-vertical:h-4 data-vertical:self-center" />
         <span className="text-sm font-medium">{active}</span>
       </header>
       <div className="flex flex-1 flex-col gap-3 p-4">
         <div className="grid grid-cols-3 gap-3">
-          <div className="h-20 rounded-lg bg-surface-raised" />
-          <div className="h-20 rounded-lg bg-surface-raised" />
-          <div className="h-20 rounded-lg bg-surface-raised" />
+          <div className="h-20 rounded-lg bg-muted" />
+          <div className="h-20 rounded-lg bg-muted" />
+          <div className="h-20 rounded-lg bg-muted" />
         </div>
-        <div className="flex-1 rounded-lg bg-surface-raised" />
+        <div className="flex-1 rounded-lg bg-muted" />
       </div>
     </SidebarInset>
   );
@@ -244,16 +244,19 @@ function OptionGroup<T extends string>({
 }) {
   return (
     <ToggleGroup
-      label={label}
+      aria-label={label}
+      variant="outline"
+      size="sm"
+      spacing={0}
       value={[value]}
-      onChange={keys => {
-        if (keys[0]) {
-          onChange(keys[0] as T);
+      onValueChange={values => {
+        if (values[0]) {
+          onChange(values[0] as T);
         }
       }}
     >
       {options.map(option => (
-        <ToggleGroupItem key={option} id={option}>
+        <ToggleGroupItem key={option} value={option}>
           {option}
         </ToggleGroupItem>
       ))}
@@ -279,7 +282,7 @@ export function SidebarVariantsExample() {
         />
         <OptionGroup label="side" options={sides} value={side} onChange={setSide} />
       </Row>
-      <SidebarFrame keyboardShortcut={false}>
+      <SidebarFrame>
         <DemoSidebar
           variant={variant}
           collapsible={collapsible}
@@ -299,10 +302,11 @@ export function SidebarControlledExample() {
 
   return (
     <>
-      <Switch isSelected={open} onChange={setOpen}>
-        Sidebar open
-      </Switch>
-      <SidebarFrame open={open} onOpenChange={setOpen} keyboardShortcut={false}>
+      <Field orientation="horizontal" className="w-fit">
+        <Switch id="sidebar-open" checked={open} onCheckedChange={setOpen} />
+        <FieldLabel htmlFor="sidebar-open">Sidebar open</FieldLabel>
+      </Field>
+      <SidebarFrame open={open} onOpenChange={setOpen}>
         <DemoSidebar active={active} onSelect={setActive} />
         <DemoInset active={active} />
       </SidebarFrame>
@@ -312,10 +316,10 @@ export function SidebarControlledExample() {
 
 export function SidebarSkeletonExample() {
   return (
-    <SidebarProvider keyboardShortcut={false} className="min-h-0 w-auto">
+    <SidebarProvider className="min-h-0 w-auto">
       <Sidebar
         collapsible="none"
-        className="h-auto rounded-lg border border-edge bg-surface text-left"
+        className="h-auto rounded-lg border border-border bg-background text-left"
       >
         <SidebarContent>
           <SidebarGroup>

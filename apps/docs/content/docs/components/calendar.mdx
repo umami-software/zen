@@ -1,35 +1,89 @@
 ---
 title: Calendar
-description: "A calendar displays one or more date grids and allows users to select a single date."
+description: "A calendar for picking a date, several dates or a date range."
 ---
 
 import { Calendar, CalendarExample, Example } from '../../../mdx-components';
 
-A calendar displays one or more date grids and allows users to select a single date.
+A calendar for picking a date, several dates or a date range. `Calendar` is the shadcn/ui calendar,
+built on [React DayPicker](https://daypicker.dev) v10, and accepts all of its props. For a date
+input with a popover, use `DatePicker`.
 
 <Example>
   <CalendarExample />
 
   ```jsx
-  <Calendar onChange={(date) => console.log(date)} />
+  function CalendarExample() {
+    const [date, setDate] = useState(new Date());
+
+    return (
+      <Column alignItems="center" gap="3">
+        <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-lg border" />
+        <Text size="sm" color="muted-foreground">
+          {date ? date.toDateString() : 'No date selected'}
+        </Text>
+      </Column>
+    );
+  }
+  ```
+</Example>
+
+## Range
+
+Set `mode="range"` to select a start and end date. `selected` is then a `{ from, to }` object.
+Without `selected`, the calendar manages the selection itself.
+
+<Example>
+  <Calendar mode="range" numberOfMonths={2} className="rounded-lg border" />
+
+  ```jsx
+  <Calendar mode="range" numberOfMonths={2} className="rounded-lg border" />
+  ```
+</Example>
+
+## Month and year selector
+
+Use `captionLayout="dropdown"` to jump between months and years.
+
+<Example>
+  <Calendar mode="single" captionLayout="dropdown" className="rounded-lg border" />
+
+  ```jsx
+  <Calendar mode="single" captionLayout="dropdown" className="rounded-lg border" />
+  ```
+</Example>
+
+## Disabled dates
+
+`disabled` takes a date, an array of dates or a matcher such as `{ before: date }` or
+`{ dayOfWeek: [0, 6] }`.
+
+<Example>
+  <Calendar mode="single" disabled={{ dayOfWeek: [0, 6] }} className="rounded-lg border" />
+
+  ```jsx
+  <Calendar mode="single" disabled={{ dayOfWeek: [0, 6] }} className="rounded-lg border" />
   ```
 </Example>
 
 ## Component props
 
+The most common props are listed below. See the [React DayPicker docs](https://daypicker.dev) for
+the full API.
+
 <PropertiesTable>
-  <ResponseField name="mode" type="'single' | 'multiple' | 'range'">Selection mode (default: "single")</ResponseField>
-  <ResponseField name="selected" type="Date | Date[] | DateRange">Selection for the current `mode`</ResponseField>
-  <ResponseField name="onSelect" type="(selected: Date | Date[] | DateRange | undefined) => void">Called when the selection changes in any mode</ResponseField>
-  <ResponseField name="value" type="Date">Controlled selected date (compat prop for `mode="single"`)</ResponseField>
-  <ResponseField name="defaultValue" type="Date">Default selected date</ResponseField>
-  <ResponseField name="minValue" type="Date">Minimum selectable date</ResponseField>
-  <ResponseField name="maxValue" type="Date">Maximum selectable date</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the calendar</ResponseField>
-  <ResponseField name="isReadOnly" type="boolean">Makes the calendar read-only</ResponseField>
-  <ResponseField name="captionLayout" type="'label' | 'dropdown' | 'dropdown-months' | 'dropdown-years'">Month/year caption style (default: "label")</ResponseField>
-  <ResponseField name="showOutsideDays" type="boolean">Shows muted days from adjacent months (default: true)</ResponseField>
-  <ResponseField name="buttonVariant" type="ButtonVariant">Button style used for day and nav buttons (default: "quiet")</ResponseField>
-  <ResponseField name="classNames" type="ClassNames">Merged over the default react-day-picker class names</ResponseField>
-  <ResponseField name="onChange" type="(date: Date | undefined) => void">Called when the date changes in `mode="single"`. Receives `undefined` when deselected.</ResponseField>
+  <PropertiesTable.Row name="mode" type="string">"single" | "multiple" | "range". Without a mode, days can't be selected</PropertiesTable.Row>
+  <PropertiesTable.Row name="selected" type="Date | Date[] | DateRange">The selection for the current `mode` (controlled)</PropertiesTable.Row>
+  <PropertiesTable.Row name="onSelect" type="(selected, triggerDate, modifiers, event) => void">Called when the selection changes</PropertiesTable.Row>
+  <PropertiesTable.Row name="required" type="boolean">Prevents the selection from being cleared</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="Matcher | Matcher[]">Days that can't be selected</PropertiesTable.Row>
+  <PropertiesTable.Row name="startMonth" type="Date">The earliest month that can be navigated to</PropertiesTable.Row>
+  <PropertiesTable.Row name="endMonth" type="Date">The latest month that can be navigated to</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultMonth" type="Date">The month shown first</PropertiesTable.Row>
+  <PropertiesTable.Row name="numberOfMonths" type="number">Number of months to display (default: 1)</PropertiesTable.Row>
+  <PropertiesTable.Row name="captionLayout" type="string">"label" | "dropdown" | "dropdown-months" | "dropdown-years" (default: "label")</PropertiesTable.Row>
+  <PropertiesTable.Row name="showOutsideDays" type="boolean">Shows days from adjacent months (default: true)</PropertiesTable.Row>
+  <PropertiesTable.Row name="showWeekNumber" type="boolean">Shows a week number column</PropertiesTable.Row>
+  <PropertiesTable.Row name="locale" type="Locale">The locale used for month and day names</PropertiesTable.Row>
+  <PropertiesTable.Row name="buttonVariant" type="ButtonVariant">Button variant for the navigation buttons (default: "ghost")</PropertiesTable.Row>
 </PropertiesTable>

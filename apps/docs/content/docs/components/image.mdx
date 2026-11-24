@@ -50,13 +50,25 @@ An image component with built-in support for responsive sizing, object-fit modes
   ```
 </Example>
 
+## Centered and rounded
+
+<Example>
+  <Box maxWidth="640px">
+    <Image src="/images/sample.jpg" alt="Image" centered borderRadius="xl" shadow="md" style={{ width: 320 }} />
+  </Box>
+
+  ```jsx
+  <Image src="/images/sample.jpg" alt="Image" centered borderRadius="xl" shadow="md" style={{ width: 320 }} />
+  ```
+</Example>
+
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="src" type="string">Image source URL (required)</ResponseField>
-  <ResponseField name="alt" type="string">Alternative text</ResponseField>
-  <ResponseField name="objectFit" type="ObjectFit">"fill" | "contain" | "cover" | "none" | "scale-down"</ResponseField>
-  <ResponseField name="isCentered" type="boolean">Centers the image horizontally</ResponseField>
-  <ResponseField name="borderRadius" type="BorderRadius">Border radius value</ResponseField>
-  <ResponseField name="shadow" type="BoxShadow">Box shadow value</ResponseField>
+  <PropertiesTable.Row name="src" type="string">Image source URL (required)</PropertiesTable.Row>
+  <PropertiesTable.Row name="alt" type="string">Alternative text</PropertiesTable.Row>
+  <PropertiesTable.Row name="objectFit" type="ObjectFit">"fill" | "contain" | "cover" | "none" | "scale-down"</PropertiesTable.Row>
+  <PropertiesTable.Row name="centered" type="boolean">Centers the image horizontally</PropertiesTable.Row>
+  <PropertiesTable.Row name="borderRadius" type="BorderRadius">Border radius value</PropertiesTable.Row>
+  <PropertiesTable.Row name="shadow" type="BoxShadow">Box shadow value</PropertiesTable.Row>
 </PropertiesTable>

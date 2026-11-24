@@ -1,19 +1,24 @@
-import type { InputHTMLAttributes } from 'react';
+import { EyeIcon, EyeOffIcon } from 'lucide-react';
+import type { ChangeEvent, InputHTMLAttributes, ReactNode } from 'react';
 import { forwardRef, useState } from 'react';
-import { Eye, EyeSlash } from '@/components/svg';
-import { useFieldId } from './hooks/useFieldId';
-import { Icon } from './Icon';
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from './InputGroup';
-import { Label } from './Label';
+import { useFieldId } from '@/components/hooks/useFieldId';
+import { Field, FieldLabel } from '@/components/ui/field';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '@/components/ui/input-group';
 
-export interface PasswordFieldProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-  isDisabled?: boolean;
-  isReadOnly?: boolean;
+export interface PasswordFieldProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'children'> {
+  label?: ReactNode;
   /** Controls whether the value is visible. Leave undefined for uncontrolled behavior. */
-  isRevealed?: boolean;
+  revealed?: boolean;
   defaultRevealed?: boolean;
-  onRevealChange?: (revealed: boolean) => void;
+  onRevealedChange?: (revealed: boolean) => void;
+  /** Called with the new string value. `onChange` is the native input event. */
+  onValueChange?: (value: string) => void;
 }
 
 export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
@@ -21,13 +26,11 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
     {
       label,
       className,
-      isDisabled,
-      isReadOnly,
-      isRevealed,
+      revealed: revealedProp,
       defaultRevealed = false,
-      onRevealChange,
-      disabled,
-      readOnly,
+      onRevealedChange,
+      onChange,
+      onValueChange,
       autoComplete = 'current-password',
       id,
       ...props
@@ -36,21 +39,30 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
   ) {
     const fieldId = useFieldId(id);
     const [uncontrolledRevealed, setUncontrolledRevealed] = useState(defaultRevealed);
-    const revealed = isRevealed ?? uncontrolledRevealed;
+    const revealed = revealedProp ?? uncontrolledRevealed;
     const isLabelled = Boolean(label || props['aria-label'] || props['aria-labelledby']);
 
     const toggleRevealed = () => {
       const next = !revealed;
 
-      if (isRevealed === undefined) {
+      if (revealedProp === undefined) {
         setUncontrolledRevealed(next);
       }
 
-      onRevealChange?.(next);
+      onRevealedChange?.(next);
     };
 
-    const input = (
-      <InputGroup className={className}>
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+      onChange?.(event);
+      onValueChange?.(event.target.value);
+    };
+
+    const control = (
+      <InputGroup
+        data-slot="password-field"
+        data-disabled={props.disabled ? 'true' : undefined}
+        className={className}
+      >
         <InputGroupInput
           {...props}
           ref={ref}
@@ -58,32 +70,31 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
           type={revealed ? 'text' : 'password'}
           autoComplete={autoComplete}
           aria-label={isLabelled ? props['aria-label'] : 'Password'}
-          disabled={isDisabled ?? disabled}
-          readOnly={isReadOnly ?? readOnly}
+          onChange={handleChange}
         />
         <InputGroupAddon align="inline-end">
           <InputGroupButton
             size="icon-xs"
-            isDisabled={isDisabled ?? disabled}
+            disabled={props.disabled}
             aria-label={revealed ? 'Hide password' : 'Show password'}
             aria-pressed={revealed}
             onClick={toggleRevealed}
           >
-            <Icon>{revealed ? <EyeSlash /> : <Eye />}</Icon>
+            {revealed ? <EyeOffIcon /> : <EyeIcon />}
           </InputGroupButton>
         </InputGroupAddon>
       </InputGroup>
     );
 
-    if (label) {
-      return (
-        <div data-slot="password-field" className="flex flex-col gap-2">
-          <Label htmlFor={fieldId}>{label}</Label>
-          {input}
-        </div>
-      );
+    if (!label) {
+      return control;
     }
 
-    return input;
+    return (
+      <Field data-disabled={props.disabled ? true : undefined}>
+        <FieldLabel htmlFor={fieldId}>{label}</FieldLabel>
+        {control}
+      </Field>
+    );
   },
 );

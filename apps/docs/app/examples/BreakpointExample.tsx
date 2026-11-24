@@ -13,7 +13,7 @@ export function BreakpointExample() {
           {breakpoint || 'loading...'}
         </Text>
       </Text>
-      <Text size="sm" color="muted">
+      <Text size="sm" color="muted-foreground">
         Resize the window to see it change.
       </Text>
     </Column>

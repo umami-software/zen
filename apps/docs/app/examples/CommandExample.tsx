@@ -1,6 +1,5 @@
 'use client';
 import {
-  Box,
   Button,
   Command,
   CommandDialog,
@@ -10,65 +9,115 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
+  CommandShortcut,
+  Kbd,
+  KbdGroup,
+  Row,
+  Text,
 } from '@umami/react-zen';
-import { Calendar, Search, Settings, Smile, User } from 'lucide-react';
-import { useState } from 'react';
+import { Calculator, Calendar, CreditCard, Settings, Smile, User } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export function CommandExample() {
   return (
-    <Box border borderRadius="md" width="320px">
-      <Command>
-        <CommandInput placeholder="Type a command or search..." />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Suggestions">
-            <CommandItem icon={<Calendar />}>Calendar</CommandItem>
-            <CommandItem icon={<Smile />}>Search emoji</CommandItem>
-            <CommandItem icon={<Search />} isDisabled>
-              Search web
-            </CommandItem>
-          </CommandGroup>
-          <CommandSeparator />
-          <CommandGroup heading="Settings">
-            <CommandItem icon={<User />}>Profile</CommandItem>
-            <CommandItem icon={<Settings />}>Settings</CommandItem>
-          </CommandGroup>
-        </CommandList>
-      </Command>
-    </Box>
+    <Command className="max-w-sm rounded-lg border">
+      <CommandInput placeholder="Type a command or search..." />
+      <CommandList>
+        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandGroup heading="Suggestions">
+          <CommandItem>
+            <Calendar />
+            <span>Calendar</span>
+          </CommandItem>
+          <CommandItem>
+            <Smile />
+            <span>Search emoji</span>
+          </CommandItem>
+          <CommandItem disabled>
+            <Calculator />
+            <span>Calculator</span>
+          </CommandItem>
+        </CommandGroup>
+        <CommandSeparator />
+        <CommandGroup heading="Settings">
+          <CommandItem>
+            <User />
+            <span>Profile</span>
+            <CommandShortcut>⌘P</CommandShortcut>
+          </CommandItem>
+          <CommandItem>
+            <CreditCard />
+            <span>Billing</span>
+            <CommandShortcut>⌘B</CommandShortcut>
+          </CommandItem>
+          <CommandItem>
+            <Settings />
+            <span>Settings</span>
+            <CommandShortcut>⌘S</CommandShortcut>
+          </CommandItem>
+        </CommandGroup>
+      </CommandList>
+    </Command>
   );
 }
 
 export function CommandDialogExample() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'j' && (event.metaKey || event.ctrlKey)) {
+        event.preventDefault();
+        setOpen(open => !open);
+      }
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, []);
 
   return (
     <>
-      <Button variant="primary" onPress={() => setIsOpen(true)}>
-        Open command palette
-      </Button>
-      <CommandDialog isOpen={isOpen} onOpenChange={setIsOpen}>
-        <CommandInput placeholder="Type a command or search..." />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Suggestions">
-            <CommandItem icon={<Calendar />} onSelect={() => setIsOpen(false)}>
-              Calendar
-            </CommandItem>
-            <CommandItem icon={<Smile />} onSelect={() => setIsOpen(false)}>
-              Search emoji
-            </CommandItem>
-          </CommandGroup>
-          <CommandSeparator />
-          <CommandGroup heading="Settings">
-            <CommandItem icon={<User />} onSelect={() => setIsOpen(false)}>
-              Profile
-            </CommandItem>
-            <CommandItem icon={<Settings />} onSelect={() => setIsOpen(false)}>
-              Settings
-            </CommandItem>
-          </CommandGroup>
-        </CommandList>
+      <Row alignItems="center" gap="3">
+        <Button variant="outline" onClick={() => setOpen(true)}>
+          Open command palette
+        </Button>
+        <Text size="sm" color="muted-foreground">
+          or press{' '}
+          <KbdGroup>
+            <Kbd>⌘</Kbd>
+            <Kbd>J</Kbd>
+          </KbdGroup>
+        </Text>
+      </Row>
+      <CommandDialog open={open} onOpenChange={setOpen}>
+        <Command>
+          <CommandInput placeholder="Type a command or search..." />
+          <CommandList>
+            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandGroup heading="Suggestions">
+              <CommandItem onSelect={() => setOpen(false)}>
+                <Calendar />
+                <span>Calendar</span>
+              </CommandItem>
+              <CommandItem onSelect={() => setOpen(false)}>
+                <Smile />
+                <span>Search emoji</span>
+              </CommandItem>
+            </CommandGroup>
+            <CommandSeparator />
+            <CommandGroup heading="Settings">
+              <CommandItem onSelect={() => setOpen(false)}>
+                <User />
+                <span>Profile</span>
+              </CommandItem>
+              <CommandItem onSelect={() => setOpen(false)}>
+                <Settings />
+                <span>Settings</span>
+              </CommandItem>
+            </CommandGroup>
+          </CommandList>
+        </Command>
       </CommandDialog>
     </>
   );

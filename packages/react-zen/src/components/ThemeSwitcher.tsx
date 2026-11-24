@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
+import { type Theme, useTheme } from '@/components/hooks/useTheme';
 import { Monitor, Moon, Sun } from '@/components/icons';
-import { type Theme, useTheme } from './hooks/useTheme';
-import { Icon } from './Icon';
-import { cn } from './lib/tailwind';
+import { cn } from '@/lib/utils';
 
 export type ThemeMode = 'light' | 'dark' | 'system';
 
@@ -61,7 +60,7 @@ export function ThemeSwitcher({ className }: ThemeSwitcherProps) {
   return (
     <div
       className={cn(
-        'inline-flex items-center bg-surface border border-edge rounded-md overflow-hidden',
+        'inline-flex items-center overflow-hidden rounded-md border bg-background shadow-xs dark:border-input dark:bg-input/30',
         className,
       )}
     >
@@ -73,14 +72,14 @@ export function ThemeSwitcher({ className }: ThemeSwitcherProps) {
           aria-label={option.label}
           aria-pressed={mode === option.value}
           className={cn(
-            'size-9 flex items-center justify-center cursor-pointer outline-none transition-colors',
-            '[&:not(:first-child)]:border-l [&:not(:first-child)]:border-edge',
-            'hover:bg-interactive',
-            'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset',
-            mode === option.value ? 'bg-interactive text-fg' : 'text-fg-muted',
+            'flex size-9 cursor-pointer items-center justify-center outline-none transition-colors [&_svg]:size-4',
+            'not-first:border-l dark:not-first:border-input',
+            'hover:bg-muted hover:text-foreground',
+            'focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:ring-inset',
+            mode === option.value ? 'bg-muted text-foreground' : 'text-muted-foreground',
           )}
         >
-          <Icon size="sm">{option.icon}</Icon>
+          {option.icon}
         </button>
       ))}
     </div>

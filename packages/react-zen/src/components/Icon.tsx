@@ -7,7 +7,6 @@ export type StrokeWidth = '0.5' | '1' | '1.5' | '2' | '3' | '4';
 export interface IconProps extends Omit<HTMLAttributes<HTMLElement>, 'color' | 'size'> {
   color?: FontColor;
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  variant?: 'input';
   rotate?: number;
   strokeWidth?: StrokeWidth;
   strokeColor?: StrokeColor;
@@ -34,7 +33,6 @@ const strokeWidthMap: Record<StrokeWidth, string> = {
 export function Icon({
   color,
   size = 'sm',
-  variant,
   rotate,
   strokeWidth,
   strokeColor,
@@ -51,8 +49,8 @@ export function Icon({
   const wrapperClasses = cn('inline-flex items-center justify-center shrink-0');
 
   // Map stroke/fill colors for SVG compatibility
-  const strokeColorStr = strokeColor === true ? undefined : strokeColor;
-  const fillColorStr = fillColor === true ? undefined : fillColor;
+  const strokeColorStr = strokeColor === true ? 'true' : strokeColor;
+  const fillColorStr = fillColor === true ? 'true' : fillColor;
 
   const wrapperStyle: React.CSSProperties = {
     ...style,

@@ -1,18 +1,33 @@
 ---
 title: Button Group
-description: "A button group places related actions together with consistent spacing, borders, and focus behavior."
+description: "A container that groups related buttons together with consistent styling."
 ---
 
-import { Button, ButtonGroup, ButtonGroupSeparator, ButtonGroupText, Example, Icon, Label, Lucide, Menu, MenuItem, MenuSeparator, MenuTrigger, TextField } from '../../../mdx-components';
+import {
+  Button,
+  ButtonGroup,
+  ButtonGroupSeparator,
+  ButtonGroupText,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  Example,
+  Input,
+  Label,
+  Lucide,
+} from '../../../mdx-components';
 
-A button group places related actions together with consistent spacing, borders, and focus
-behavior. Label each group with `aria-label` or `aria-labelledby`.
+A container that groups related buttons together with consistent styling. Label each group with
+`aria-label` or `aria-labelledby`.
 
 <Example direction="row" minHeight="160px">
   <ButtonGroup aria-label="Inbox actions">
     <ButtonGroup>
-      <Button variant="outline" aria-label="Go back">
-        <Icon size="sm"><Lucide.ArrowLeft /></Icon>
+      <Button variant="outline" size="icon" aria-label="Go back">
+        <Lucide.ArrowLeft />
       </Button>
     </ButtonGroup>
     <ButtonGroup>
@@ -21,26 +36,30 @@ behavior. Label each group with `aria-label` or `aria-labelledby`.
     </ButtonGroup>
     <ButtonGroup>
       <Button variant="outline">Snooze</Button>
-      <MenuTrigger>
-        <Button variant="outline" aria-label="More options">
-          <Icon size="sm"><Lucide.MoreHorizontal /></Icon>
-        </Button>
-        <Menu>
-          <MenuItem id="mark-read">Mark as read</MenuItem>
-          <MenuItem id="archive">Archive</MenuItem>
-          <MenuSeparator />
-          <MenuItem id="add-calendar">Add to calendar</MenuItem>
-          <MenuItem id="trash">Trash</MenuItem>
-        </Menu>
-      </MenuTrigger>
+      <DropdownMenu>
+        <DropdownMenuTrigger render={<Button variant="outline" size="icon" aria-label="More options" />}>
+          <Lucide.MoreHorizontal />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuGroup>
+            <DropdownMenuItem>Mark as read</DropdownMenuItem>
+            <DropdownMenuItem>Archive</DropdownMenuItem>
+          </DropdownMenuGroup>
+          <DropdownMenuSeparator />
+          <DropdownMenuGroup>
+            <DropdownMenuItem>Add to calendar</DropdownMenuItem>
+            <DropdownMenuItem variant="destructive">Trash</DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </ButtonGroup>
   </ButtonGroup>
 
   ```jsx
   <ButtonGroup aria-label="Inbox actions">
     <ButtonGroup>
-      <Button variant="outline" aria-label="Go back">
-        <Icon size="sm"><ArrowLeft /></Icon>
+      <Button variant="outline" size="icon" aria-label="Go back">
+        <Lucide.ArrowLeft />
       </Button>
     </ButtonGroup>
     <ButtonGroup>
@@ -49,74 +68,68 @@ behavior. Label each group with `aria-label` or `aria-labelledby`.
     </ButtonGroup>
     <ButtonGroup>
       <Button variant="outline">Snooze</Button>
-      <MenuTrigger>
-        <Button variant="outline" aria-label="More options">
-          <Icon size="sm"><MoreHorizontal /></Icon>
-        </Button>
-        <Menu>
-          <MenuItem id="mark-read">Mark as read</MenuItem>
-          <MenuItem id="archive">Archive</MenuItem>
-          <MenuSeparator />
-          <MenuItem id="add-calendar">Add to calendar</MenuItem>
-          <MenuItem id="trash">Trash</MenuItem>
-        </Menu>
-      </MenuTrigger>
+      <DropdownMenu>
+        <DropdownMenuTrigger render={<Button variant="outline" size="icon" aria-label="More options" />}>
+          <Lucide.MoreHorizontal />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuGroup>
+            <DropdownMenuItem>Mark as read</DropdownMenuItem>
+            <DropdownMenuItem>Archive</DropdownMenuItem>
+          </DropdownMenuGroup>
+          <DropdownMenuSeparator />
+          <DropdownMenuGroup>
+            <DropdownMenuItem>Add to calendar</DropdownMenuItem>
+            <DropdownMenuItem variant="destructive">Trash</DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </ButtonGroup>
   </ButtonGroup>
   ```
 </Example>
 
-Use `ButtonGroup` for actions. Use `ToggleGroup` when the controls represent persistent selected
-states.
+Use `ButtonGroup` for actions. Use `ToggleGroup` when the buttons represent a selected state.
 
 ## Orientation
 
 <Example direction="row" minHeight="200px" gap="6">
   <ButtonGroup aria-label="Horizontal zoom controls">
-    <Button variant="outline" aria-label="Zoom out">
-      <Icon size="sm"><Lucide.Minus /></Icon>
+    <Button variant="outline" size="icon" aria-label="Zoom out">
+      <Lucide.Minus />
     </Button>
-    <Button variant="outline" aria-label="Reset zoom">
-      100%
-    </Button>
-    <Button variant="outline" aria-label="Zoom in">
-      <Icon size="sm"><Lucide.Plus /></Icon>
+    <Button variant="outline">100%</Button>
+    <Button variant="outline" size="icon" aria-label="Zoom in">
+      <Lucide.Plus />
     </Button>
   </ButtonGroup>
   <ButtonGroup orientation="vertical" aria-label="Vertical zoom controls">
-    <Button variant="outline" aria-label="Zoom in">
-      <Icon size="sm"><Lucide.Plus /></Icon>
+    <Button variant="outline" size="icon" aria-label="Zoom in">
+      <Lucide.Plus />
     </Button>
-    <Button variant="outline" aria-label="Reset zoom">
-      100%
-    </Button>
-    <Button variant="outline" aria-label="Zoom out">
-      <Icon size="sm"><Lucide.Minus /></Icon>
+    <Button variant="outline" size="icon" aria-label="Zoom out">
+      <Lucide.Minus />
     </Button>
   </ButtonGroup>
 
   ```jsx
-  <>
-    <ButtonGroup aria-label="Horizontal zoom controls">
-      <Button variant="outline" aria-label="Zoom out">
-        <Icon size="sm"><Minus /></Icon>
-      </Button>
-      <Button variant="outline">100%</Button>
-      <Button variant="outline" aria-label="Zoom in">
-        <Icon size="sm"><Plus /></Icon>
-      </Button>
-    </ButtonGroup>
-
-    <ButtonGroup orientation="vertical" aria-label="Vertical zoom controls">
-      <Button variant="outline" aria-label="Zoom in">
-        <Icon size="sm"><Plus /></Icon>
-      </Button>
-      <Button variant="outline">100%</Button>
-      <Button variant="outline" aria-label="Zoom out">
-        <Icon size="sm"><Minus /></Icon>
-      </Button>
-    </ButtonGroup>
-  </>
+  <ButtonGroup aria-label="Horizontal zoom controls">
+    <Button variant="outline" size="icon" aria-label="Zoom out">
+      <Lucide.Minus />
+    </Button>
+    <Button variant="outline">100%</Button>
+    <Button variant="outline" size="icon" aria-label="Zoom in">
+      <Lucide.Plus />
+    </Button>
+  </ButtonGroup>
+  <ButtonGroup orientation="vertical" aria-label="Vertical zoom controls">
+    <Button variant="outline" size="icon" aria-label="Zoom in">
+      <Lucide.Plus />
+    </Button>
+    <Button variant="outline" size="icon" aria-label="Zoom out">
+      <Lucide.Minus />
+    </Button>
+  </ButtonGroup>
   ```
 </Example>
 
@@ -162,66 +175,78 @@ Set `size` on each button in the group.
 
 ## Separator
 
-Use a separator between borderless button variants. Outline buttons already provide their own
-dividers.
+`ButtonGroupSeparator` divides buttons that have no border of their own, such as `secondary`.
+Outline buttons don't need one.
 
 <Example direction="row" minHeight="160px">
   <ButtonGroup aria-label="Clipboard actions">
-    <Button size="sm">Copy</Button>
+    <Button variant="secondary" size="sm">Copy</Button>
     <ButtonGroupSeparator />
-    <Button size="sm">Paste</Button>
+    <Button variant="secondary" size="sm">Paste</Button>
   </ButtonGroup>
 
   ```jsx
   <ButtonGroup aria-label="Clipboard actions">
-    <Button size="sm">Copy</Button>
+    <Button variant="secondary" size="sm">Copy</Button>
     <ButtonGroupSeparator />
-    <Button size="sm">Paste</Button>
+    <Button variant="secondary" size="sm">Paste</Button>
   </ButtonGroup>
   ```
 </Example>
 
-## Text
+## Input and text
 
-`ButtonGroupText` adds non-interactive content to the group. Use `render` when the text needs
-different semantics, such as a form label.
+`ButtonGroupText` adds non-interactive content. Use its `render` prop when the text needs different
+semantics, such as a label. Inputs stretch to fill the group.
 
 <Example direction="row" minHeight="160px">
   <ButtonGroup>
     <ButtonGroupText render={<Label htmlFor="amount" />}>$</ButtonGroupText>
-    <TextField id="amount" aria-label="Amount" placeholder="10.00" className="w-32" />
+    <Input id="amount" placeholder="10.00" />
     <ButtonGroupText>USD</ButtonGroupText>
+  </ButtonGroup>
+  <ButtonGroup>
+    <Input placeholder="Search..." aria-label="Search" />
+    <Button variant="outline" size="icon" aria-label="Search">
+      <Lucide.Search />
+    </Button>
   </ButtonGroup>
 
   ```jsx
   <ButtonGroup>
     <ButtonGroupText render={<Label htmlFor="amount" />}>$</ButtonGroupText>
-    <TextField id="amount" aria-label="Amount" placeholder="10.00" className="w-32" />
+    <Input id="amount" placeholder="10.00" />
     <ButtonGroupText>USD</ButtonGroupText>
+  </ButtonGroup>
+  <ButtonGroup>
+    <Input placeholder="Search..." aria-label="Search" />
+    <Button variant="outline" size="icon" aria-label="Search">
+      <Lucide.Search />
+    </Button>
   </ButtonGroup>
   ```
 </Example>
 
 ## Nested groups
 
-Nested button groups receive spacing while the actions inside each nested group remain connected.
+Nest `ButtonGroup`s to add spacing between sets of connected buttons.
 
 <Example direction="row" minHeight="160px">
   <ButtonGroup aria-label="History and clipboard actions">
     <ButtonGroup>
-      <Button variant="outline" aria-label="Undo">
-        <Icon size="sm"><Lucide.Undo2 /></Icon>
+      <Button variant="outline" size="icon" aria-label="Undo">
+        <Lucide.Undo2 />
       </Button>
-      <Button variant="outline" aria-label="Redo">
-        <Icon size="sm"><Lucide.Redo2 /></Icon>
+      <Button variant="outline" size="icon" aria-label="Redo">
+        <Lucide.Redo2 />
       </Button>
     </ButtonGroup>
     <ButtonGroup>
-      <Button variant="outline" aria-label="Cut">
-        <Icon size="sm"><Lucide.Scissors /></Icon>
+      <Button variant="outline" size="icon" aria-label="Cut">
+        <Lucide.Scissors />
       </Button>
-      <Button variant="outline" aria-label="Copy">
-        <Icon size="sm"><Lucide.Copy /></Icon>
+      <Button variant="outline" size="icon" aria-label="Copy">
+        <Lucide.Copy />
       </Button>
     </ButtonGroup>
   </ButtonGroup>
@@ -229,19 +254,19 @@ Nested button groups receive spacing while the actions inside each nested group 
   ```jsx
   <ButtonGroup aria-label="History and clipboard actions">
     <ButtonGroup>
-      <Button variant="outline" aria-label="Undo">
-        <Icon size="sm"><Undo2 /></Icon>
+      <Button variant="outline" size="icon" aria-label="Undo">
+        <Lucide.Undo2 />
       </Button>
-      <Button variant="outline" aria-label="Redo">
-        <Icon size="sm"><Redo2 /></Icon>
+      <Button variant="outline" size="icon" aria-label="Redo">
+        <Lucide.Redo2 />
       </Button>
     </ButtonGroup>
     <ButtonGroup>
-      <Button variant="outline" aria-label="Cut">
-        <Icon size="sm"><Scissors /></Icon>
+      <Button variant="outline" size="icon" aria-label="Cut">
+        <Lucide.Scissors />
       </Button>
-      <Button variant="outline" aria-label="Copy">
-        <Icon size="sm"><Copy /></Icon>
+      <Button variant="outline" size="icon" aria-label="Copy">
+        <Lucide.Copy />
       </Button>
     </ButtonGroup>
   </ButtonGroup>
@@ -253,18 +278,18 @@ Nested button groups receive spacing while the actions inside each nested group 
 ### ButtonGroup
 
 <PropertiesTable>
-  <ResponseField name="orientation" type="&quot;horizontal&quot; | &quot;vertical&quot;">Layout direction (default: "horizontal")</ResponseField>
-  <ResponseField name="aria-label" type="string">Accessible label for the group</ResponseField>
+  <PropertiesTable.Row name="orientation" type="string">"horizontal" | "vertical" (default: "horizontal")</PropertiesTable.Row>
+  <PropertiesTable.Row name="aria-label" type="string">Accessible label for the group</PropertiesTable.Row>
 </PropertiesTable>
 
 ### ButtonGroupSeparator
 
 <PropertiesTable>
-  <ResponseField name="orientation" type="&quot;horizontal&quot; | &quot;vertical&quot;">Separator direction (default: "vertical")</ResponseField>
+  <PropertiesTable.Row name="orientation" type="string">"horizontal" | "vertical" (default: "vertical")</PropertiesTable.Row>
 </PropertiesTable>
 
 ### ButtonGroupText
 
 <PropertiesTable>
-  <ResponseField name="render" type="RenderProp">Renders the text with a custom element</ResponseField>
+  <PropertiesTable.Row name="render" type="ReactElement | function">Renders the text as another element, such as a `Label`</PropertiesTable.Row>
 </PropertiesTable>

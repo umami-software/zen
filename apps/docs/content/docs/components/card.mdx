@@ -1,0 +1,149 @@
+---
+title: Card
+description: "Displays a card with header, content, and footer."
+---
+
+import { Box, Button, Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Example, Field, FieldGroup, FieldLabel, Input } from '../../../mdx-components';
+
+Displays a card with header, content, and footer. A `Card` is a container; compose it from
+`CardHeader` (with `CardTitle`, `CardDescription` and an optional `CardAction`), `CardContent`
+and `CardFooter`.
+
+<Example>
+  <Box width="384px" maxWidth="100%">
+    <Card>
+      <CardHeader>
+        <CardTitle>Login to your account</CardTitle>
+        <CardDescription>Enter your email below to login to your account</CardDescription>
+        <CardAction>
+          <Button variant="link">Sign up</Button>
+        </CardAction>
+      </CardHeader>
+      <CardContent>
+        <FieldGroup>
+          <Field>
+            <FieldLabel htmlFor="card-email">Email</FieldLabel>
+            <Input id="card-email" type="email" placeholder="m@example.com" />
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="card-password">Password</FieldLabel>
+            <Input id="card-password" type="password" />
+          </Field>
+        </FieldGroup>
+      </CardContent>
+      <CardFooter>
+        <Button className="w-full">Login</Button>
+      </CardFooter>
+    </Card>
+  </Box>
+
+  ```jsx
+  <Card>
+    <CardHeader>
+      <CardTitle>Login to your account</CardTitle>
+      <CardDescription>Enter your email below to login to your account</CardDescription>
+      <CardAction>
+        <Button variant="link">Sign up</Button>
+      </CardAction>
+    </CardHeader>
+    <CardContent>
+      <FieldGroup>
+        <Field>
+          <FieldLabel htmlFor="card-email">Email</FieldLabel>
+          <Input id="card-email" type="email" placeholder="m@example.com" />
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="card-password">Password</FieldLabel>
+          <Input id="card-password" type="password" />
+        </Field>
+      </FieldGroup>
+    </CardContent>
+    <CardFooter>
+      <Button className="w-full">Login</Button>
+    </CardFooter>
+  </Card>
+  ```
+</Example>
+
+## Size
+
+Use `size="sm"` for tighter spacing.
+
+<Example>
+  <Box width="320px" maxWidth="100%">
+    <Card size="sm">
+      <CardHeader>
+        <CardTitle>Small card</CardTitle>
+        <CardDescription>Uses compact spacing.</CardDescription>
+      </CardHeader>
+      <CardContent>The content of the card goes here.</CardContent>
+      <CardFooter>
+        <Button variant="outline" size="sm" className="w-full">
+          Action
+        </Button>
+      </CardFooter>
+    </Card>
+  </Box>
+
+  ```jsx
+  <Card size="sm">
+    <CardHeader>
+      <CardTitle>Small card</CardTitle>
+      <CardDescription>Uses compact spacing.</CardDescription>
+    </CardHeader>
+    <CardContent>The content of the card goes here.</CardContent>
+    <CardFooter>
+      <Button variant="outline" size="sm" className="w-full">
+        Action
+      </Button>
+    </CardFooter>
+  </Card>
+  ```
+</Example>
+
+## Image
+
+An `img` placed as the first child of the card fills the top edge without padding.
+
+<Example>
+  <Box width="384px" maxWidth="100%">
+    <Card>
+      <img src="/images/sample.jpg" alt="Sample" />
+      <CardHeader>
+        <CardTitle>Design systems meetup</CardTitle>
+        <CardDescription>A practical talk on component APIs and accessibility.</CardDescription>
+      </CardHeader>
+      <CardFooter>
+        <Button className="w-full">View event</Button>
+      </CardFooter>
+    </Card>
+  </Box>
+
+  ```jsx
+  <Card>
+    <img src="/images/sample.jpg" alt="Sample" />
+    <CardHeader>
+      <CardTitle>Design systems meetup</CardTitle>
+      <CardDescription>A practical talk on component APIs and accessibility.</CardDescription>
+    </CardHeader>
+    <CardFooter>
+      <Button className="w-full">View event</Button>
+    </CardFooter>
+  </Card>
+  ```
+</Example>
+
+## Parts
+
+<PropertiesTable>
+  <PropertiesTable.Row name="Card" type="div">Root. `size`: `"default" | "sm"` (default: `"default"`)</PropertiesTable.Row>
+  <PropertiesTable.Row name="CardHeader" type="div">Holds the title, description and action</PropertiesTable.Row>
+  <PropertiesTable.Row name="CardTitle" type="div">The heading</PropertiesTable.Row>
+  <PropertiesTable.Row name="CardDescription" type="div">Muted supporting text</PropertiesTable.Row>
+  <PropertiesTable.Row name="CardAction" type="div">Placed in the top-right corner of the header</PropertiesTable.Row>
+  <PropertiesTable.Row name="CardContent" type="div">The main content</PropertiesTable.Row>
+  <PropertiesTable.Row name="CardFooter" type="div">The bottom row, usually for actions</PropertiesTable.Row>
+</PropertiesTable>
+
+All parts accept standard `div` props, including `className`. Add `className="border-b"` to
+`CardHeader` or `className="border-t"` to `CardFooter` to separate them from the content.

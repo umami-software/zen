@@ -3,116 +3,142 @@ title: Toolbar
 description: "A toolbar groups a set of buttons and controls with keyboard navigation between them."
 ---
 
-import { Example, Icon, Lucide, ToggleGroup, ToggleGroupItem, Toolbar, ToolbarButton, ToolbarGroup, ToolbarSeparator } from '../../../mdx-components';
+import { Example, Lucide, ToggleGroup, ToggleGroupItem, Toolbar, ToolbarButton, ToolbarGroup, ToolbarSeparator } from '../../../mdx-components';
 
-A toolbar groups a set of buttons and controls with keyboard navigation between them.
+A toolbar groups a set of buttons and controls with keyboard navigation between them. It is built on
+Base UI's `Toolbar`, and `ToolbarButton` takes the shadcn `Button` variants and sizes.
 
 <Example>
   <Toolbar>
     <ToolbarGroup>
-      <ToolbarButton>
-        <Icon size="sm"><Lucide.Bold /></Icon>
+      <ToolbarButton size="icon-sm" aria-label="Bold">
+        <Lucide.Bold />
       </ToolbarButton>
-      <ToolbarButton>
-        <Icon size="sm"><Lucide.Italic /></Icon>
+      <ToolbarButton size="icon-sm" aria-label="Italic">
+        <Lucide.Italic />
       </ToolbarButton>
-      <ToolbarButton>
-        <Icon size="sm"><Lucide.Underline /></Icon>
+      <ToolbarButton size="icon-sm" aria-label="Underline">
+        <Lucide.Underline />
       </ToolbarButton>
     </ToolbarGroup>
     <ToolbarSeparator />
     <ToolbarGroup>
-      <ToolbarButton>
-        <Icon size="sm"><Lucide.AlignLeft /></Icon>
+      <ToolbarButton size="icon-sm" aria-label="Align left">
+        <Lucide.AlignLeft />
       </ToolbarButton>
-      <ToolbarButton>
-        <Icon size="sm"><Lucide.AlignCenter /></Icon>
+      <ToolbarButton size="icon-sm" aria-label="Align center">
+        <Lucide.AlignCenter />
       </ToolbarButton>
-      <ToolbarButton>
-        <Icon size="sm"><Lucide.AlignRight /></Icon>
+      <ToolbarButton size="icon-sm" aria-label="Align right">
+        <Lucide.AlignRight />
       </ToolbarButton>
     </ToolbarGroup>
     <ToolbarSeparator />
-    <ToolbarButton isDisabled>
-      <Icon size="sm"><Lucide.Link /></Icon>
+    <ToolbarButton size="icon-sm" aria-label="Link" disabled>
+      <Lucide.Link />
     </ToolbarButton>
   </Toolbar>
 
   ```jsx
   <Toolbar>
     <ToolbarGroup>
-      <ToolbarButton>
-        <Icon size="sm"><Bold /></Icon>
+      <ToolbarButton size="icon-sm" aria-label="Bold">
+        <Lucide.Bold />
       </ToolbarButton>
-      <ToolbarButton>
-        <Icon size="sm"><Italic /></Icon>
+      <ToolbarButton size="icon-sm" aria-label="Italic">
+        <Lucide.Italic />
       </ToolbarButton>
-      <ToolbarButton>
-        <Icon size="sm"><Underline /></Icon>
+      <ToolbarButton size="icon-sm" aria-label="Underline">
+        <Lucide.Underline />
       </ToolbarButton>
     </ToolbarGroup>
     <ToolbarSeparator />
     <ToolbarGroup>
-      <ToolbarButton>
-        <Icon size="sm"><AlignLeft /></Icon>
+      <ToolbarButton size="icon-sm" aria-label="Align left">
+        <Lucide.AlignLeft />
       </ToolbarButton>
-      <ToolbarButton>
-        <Icon size="sm"><AlignCenter /></Icon>
+      <ToolbarButton size="icon-sm" aria-label="Align center">
+        <Lucide.AlignCenter />
+      </ToolbarButton>
+      <ToolbarButton size="icon-sm" aria-label="Align right">
+        <Lucide.AlignRight />
       </ToolbarButton>
     </ToolbarGroup>
     <ToolbarSeparator />
-    <ToolbarButton isDisabled>
-      <Icon size="sm"><Link /></Icon>
+    <ToolbarButton size="icon-sm" aria-label="Link" disabled>
+      <Lucide.Link />
     </ToolbarButton>
+  </Toolbar>
+  ```
+</Example>
+
+## Text buttons
+
+<Example>
+  <Toolbar>
+    <ToolbarButton>Cut</ToolbarButton>
+    <ToolbarButton>Copy</ToolbarButton>
+    <ToolbarButton>Paste</ToolbarButton>
+    <ToolbarSeparator />
+    <ToolbarButton variant="default">Save</ToolbarButton>
+  </Toolbar>
+
+  ```jsx
+  <Toolbar>
+    <ToolbarButton>Cut</ToolbarButton>
+    <ToolbarButton>Copy</ToolbarButton>
+    <ToolbarButton>Paste</ToolbarButton>
+    <ToolbarSeparator />
+    <ToolbarButton variant="default">Save</ToolbarButton>
   </Toolbar>
   ```
 </Example>
 
 ## With toggles
 
-Toolbars work with `ToggleGroup` and `ToggleGroupItem` for pressed states.
+Toolbars work with the shadcn `ToggleGroup` and `ToggleGroupItem` for pressed states.
 
 <Example>
   <Toolbar>
-    <ToggleGroup selectionMode="multiple">
-      <ToggleGroupItem id="bold">
-        <Icon size="sm"><Lucide.Bold /></Icon>
+    <ToggleGroup multiple size="sm">
+      <ToggleGroupItem value="bold" aria-label="Bold">
+        <Lucide.Bold />
       </ToggleGroupItem>
-      <ToggleGroupItem id="italic">
-        <Icon size="sm"><Lucide.Italic /></Icon>
+      <ToggleGroupItem value="italic" aria-label="Italic">
+        <Lucide.Italic />
       </ToggleGroupItem>
-      <ToggleGroupItem id="underline">
-        <Icon size="sm"><Lucide.Underline /></Icon>
+      <ToggleGroupItem value="underline" aria-label="Underline">
+        <Lucide.Underline />
       </ToggleGroupItem>
     </ToggleGroup>
     <ToolbarSeparator />
-    <ToolbarButton>
-      <Icon size="sm"><Lucide.Undo /></Icon>
+    <ToolbarButton size="icon-sm" aria-label="Undo">
+      <Lucide.Undo />
     </ToolbarButton>
-    <ToolbarButton>
-      <Icon size="sm"><Lucide.Redo /></Icon>
+    <ToolbarButton size="icon-sm" aria-label="Redo">
+      <Lucide.Redo />
     </ToolbarButton>
   </Toolbar>
 
   ```jsx
   <Toolbar>
-    <ToggleGroup selectionMode="multiple">
-      <ToggleGroupItem id="bold">
-        <Icon size="sm"><Bold /></Icon>
+    <ToggleGroup multiple size="sm">
+      <ToggleGroupItem value="bold" aria-label="Bold">
+        <Lucide.Bold />
       </ToggleGroupItem>
-      <ToggleGroupItem id="italic">
-        <Icon size="sm"><Italic /></Icon>
+      <ToggleGroupItem value="italic" aria-label="Italic">
+        <Lucide.Italic />
       </ToggleGroupItem>
-      <ToggleGroupItem id="underline">
-        <Icon size="sm"><Underline /></Icon>
+      <ToggleGroupItem value="underline" aria-label="Underline">
+        <Lucide.Underline />
       </ToggleGroupItem>
     </ToggleGroup>
     <ToolbarSeparator />
-    <ToolbarButton>
-      <Icon size="sm"><Undo /></Icon>
+    <ToolbarButton size="icon-sm" aria-label="Undo">
+      <Lucide.Undo />
     </ToolbarButton>
-    <ToolbarButton>
-      <Icon size="sm"><Redo /></Icon>
+    <ToolbarButton size="icon-sm" aria-label="Redo">
+      <Lucide.Redo />
     </ToolbarButton>
   </Toolbar>
   ```
@@ -122,24 +148,29 @@ Toolbars work with `ToggleGroup` and `ToggleGroupItem` for pressed states.
 
 <Example>
   <Toolbar orientation="vertical">
-    <ToolbarButton>
-      <Icon size="sm"><Lucide.Bold /></Icon>
+    <ToolbarButton size="icon-sm" aria-label="Bold">
+      <Lucide.Bold />
     </ToolbarButton>
-    <ToolbarButton>
-      <Icon size="sm"><Lucide.Italic /></Icon>
+    <ToolbarButton size="icon-sm" aria-label="Italic">
+      <Lucide.Italic />
     </ToolbarButton>
-    <ToolbarButton>
-      <Icon size="sm"><Lucide.Underline /></Icon>
+    <ToolbarSeparator />
+    <ToolbarButton size="icon-sm" aria-label="Underline">
+      <Lucide.Underline />
     </ToolbarButton>
   </Toolbar>
 
   ```jsx
   <Toolbar orientation="vertical">
-    <ToolbarButton>
-      <Icon size="sm"><Bold /></Icon>
+    <ToolbarButton size="icon-sm" aria-label="Bold">
+      <Lucide.Bold />
     </ToolbarButton>
-    <ToolbarButton>
-      <Icon size="sm"><Italic /></Icon>
+    <ToolbarButton size="icon-sm" aria-label="Italic">
+      <Lucide.Italic />
+    </ToolbarButton>
+    <ToolbarSeparator />
+    <ToolbarButton size="icon-sm" aria-label="Underline">
+      <Lucide.Underline />
     </ToolbarButton>
   </Toolbar>
   ```
@@ -148,22 +179,22 @@ Toolbars work with `ToggleGroup` and `ToggleGroupItem` for pressed states.
 ## Disabled
 
 <Example>
-  <Toolbar isDisabled>
-    <ToolbarButton>
-      <Icon size="sm"><Lucide.Bold /></Icon>
+  <Toolbar disabled>
+    <ToolbarButton size="icon-sm" aria-label="Bold">
+      <Lucide.Bold />
     </ToolbarButton>
-    <ToolbarButton>
-      <Icon size="sm"><Lucide.Italic /></Icon>
+    <ToolbarButton size="icon-sm" aria-label="Italic">
+      <Lucide.Italic />
     </ToolbarButton>
   </Toolbar>
 
   ```jsx
-  <Toolbar isDisabled>
-    <ToolbarButton>
-      <Icon size="sm"><Bold /></Icon>
+  <Toolbar disabled>
+    <ToolbarButton size="icon-sm" aria-label="Bold">
+      <Lucide.Bold />
     </ToolbarButton>
-    <ToolbarButton>
-      <Icon size="sm"><Italic /></Icon>
+    <ToolbarButton size="icon-sm" aria-label="Italic">
+      <Lucide.Italic />
     </ToolbarButton>
   </Toolbar>
   ```
@@ -173,14 +204,20 @@ Toolbars work with `ToggleGroup` and `ToggleGroupItem` for pressed states.
 
 ### Toolbar
 
+Other Base UI `Toolbar.Root` props (`loopFocus`, …) are passed through.
+
 <PropertiesTable>
-  <ResponseField name="orientation" type="'horizontal' | 'vertical'">Toolbar layout direction (default: "horizontal")</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the entire toolbar</ResponseField>
+  <PropertiesTable.Row name="orientation" type="string">"horizontal" | "vertical" (default: "horizontal")</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the entire toolbar</PropertiesTable.Row>
 </PropertiesTable>
 
 ### ToolbarButton
 
 <PropertiesTable>
-  <ResponseField name="isDisabled" type="boolean">Disables the button</ResponseField>
-  <ResponseField name="...ButtonProps" type="ButtonProps">Accepts all Button props (default variant: "quiet")</ResponseField>
+  <PropertiesTable.Row name="variant" type="string">shadcn Button variant (default: "ghost")</PropertiesTable.Row>
+  <PropertiesTable.Row name="size" type="string">shadcn Button size (default: "sm")</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the button</PropertiesTable.Row>
+  <PropertiesTable.Row name="onClick" type="(event) => void">Called when the button is clicked</PropertiesTable.Row>
 </PropertiesTable>
+
+`ToolbarGroup`, `ToolbarSeparator` and `ToolbarLink` wrap the matching Base UI parts.

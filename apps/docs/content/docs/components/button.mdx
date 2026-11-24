@@ -1,166 +1,187 @@
 ---
 title: Button
-description: "A button allows a user to perform an action, with mouse, touch, and keyboard interactions."
+description: "Displays a button or a component that looks like a button."
 ---
 
-import { Button, Example, Icon, Lucide } from '../../../mdx-components';
+import { Button, Example, Lucide, Spinner } from '../../../mdx-components';
 
-A button allows a user to perform an action, with mouse, touch, and keyboard interactions.
+Displays a button or a component that looks like a button. `Button` is the shadcn/ui button built on
+the Base UI `Button` primitive.
 
 <Example>
-  <Button variant="primary">Button</Button>
+  <Button>Button</Button>
 
   ```jsx
-  <Button variant="primary">Button</Button>
+  <Button>Button</Button>
   ```
 </Example>
 
 ## Variants
 
+`default` is the primary action. Use `secondary` for neutral actions, `outline` and `ghost` for
+lower emphasis, `destructive` for dangerous actions and `link` for a text link style.
+
 <Example direction="row">
-  <Button variant="primary">Primary</Button>
   <Button>Default</Button>
+  <Button variant="secondary">Secondary</Button>
   <Button variant="outline">Outline</Button>
-  <Button variant="quiet">Quiet</Button>
-  <Button variant="danger">Danger</Button>
-  <Button variant="zero">Zero</Button>
+  <Button variant="ghost">Ghost</Button>
+  <Button variant="destructive">Destructive</Button>
+  <Button variant="link">Link</Button>
 
   ```jsx
-  <Button variant="primary">Primary</Button>
   <Button>Default</Button>
+  <Button variant="secondary">Secondary</Button>
   <Button variant="outline">Outline</Button>
-  <Button variant="quiet">Quiet</Button>
-  <Button variant="danger">Danger</Button>
-  <Button variant="zero">Zero</Button>
+  <Button variant="ghost">Ghost</Button>
+  <Button variant="destructive">Destructive</Button>
+  <Button variant="link">Link</Button>
   ```
 </Example>
 
 ## Sizes
 
 <Example direction="row">
-  <Button size="sm">Small</Button>
-  <Button size="md">Medium</Button>
-  <Button size="lg">Large</Button>
-  <Button size="xl">X-Large</Button>
+  <Button variant="outline" size="xs">Extra small</Button>
+  <Button variant="outline" size="sm">Small</Button>
+  <Button variant="outline">Default</Button>
+  <Button variant="outline" size="lg">Large</Button>
 
   ```jsx
-  <Button size="sm">Small</Button>
-  <Button size="md">Medium</Button>
-  <Button size="lg">Large</Button>
-  <Button size="xl">X-Large</Button>
+  <Button variant="outline" size="xs">Extra small</Button>
+  <Button variant="outline" size="sm">Small</Button>
+  <Button variant="outline">Default</Button>
+  <Button variant="outline" size="lg">Large</Button>
+  ```
+</Example>
+
+## Icon
+
+Use the `icon`, `icon-xs`, `icon-sm` or `icon-lg` sizes for square icon-only buttons, and give them
+an `aria-label`.
+
+<Example direction="row">
+  <Button variant="outline" size="icon-xs" aria-label="Submit">
+    <Lucide.ArrowUpRight />
+  </Button>
+  <Button variant="outline" size="icon-sm" aria-label="Submit">
+    <Lucide.ArrowUpRight />
+  </Button>
+  <Button variant="outline" size="icon" aria-label="Submit">
+    <Lucide.ArrowUpRight />
+  </Button>
+  <Button variant="outline" size="icon-lg" aria-label="Submit">
+    <Lucide.ArrowUpRight />
+  </Button>
+
+  ```jsx
+  <Button variant="outline" size="icon-xs" aria-label="Submit">
+    <Lucide.ArrowUpRight />
+  </Button>
+  <Button variant="outline" size="icon-sm" aria-label="Submit">
+    <Lucide.ArrowUpRight />
+  </Button>
+  <Button variant="outline" size="icon" aria-label="Submit">
+    <Lucide.ArrowUpRight />
+  </Button>
+  <Button variant="outline" size="icon-lg" aria-label="Submit">
+    <Lucide.ArrowUpRight />
+  </Button>
+  ```
+</Example>
+
+## With icon
+
+Place an svg next to the label. Add `data-icon="inline-start"` or `data-icon="inline-end"` to tighten
+the padding on that side.
+
+<Example direction="row">
+  <Button variant="outline">
+    <Lucide.GitBranch data-icon="inline-start" />
+    New branch
+  </Button>
+  <Button variant="secondary">
+    Continue
+    <Lucide.ArrowRight data-icon="inline-end" />
+  </Button>
+
+  ```jsx
+  <Button variant="outline">
+    <Lucide.GitBranch data-icon="inline-start" />
+    New branch
+  </Button>
+  <Button variant="secondary">
+    Continue
+    <Lucide.ArrowRight data-icon="inline-end" />
+  </Button>
+  ```
+</Example>
+
+## Loading
+
+Render a `Spinner` and disable the button while an action is pending. `LoadingButton` wraps this
+pattern.
+
+<Example direction="row">
+  <Button variant="outline" disabled>
+    <Spinner data-icon="inline-start" />
+    Submitting
+  </Button>
+
+  ```jsx
+  <Button variant="outline" disabled>
+    <Spinner data-icon="inline-start" />
+    Submitting
+  </Button>
   ```
 </Example>
 
 ## Disabled
 
 <Example direction="row">
-  <Button isDisabled variant="primary">Primary</Button>
-  <Button isDisabled>Default</Button>
-  <Button isDisabled variant="outline">Outline</Button>
-  <Button isDisabled variant="quiet">Quiet</Button>
-  <Button isDisabled variant="danger">Danger</Button>
-  <Button isDisabled variant="zero">Zero</Button>
+  <Button disabled>Default</Button>
+  <Button variant="secondary" disabled>Secondary</Button>
+  <Button variant="outline" disabled>Outline</Button>
 
   ```jsx
-  <Button isDisabled variant="primary">Primary</Button>
-  <Button isDisabled>Default</Button>
-  <Button isDisabled variant="outline">Outline</Button>
-  <Button isDisabled variant="quiet">Quiet</Button>
-  <Button isDisabled variant="danger">Danger</Button>
-  <Button isDisabled variant="zero">Zero</Button>
+  <Button disabled>Default</Button>
+  <Button variant="secondary" disabled>Secondary</Button>
+  <Button variant="outline" disabled>Outline</Button>
   ```
 </Example>
 
-## Icon
+## Link
 
-<Example direction="row">
-  <Button variant="primary">
-    <Icon size="sm">
-      <Lucide.File />
-    </Icon>
-  </Button>
-  <Button>
-    <Icon size="sm">
-      <Lucide.File />
-    </Icon>
-  </Button>
-  <Button variant="outline">
-    <Icon size="sm">
-      <Lucide.File />
-    </Icon>
-  </Button>
-  <Button variant="quiet">
-    <Icon size="sm">
-      <Lucide.File />
-    </Icon>
-  </Button>
-  <Button variant="danger">
-    <Icon size="sm">
-      <Lucide.File />
-    </Icon>
-  </Button>
-  <Button variant="zero">
-    <Icon size="sm">
-      <Lucide.File />
-    </Icon>
-  </Button>
-
-  ```jsx
-  <Button variant="primary">
-    <Icon size="sm">
-      <Lucide.File />
-    </Icon>
-  </Button>
-  <Button>
-    <Icon size="sm">
-      <Lucide.File />
-    </Icon>
-  </Button>
-  <Button variant="outline">
-    <Icon size="sm">
-      <Lucide.File />
-    </Icon>
-  </Button>
-  <Button variant="quiet">
-    <Icon size="sm">
-      <Lucide.File />
-    </Icon>
-  </Button>
-  <Button variant="danger">
-    <Icon size="sm">
-      <Lucide.File />
-    </Icon>
-  </Button>
-  <Button variant="zero">
-    <Icon size="sm">
-      <Lucide.File />
-    </Icon>
-  </Button>
-  ```
-</Example>
-
-## Render as link
+Use the `render` prop to render a button as a link or a router link. Set `nativeButton={false}` when
+the rendered element is not a `<button>`.
 
 <Example>
-  <Button render={<a href="#" />}>
-    Button as a link
+  <Button variant="outline" render={<a href="#" />} nativeButton={false}>
+    Go to page
   </Button>
 
   ```jsx
-  <Button render={<a href="#" />}>
-    Button as a link
+  <Button variant="outline" render={<a href="#" />} nativeButton={false}>
+    Go to page
   </Button>
   ```
 </Example>
+
+To style another element as a button without rendering `Button`, use `buttonVariants`:
+
+```jsx
+<a href="/login" className={buttonVariants({ variant: 'outline' })}>
+  Login
+</a>
+```
 
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="variant" type="ButtonVariant">"default" | "primary" | "outline" | "quiet" | "danger" | "zero"</ResponseField>
-  <ResponseField name="size" type="ButtonSize">"xs" | "sm" | "md" | "lg" | "xl" (default: "md")</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the button</ResponseField>
-  <ResponseField name="href" type="string">Renders the button as an anchor pointing at this URL</ResponseField>
-  <ResponseField name="target" type="string">Anchor target when using href (adds rel="noreferrer" for _blank)</ResponseField>
-  <ResponseField name="render" type="RenderProp">Render prop for polymorphism (e.g., render as a router link)</ResponseField>
-  <ResponseField name="nativeButton" type="boolean">Overrides native button semantics for custom render functions or components</ResponseField>
+  <PropertiesTable.Row name="variant" type="string">"default" | "secondary" | "outline" | "ghost" | "destructive" | "link" (default: "default")</PropertiesTable.Row>
+  <PropertiesTable.Row name="size" type="string">"xs" | "sm" | "default" | "lg" | "icon" | "icon-xs" | "icon-sm" | "icon-lg" (default: "default")</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the button</PropertiesTable.Row>
+  <PropertiesTable.Row name="onClick" type="(event) => void">Called when the button is clicked</PropertiesTable.Row>
+  <PropertiesTable.Row name="render" type="ReactElement | function">Replaces the rendered element, e.g. a link or a router link</PropertiesTable.Row>
+  <PropertiesTable.Row name="nativeButton" type="boolean">Set to false when `render` is not a `button` element (default: true)</PropertiesTable.Row>
 </PropertiesTable>

@@ -1,45 +1,49 @@
+import { XIcon } from 'lucide-react';
 import {
+  type ComponentProps,
   createContext,
-  type HTMLAttributes,
-  type Key,
   type KeyboardEvent,
-  type LiHTMLAttributes,
   type ReactNode,
   useContext,
+  useId,
 } from 'react';
-import { X } from '@/components/icons';
-import { Icon } from './Icon';
-import { Label } from './Label';
-import { cn } from './lib/tailwind';
-import { type TagVariants, tag } from './variants';
+import { Badge } from '@/components/ui/badge';
+import { FieldTitle } from '@/components/ui/field';
+import { cn } from '@/lib/utils';
 
 interface TagContextValue {
-  allowsRemoving: boolean;
-  remove: (key: Key) => void;
+  removable: boolean;
+  remove: (value: string) => void;
 }
 
 const TagContext = createContext<TagContextValue>({
-  allowsRemoving: false,
+  removable: false,
   remove: () => undefined,
 });
 
-export interface TagGroupProps extends HTMLAttributes<HTMLDivElement> {
-  label?: string;
-  children?: ReactNode;
-  onRemove?: (keys: Set<Key>) => void;
+export interface TagGroupProps extends ComponentProps<'div'> {
+  label?: ReactNode;
+  /** Makes tags removable. Called with the removed tag's `value`. */
+  onRemove?: (value: string) => void;
 }
 
 export function TagGroup({ label, children, className, onRemove, ...props }: TagGroupProps) {
+  const labelId = useId();
+
   return (
     <TagContext.Provider
       value={{
-        allowsRemoving: !!onRemove,
-        remove: key => onRemove?.(new Set([key])),
+        removable: !!onRemove,
+        remove: value => onRemove?.(value),
       }}
     >
-      <div {...props} data-slot="tag-group" className={cn('flex flex-col gap-2', className)}>
-        {label && <Label>{label}</Label>}
-        <ul data-slot="tag-group-list" className="flex list-none flex-wrap gap-1 p-0 m-0">
+      <div {...props} data-slot="tag-group" className={cn('flex flex-col gap-3', className)}>
+        {label && <FieldTitle id={labelId}>{label}</FieldTitle>}
+        <ul
+          data-slot="tag-group-list"
+          aria-labelledby={label ? labelId : undefined}
+          className="m-0 flex list-none flex-wrap gap-1.5 p-0"
+        >
           {children}
         </ul>
       </div>
@@ -47,64 +51,67 @@ export function TagGroup({ label, children, className, onRemove, ...props }: Tag
   );
 }
 
-export interface TagProps extends Omit<LiHTMLAttributes<HTMLLIElement>, 'id'>, TagVariants {
-  id?: string | number;
-  children?: ReactNode;
-  isDisabled?: boolean;
+export interface TagProps extends Omit<ComponentProps<'li'>, 'value'> {
+  /** Identifies the tag in `onRemove`. Defaults to the text content when it is a string. */
+  value?: string;
+  variant?: ComponentProps<typeof Badge>['variant'];
+  disabled?: boolean;
 }
 
-export function Tag({ id, variant, children, className, isDisabled, ...props }: TagProps) {
-  const styles = tag({ variant });
-  const { allowsRemoving, remove } = useContext(TagContext);
-  const key = id ?? String(children);
-  const isRemovable = allowsRemoving && !isDisabled;
+export function Tag({
+  value,
+  variant = 'secondary',
+  children,
+  className,
+  disabled,
+  onKeyDown,
+  ...props
+}: TagProps) {
+  const { removable, remove } = useContext(TagContext);
+  const tagValue = value ?? (typeof children === 'string' ? children : '');
+  const isRemovable = removable && !disabled;
 
   const handleKeyDown = (event: KeyboardEvent<HTMLLIElement>) => {
-    props.onKeyDown?.(event);
+    onKeyDown?.(event);
 
-    if (event.defaultPrevented || !isRemovable) {
+    if (event.defaultPrevented || !isRemovable || event.target !== event.currentTarget) {
       return;
     }
 
     if (event.key === 'Backspace' || event.key === 'Delete') {
       event.preventDefault();
-      remove(key);
+      remove(tagValue);
     }
   };
 
   return (
-    <li
-      {...props}
+    <Badge
+      variant={variant}
       data-slot="tag"
-      data-disabled={isDisabled || undefined}
-      aria-disabled={isDisabled || undefined}
-      tabIndex={props.tabIndex ?? (isRemovable ? 0 : undefined)}
-      className={cn(
-        styles.base(),
-        'list-none',
-        'focus-visible:ring-[3px] focus-visible:ring-focus-ring/50',
-        isDisabled && 'opacity-50',
-        className,
-      )}
-      onKeyDown={handleKeyDown}
+      data-disabled={disabled || undefined}
+      aria-disabled={disabled || undefined}
+      className={cn('outline-none data-disabled:opacity-50', className)}
+      render={
+        <li
+          {...props}
+          tabIndex={props.tabIndex ?? (isRemovable ? 0 : undefined)}
+          onKeyDown={handleKeyDown}
+        />
+      }
     >
       {children}
       {isRemovable && (
         <button
           type="button"
           data-slot="tag-remove"
-          className={cn(
-            styles.removeButton(),
-            'focus-visible:ring-[3px] focus-visible:ring-focus-ring/50',
-          )}
+          data-icon="inline-end"
           aria-label={`Remove ${typeof children === 'string' ? children : 'tag'}`}
-          onClick={() => remove(key)}
+          className="-mr-0.5 inline-flex size-3.5 cursor-pointer items-center justify-center rounded-full opacity-70 outline-none hover:bg-foreground/10 hover:opacity-100 focus-visible:bg-foreground/10 focus-visible:opacity-100 [&>svg]:size-3"
+          onClick={() => remove(tagValue)}
         >
-          <Icon size="xs">
-            <X />
-          </Icon>
+          <XIcon />
         </button>
       )}
-    </li>
+    </Badge>
   );
 }

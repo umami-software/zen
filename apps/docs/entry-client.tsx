@@ -1,6 +1,6 @@
 import { ShisoApp } from '@umami/shiso/client';
 import { type Theme, ToastProvider, useTheme } from '@umami/react-zen';
-import { hydrateRoot } from 'react-dom/client';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 import './styles.css';
 
 const element = document.getElementById('root');
@@ -47,9 +47,16 @@ themeObserver.observe(document.documentElement, {
   attributeOldValue: true,
 });
 
-hydrateRoot(
-  element,
+const app = (
   <ToastProvider duration={3000}>
     <ShisoApp />
-  </ToastProvider>,
+  </ToastProvider>
 );
+
+// Production pages are prerendered, so hydrate them. The dev server sends an
+// empty root (<!--app-html--> is only filled by the prerender step), so render.
+if (element.firstElementChild) {
+  hydrateRoot(element, app);
+} else {
+  createRoot(element).render(app);
+}

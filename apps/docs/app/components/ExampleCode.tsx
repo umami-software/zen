@@ -11,8 +11,8 @@ export function ExampleCode({ children }: ExampleCodeProps) {
     <Box
       position="relative"
       overflow="auto"
-      backgroundColor="surface"
-      className="example-code [&>*]:!m-0 [&_*]:border-0 [&_*]:ring-0 [&_pre]:!m-0 [&_pre]:p-4 [&_pre]:text-sm [&_figure]:!m-0 [&_figure]:!p-0 [&_div]:!m-0 [&_div]:rounded-none [&_code]:font-[family-name:var(--zen-font-family-mono)]"
+      backgroundColor="background"
+      className="example-code [&>*]:!m-0 [&_*]:border-0 [&_*]:ring-0 [&_pre]:!m-0 [&_pre]:p-4 [&_pre]:text-sm [&_figure]:!m-0 [&_figure]:!p-0 [&_div]:!m-0 [&_div]:rounded-none [&_code]:font-mono"
     >
       {children}
     </Box>

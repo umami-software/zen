@@ -47,39 +47,43 @@ export type ColorShade =
 // Tailwind color with shade (e.g., 'blue-500', 'red-300')
 export type TailwindColor = `${ColorName}-${ColorShade}`;
 
-// Semantic color values
-export type SemanticColor =
+// Theme token colors (shadcn tokens + Zen status extensions).
+// Prop value = token name; generated class = `${prefix}-${value}`.
+export type StatusColorToken = 'destructive' | 'success' | 'warning' | 'info';
+
+export type TextColorToken =
+  | 'foreground'
+  | 'muted-foreground'
+  | 'primary'
+  | 'primary-foreground'
+  | 'secondary-foreground'
+  | 'accent-foreground'
+  | 'background'
+  | 'card-foreground'
+  | 'popover-foreground'
+  | StatusColorToken;
+
+export type BackgroundColorToken =
+  | 'background'
+  | 'card'
+  | 'popover'
   | 'primary'
   | 'secondary'
   | 'muted'
-  | 'strong'
-  | 'inverted'
-  | 'disabled'
-  | 'transparent';
+  | 'accent'
+  | 'foreground'
+  | 'sidebar'
+  | StatusColorToken;
 
-// Surface color variants
-export type SurfaceColor =
-  | 'surface'
-  | 'surface-raised'
-  | 'surface-sunken'
-  | 'surface-overlay'
-  | 'surface-inverted'
-  | 'surface-disabled';
+export type BorderColorToken = 'border' | 'input' | 'ring' | 'primary' | StatusColorToken;
 
-// Interactive color variants
-export type InteractiveColor = 'interactive' | 'interactive-hover' | 'interactive-pressed';
+// Tailwind palette colors: 'red' (default shade) or 'red-500', plus transparent
+export type PaletteColor = ColorName | TailwindColor | 'transparent';
 
-// All supported colors: semantic + base colors + color-shade combinations
-export type FontColor = SemanticColor | ColorName | TailwindColor | true;
-export type BackgroundColor =
-  | SemanticColor
-  | SurfaceColor
-  | InteractiveColor
-  | ColorName
-  | TailwindColor
-  | true;
-export type BorderColor = SemanticColor | ColorName | TailwindColor | true;
-export type HoverColor = FontColor;
+// `true` maps to the default token: text-foreground, bg-muted, border-border
+export type FontColor = TextColorToken | PaletteColor | true;
+export type BackgroundColor = BackgroundColorToken | PaletteColor | true;
+export type BorderColor = BorderColorToken | PaletteColor | true;
 export type StrokeColor = FontColor;
 export type FillColor = FontColor;
 

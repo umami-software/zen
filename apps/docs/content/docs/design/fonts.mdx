@@ -1,12 +1,31 @@
 ---
 title: Fonts
-description: "The default fonts we use are Inter for regular text and JetBrains Mono for monospace text."
+description: "Zen ships no font. Components use your app's font, set with Tailwind's font variables."
 ---
 
 import { DataColumn, DataTable, Example, Text } from '../../../mdx-components';
 
-The default fonts we use are [Inter](https://fonts.google.com/specimen/Inter) for regular text and
-[JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono) for monospace text.
+Zen ships no font and doesn't set a font family on its components. They inherit the font of your
+app, which in a Tailwind app is Tailwind's `--font-sans` (and `--font-mono` for `Code`). Out of the
+box that is the system font stack.
+
+## Setting the font
+
+Load the font however you like (a `<link>` to Google Fonts, `@fontsource`, `next/font`, a local
+`@font-face`), then point Tailwind's font variables at it in your stylesheet:
+
+```css
+@import "tailwindcss";
+@import "@umami/react-zen/styles.css";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+```
+
+Apps that use `styles.full.css` without Tailwind can set the font on `body` (and `code`, `pre`)
+with plain CSS instead.
 
 ## Font sizes
 
@@ -50,19 +69,19 @@ follow the host application's root font size.
 <Example>
   <DataTable
     data={[
-      { name: 'xs', value: '12px' },
-      { name: 'sm', value: '14px' },
-      { name: 'base', value: '16px' },
-      { name: 'lg', value: '18px' },
-      { name: 'xl', value: '20px' },
-      { name: '2xl', value: '24px' },
-      { name: '3xl', value: '30px' },
-      { name: '4xl', value: '36px' },
-      { name: '5xl', value: '48px' },
-      { name: '6xl', value: '60px' },
-      { name: '7xl', value: '72px' },
-      { name: '8xl', value: '96px' },
-      { name: '9xl', value: '128px' },
+      { id: 'xs', name: 'xs', value: '12px' },
+      { id: 'sm', name: 'sm', value: '14px' },
+      { id: 'base', name: 'base', value: '16px' },
+      { id: 'lg', name: 'lg', value: '18px' },
+      { id: 'xl', name: 'xl', value: '20px' },
+      { id: '2xl', name: '2xl', value: '24px' },
+      { id: '3xl', name: '3xl', value: '30px' },
+      { id: '4xl', name: '4xl', value: '36px' },
+      { id: '5xl', name: '5xl', value: '48px' },
+      { id: '6xl', name: '6xl', value: '60px' },
+      { id: '7xl', name: '7xl', value: '72px' },
+      { id: '8xl', name: '8xl', value: '96px' },
+      { id: '9xl', name: '9xl', value: '128px' },
     ]}
   >
     <DataColumn id="name" label="Value" />
@@ -99,15 +118,15 @@ follow the host application's root font size.
 <Example>
   <DataTable
     data={[
-      { name: 'thin', value: '100' },
-      { name: 'extralight', value: '200' },
-      { name: 'light', value: '300' },
-      { name: 'normal', value: '400' },
-      { name: 'medium', value: '500' },
-      { name: 'semibold', value: '600' },
-      { name: 'bold', value: '700' },
-      { name: 'extrabold', value: '800' },
-      { name: 'black', value: '900' },
+      { id: 'thin', name: 'thin', value: '100' },
+      { id: 'extralight', name: 'extralight', value: '200' },
+      { id: 'light', name: 'light', value: '300' },
+      { id: 'normal', name: 'normal', value: '400' },
+      { id: 'medium', name: 'medium', value: '500' },
+      { id: 'semibold', name: 'semibold', value: '600' },
+      { id: 'bold', name: 'bold', value: '700' },
+      { id: 'extrabold', name: 'extrabold', value: '800' },
+      { id: 'black', name: 'black', value: '900' },
     ]}
   >
     <DataColumn id="name" label="Value" />
@@ -127,20 +146,12 @@ All font props accept responsive values for adapting typography across breakpoin
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="size" type="Responsive<FontSize>">"xs" | "sm" | "base" | "lg" | "xl" | "2xl" | ... | "9xl"</ResponseField>
-  <ResponseField name="weight" type="Responsive<FontWeight>">"thin" | "extralight" | "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold" | "black"</ResponseField>
+  <PropertiesTable.Row name="size" type="Responsive<FontSize>">"xs" | "sm" | "base" | "lg" | "xl" | "2xl" | ... | "9xl"</PropertiesTable.Row>
+  <PropertiesTable.Row name="weight" type="Responsive<FontWeight>">"thin" | "extralight" | "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold" | "black"</PropertiesTable.Row>
 </PropertiesTable>
 
 ## Customizing typography
 
-Configure font sizes and their line heights through Tailwind's `--text-*` theme variables.
-Zen components use the same utilities as the rest of your application. Font families remain
-configurable through `--zen-font-family` and `--zen-font-family-mono`.
-
-## Migrating from the custom scale
-
-The old `--zen-font-size-*` and `--zen-line-height-*` variables are no longer used.
-Move overrides into your Tailwind typography theme. Explicit sizes now follow Tailwind: for
-example, `size="base"` is 16px instead of 14px at the default root size. Use `size="sm"` for 14px text.
-Text, Label, Code, and ordinary control defaults remain 14px; explicit heading and other size
-variants now follow the standard scale.
+Font sizes and their line heights come from Tailwind's `--text-*` theme variables, and weights from
+`--font-weight-*`. Zen components use the same utilities as the rest of your application, so
+changing them in `@theme` changes Zen too.

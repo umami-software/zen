@@ -1,29 +1,22 @@
 import { Autocomplete as BaseAutocomplete } from '@base-ui/react/autocomplete';
+import { XIcon } from 'lucide-react';
 import { forwardRef, type ReactNode } from 'react';
-import { X } from '@/components/icons';
-import { useFieldId } from './hooks/useFieldId';
-import { Icon } from './Icon';
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from './InputGroup';
-import { Label } from './Label';
-import { cn } from './lib/tailwind';
-import { listItem } from './variants';
-import './Overlay.css';
-import './Popover.css';
+import { useFieldId } from '@/components/hooks/useFieldId';
+import { Field, FieldLabel } from '@/components/ui/field';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '@/components/ui/input-group';
+import { cn } from '@/lib/utils';
 
 export interface AutocompleteProps
   extends Omit<BaseAutocomplete.Root.Props<string>, 'children' | 'items' | 'inline'> {
   items: readonly string[];
   label?: ReactNode;
   placeholder?: string;
-  /** Compat alias for the Base UI `disabled` prop. */
-  isDisabled?: boolean;
-  /**
-   * Called with the new input value after Base UI's own `onValueChange` handler runs,
-   * and only when the change was not canceled. Use `onValueChange` instead when you
-   * need the raw Base UI event details (including canceled changes).
-   */
-  onChange?: (value: string) => void;
-  /** Shows a clear button (`Autocomplete.Clear`) while the input has a value. */
+  /** Shows a clear button while the input has a value. */
   showClear?: boolean;
   className?: string;
   inputProps?: BaseAutocomplete.Input.Props;
@@ -39,11 +32,8 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       items,
       label,
       placeholder,
-      isDisabled,
       disabled,
       showClear,
-      onChange,
-      onValueChange,
       className,
       inputProps,
       positionerProps,
@@ -57,39 +47,29 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     const inputId = inputProps?.id ?? fieldId;
 
     return (
-      <BaseAutocomplete.Root
-        {...props}
-        id={id}
-        items={items}
-        disabled={isDisabled ?? disabled}
-        onValueChange={(value, details) => {
-          onValueChange?.(value, details);
-          if (!details.isCanceled) onChange?.(value);
-        }}
-      >
-        <div data-slot="autocomplete" className={cn('relative flex flex-col gap-2', className)}>
-          {label && <Label htmlFor={inputId}>{label}</Label>}
-          <InputGroup>
+      <BaseAutocomplete.Root {...props} id={id} items={items} disabled={disabled}>
+        <Field
+          data-slot="autocomplete"
+          data-disabled={disabled ? true : undefined}
+          className={cn('relative', className)}
+        >
+          {label && <FieldLabel htmlFor={inputId}>{label}</FieldLabel>}
+          <InputGroup data-disabled={disabled ? 'true' : undefined}>
             <BaseAutocomplete.Input
               placeholder={placeholder}
               {...inputProps}
               id={inputId}
               ref={ref}
-              data-slot="autocomplete-input"
-              render={<InputGroupInput className="text-sm" />}
+              render={<InputGroupInput />}
             />
             {showClear && (
               <InputGroupAddon align="inline-end">
                 <InputGroupButton
                   size="icon-xs"
-                  variant="quiet"
                   aria-label="Clear"
-                  data-slot="autocomplete-clear"
                   render={<BaseAutocomplete.Clear />}
                 >
-                  <Icon aria-hidden="true" size="sm">
-                    <X />
-                  </Icon>
+                  <XIcon />
                 </InputGroupButton>
               </InputGroupAddon>
             )}
@@ -100,12 +80,12 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           <BaseAutocomplete.Portal>
             <BaseAutocomplete.Positioner
               align="start"
-              sideOffset={4}
+              sideOffset={6}
               {...positionerProps}
               data-slot="autocomplete-positioner"
               className={state =>
                 cn(
-                  'zen-layer-floating',
+                  'isolate z-50',
                   typeof positionerProps?.className === 'function'
                     ? positionerProps.className(state)
                     : positionerProps?.className,
@@ -114,27 +94,32 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
             >
               <BaseAutocomplete.Popup
                 data-slot="autocomplete-content"
-                className="zen-popover w-(--anchor-width) max-w-(--available-width) max-h-[min(23rem,var(--available-height))] overflow-x-hidden overflow-y-auto rounded-md border border-edge bg-surface-overlay p-1 text-fg shadow-lg outline-none"
+                className="relative max-h-(--available-height) w-(--anchor-width) max-w-(--available-width) origin-(--transform-origin) overflow-hidden rounded-md bg-popover text-popover-foreground shadow-md ring-1 ring-foreground/10 duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95"
               >
-                <BaseAutocomplete.List data-slot="autocomplete-list">
+                <BaseAutocomplete.List
+                  data-slot="autocomplete-list"
+                  className="no-scrollbar max-h-[min(calc(--spacing(72)---spacing(9)),calc(var(--available-height)---spacing(9)))] scroll-py-1 overflow-y-auto overscroll-contain p-1 data-empty:p-0"
+                >
                   {(item: string) => (
                     <BaseAutocomplete.Item
                       key={item}
                       value={item}
                       data-slot="autocomplete-item"
-                      className={listItem()}
+                      className="relative flex w-full cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-highlighted:bg-accent data-highlighted:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
                     >
                       {renderItem ? renderItem(item) : item}
                     </BaseAutocomplete.Item>
                   )}
                 </BaseAutocomplete.List>
                 <BaseAutocomplete.Empty data-slot="autocomplete-empty">
-                  <div className="px-3 py-4 text-center text-sm text-fg-muted">{emptyMessage}</div>
+                  <div className="flex w-full justify-center py-2 text-center text-sm text-muted-foreground">
+                    {emptyMessage}
+                  </div>
                 </BaseAutocomplete.Empty>
               </BaseAutocomplete.Popup>
             </BaseAutocomplete.Positioner>
           </BaseAutocomplete.Portal>
-        </div>
+        </Field>
       </BaseAutocomplete.Root>
     );
   },

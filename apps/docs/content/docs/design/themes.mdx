@@ -1,15 +1,20 @@
 ---
 title: Themes
-description: "Zen supports light and dark themes out of the box."
+description: "Light and dark mode, plus seven built-in color palettes."
 ---
 
-import { DataColumn, DataTable, Example, PaletteSwatchesExample, ThemeButton, ThemeButtonExample } from '../../../mdx-components';
+import { DataColumn, DataTable, Example, PaletteSwatchesExample, PaletteSwitcher, ThemeButton, ThemeButtonExample } from '../../../mdx-components';
 
-Zen supports light and dark themes out of the box. Themes are applied using CSS custom properties that automatically adjust colors, backgrounds, and borders based on the active theme.
+Zen ships the [shadcn/ui](https://ui.shadcn.com/docs/theming) theme. Every color is a CSS variable,
+and two switches change them all at once:
+
+- **Dark mode** is the `.dark` class, exactly as in shadcn.
+- **Palettes** are the shadcn base colors, selected with the `data-palette` attribute.
 
 ## Setup
 
-Wrap your application with `ZenProvider` to enable theme support.
+Wrap your application with `ZenProvider`. It applies the stored or preferred theme and palette to
+`<html>` and keeps the `useTheme` store in sync.
 
 ```jsx
 import { ZenProvider } from '@umami/react-zen';
@@ -23,124 +28,116 @@ function App() {
 }
 ```
 
-## Theme options
+## Dark mode
 
-You can configure the initial theme using the `theme` or `colorScheme` props.
+Dark mode is the `.dark` class on an ancestor element, usually `<html>`. Any element inside a `.dark`
+element uses the dark values of every token. Tailwind's `dark:` variant is wired to the same class.
+
+```html
+<html class="dark">
+```
+
+You can configure the initial theme with the `theme` or `colorScheme` props.
 
 ```jsx
 // Force a specific theme
 <ZenProvider theme="dark">
 
-// Use system preference
+// Follow the system preference
 <ZenProvider colorScheme="system">
-
-// Default to light, but respect system preference
-<ZenProvider colorScheme="light">
 ```
+
+Without either prop, Zen uses the stored preference, then the system preference. The preference is
+saved to `localStorage` under the key `theme`, which is the same key `next-themes` uses, so the two
+can be used together.
 
 ## ThemeButton
 
-Use the `ThemeButton` component to let users toggle between light and dark themes.
+Use the `ThemeButton` component to let users toggle between light and dark mode.
 
 <Example>
   <ThemeButton variant="outline" />
-</Example>
 
-```jsx
-<ThemeButton variant="outline" />
-```
+  ```jsx
+  <ThemeButton variant="outline" />
+  ```
+</Example>
 
 ## Local themes
 
-You can scope theme changes to a specific container using the `target` prop. This allows parts of your UI to have a different theme than the rest of the page.
+Pass a `target` to scope the theme to one element. `ThemeButton` then toggles the `dark` class on
+that element only.
 
 <Example>
   <ThemeButtonExample />
+
+  ```jsx
+  function LocalThemeExample() {
+    const containerRef = useRef(null);
+
+    return (
+      <Box
+        ref={containerRef}
+        padding="6"
+        border
+        borderRadius="lg"
+        backgroundColor="background"
+        color="foreground"
+        width="100%"
+      >
+        <Row alignItems="center" justifyContent="space-between" gap="6">
+          <Text>This container has its own theme</Text>
+          <ThemeButton variant="outline" target={containerRef} />
+        </Row>
+      </Box>
+    );
+  }
+  ```
 </Example>
 
-```jsx
-function LocalThemeExample() {
-  const containerRef = useRef(null);
-
-  return (
-    <Box ref={containerRef} padding="6" backgroundColor="surface">
-      <Row alignItems="center" justifyContent="space-between">
-        <Text>This container has its own theme</Text>
-        <ThemeButton target={containerRef} />
-      </Row>
-    </Box>
-  );
-}
-```
+To render a section in dark mode permanently, use `Box theme="dark"`, which adds the `dark` class.
 
 ## useTheme hook
 
-Access and control the current theme programmatically with the `useTheme` hook.
+Read and change the theme and palette programmatically with the `useTheme` hook.
 
 ```jsx
-import { useTheme } from '@umami/react-zen';
+import { Button, useTheme } from '@umami/react-zen';
 
 function MyComponent() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <Button onPress={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+    <Button
+      variant="outline"
+      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+    >
       Current theme: {theme}
     </Button>
   );
 }
 ```
 
-## CSS variables
-
-Themes work by redefining CSS custom properties. The following variables change based on the active theme:
-
-<Example>
-  <DataTable
-    data={[
-      { name: '--zen-surface', description: 'Primary background color' },
-      { name: '--zen-surface-raised', description: 'Elevated surface background' },
-      { name: '--zen-surface-sunken', description: 'Recessed surface background' },
-      { name: '--zen-surface-overlay', description: 'Overlay/modal background' },
-      { name: '--zen-fg', description: 'Primary text color' },
-      { name: '--zen-fg-muted', description: 'Muted/subtle text color' },
-      { name: '--zen-border', description: 'Default border color' },
-      { name: '--zen-border-strong', description: 'Emphasized border color' },
-      { name: '--zen-interactive-bg', description: 'Interactive element background' },
-      { name: '--zen-primary', description: 'Primary/accent color' },
-    ]}
-  >
-    <DataColumn id="name" label="Variable" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
-
-## Theme persistence
-
-Theme preference is automatically saved to `localStorage` under the key `theme`. When the page loads, the stored preference is restored.
-
-## Dark mode classes
-
-Zen applies both `data-theme="dark"` attribute and the `.dark` class to the root element for maximum compatibility with Tailwind CSS and other frameworks.
-
 ## Color palettes
 
-Zen supports multiple gray-scale palettes inspired by Tailwind CSS. Each palette has a different color temperature and character.
+The palette sets the tint of every neutral color: backgrounds, text, borders, muted surfaces and the
+primary color. There are seven, all shadcn base colors.
 
 <Example>
+  <PaletteSwitcher />
   <PaletteSwatchesExample />
 </Example>
 
-### Available palettes
-
 <Example>
   <DataTable
     data={[
-      { name: 'neutral', description: 'Pure gray with no color tint (default)' },
-      { name: 'slate', description: 'Cool blue-gray tones' },
-      { name: 'gray', description: 'Slight blue tint' },
-      { name: 'zinc', description: 'Subtle blue undertones' },
-      { name: 'stone', description: 'Warm tan/brown tones' },
+      { id: 'neutral', name: 'neutral', description: 'Pure gray with no tint (default)' },
+      { id: 'stone', name: 'stone', description: 'Warm gray' },
+      { id: 'zinc', name: 'zinc', description: 'Cool gray with a slight blue undertone' },
+      { id: 'mauve', name: 'mauve', description: 'Gray with a purple undertone' },
+      { id: 'olive', name: 'olive', description: 'Gray with a yellow-green undertone' },
+      { id: 'mist', name: 'mist', description: 'Gray with a blue-teal undertone' },
+      { id: 'taupe', name: 'taupe', description: 'Gray with a brown undertone' },
     ]}
   >
     <DataColumn id="name" label="Palette" />
@@ -150,19 +147,27 @@ Zen supports multiple gray-scale palettes inspired by Tailwind CSS. Each palette
 
 ### Setting the palette
 
-You can set the palette via `ZenProvider` or programmatically with `useTheme`.
+Set the palette with `ZenProvider`, with `useTheme`, or by writing the attribute yourself.
 
 ```jsx
 // Via provider
-<ZenProvider palette="slate">
+<ZenProvider palette="zinc">
   <YourApp />
 </ZenProvider>
 
 // Programmatically
 const { palette, setPalette } = useTheme();
-setPalette('zinc');
+setPalette('mauve');
 ```
 
-### Palette persistence
+```html
+<html data-palette="stone" class="dark">
+```
 
-Palette preference is automatically saved to `localStorage` under the key `zen.palette`. The `data-palette` attribute is applied to the root element.
+The palette is saved to `localStorage` under the key `zen.palette`. The exported `PALETTES` constant
+lists every value.
+
+## Tokens
+
+Themes and palettes only change the values of the theme tokens. See [Colors](/docs/design/colors)
+for the full list and [Customization](/docs/design/customization) to supply your own values.

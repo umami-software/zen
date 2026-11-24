@@ -1,182 +1,182 @@
 ---
 title: Table
-description: "A table displays data in rows and columns and enables a user to navigate its contents via directional navigation keys, and optionally supports row selection and sorting."
+description: "A responsive table component."
 ---
 
-import { Checkbox, Example, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '../../../mdx-components';
+import { Badge, Box, Checkbox, Example, Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '../../../mdx-components';
 
-A table displays data in rows and columns and enables a user to navigate its contents via
-directional navigation keys, and optionally supports row selection and sorting.
+A responsive table component. The parts map one-to-one to the native table elements and the table
+scrolls horizontally when it is wider than its container. For sorting, selection and data-driven
+columns, use [DataTable](/docs/components/data-table).
 
 <Example>
+  <Box width="560px" maxWidth="100%">
+    <Table>
+      <TableCaption>A list of your recent invoices.</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Invoice</TableHead>
+          <TableHead>Status</TableHead>
+          <TableHead>Method</TableHead>
+          <TableHead className="text-right">Amount</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        <TableRow>
+          <TableCell className="font-medium">INV001</TableCell>
+          <TableCell>Paid</TableCell>
+          <TableCell>Credit Card</TableCell>
+          <TableCell className="text-right">$250.00</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="font-medium">INV002</TableCell>
+          <TableCell>Pending</TableCell>
+          <TableCell>PayPal</TableCell>
+          <TableCell className="text-right">$150.00</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="font-medium">INV003</TableCell>
+          <TableCell>Unpaid</TableCell>
+          <TableCell>Bank Transfer</TableCell>
+          <TableCell className="text-right">$350.00</TableCell>
+        </TableRow>
+      </TableBody>
+      <TableFooter>
+        <TableRow>
+          <TableCell colSpan={3}>Total</TableCell>
+          <TableCell className="text-right">$750.00</TableCell>
+        </TableRow>
+      </TableFooter>
+    </Table>
+  </Box>
+
+  ```jsx
   <Table>
+    <TableCaption>A list of your recent invoices.</TableCaption>
     <TableHeader>
-      <TableColumn>Name</TableColumn>
-      <TableColumn>Email</TableColumn>
-      <TableColumn>Date created</TableColumn>
+      <TableRow>
+        <TableHead>Invoice</TableHead>
+        <TableHead>Status</TableHead>
+        <TableHead>Method</TableHead>
+        <TableHead className="text-right">Amount</TableHead>
+      </TableRow>
     </TableHeader>
     <TableBody>
       <TableRow>
-        <TableCell>Bob</TableCell>
-        <TableCell>bob@aol.com</TableCell>
-        <TableCell>5/5/2020</TableCell>
+        <TableCell className="font-medium">INV001</TableCell>
+        <TableCell>Paid</TableCell>
+        <TableCell>Credit Card</TableCell>
+        <TableCell className="text-right">$250.00</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>Fred</TableCell>
-        <TableCell>fred@yahoo.com</TableCell>
-        <TableCell>4/7/2021</TableCell>
+        <TableCell className="font-medium">INV002</TableCell>
+        <TableCell>Pending</TableCell>
+        <TableCell>PayPal</TableCell>
+        <TableCell className="text-right">$150.00</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>Ted</TableCell>
-        <TableCell>ted@gmail.com</TableCell>
-        <TableCell>11/20/2010</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>Joe</TableCell>
-        <TableCell>joe@outlook.com</TableCell>
-        <TableCell>1/18/2016</TableCell>
+        <TableCell className="font-medium">INV003</TableCell>
+        <TableCell>Unpaid</TableCell>
+        <TableCell>Bank Transfer</TableCell>
+        <TableCell className="text-right">$350.00</TableCell>
       </TableRow>
     </TableBody>
+    <TableFooter>
+      <TableRow>
+        <TableCell colSpan={3}>Total</TableCell>
+        <TableCell className="text-right">$750.00</TableCell>
+      </TableRow>
+    </TableFooter>
   </Table>
+  ```
+</Example>
+
+## Selected rows
+
+`TableRow` highlights itself when it has `data-state="selected"`. Combine it with a `Checkbox` in
+the first column to build row selection yourself.
+
+<Example>
+  <Box width="480px" maxWidth="100%">
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>
+            <Checkbox aria-label="Select all" />
+          </TableHead>
+          <TableHead>Name</TableHead>
+          <TableHead>Role</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        <TableRow data-state="selected">
+          <TableCell>
+            <Checkbox aria-label="Select Sarah Chen" defaultChecked />
+          </TableCell>
+          <TableCell>Sarah Chen</TableCell>
+          <TableCell>
+            <Badge variant="secondary">Owner</Badge>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <Checkbox aria-label="Select Marc Rivera" />
+          </TableCell>
+          <TableCell>Marc Rivera</TableCell>
+          <TableCell>
+            <Badge variant="outline">Member</Badge>
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  </Box>
 
   ```jsx
   <Table>
     <TableHeader>
-      <TableColumn>Name</TableColumn>
-      <TableColumn>Email</TableColumn>
-      <TableColumn>Date created</TableColumn>
+      <TableRow>
+        <TableHead>
+          <Checkbox aria-label="Select all" />
+        </TableHead>
+        <TableHead>Name</TableHead>
+        <TableHead>Role</TableHead>
+      </TableRow>
     </TableHeader>
     <TableBody>
+      <TableRow data-state="selected">
+        <TableCell>
+          <Checkbox aria-label="Select Sarah Chen" defaultChecked />
+        </TableCell>
+        <TableCell>Sarah Chen</TableCell>
+        <TableCell>
+          <Badge variant="secondary">Owner</Badge>
+        </TableCell>
+      </TableRow>
       <TableRow>
-        <TableCell>Bob</TableCell>
-        <TableCell>bob@aol.com</TableCell>
-        <TableCell>5/5/2020</TableCell>
+        <TableCell>
+          <Checkbox aria-label="Select Marc Rivera" />
+        </TableCell>
+        <TableCell>Marc Rivera</TableCell>
+        <TableCell>
+          <Badge variant="outline">Member</Badge>
+        </TableCell>
       </TableRow>
     </TableBody>
   </Table>
   ```
 </Example>
 
-## Selection
-
-<Example>
-  <Table selectionMode="multiple">
-    <TableHeader>
-      <TableColumn style={{ maxWidth: 50 }}>
-        <Checkbox slot="selection" />
-      </TableColumn>
-      <TableColumn>Name</TableColumn>
-      <TableColumn>Email</TableColumn>
-      <TableColumn>Date created</TableColumn>
-    </TableHeader>
-    <TableBody>
-      <TableRow id="bob">
-        <TableCell style={{ maxWidth: 50 }}>
-          <Checkbox slot="selection" />
-        </TableCell>
-        <TableCell>Bob</TableCell>
-        <TableCell>bob@aol.com</TableCell>
-        <TableCell>5/5/2020</TableCell>
-      </TableRow>
-      <TableRow id="fred">
-        <TableCell style={{ maxWidth: 50 }}>
-          <Checkbox slot="selection" />
-        </TableCell>
-        <TableCell>Fred</TableCell>
-        <TableCell>fred@yahoo.com</TableCell>
-        <TableCell>4/7/2021</TableCell>
-      </TableRow>
-      <TableRow id="ted">
-        <TableCell style={{ maxWidth: 50 }}>
-          <Checkbox slot="selection" />
-        </TableCell>
-        <TableCell>Ted</TableCell>
-        <TableCell>ted@gmail.com</TableCell>
-        <TableCell>11/20/2010</TableCell>
-      </TableRow>
-      <TableRow id="joe">
-        <TableCell style={{ maxWidth: 50 }}>
-          <Checkbox slot="selection" />
-        </TableCell>
-        <TableCell>Joe</TableCell>
-        <TableCell>joe@outlook.com</TableCell>
-        <TableCell>1/18/2016</TableCell>
-      </TableRow>
-    </TableBody>
-  </Table>
-
-  ```jsx
-  <Table selectionMode="multiple">
-    <TableHeader>
-      <TableColumn><Checkbox slot="selection" /></TableColumn>
-      <TableColumn>Name</TableColumn>
-      <TableColumn>Email</TableColumn>
-    </TableHeader>
-    <TableBody>
-      <TableRow id="bob">
-        <TableCell><Checkbox slot="selection" /></TableCell>
-        <TableCell>Bob</TableCell>
-        <TableCell>bob@aol.com</TableCell>
-      </TableRow>
-    </TableBody>
-  </Table>
-  ```
-</Example>
-
-## Alignment
-
-<Example>
-  <Table>
-    <TableHeader>
-      <TableColumn align="start">Name</TableColumn>
-      <TableColumn align="center">Type</TableColumn>
-      <TableColumn align="end">Date modified</TableColumn>
-    </TableHeader>
-    <TableBody>
-      <TableRow>
-        <TableCell align="start">Games</TableCell>
-        <TableCell align="center">File folder</TableCell>
-        <TableCell align="end">6/7/2020</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell align="start">Program Files</TableCell>
-        <TableCell align="center">File folder</TableCell>
-        <TableCell align="end">4/7/2021</TableCell>
-      </TableRow>
-    </TableBody>
-  </Table>
-
-  ```jsx
-  <Table>
-    <TableHeader>
-      <TableColumn align="start">Name</TableColumn>
-      <TableColumn align="center">Type</TableColumn>
-      <TableColumn align="end">Date</TableColumn>
-    </TableHeader>
-    <TableBody>
-      <TableRow>
-        <TableCell align="start">Games</TableCell>
-        <TableCell align="center">Folder</TableCell>
-        <TableCell align="end">6/7/2020</TableCell>
-      </TableRow>
-    </TableBody>
-  </Table>
-  ```
-</Example>
-
-## Component props
-
-### Table
+## Parts
 
 <PropertiesTable>
-  <ResponseField name="selectionMode" type="SelectionMode">"none" | "single" | "multiple"</ResponseField>
-  <ResponseField name="selectedKeys" type="string[]">Controlled selected row keys</ResponseField>
-  <ResponseField name="defaultSelectedKeys" type="string[]">Default selected row keys</ResponseField>
-  <ResponseField name="onSelectionChange" type="(keys: Selection) => void">Called when selection changes</ResponseField>
+  <PropertiesTable.Row name="Table" type="table">The table, wrapped in a horizontally scrolling container</PropertiesTable.Row>
+  <PropertiesTable.Row name="TableHeader" type="thead">The header section</PropertiesTable.Row>
+  <PropertiesTable.Row name="TableBody" type="tbody">The body section</PropertiesTable.Row>
+  <PropertiesTable.Row name="TableFooter" type="tfoot">The footer section, on a muted background</PropertiesTable.Row>
+  <PropertiesTable.Row name="TableRow" type="tr">A row. Highlights on hover and with `data-state="selected"`</PropertiesTable.Row>
+  <PropertiesTable.Row name="TableHead" type="th">A header cell</PropertiesTable.Row>
+  <PropertiesTable.Row name="TableCell" type="td">A body cell</PropertiesTable.Row>
+  <PropertiesTable.Row name="TableCaption" type="caption">A caption below the table</PropertiesTable.Row>
 </PropertiesTable>
 
-### TableColumn / TableCell
-
-<PropertiesTable>
-  <ResponseField name="align" type="Alignment">"start" | "center" | "end"</ResponseField>
-</PropertiesTable>
+All parts accept the props of the element they render, including `className`.

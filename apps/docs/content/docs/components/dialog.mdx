@@ -1,48 +1,267 @@
 ---
 title: Dialog
-description: "A dialog is an overlay shown above other content in an application."
+description: "A window overlaid on the primary window, rendering the content underneath inert."
 ---
 
-import { Button, Dialog, DialogExample, DialogTrigger, Example, Form, FormButtons, FormField, Modal, TextField } from '../../../mdx-components';
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogExample,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  Example,
+  Field,
+  FieldGroup,
+  FieldLabel,
+  Input,
+  Text,
+} from '../../../mdx-components';
 
-A dialog is an overlay shown above other content in an application.
+A window overlaid on the primary window, rendering the content underneath inert. `Dialog` is a
+modal: it traps focus, locks page scrolling, and closes on Escape or a click outside.
+
+For panels that slide in from an edge of the screen use `Sheet`, and for swipeable panels use
+`Drawer`. For confirmations that need an explicit answer use `AlertDialog`.
+
+<Example>
+  <Dialog>
+    <DialogTrigger render={<Button variant="outline" />}>Edit profile</DialogTrigger>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Edit profile</DialogTitle>
+        <DialogDescription>Make changes to your profile here. Click save when you're done.</DialogDescription>
+      </DialogHeader>
+      <FieldGroup>
+        <Field>
+          <FieldLabel htmlFor="profile-name">Name</FieldLabel>
+          <Input id="profile-name" defaultValue="Ada Lovelace" />
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="profile-username">Username</FieldLabel>
+          <Input id="profile-username" defaultValue="@ada" />
+        </Field>
+      </FieldGroup>
+      <DialogFooter>
+        <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
+        <DialogClose render={<Button />}>Save changes</DialogClose>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
+
+  ```jsx
+  <Dialog>
+    <DialogTrigger render={<Button variant="outline" />}>Edit profile</DialogTrigger>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Edit profile</DialogTitle>
+        <DialogDescription>Make changes to your profile here. Click save when you're done.</DialogDescription>
+      </DialogHeader>
+      <FieldGroup>
+        <Field>
+          <FieldLabel htmlFor="profile-name">Name</FieldLabel>
+          <Input id="profile-name" defaultValue="Ada Lovelace" />
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="profile-username">Username</FieldLabel>
+          <Input id="profile-username" defaultValue="@ada" />
+        </Field>
+      </FieldGroup>
+      <DialogFooter>
+        <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
+        <DialogClose render={<Button />}>Save changes</DialogClose>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
+  ```
+</Example>
+
+## Controlled
+
+Pass `open` and `onOpenChange` to close the dialog from your own code, for example after a form is
+submitted.
 
 <Example>
   <DialogExample />
 
   ```jsx
-  <DialogTrigger>
-    <Button variant="primary">Click me</Button>
-    <Modal>
-      <Dialog title="Sign up for newsletter">
-        {({ close }) => {
-          return (
-            <Form>
-              <FormField name="name" label="Name">
-                <TextField />
-              </FormField>
-              <FormField name="email" label="Email">
-                <TextField />
-              </FormField>
-              <FormButtons>
-                <Button onPress={close}>Cancel</Button>
-                <Button variant="primary" onPress={close}>
-                  Sign up
-                </Button>
-              </FormButtons>
-            </Form>
-          );
-        }}
+  function DialogExample() {
+    const [open, setOpen] = useState(false);
+
+    const handleSubmit = event => {
+      event.preventDefault();
+      // Save the subscription, then close the dialog.
+      setOpen(false);
+    };
+
+    return (
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger render={<Button />}>Sign up</DialogTrigger>
+        <DialogContent className="sm:max-w-sm">
+          <form onSubmit={handleSubmit} className="grid gap-6">
+            <DialogHeader>
+              <DialogTitle>Sign up for our newsletter</DialogTitle>
+              <DialogDescription>Get product updates once a month.</DialogDescription>
+            </DialogHeader>
+            <FieldGroup>
+              <Field>
+                <FieldLabel htmlFor="newsletter-name">Name</FieldLabel>
+                <Input id="newsletter-name" name="name" required />
+              </Field>
+              <Field>
+                <FieldLabel htmlFor="newsletter-email">Email</FieldLabel>
+                <Input id="newsletter-email" name="email" type="email" required />
+              </Field>
+            </FieldGroup>
+            <DialogFooter>
+              <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
+              <Button type="submit">Sign up</Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
       </Dialog>
-    </Modal>
-  </DialogTrigger>
+    );
+  }
   ```
 </Example>
 
+## Close button
+
+`DialogContent` shows a close button in the corner by default. Set `showCloseButton={false}` to hide
+it, and `showCloseButton` on `DialogFooter` to add a Close button to the footer instead.
+
+<Example>
+  <Dialog>
+    <DialogTrigger render={<Button variant="outline" />}>Share link</DialogTrigger>
+    <DialogContent showCloseButton={false}>
+      <DialogHeader>
+        <DialogTitle>Share link</DialogTitle>
+        <DialogDescription>Anyone who has this link will be able to view this page.</DialogDescription>
+      </DialogHeader>
+      <Input defaultValue="https://zen.umami.is/docs" aria-label="Link" readOnly />
+      <DialogFooter showCloseButton />
+    </DialogContent>
+  </Dialog>
+
+  ```jsx
+  <Dialog>
+    <DialogTrigger render={<Button variant="outline" />}>Share link</DialogTrigger>
+    <DialogContent showCloseButton={false}>
+      <DialogHeader>
+        <DialogTitle>Share link</DialogTitle>
+        <DialogDescription>Anyone who has this link will be able to view this page.</DialogDescription>
+      </DialogHeader>
+      <Input defaultValue="https://zen.umami.is/docs" aria-label="Link" readOnly />
+      <DialogFooter showCloseButton />
+    </DialogContent>
+  </Dialog>
+  ```
+</Example>
+
+## Scrollable content
+
+Limit the height of the body and let it scroll, keeping the header and footer in view.
+
+<Example>
+  <Dialog>
+    <DialogTrigger render={<Button variant="outline" />}>Terms of service</DialogTrigger>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Terms of service</DialogTitle>
+        <DialogDescription>Please read the terms before continuing.</DialogDescription>
+      </DialogHeader>
+      <Box maxHeight="240px" overflowY="auto">
+        <Text as="p">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+          sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+          est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+          doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et
+          quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+          voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
+          ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+          sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut
+          labore et dolore magnam aliquam quaerat voluptatem.
+        </Text>
+      </Box>
+      <DialogFooter>
+        <DialogClose render={<Button variant="outline" />}>Decline</DialogClose>
+        <DialogClose render={<Button />}>Accept</DialogClose>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
+
+  ```jsx
+  <Dialog>
+    <DialogTrigger render={<Button variant="outline" />}>Terms of service</DialogTrigger>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Terms of service</DialogTitle>
+        <DialogDescription>Please read the terms before continuing.</DialogDescription>
+      </DialogHeader>
+      <Box maxHeight="240px" overflowY="auto">
+        <Text as="p">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+          sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+          est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+          doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et
+          quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+          voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
+          ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+          sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut
+          labore et dolore magnam aliquam quaerat voluptatem.
+        </Text>
+      </Box>
+      <DialogFooter>
+        <DialogClose render={<Button variant="outline" />}>Decline</DialogClose>
+        <DialogClose render={<Button />}>Accept</DialogClose>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
+  ```
+</Example>
+
+## Parts
+
+- `Dialog` is the root. It holds the open state.
+- `DialogTrigger` opens the dialog. Use `render={<Button />}` to style it.
+- `DialogContent` is the popup, rendered in a portal over a backdrop. It sets its own width (`sm:max-w-md`); pass a `className` to change it.
+- `DialogHeader`, `DialogTitle` and `DialogDescription` make up the header. Always include a `DialogTitle` so the dialog has an accessible name.
+- `DialogFooter` lays out the actions.
+- `DialogClose` closes the dialog. It also accepts `render`.
+
 ## Component props
 
+### Dialog
+
 <PropertiesTable>
-  <ResponseField name="title" type="ReactNode">Dialog title displayed at the top. When omitted, an `aria-label` is used as a visually hidden title instead</ResponseField>
-  <ResponseField name="description" type="ReactNode">Accessible description rendered below the title</ResponseField>
-  <ResponseField name="variant" type="DialogVariant">"sheet" - Full-width variant for side panels</ResponseField>
+  <PropertiesTable.Row name="open" type="boolean">Controlled open state</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultOpen" type="boolean">Initial open state when uncontrolled (default: false)</PropertiesTable.Row>
+  <PropertiesTable.Row name="onOpenChange" type="(open, eventDetails) => void">Called when the dialog opens or closes</PropertiesTable.Row>
+  <PropertiesTable.Row name="modal" type="boolean | 'trap-focus'">Whether focus is trapped and page scroll is locked (default: true)</PropertiesTable.Row>
+  <PropertiesTable.Row name="disablePointerDismissal" type="boolean">Prevents closing the dialog by clicking outside (default: false)</PropertiesTable.Row>
+</PropertiesTable>
+
+### DialogContent
+
+<PropertiesTable>
+  <PropertiesTable.Row name="showCloseButton" type="boolean">Shows the close button in the top-right corner (default: true)</PropertiesTable.Row>
+  <PropertiesTable.Row name="initialFocus" type="boolean | RefObject | function">Element to focus when the dialog opens</PropertiesTable.Row>
+  <PropertiesTable.Row name="finalFocus" type="boolean | RefObject | function">Element to focus when the dialog closes</PropertiesTable.Row>
+</PropertiesTable>
+
+### DialogFooter
+
+<PropertiesTable>
+  <PropertiesTable.Row name="showCloseButton" type="boolean">Adds an outline Close button (default: false)</PropertiesTable.Row>
 </PropertiesTable>

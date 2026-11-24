@@ -1,48 +1,73 @@
 ---
 title: Separator
-description: "A separator visually divides content into groups."
+description: "Visually or semantically separates content."
 ---
 
-import { Box, Example, Flexbox, Separator, Text } from '../../../mdx-components';
+import { Box, Column, Example, Row, Separator, Text } from '../../../mdx-components';
 
-A separator visually divides content into groups.
+Visually or semantically separates content. A horizontal separator fills the width of its
+container; a vertical one stretches to the height of its row.
 
 <Example>
-  <Box width="300px">
-    <Text>Above the line</Text>
-    <Box paddingY="3">
+  <Box width="320px" maxWidth="100%">
+    <Column gap="1">
+      <Text size="sm" weight="medium">React Zen</Text>
+      <Text size="sm" color="muted-foreground">An open-source UI component library.</Text>
+    </Column>
+    <Box marginY="4">
       <Separator />
     </Box>
-    <Text>Below the line</Text>
+    <Row gap="4" alignItems="center" height="20px">
+      <Text size="sm">Blog</Text>
+      <Separator orientation="vertical" />
+      <Text size="sm">Docs</Text>
+      <Separator orientation="vertical" />
+      <Text size="sm">Source</Text>
+    </Row>
   </Box>
 
   ```jsx
-  <Text>Above the line</Text>
-  <Separator />
-  <Text>Below the line</Text>
+  <Column gap="1">
+    <Text size="sm" weight="medium">React Zen</Text>
+    <Text size="sm" color="muted-foreground">An open-source UI component library.</Text>
+  </Column>
+  <Box marginY="4">
+    <Separator />
+  </Box>
+  <Row gap="4" alignItems="center" height="20px">
+    <Text size="sm">Blog</Text>
+    <Separator orientation="vertical" />
+    <Text size="sm">Docs</Text>
+    <Separator orientation="vertical" />
+    <Text size="sm">Source</Text>
+  </Row>
   ```
 </Example>
 
 ## Vertical
 
+A vertical separator needs a parent with a height, such as a row of fixed height.
+
 <Example>
-  <Flexbox gap="3" alignItems="center">
-    <Text>Left</Text>
-    <Separator orientation="vertical" style={{ height: '24px' }} />
-    <Text>Right</Text>
-  </Flexbox>
+  <Row gap="3" alignItems="center" height="20px">
+    <Text size="sm">Settings</Text>
+    <Separator orientation="vertical" />
+    <Text size="sm">Account</Text>
+  </Row>
 
   ```jsx
-  <Flexbox gap="3" alignItems="center">
-    <Text>Left</Text>
+  <Row gap="3" alignItems="center" height="20px">
+    <Text size="sm">Settings</Text>
     <Separator orientation="vertical" />
-    <Text>Right</Text>
-  </Flexbox>
+    <Text size="sm">Account</Text>
+  </Row>
   ```
 </Example>
 
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="orientation" type="string">"horizontal" | "vertical" (default: "horizontal")</ResponseField>
+  <PropertiesTable.Row name="orientation" type="string">"horizontal" | "vertical" (default: "horizontal")</PropertiesTable.Row>
 </PropertiesTable>
+
+`Separator` renders the Base UI separator with `role="separator"` and accepts `className`.

@@ -1,63 +1,177 @@
 ---
 title: Context Menu
-description: "A context menu opens a menu at the pointer position when a user right clicks the trigger area."
+description: "Displays a menu of actions at the pointer when the user right clicks an area."
 ---
 
-import { Box, ContextMenu, Example, Menu, MenuItem, MenuSeparator } from '../../../mdx-components';
+import {
+  ContextMenu,
+  ContextMenuCheckboxItem,
+  ContextMenuContent,
+  ContextMenuGroup,
+  ContextMenuItem,
+  ContextMenuLabel,
+  ContextMenuRadioGroup,
+  ContextMenuRadioItem,
+  ContextMenuSeparator,
+  ContextMenuShortcut,
+  ContextMenuSub,
+  ContextMenuSubContent,
+  ContextMenuSubTrigger,
+  ContextMenuTrigger,
+  Example,
+  Row,
+  Text,
+} from '../../../mdx-components';
 
-A context menu opens a menu at the pointer position when a user right clicks the trigger area.
-Pass two children: the trigger element followed by a `Menu`.
+Displays a menu of actions at the pointer when the user right clicks an area, or long presses it on
+touch devices. It uses the same items as `DropdownMenu`.
 
 <Example>
   <ContextMenu>
-    <Box
-      border
-      borderRadius="md"
-      padding="8"
-      style={{ borderStyle: 'dashed' }}
-    >
-      Right click here
-    </Box>
-    <Menu>
-      <MenuItem>Cut</MenuItem>
-      <MenuItem>Copy</MenuItem>
-      <MenuItem>Paste</MenuItem>
-      <MenuSeparator />
-      <MenuItem>Delete</MenuItem>
-    </Menu>
+    <ContextMenuTrigger>
+      <Row width="300px" height="150px" alignItems="center" justifyContent="center" border borderRadius="md" style={{ borderStyle: 'dashed' }}>
+        <Text size="sm">Right click here</Text>
+      </Row>
+    </ContextMenuTrigger>
+    <ContextMenuContent>
+      <ContextMenuGroup>
+        <ContextMenuItem>
+          Back
+          <ContextMenuShortcut>⌘[</ContextMenuShortcut>
+        </ContextMenuItem>
+        <ContextMenuItem disabled>
+          Forward
+          <ContextMenuShortcut>⌘]</ContextMenuShortcut>
+        </ContextMenuItem>
+        <ContextMenuItem>
+          Reload
+          <ContextMenuShortcut>⌘R</ContextMenuShortcut>
+        </ContextMenuItem>
+        <ContextMenuSub>
+          <ContextMenuSubTrigger>More tools</ContextMenuSubTrigger>
+          <ContextMenuSubContent>
+            <ContextMenuItem>Save page...</ContextMenuItem>
+            <ContextMenuItem>Create shortcut...</ContextMenuItem>
+            <ContextMenuSeparator />
+            <ContextMenuItem>Developer tools</ContextMenuItem>
+          </ContextMenuSubContent>
+        </ContextMenuSub>
+      </ContextMenuGroup>
+      <ContextMenuSeparator />
+      <ContextMenuGroup>
+        <ContextMenuCheckboxItem defaultChecked>Show bookmarks</ContextMenuCheckboxItem>
+        <ContextMenuCheckboxItem>Show full URLs</ContextMenuCheckboxItem>
+      </ContextMenuGroup>
+      <ContextMenuSeparator />
+      <ContextMenuGroup>
+        <ContextMenuLabel>People</ContextMenuLabel>
+        <ContextMenuRadioGroup defaultValue="pedro">
+          <ContextMenuRadioItem value="pedro">Pedro Duarte</ContextMenuRadioItem>
+          <ContextMenuRadioItem value="colm">Colm Tuite</ContextMenuRadioItem>
+        </ContextMenuRadioGroup>
+      </ContextMenuGroup>
+      <ContextMenuSeparator />
+      <ContextMenuGroup>
+        <ContextMenuItem variant="destructive">Delete</ContextMenuItem>
+      </ContextMenuGroup>
+    </ContextMenuContent>
   </ContextMenu>
 
   ```jsx
   <ContextMenu>
-    <Box border borderRadius="md" padding="8" style={{ borderStyle: 'dashed' }}>
-      Right click here
-    </Box>
-    <Menu>
-      <MenuItem>Cut</MenuItem>
-      <MenuItem>Copy</MenuItem>
-      <MenuItem>Paste</MenuItem>
-      <MenuSeparator />
-      <MenuItem>Delete</MenuItem>
-    </Menu>
+    <ContextMenuTrigger>
+      <Row width="300px" height="150px" alignItems="center" justifyContent="center" border borderRadius="md" style={{ borderStyle: 'dashed' }}>
+        <Text size="sm">Right click here</Text>
+      </Row>
+    </ContextMenuTrigger>
+    <ContextMenuContent>
+      <ContextMenuGroup>
+        <ContextMenuItem>
+          Back
+          <ContextMenuShortcut>⌘[</ContextMenuShortcut>
+        </ContextMenuItem>
+        <ContextMenuItem disabled>
+          Forward
+          <ContextMenuShortcut>⌘]</ContextMenuShortcut>
+        </ContextMenuItem>
+        <ContextMenuItem>
+          Reload
+          <ContextMenuShortcut>⌘R</ContextMenuShortcut>
+        </ContextMenuItem>
+        <ContextMenuSub>
+          <ContextMenuSubTrigger>More tools</ContextMenuSubTrigger>
+          <ContextMenuSubContent>
+            <ContextMenuItem>Save page...</ContextMenuItem>
+            <ContextMenuItem>Create shortcut...</ContextMenuItem>
+            <ContextMenuSeparator />
+            <ContextMenuItem>Developer tools</ContextMenuItem>
+          </ContextMenuSubContent>
+        </ContextMenuSub>
+      </ContextMenuGroup>
+      <ContextMenuSeparator />
+      <ContextMenuGroup>
+        <ContextMenuCheckboxItem defaultChecked>Show bookmarks</ContextMenuCheckboxItem>
+        <ContextMenuCheckboxItem>Show full URLs</ContextMenuCheckboxItem>
+      </ContextMenuGroup>
+      <ContextMenuSeparator />
+      <ContextMenuGroup>
+        <ContextMenuLabel>People</ContextMenuLabel>
+        <ContextMenuRadioGroup defaultValue="pedro">
+          <ContextMenuRadioItem value="pedro">Pedro Duarte</ContextMenuRadioItem>
+          <ContextMenuRadioItem value="colm">Colm Tuite</ContextMenuRadioItem>
+        </ContextMenuRadioGroup>
+      </ContextMenuGroup>
+      <ContextMenuSeparator />
+      <ContextMenuGroup>
+        <ContextMenuItem variant="destructive">Delete</ContextMenuItem>
+      </ContextMenuGroup>
+    </ContextMenuContent>
   </ContextMenu>
   ```
 </Example>
 
-## Component props
-
-<PropertiesTable>
-  <ResponseField name="children" type="ReactNode">Trigger element followed by a Menu</ResponseField>
-  <ResponseField name="isOpen" type="boolean">Controlled open state</ResponseField>
-  <ResponseField name="onOpenChange" type="(open: boolean) => void">Called when the menu opens or closes</ResponseField>
-</PropertiesTable>
-
-Remaining root props (`defaultOpen`, `actionsRef`, `orientation`, …) are forwarded to the underlying
-Base UI `ContextMenu.Root`.
-
 ## Parts
 
+- `ContextMenu` is the root. `ContextMenuTrigger` is the area that opens the menu.
+- `ContextMenuContent` is the popup.
+- `ContextMenuItem` is an action. Set `variant="destructive"` for dangerous actions and `inset` to align it with checkbox and radio items.
+- `ContextMenuCheckboxItem`, `ContextMenuRadioGroup` and `ContextMenuRadioItem` hold a selected state.
+- `ContextMenuGroup` groups items. `ContextMenuLabel` labels a group and must be inside one.
+- `ContextMenuSub`, `ContextMenuSubTrigger` and `ContextMenuSubContent` build a submenu.
+- `ContextMenuSeparator` and `ContextMenuShortcut` add a divider and a shortcut hint.
+
+## Component props
+
+### ContextMenu
+
 <PropertiesTable>
-  <ResponseField name="ContextMenuRoot" type="component">The Base UI root, for explicit composition</ResponseField>
-  <ResponseField name="ContextMenuTrigger" type="component">The right-click target</ResponseField>
-  <ResponseField name="ContextMenuContent" type="component">The menu popup. Accepts all `Menu` props</ResponseField>
+  <PropertiesTable.Row name="open" type="boolean">Controlled open state</PropertiesTable.Row>
+  <PropertiesTable.Row name="onOpenChange" type="(open, eventDetails) => void">Called when the menu opens or closes</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Prevents the menu from opening</PropertiesTable.Row>
+</PropertiesTable>
+
+### ContextMenuItem
+
+<PropertiesTable>
+  <PropertiesTable.Row name="onClick" type="(event) => void">Called when the item is chosen</PropertiesTable.Row>
+  <PropertiesTable.Row name="variant" type="string">"default" | "destructive" (default: "default")</PropertiesTable.Row>
+  <PropertiesTable.Row name="inset" type="boolean">Adds left padding to line up with checkbox and radio items</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the item</PropertiesTable.Row>
+  <PropertiesTable.Row name="closeOnClick" type="boolean">Closes the menu when the item is chosen (default: true)</PropertiesTable.Row>
+</PropertiesTable>
+
+### ContextMenuCheckboxItem
+
+<PropertiesTable>
+  <PropertiesTable.Row name="checked" type="boolean">Controlled checked state</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultChecked" type="boolean">Initial checked state when uncontrolled</PropertiesTable.Row>
+  <PropertiesTable.Row name="onCheckedChange" type="(checked, eventDetails) => void">Called when the item is toggled</PropertiesTable.Row>
+</PropertiesTable>
+
+### ContextMenuRadioGroup
+
+<PropertiesTable>
+  <PropertiesTable.Row name="value" type="any">The selected item (controlled)</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultValue" type="any">The initially selected item (uncontrolled)</PropertiesTable.Row>
+  <PropertiesTable.Row name="onValueChange" type="(value, eventDetails) => void">Called when the selection changes</PropertiesTable.Row>
 </PropertiesTable>

@@ -5,7 +5,9 @@ description: "A button that toggles the page theme between light and dark."
 
 import { Box, Example, ThemeButton, ThemeButtonExample } from '../../../mdx-components';
 
-A button that toggles the page theme between light and dark.
+A button that toggles the page theme between light and dark. It toggles the `dark` class on the
+document root (or on a `target` element) and is a shadcn `Button`, so it takes the same variants and
+sizes.
 
 <Example>
   <ThemeButton variant="outline" />
@@ -17,25 +19,39 @@ A button that toggles the page theme between light and dark.
 
 ## Local target
 
-Use the `target` prop to scope theme changes to a specific container instead of globally.
+Use the `target` prop to scope theme changes to a specific container instead of the whole page. The
+button toggles the `dark` class on the target only.
 
 <Example>
   <ThemeButtonExample />
 
   ```jsx
-  const ref = useRef(null);
+  const containerRef = useRef(null);
 
-  <Box ref={ref}>
-    <ThemeButton target={ref} />
+  <Box
+    ref={containerRef}
+    padding="6"
+    border
+    borderRadius="lg"
+    backgroundColor="background"
+    color="foreground"
+    width="100%"
+  >
+    <Row alignItems="center" justifyContent="space-between" gap="6">
+      <Text>This container has its own theme</Text>
+      <ThemeButton variant="outline" target={containerRef} />
+    </Row>
   </Box>
   ```
 </Example>
 
 ## Component props
 
+All shadcn `Button` props are supported.
+
 <PropertiesTable>
-  <ResponseField name="target" type="RefObject | HTMLElement">Element to apply theme to (default: global)</ResponseField>
-  <ResponseField name="variant" type="ButtonVariant">"default" | "primary" | "outline" | "quiet" (default: "quiet")</ResponseField>
-  <ResponseField name="size" type="ButtonSize">"xs" | "sm" | "md" | "lg" | "xl"</ResponseField>
-  <ResponseField name="onPress" type="(e: PressEvent) => void">Called when button is pressed</ResponseField>
+  <PropertiesTable.Row name="target" type="RefObject | HTMLElement">Element to apply the theme to (default: the document)</PropertiesTable.Row>
+  <PropertiesTable.Row name="variant" type="string">shadcn Button variant (default: "ghost")</PropertiesTable.Row>
+  <PropertiesTable.Row name="size" type="string">shadcn Button size (default: "icon")</PropertiesTable.Row>
+  <PropertiesTable.Row name="onClick" type="(event) => void">Called after the theme is toggled</PropertiesTable.Row>
 </PropertiesTable>

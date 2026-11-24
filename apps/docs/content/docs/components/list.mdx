@@ -119,42 +119,81 @@ A list displays a collection of items and allows a user to select one or more of
 ## Preselected
 
 <Example>
-  <List selectionMode="multiple" defaultSelectedKeys={['three', 'five']}>
-    <ListItem id="one">One</ListItem>
-    <ListItem id="two">Two</ListItem>
-    <ListItem id="three">Three</ListItem>
-    <ListItem id="four">Four</ListItem>
-    <ListItem id="five">Five</ListItem>
+  <List selectionMode="multiple" defaultValue={['three', 'five']}>
+    <ListItem value="one">One</ListItem>
+    <ListItem value="two">Two</ListItem>
+    <ListItem value="three">Three</ListItem>
+    <ListItem value="four">Four</ListItem>
+    <ListItem value="five">Five</ListItem>
   </List>
 
   ```jsx
-  <List selectionMode="multiple" defaultSelectedKeys={['three', 'five']}>
-    <ListItem id="one">One</ListItem>
-    <ListItem id="two">Two</ListItem>
-    <ListItem id="three">Three</ListItem>
+  <List selectionMode="multiple" defaultValue={['three', 'five']}>
+    <ListItem value="one">One</ListItem>
+    <ListItem value="two">Two</ListItem>
+    <ListItem value="three">Three</ListItem>
   </List>
   ```
 </Example>
+
+## Label
+
+<Example>
+  <List label="Fruits" selectionMode="single" defaultValue={['Apple']}>
+    <ListItem>Apple</ListItem>
+    <ListItem>Banana</ListItem>
+    <ListItem disabled>Cherry</ListItem>
+  </List>
+
+  ```jsx
+  <List label="Fruits" selectionMode="single" defaultValue={['Apple']}>
+    <ListItem>Apple</ListItem>
+    <ListItem>Banana</ListItem>
+    <ListItem disabled>Cherry</ListItem>
+  </List>
+  ```
+</Example>
+
+## Controlled
+
+The selection is always a `string[]`, also in single selection mode.
+
+```jsx
+const [value, setValue] = useState(['two']);
+
+<List selectionMode="single" value={value} onValueChange={setValue}>
+  <ListItem value="one">One</ListItem>
+  <ListItem value="two">Two</ListItem>
+  <ListItem value="three">Three</ListItem>
+</List>
+```
 
 ## Component props
 
 ### List
 
 <PropertiesTable>
-  <ResponseField name="selectionMode" type="SelectionMode">"none" | "single" | "multiple"</ResponseField>
-  <ResponseField name="selectedKeys" type="string[]">Controlled selected keys</ResponseField>
-  <ResponseField name="defaultSelectedKeys" type="string[]">Default selected keys</ResponseField>
-  <ResponseField name="onSelectionChange" type="(keys: Selection) => void">Called when selection changes. Keys are always emitted as strings, so numeric `id`s match string `selectedKeys`</ResponseField>
+  <PropertiesTable.Row name="label" type="ReactNode">Label displayed above the list</PropertiesTable.Row>
+  <PropertiesTable.Row name="selectionMode" type="string">"none" | "single" | "multiple" (default: "none")</PropertiesTable.Row>
+  <PropertiesTable.Row name="value" type="string[]">Controlled selected item values</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultValue" type="string[]">Initially selected item values</PropertiesTable.Row>
+  <PropertiesTable.Row name="onValueChange" type="(value: string[]) => void">Called with the selected item values whenever the selection changes</PropertiesTable.Row>
+  <PropertiesTable.Row name="showCheckmark" type="boolean">Shows a check mark on selected items (default: true)</PropertiesTable.Row>
 </PropertiesTable>
 
-A standalone list (one that is not inside a `Select` or `ComboBox`) uses a roving tabindex: the
-listbox itself is the single tab stop, <kbd>ArrowUp</kbd>/<kbd>ArrowDown</kbd>/<kbd>Home</kbd>/<kbd>End</kbd>
-move focus between options, and <kbd>Enter</kbd>/<kbd>Space</kbd> selects the focused option.
+The list uses a roving tabindex: the listbox itself is the single tab stop,
+<kbd>ArrowUp</kbd>/<kbd>ArrowDown</kbd>/<kbd>Home</kbd>/<kbd>End</kbd> move focus between options,
+and <kbd>Enter</kbd>/<kbd>Space</kbd> toggles the focused option.
 
 ### ListItem
 
 <PropertiesTable>
-  <ResponseField name="id" type="string">Unique item identifier</ResponseField>
-  <ResponseField name="textValue" type="string">Text value for accessibility</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the item</ResponseField>
+  <PropertiesTable.Row name="value" type="string">Identifies the item in the list's `value`. Defaults to the text content when it is a string</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the item</PropertiesTable.Row>
+</PropertiesTable>
+
+### ListSection
+
+<PropertiesTable>
+  <PropertiesTable.Row name="title" type="ReactNode">Section heading</PropertiesTable.Row>
 </PropertiesTable>

@@ -1,136 +1,91 @@
-import { Combobox as BaseCombobox } from '@base-ui/react/combobox';
-import { Select as BaseSelect } from '@base-ui/react/select';
+import { CheckIcon } from 'lucide-react';
 import {
+  type ComponentProps,
   createContext,
-  type HTMLAttributes,
-  type Key,
   type KeyboardEvent,
   type ReactNode,
   useContext,
-  useMemo,
+  useId,
   useState,
 } from 'react';
 import { useFieldId } from '@/components/hooks/useFieldId';
-import { Icon } from '@/components/Icon';
-import { Check } from '@/components/icons';
-import { Label } from '@/components/Label';
-import { getHighlightColor } from '@/lib/styles';
-import type { Selection } from './lib/interaction';
-import { cn } from './lib/tailwind';
-import { listItem } from './variants';
-import './Overlay.css';
+import { Field, FieldLabel } from '@/components/ui/field';
+import { cn } from '@/lib/utils';
 
-type ListKind = 'native' | 'select' | 'combobox';
+type SelectionMode = 'none' | 'single' | 'multiple';
 
 interface ListContextValue {
-  kind: ListKind;
-  selected: Set<Key>;
-  toggle: (key: Key) => void;
+  selectionMode: SelectionMode;
+  showCheckmark: boolean;
+  selected: ReadonlySet<string>;
+  toggle: (value: string) => void;
 }
 
 const ListContext = createContext<ListContextValue>({
-  kind: 'native',
+  selectionMode: 'none',
+  showCheckmark: true,
   selected: new Set(),
   toggle: () => undefined,
 });
 
-export function ListPrimitiveProvider({
-  kind,
-  children,
-}: {
-  kind: Exclude<ListKind, 'native'>;
-  children: ReactNode;
-}) {
-  const value = useMemo(
-    () => ({ kind, selected: new Set<Key>(), toggle: () => undefined }),
-    [kind],
-  );
-  return <ListContext.Provider value={value}>{children}</ListContext.Provider>;
-}
-
-export interface ListProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
-  children?: ReactNode;
-  highlightColor?: string;
-  showCheckmark?: boolean;
-  isFullscreen?: boolean;
-  label?: string;
+export interface ListProps
+  extends Omit<ComponentProps<'div'>, 'onChange' | 'defaultValue' | 'value'> {
+  label?: ReactNode;
+  selectionMode?: SelectionMode;
+  /** Controlled selected item values. Always an array, also in single selection mode. */
   value?: string[];
-  onChange?: (value: string[]) => void;
-  selectionMode?: 'none' | 'single' | 'multiple';
-  selectedKeys?: Iterable<Key>;
-  defaultSelectedKeys?: Iterable<Key>;
-  onSelectionChange?: (value: Selection) => void;
-  renderEmptyState?: (props: object) => ReactNode;
+  /** Initially selected item values (uncontrolled). */
+  defaultValue?: string[];
+  /** Called with the selected item values whenever the selection changes. */
+  onValueChange?: (value: string[]) => void;
+  /** Shows a check mark on selected items. */
+  showCheckmark?: boolean;
 }
 
 export function List({
   id,
-  highlightColor,
-  isFullscreen,
   label,
-  value,
-  onChange,
-  className,
-  selectedKeys,
-  defaultSelectedKeys,
-  onSelectionChange,
   selectionMode = 'none',
-  style,
+  value,
+  defaultValue,
+  onValueChange,
+  showCheckmark = true,
+  className,
   children,
-  renderEmptyState,
+  onKeyDown,
   ...props
 }: ListProps) {
-  const parent = useContext(ListContext);
-  const [uncontrolled, setUncontrolled] = useState<Set<Key>>(
-    () => new Set(Array.from(value || selectedKeys || defaultSelectedKeys || [], String)),
-  );
-  // Keys are always compared and emitted as strings so numeric ids match string keys.
-  const selected = new Set<Key>(Array.from(value || selectedKeys || uncontrolled, String));
-  const fieldId = useFieldId(id);
-  const toggle = (key: Key) => {
+  const listId = useFieldId(id);
+  const labelId = useId();
+  const [uncontrolled, setUncontrolled] = useState<string[]>(() => defaultValue ?? []);
+  const selectedValues = value ?? uncontrolled;
+  const selected = new Set(selectedValues);
+
+  const toggle = (itemValue: string) => {
     if (selectionMode === 'none') {
       return;
     }
-    const itemKey = String(key);
-    const next = new Set<Key>(selectionMode === 'multiple' ? selected : []);
-    if (next.has(itemKey)) {
-      next.delete(itemKey);
+
+    let next: string[];
+
+    if (selectionMode === 'multiple') {
+      next = selected.has(itemValue)
+        ? selectedValues.filter(v => v !== itemValue)
+        : [...selectedValues, itemValue];
     } else {
-      next.add(itemKey);
+      next = selected.has(itemValue) ? [] : [itemValue];
     }
-    if (!value && !selectedKeys) {
+
+    if (value === undefined) {
       setUncontrolled(next);
     }
-    onSelectionChange?.(next);
-    onChange?.(Array.from(next, String));
+    onValueChange?.(next);
   };
-  const classes = cn(
-    'grid outline-none overflow-auto gap-1',
-    isFullscreen &&
-      'zen-layer-floating block p-3 rounded-none fixed inset-0 overflow-auto bg-surface',
-    className,
-  );
 
-  if (parent.kind === 'select') {
-    return (
-      <BaseSelect.List {...props} id={fieldId} className={classes} style={style}>
-        {children}
-      </BaseSelect.List>
-    );
-  }
-
-  if (parent.kind === 'combobox') {
-    return (
-      <BaseCombobox.List {...props} id={fieldId} className={classes} style={style}>
-        {children}
-      </BaseCombobox.List>
-    );
-  }
-
-  // Roving tabindex: the container is the single tab stop and the arrow keys move
+  // Roving focus: the container is the single tab stop and the arrow keys move
   // focus between the options (which are focusable programmatically only).
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    props.onKeyDown?.(event);
+    onKeyDown?.(event);
 
     if (event.defaultPrevented || !['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
       return;
@@ -162,179 +117,137 @@ export function List({
   };
 
   const listbox = (
-    <ListContext.Provider value={{ kind: 'native', selected, toggle }}>
+    <ListContext.Provider value={{ selectionMode, showCheckmark, selected, toggle }}>
       <div
-        id={fieldId}
+        id={listId}
         role="listbox"
         aria-multiselectable={selectionMode === 'multiple' || undefined}
+        aria-labelledby={label ? labelId : undefined}
         tabIndex={0}
         {...props}
         data-slot="list"
-        className={classes}
-        style={{ ...style, ...getHighlightColor(highlightColor) }}
+        className={cn(
+          'flex flex-col overflow-auto rounded-md p-1 outline-none focus-visible:ring-3 focus-visible:ring-ring/50',
+          className,
+        )}
         onKeyDown={handleKeyDown}
       >
-        {children || renderEmptyState?.({})}
+        {children}
       </div>
     </ListContext.Provider>
   );
 
-  if (label) {
-    return (
-      <div className="flex flex-col gap-2">
-        <Label htmlFor={fieldId}>{label}</Label>
-        {listbox}
-      </div>
-    );
+  if (!label) {
+    return listbox;
   }
 
-  return listbox;
+  return (
+    <Field>
+      <FieldLabel id={labelId}>{label}</FieldLabel>
+      {listbox}
+    </Field>
+  );
 }
 
-export interface ListItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'id'> {
-  children?: ReactNode;
-  id?: string | number;
-  value?: string | number;
-  showCheckmark?: boolean;
-  isDisabled?: boolean;
-  textValue?: string;
+export interface ListItemProps extends Omit<ComponentProps<'div'>, 'value'> {
+  /** Identifies the item in the list's `value`. Defaults to the text content when it is a string. */
+  value?: string;
+  disabled?: boolean;
 }
 
 export function ListItem({
-  id,
   value,
   children,
   className,
-  showCheckmark = true,
-  isDisabled,
+  disabled,
   onClick,
+  onKeyDown,
   ...props
 }: ListItemProps) {
-  const context = useContext(ListContext);
-  const itemValue = value ?? id ?? (typeof children === 'string' ? children : '');
+  const { selectionMode, showCheckmark, selected, toggle } = useContext(ListContext);
+  const itemValue = value ?? (typeof children === 'string' ? children : '');
+  const isSelected = selected.has(itemValue);
+  const hasIndicator = showCheckmark && selectionMode !== 'none';
 
-  if (context.kind === 'select') {
-    return (
-      <BaseSelect.Item
-        {...props}
-        value={itemValue}
-        disabled={isDisabled}
-        data-slot="list-item"
-        className={listItem({ className })}
-      >
-        <BaseSelect.ItemText>{children}</BaseSelect.ItemText>
-        {showCheckmark && (
-          <BaseSelect.ItemIndicator className="flex shrink-0 items-center justify-center">
-            <Icon aria-hidden="true">
-              <Check />
-            </Icon>
-          </BaseSelect.ItemIndicator>
-        )}
-      </BaseSelect.Item>
-    );
-  }
-
-  if (context.kind === 'combobox') {
-    return (
-      <BaseCombobox.Item
-        {...props}
-        value={String(itemValue)}
-        disabled={isDisabled}
-        data-slot="list-item"
-        className={listItem({ className })}
-      >
-        {children}
-        {showCheckmark && (
-          <BaseCombobox.ItemIndicator className="flex shrink-0 items-center justify-center">
-            <Icon aria-hidden="true">
-              <Check />
-            </Icon>
-          </BaseCombobox.ItemIndicator>
-        )}
-      </BaseCombobox.Item>
-    );
-  }
-
-  const isSelected = context.selected.has(String(itemValue));
   return (
     <div
-      {...props}
-      id={id === undefined ? undefined : String(id)}
       role="option"
-      tabIndex={isDisabled ? undefined : -1}
-      aria-disabled={isDisabled || undefined}
+      tabIndex={disabled ? undefined : -1}
+      {...props}
+      aria-disabled={disabled || undefined}
       aria-selected={isSelected}
       data-selected={isSelected || undefined}
-      data-disabled={isDisabled || undefined}
+      data-disabled={disabled || undefined}
       data-slot="list-item"
-      className={listItem({ className })}
+      className={cn(
+        "relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pl-2 text-sm outline-hidden select-none hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        hasIndicator ? 'pr-8' : 'pr-2',
+        className,
+      )}
       onClick={event => {
         onClick?.(event);
-        if (!event.defaultPrevented && !isDisabled) {
-          context.toggle(itemValue);
+        if (!event.defaultPrevented && !disabled) {
+          toggle(itemValue);
         }
       }}
       onKeyDown={event => {
-        props.onKeyDown?.(event);
-        if (!isDisabled && (event.key === 'Enter' || event.key === ' ')) {
+        onKeyDown?.(event);
+        if (!event.defaultPrevented && !disabled && (event.key === 'Enter' || event.key === ' ')) {
           event.preventDefault();
-          context.toggle(itemValue);
+          toggle(itemValue);
         }
       }}
     >
       {children}
-      {showCheckmark && isSelected && (
-        <Icon aria-hidden="true">
-          <Check />
-        </Icon>
+      {hasIndicator && isSelected && (
+        <span
+          data-slot="list-item-indicator"
+          className="pointer-events-none absolute right-2 flex size-4 items-center justify-center"
+        >
+          <CheckIcon aria-hidden="true" />
+        </span>
       )}
     </div>
   );
 }
 
-export interface ListSeparatorProps extends BaseSelect.Separator.Props {}
+export interface ListSeparatorProps extends ComponentProps<'div'> {}
 
 export function ListSeparator({ className, ...props }: ListSeparatorProps) {
-  return <BaseSelect.Separator {...props} className={cn('block h-px bg-edge-muted', className)} />;
+  return (
+    <div
+      role="separator"
+      {...props}
+      data-slot="list-separator"
+      className={cn('pointer-events-none -mx-1 my-1 h-px bg-border', className)}
+    />
+  );
 }
 
-export interface ListSectionProps extends HTMLAttributes<HTMLDivElement> {
-  children?: ReactNode;
-  title?: string;
+export interface ListSectionProps extends Omit<ComponentProps<'div'>, 'title'> {
+  title?: ReactNode;
 }
 
 export function ListSection({ title, className, children, ...props }: ListSectionProps) {
-  const { kind } = useContext(ListContext);
-
-  if (kind === 'select') {
-    return (
-      <BaseSelect.Group {...props} className={cn('[&:not(:last-child)]:mb-4', className)}>
-        {title && (
-          <BaseSelect.GroupLabel className="text-sm font-bold px-2 py-1.5">
-            {title}
-          </BaseSelect.GroupLabel>
-        )}
-        {children}
-      </BaseSelect.Group>
-    );
-  }
-
-  if (kind === 'combobox') {
-    return (
-      <BaseCombobox.Group {...props} className={cn('[&:not(:last-child)]:mb-4', className)}>
-        {title && (
-          <BaseCombobox.GroupLabel className="text-sm font-bold px-2 py-1.5">
-            {title}
-          </BaseCombobox.GroupLabel>
-        )}
-        {children}
-      </BaseCombobox.Group>
-    );
-  }
+  const titleId = useId();
 
   return (
-    <div {...props} role="group" className={cn('[&:not(:last-child)]:mb-4', className)}>
-      {title && <div className="text-sm font-bold px-2 py-1.5">{title}</div>}
+    <div
+      role="group"
+      aria-labelledby={title ? titleId : undefined}
+      {...props}
+      data-slot="list-section"
+      className={cn('flex flex-col', className)}
+    >
+      {title && (
+        <div
+          id={titleId}
+          data-slot="list-section-title"
+          className="px-2 py-1.5 text-xs text-muted-foreground"
+        >
+          {title}
+        </div>
+      )}
       {children}
     </div>
   );

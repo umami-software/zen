@@ -13,7 +13,7 @@ export function Code({ className, children, size = 'sm', ...props }: CodeProps) 
       as="code"
       size={size}
       weight="medium"
-      className={cn('font-mono bg-surface-sunken rounded p-1', className)}
+      className={cn('rounded-md bg-muted px-[0.3rem] py-[0.2rem] font-mono', className)}
     >
       {children}
     </Text>

@@ -1,196 +1,275 @@
 ---
 title: Select
-description: "Displays a list of options for the user to pick from—triggered by a button."
+description: "Displays a list of options for the user to pick from, triggered by a button."
 ---
 
-import { Box, Example, ListItem, Select, SelectSearchExample, SelectValueExample } from '../../../mdx-components';
+import { Box, Example, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue, SelectValueExample } from '../../../mdx-components';
 
-Displays a list of options for the user to pick from—triggered by a button.
+Displays a list of options for the user to pick from, triggered by a button. Pass `items` to
+`Select`, a map of value to label, so `SelectValue` can show the label of the selected value.
 
 <Example>
-  <Box width="300px">
-    <Select placeholder="Please select an option">
-      <ListItem id="one">One</ListItem>
-      <ListItem id="two">Two</ListItem>
-      <ListItem id="three">Three</ListItem>
-      <ListItem id="four">Four</ListItem>
-      <ListItem id="five">Five</ListItem>
+  <Box width="192px">
+    <Select items={{ apple: 'Apple', banana: 'Banana', blueberry: 'Blueberry', grapes: 'Grapes', pineapple: 'Pineapple' }}>
+      <SelectTrigger className="w-full">
+        <SelectValue placeholder="Select a fruit" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="apple">Apple</SelectItem>
+        <SelectItem value="banana">Banana</SelectItem>
+        <SelectItem value="blueberry">Blueberry</SelectItem>
+        <SelectItem value="grapes">Grapes</SelectItem>
+        <SelectItem value="pineapple">Pineapple</SelectItem>
+      </SelectContent>
     </Select>
   </Box>
 
   ```jsx
-  <Select placeholder="Please select an option">
-    <ListItem id="one">One</ListItem>
-    <ListItem id="two">Two</ListItem>
-    <ListItem id="three">Three</ListItem>
+  <Select items={{ apple: 'Apple', banana: 'Banana', blueberry: 'Blueberry', grapes: 'Grapes', pineapple: 'Pineapple' }}>
+    <SelectTrigger className="w-full">
+      <SelectValue placeholder="Select a fruit" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectItem value="apple">Apple</SelectItem>
+      <SelectItem value="banana">Banana</SelectItem>
+      <SelectItem value="blueberry">Blueberry</SelectItem>
+      <SelectItem value="grapes">Grapes</SelectItem>
+      <SelectItem value="pineapple">Pineapple</SelectItem>
+    </SelectContent>
   </Select>
   ```
 </Example>
 
-## Selected item alignment
+## Groups
 
-By default, the menu opens below the trigger like a dropdown. Set `alignItemWithTrigger` to align
-the selected option with the trigger value instead.
+Group items with `SelectGroup` and `SelectLabel`, and divide groups with `SelectSeparator`.
 
 <Example>
-  <Box width="300px">
-    <Select defaultValue="three" alignItemWithTrigger>
-      <ListItem id="one">One</ListItem>
-      <ListItem id="two">Two</ListItem>
-      <ListItem id="three">Three</ListItem>
-      <ListItem id="four">Four</ListItem>
-      <ListItem id="five">Five</ListItem>
+  <Box width="192px">
+    <Select items={{ apple: 'Apple', banana: 'Banana', carrot: 'Carrot', broccoli: 'Broccoli' }}>
+      <SelectTrigger className="w-full">
+        <SelectValue placeholder="Select food" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Fruits</SelectLabel>
+          <SelectItem value="apple">Apple</SelectItem>
+          <SelectItem value="banana">Banana</SelectItem>
+        </SelectGroup>
+        <SelectSeparator />
+        <SelectGroup>
+          <SelectLabel>Vegetables</SelectLabel>
+          <SelectItem value="carrot">Carrot</SelectItem>
+          <SelectItem value="broccoli">Broccoli</SelectItem>
+        </SelectGroup>
+      </SelectContent>
     </Select>
   </Box>
 
   ```jsx
-  <Select defaultValue="three" alignItemWithTrigger>
-    <ListItem id="one">One</ListItem>
-    <ListItem id="two">Two</ListItem>
-    <ListItem id="three">Three</ListItem>
-    <ListItem id="four">Four</ListItem>
-    <ListItem id="five">Five</ListItem>
+  <Select items={{ apple: 'Apple', banana: 'Banana', carrot: 'Carrot', broccoli: 'Broccoli' }}>
+    <SelectTrigger className="w-full">
+      <SelectValue placeholder="Select food" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectGroup>
+        <SelectLabel>Fruits</SelectLabel>
+        <SelectItem value="apple">Apple</SelectItem>
+        <SelectItem value="banana">Banana</SelectItem>
+      </SelectGroup>
+      <SelectSeparator />
+      <SelectGroup>
+        <SelectLabel>Vegetables</SelectLabel>
+        <SelectItem value="carrot">Carrot</SelectItem>
+        <SelectItem value="broccoli">Broccoli</SelectItem>
+      </SelectGroup>
+    </SelectContent>
   </Select>
   ```
 </Example>
 
-## With label
+## Size and disabled
+
+`SelectTrigger` takes `size="sm"` or `size="default"`. Disable the whole select with `disabled`
+on `Select`, or a single option with `disabled` on its `SelectItem`.
+
+<Example direction="row">
+  <Select defaultValue="light" items={{ light: 'Light', dark: 'Dark', system: 'System' }}>
+    <SelectTrigger size="sm">
+      <SelectValue />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectItem value="light">Light</SelectItem>
+      <SelectItem value="dark">Dark</SelectItem>
+      <SelectItem value="system" disabled>
+        System
+      </SelectItem>
+    </SelectContent>
+  </Select>
+  <Select disabled defaultValue="light" items={{ light: 'Light', dark: 'Dark' }}>
+    <SelectTrigger>
+      <SelectValue />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectItem value="light">Light</SelectItem>
+      <SelectItem value="dark">Dark</SelectItem>
+    </SelectContent>
+  </Select>
+
+  ```jsx
+  <Select defaultValue="light" items={{ light: 'Light', dark: 'Dark', system: 'System' }}>
+    <SelectTrigger size="sm">
+      <SelectValue />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectItem value="light">Light</SelectItem>
+      <SelectItem value="dark">Dark</SelectItem>
+      <SelectItem value="system" disabled>
+        System
+      </SelectItem>
+    </SelectContent>
+  </Select>
+  <Select disabled defaultValue="light" items={{ light: 'Light', dark: 'Dark' }}>
+    <SelectTrigger>
+      <SelectValue />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectItem value="light">Light</SelectItem>
+      <SelectItem value="dark">Dark</SelectItem>
+    </SelectContent>
+  </Select>
+  ```
+</Example>
+
+## Popup alignment
+
+By default the popup aligns the selected item with the trigger, like a native select. Pass
+`alignItemWithTrigger={false}` to `SelectContent` to open it below the trigger like a dropdown,
+positioned with `side` and `align`.
 
 <Example>
-  <Box width="300px">
-    <Select label="Select" placeholder="Please select an option">
-      <ListItem id="one">One</ListItem>
-      <ListItem id="two">Two</ListItem>
-      <ListItem id="three">Three</ListItem>
-      <ListItem id="four">Four</ListItem>
-      <ListItem id="five">Five</ListItem>
+  <Box width="192px">
+    <Select defaultValue="three" items={{ one: 'One', two: 'Two', three: 'Three', four: 'Four', five: 'Five' }}>
+      <SelectTrigger className="w-full">
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent alignItemWithTrigger={false} align="start">
+        <SelectItem value="one">One</SelectItem>
+        <SelectItem value="two">Two</SelectItem>
+        <SelectItem value="three">Three</SelectItem>
+        <SelectItem value="four">Four</SelectItem>
+        <SelectItem value="five">Five</SelectItem>
+      </SelectContent>
     </Select>
   </Box>
 
   ```jsx
-  <Select label="Select" placeholder="Please select an option">
-    <ListItem id="one">One</ListItem>
-    <ListItem id="two">Two</ListItem>
-    <ListItem id="three">Three</ListItem>
+  <Select defaultValue="three" items={{ one: 'One', two: 'Two', three: 'Three', four: 'Four', five: 'Five' }}>
+    <SelectTrigger className="w-full">
+      <SelectValue />
+    </SelectTrigger>
+    <SelectContent alignItemWithTrigger={false} align="start">
+      <SelectItem value="one">One</SelectItem>
+      <SelectItem value="two">Two</SelectItem>
+      <SelectItem value="three">Three</SelectItem>
+      <SelectItem value="four">Four</SelectItem>
+      <SelectItem value="five">Five</SelectItem>
+    </SelectContent>
   </Select>
   ```
 </Example>
 
-## With search
+## Custom value
+
+Pass a function as the child of `SelectValue` to render the selected value yourself.
 
 <Example>
-  <Box width="300px">
-    <SelectSearchExample />
-  </Box>
+  <SelectValueExample />
 
   ```jsx
-  <Box width="300px">
-    <SelectSearchExample />
-  </Box>
-  ```
-</Example>
+  const statuses = [
+    { value: 'online', label: 'Online', variant: 'success' },
+    { value: 'away', label: 'Away', variant: 'warning' },
+    { value: 'busy', label: 'Busy', variant: 'destructive' },
+    { value: 'offline', label: 'Offline', variant: 'muted' },
+  ];
 
-## Loading
+  function StatusLabel({ value }) {
+    const status = statuses.find(item => item.value === value);
 
-<Example>
-  <Box width="300px">
-    <SelectSearchExample isLoading={true} />
-  </Box>
+    return status ? <StatusLight variant={status.variant}>{status.label}</StatusLight> : null;
+  }
 
-  ```jsx
-  <Box width="300px">
-    <SelectSearchExample isLoading={true} />
-  </Box>
-  ```
-</Example>
-
-## Custom display
-
-<Example>
-  <Box width="300px">
-    <SelectValueExample />
-  </Box>
-
-  ```jsx
-  <Box width="300px">
-    <SelectValueExample />
-  </Box>
-  ```
-</Example>
-
-## Scrollable
-
-<Example>
-  <Box width="300px">
-    <Select maxHeight="300px" placeholder="Please select an option">
-      {Array.from(Array(42).keys()).map(i => (
-        <ListItem key={i} id={String(i)}>{i}</ListItem>
+  <Select defaultValue="online">
+    <SelectTrigger className="w-full">
+      <SelectValue>{value => <StatusLabel value={value} />}</SelectValue>
+    </SelectTrigger>
+    <SelectContent>
+      {statuses.map(status => (
+        <SelectItem key={status.value} value={status.value}>
+          <StatusLabel value={status.value} />
+        </SelectItem>
       ))}
-    </Select>
-  </Box>
-
-  ```jsx
-  <Select maxHeight="300px" placeholder="Please select an option">
-    {Array.from(Array(42).keys()).map(i => (
-      <ListItem key={i} id={String(i)}>{i}</ListItem>
-    ))}
+    </SelectContent>
   </Select>
   ```
 </Example>
 
-## Fullscreen mode
+## Controlled
 
-<Example>
-  <Box width="300px">
-    <Select label="Select" placeholder="Please select an option" isFullscreen>
-      <ListItem id="one">One</ListItem>
-      <ListItem id="two">Two</ListItem>
-      <ListItem id="three">Three</ListItem>
-      <ListItem id="four">Four</ListItem>
-      <ListItem id="five">Five</ListItem>
-    </Select>
-  </Box>
+```jsx
+const [value, setValue] = useState(null);
 
-  ```jsx
-  <Select label="Select" placeholder="Please select an option" isFullscreen>
-    <ListItem id="one">One</ListItem>
-    <ListItem id="two">Two</ListItem>
-    <ListItem id="three">Three</ListItem>
-  </Select>
-  ```
-</Example>
+<Select value={value} onValueChange={setValue} items={items}>
+  ...
+</Select>
+```
+
+To filter the options as the user types, use [Combobox](/docs/components/combobox) instead.
 
 ## Component props
 
+### Select
+
 <PropertiesTable>
-  <ResponseField name="value" type="string | number">Controlled selected value</ResponseField>
-  <ResponseField name="defaultValue" type="string | number">Default selected value</ResponseField>
-  <ResponseField name="label" type="string">Label text displayed above the select</ResponseField>
-  <ResponseField name="placeholder" type="string">Placeholder text when no selection</ResponseField>
-  <ResponseField name="isLoading" type="boolean">Shows loading indicator</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the select (`disabled` is also accepted)</ResponseField>
-  <ResponseField name="size" type="'sm' | 'md'">Trigger size. Emits `data-size` on the trigger (default: `md`)</ResponseField>
-  <ResponseField name="isFullscreen" type="boolean">Opens options in fullscreen mode</ResponseField>
-  <ResponseField name="allowSearch" type="boolean">Enables search within options</ResponseField>
-  <ResponseField name="searchValue" type="string">Search field text. Sets the initial text and replaces it whenever it changes; keep it in sync from `onSearch`</ResponseField>
-  <ResponseField name="searchDelay" type="number">Debounce delay for search</ResponseField>
-  <ResponseField name="maxHeight" type="string | number">Max height of the dropdown list. When set, the list is wrapped in a `ScrollArea`; otherwise the popup scrolls itself and shows scroll arrows</ResponseField>
-  <ResponseField name="showIcon" type="boolean">Show chevron icon on trigger button (default: true)</ResponseField>
-  <ResponseField name="alignItemWithTrigger" type="boolean">Aligns the selected option with the trigger instead of opening below it (default: false)</ResponseField>
-  <ResponseField name="onChange" type="(value: any) => void">Called when selection changes</ResponseField>
-  <ResponseField name="onValueChange" type="(value, details) => void">Base UI change handler, called before `onChange`</ResponseField>
-  <ResponseField name="onSearch" type="(value: string) => void">Called when search value changes</ResponseField>
-  <ResponseField name="renderValue" type="ReactNode | Function">Custom render for selected value</ResponseField>
-  <ResponseField name="triggerProps" type="Select.Trigger.Props">Props passed to the trigger element (`buttonProps` is a deprecated alias)</ResponseField>
-  <ResponseField name="listProps" type="ListProps">Props passed to the list component</ResponseField>
-  <ResponseField name="popoverProps" type="PopoverProps">Props passed to the popover</ResponseField>
+  <PropertiesTable.Row name="value" type="any">Controlled selected value (an array when `multiple`)</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultValue" type="any">Initial value when uncontrolled</PropertiesTable.Row>
+  <PropertiesTable.Row name="onValueChange" type="(value, details) => void">Called when the selection changes</PropertiesTable.Row>
+  <PropertiesTable.Row name="items" type="Record<string, ReactNode> | { value, label }[]">Labels for each value, used by `SelectValue`</PropertiesTable.Row>
+  <PropertiesTable.Row name="multiple" type="boolean">Allows selecting several items</PropertiesTable.Row>
+  <PropertiesTable.Row name="open" type="boolean">Controlled open state</PropertiesTable.Row>
+  <PropertiesTable.Row name="onOpenChange" type="(open: boolean, details) => void">Called when the popup opens or closes</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the select</PropertiesTable.Row>
+  <PropertiesTable.Row name="name" type="string">Form field name</PropertiesTable.Row>
 </PropertiesTable>
 
-## Anatomy
+### SelectTrigger
 
-The rendered parts expose `data-slot` attributes for styling: `select`, `select-trigger`,
-`select-value`, `select-icon`, `select-positioner`, `select-content`, `select-empty`,
-`select-scroll-up-button`, `select-scroll-down-button`, and `list` / `list-item` from `List`.
+<PropertiesTable>
+  <PropertiesTable.Row name="size" type="string">"sm" | "default" (default: "default")</PropertiesTable.Row>
+</PropertiesTable>
 
-The selected label is resolved by Base UI from the `items` collection—when `items` is not supplied
-it is derived from the `<ListItem>` children automatically.
+### SelectValue
+
+<PropertiesTable>
+  <PropertiesTable.Row name="placeholder" type="ReactNode">Shown when nothing is selected</PropertiesTable.Row>
+  <PropertiesTable.Row name="children" type="ReactNode | (value) => ReactNode">Custom rendering of the selected value</PropertiesTable.Row>
+</PropertiesTable>
+
+### SelectContent
+
+<PropertiesTable>
+  <PropertiesTable.Row name="alignItemWithTrigger" type="boolean">Aligns the selected item with the trigger (default: true)</PropertiesTable.Row>
+  <PropertiesTable.Row name="side" type="string">"top" | "right" | "bottom" | "left" (default: "bottom")</PropertiesTable.Row>
+  <PropertiesTable.Row name="align" type="string">"start" | "center" | "end" (default: "center")</PropertiesTable.Row>
+  <PropertiesTable.Row name="sideOffset" type="number">Distance from the trigger in pixels (default: 4)</PropertiesTable.Row>
+</PropertiesTable>
+
+### Other parts
+
+<PropertiesTable>
+  <PropertiesTable.Row name="SelectItem" type="Base UI Select.Item">An option. `value` is required; `disabled` disables it</PropertiesTable.Row>
+  <PropertiesTable.Row name="SelectGroup" type="Base UI Select.Group">Groups related items</PropertiesTable.Row>
+  <PropertiesTable.Row name="SelectLabel" type="Base UI Select.GroupLabel">Heading for a group</PropertiesTable.Row>
+  <PropertiesTable.Row name="SelectSeparator" type="Base UI Select.Separator">Divider between groups</PropertiesTable.Row>
+</PropertiesTable>

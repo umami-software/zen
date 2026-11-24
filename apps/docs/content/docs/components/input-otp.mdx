@@ -1,0 +1,146 @@
+---
+title: Input OTP
+description: "Accessible one-time password component with copy paste functionality."
+---
+
+import { Example, InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '../../../mdx-components';
+import { InputOTPExample } from '../../../app/examples/InputOTPExample';
+
+Accessible one-time password component with copy paste functionality, built on
+[input-otp](https://github.com/guilhermerodz/input-otp). Set the number of characters with
+`maxLength` and render one `InputOTPSlot` per character.
+
+<Example>
+  <InputOTP maxLength={6}>
+    <InputOTPGroup>
+      <InputOTPSlot index={0} />
+      <InputOTPSlot index={1} />
+      <InputOTPSlot index={2} />
+    </InputOTPGroup>
+    <InputOTPSeparator />
+    <InputOTPGroup>
+      <InputOTPSlot index={3} />
+      <InputOTPSlot index={4} />
+      <InputOTPSlot index={5} />
+    </InputOTPGroup>
+  </InputOTP>
+
+  ```jsx
+  <InputOTP maxLength={6}>
+    <InputOTPGroup>
+      <InputOTPSlot index={0} />
+      <InputOTPSlot index={1} />
+      <InputOTPSlot index={2} />
+    </InputOTPGroup>
+    <InputOTPSeparator />
+    <InputOTPGroup>
+      <InputOTPSlot index={3} />
+      <InputOTPSlot index={4} />
+      <InputOTPSlot index={5} />
+    </InputOTPGroup>
+  </InputOTP>
+  ```
+</Example>
+
+## Pattern
+
+`pattern` restricts the accepted characters. The `input-otp` package exports
+`REGEXP_ONLY_DIGITS`, `REGEXP_ONLY_CHARS` and `REGEXP_ONLY_DIGITS_AND_CHARS`.
+
+<Example>
+  <InputOTP maxLength={4} pattern="^\d+$">
+    <InputOTPGroup>
+      <InputOTPSlot index={0} />
+      <InputOTPSlot index={1} />
+      <InputOTPSlot index={2} />
+      <InputOTPSlot index={3} />
+    </InputOTPGroup>
+  </InputOTP>
+
+  ```jsx
+  <InputOTP maxLength={4} pattern="^\d+$">
+    <InputOTPGroup>
+      <InputOTPSlot index={0} />
+      <InputOTPSlot index={1} />
+      <InputOTPSlot index={2} />
+      <InputOTPSlot index={3} />
+    </InputOTPGroup>
+  </InputOTP>
+  ```
+</Example>
+
+## Disabled
+
+<Example>
+  <InputOTP maxLength={6} disabled>
+    <InputOTPGroup>
+      <InputOTPSlot index={0} />
+      <InputOTPSlot index={1} />
+      <InputOTPSlot index={2} />
+      <InputOTPSlot index={3} />
+      <InputOTPSlot index={4} />
+      <InputOTPSlot index={5} />
+    </InputOTPGroup>
+  </InputOTP>
+
+  ```jsx
+  <InputOTP maxLength={6} disabled>
+    <InputOTPGroup>
+      <InputOTPSlot index={0} />
+      <InputOTPSlot index={1} />
+      <InputOTPSlot index={2} />
+      <InputOTPSlot index={3} />
+      <InputOTPSlot index={4} />
+      <InputOTPSlot index={5} />
+    </InputOTPGroup>
+  </InputOTP>
+  ```
+</Example>
+
+## Controlled
+
+`onChange` receives the new string value. `onComplete` fires once every slot is filled.
+
+<Example>
+  <InputOTPExample />
+
+  ```jsx
+  const [value, setValue] = useState('');
+
+  <InputOTP maxLength={6} value={value} onChange={setValue}>
+    <InputOTPGroup>
+      <InputOTPSlot index={0} />
+      <InputOTPSlot index={1} />
+      <InputOTPSlot index={2} />
+      <InputOTPSlot index={3} />
+      <InputOTPSlot index={4} />
+      <InputOTPSlot index={5} />
+    </InputOTPGroup>
+  </InputOTP>
+  <Text size="sm" color="muted-foreground">
+    {value === '' ? 'Enter your one-time password.' : `You entered: ${value}`}
+  </Text>
+  ```
+</Example>
+
+## Parts
+
+### InputOTP
+
+<PropertiesTable>
+  <PropertiesTable.Row name="maxLength" type="number">Number of characters (required)</PropertiesTable.Row>
+  <PropertiesTable.Row name="value" type="string">Controlled value</PropertiesTable.Row>
+  <PropertiesTable.Row name="onChange" type="(value: string) => void">Called with the new value</PropertiesTable.Row>
+  <PropertiesTable.Row name="onComplete" type="(value: string) => void">Called when every slot is filled</PropertiesTable.Row>
+  <PropertiesTable.Row name="pattern" type="string">Regular expression the characters must match</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the input</PropertiesTable.Row>
+  <PropertiesTable.Row name="containerClassName" type="string">Classes for the wrapping container</PropertiesTable.Row>
+</PropertiesTable>
+
+### Other parts
+
+<PropertiesTable>
+  <PropertiesTable.Row name="InputOTPGroup" type="div">Groups adjacent slots into one bordered block</PropertiesTable.Row>
+  <PropertiesTable.Row name="InputOTPSlot" type="div">One character. `index` is its position, starting at 0 (required)</PropertiesTable.Row>
+  <PropertiesTable.Row name="InputOTPSeparator" type="div">A dash between groups</PropertiesTable.Row>
+</PropertiesTable>

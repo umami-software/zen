@@ -1,165 +1,100 @@
 ---
 title: Skeleton
-description: "Displays a placeholder while content is loading."
+description: "Use to show a placeholder while content is loading."
 ---
 
-import { Box, Column, Example, Row, Skeleton, SkeletonAvatar, SkeletonText } from '../../../mdx-components';
+import { Box, Column, Example, Row, Skeleton } from '../../../mdx-components';
 
-Displays a placeholder while content is loading.
-
-<Example direction="column" gap="4">
-  <Box width="300px">
-    <SkeletonText lines={3} />
-  </Box>
-
-```jsx
-import { SkeletonText } from '@umami/react-zen';
-
-<SkeletonText lines={3} />
-```
-</Example>
-
-## Components
-
-### Skeleton
-
-The base placeholder. It accepts `Box` props and defaults to full width, `1rem` height, and a
-medium border radius.
-
-### SkeletonText
-
-Renders a stack of skeleton lines. It accepts `Column` props.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `lines` | `number` | `3` | Number of lines |
-| `lastLineWidth` | `BoxProps['width']` | `'60%'` | Width of the final line |
-| `lineHeight` | `BoxProps['height']` | `'0.875rem'` | Height of each line |
-
-### SkeletonAvatar
-
-Renders a circular skeleton.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Avatar size |
-
-## Examples
-
-### Avatar
-
-<Example direction="row" gap="4">
-  <SkeletonAvatar size="sm" />
-  <SkeletonAvatar size="md" />
-  <SkeletonAvatar size="lg" />
-
-```jsx
-import { SkeletonAvatar } from '@umami/react-zen';
-
-<SkeletonAvatar size="sm" />
-<SkeletonAvatar size="md" />
-<SkeletonAvatar size="lg" />
-```
-</Example>
-
-### List
-
-List placeholders remain a composition of the base skeleton components.
+Use to show a placeholder while content is loading. `Skeleton` is a pulsing `div` that fills the
+width of its container; set its size and shape with `className`, or size it with a wrapping
+layout component.
 
 <Example>
-  <Box width="400px" border borderRadius="lg" overflow="hidden">
-    <Row padding="3" alignItems="center" gap="3" borderColor="muted" border="bottom">
-      <SkeletonAvatar />
-      <Column gap="2" flexGrow="1">
-        <Skeleton height="1rem" width="40%" />
-        <Skeleton height="0.75rem" width="60%" />
-      </Column>
-    </Row>
-    <Row padding="3" alignItems="center" gap="3" borderColor="muted" border="bottom">
-      <SkeletonAvatar />
-      <Column gap="2" flexGrow="1">
-        <Skeleton height="1rem" width="50%" />
-        <Skeleton height="0.75rem" width="65%" />
-      </Column>
-    </Row>
-    <Row padding="3" alignItems="center" gap="3">
-      <SkeletonAvatar />
-      <Column gap="2" flexGrow="1">
-        <Skeleton height="1rem" width="35%" />
-        <Skeleton height="0.75rem" width="55%" />
-      </Column>
-    </Row>
-  </Box>
-
-```jsx
-<Box border borderRadius="lg" overflow="hidden">
-  <Row padding="3" alignItems="center" gap="3" borderColor="muted" border="bottom">
-    <SkeletonAvatar />
-    <Column gap="2" flexGrow="1">
-      <Skeleton height="1rem" width="40%" />
-      <Skeleton height="0.75rem" width="60%" />
-    </Column>
-  </Row>
-  {/* ...more rows */}
-</Box>
-```
-</Example>
-
-### Table
-
-<Example>
-  <Box border borderRadius="lg" overflow="hidden">
-    <Row padding="3" gap="4" borderColor="muted" border="bottom">
-      <Skeleton height="1rem" width="8rem" />
-      <Skeleton height="1rem" width="6rem" />
-      <Skeleton height="1rem" width="6rem" />
-      <Skeleton height="1rem" width="6rem" />
-    </Row>
-    <Row padding="3" gap="4" borderColor="muted" border="bottom">
-      <Skeleton height="1rem" width="8rem" />
-      <Skeleton height="1rem" width="6rem" />
-      <Skeleton height="1rem" width="6rem" />
-      <Skeleton height="1rem" width="6rem" />
-    </Row>
-    <Row padding="3" gap="4">
-      <Skeleton height="1rem" width="8rem" />
-      <Skeleton height="1rem" width="6rem" />
-      <Skeleton height="1rem" width="6rem" />
-      <Skeleton height="1rem" width="6rem" />
-    </Row>
-  </Box>
-
-```jsx
-<Box border borderRadius="lg" overflow="hidden">
-  <Row padding="3" gap="4" borderColor="muted" border="bottom">
-    <Skeleton height="1rem" width="8rem" />
-    <Skeleton height="1rem" width="6rem" />
-    <Skeleton height="1rem" width="6rem" />
-    <Skeleton height="1rem" width="6rem" />
-  </Row>
-  {/* ...more rows */}
-</Box>
-```
-</Example>
-
-### Custom layout
-
-<Example>
-  <Row width="400px" gap="4" alignItems="center">
-    <Skeleton width="4rem" height="4rem" borderRadius="lg" />
-    <Column gap="2" flexGrow="1">
-      <Skeleton height="1.5rem" width="50%" />
-      <Skeleton height="1rem" width="80%" />
+  <Row gap="4" alignItems="center">
+    <Box width="48px" height="48px">
+      <Skeleton className="size-full rounded-full" />
+    </Box>
+    <Column gap="2">
+      <Box width="250px">
+        <Skeleton className="h-4" />
+      </Box>
+      <Box width="200px">
+        <Skeleton className="h-4" />
+      </Box>
     </Column>
   </Row>
 
-```jsx
-<Row gap="4" alignItems="center">
-  <Skeleton width="4rem" height="4rem" borderRadius="lg" />
-  <Column gap="2" flexGrow="1">
-    <Skeleton height="1.5rem" width="50%" />
-    <Skeleton height="1rem" width="80%" />
+  ```jsx
+  <Row gap="4" alignItems="center">
+    <Box width="48px" height="48px">
+      <Skeleton className="size-full rounded-full" />
+    </Box>
+    <Column gap="2">
+      <Box width="250px">
+        <Skeleton className="h-4" />
+      </Box>
+      <Box width="200px">
+        <Skeleton className="h-4" />
+      </Box>
+    </Column>
+  </Row>
+  ```
+</Example>
+
+## Card
+
+<Example>
+  <Column gap="3" width="250px">
+    <Box height="125px">
+      <Skeleton className="h-full rounded-xl" />
+    </Box>
+    <Skeleton className="h-4" />
+    <Box width="80%">
+      <Skeleton className="h-4" />
+    </Box>
   </Column>
-</Row>
-```
+
+  ```jsx
+  <Column gap="3" width="250px">
+    <Box height="125px">
+      <Skeleton className="h-full rounded-xl" />
+    </Box>
+    <Skeleton className="h-4" />
+    <Box width="80%">
+      <Skeleton className="h-4" />
+    </Box>
+  </Column>
+  ```
 </Example>
+
+## Text
+
+Repeat a line and shorten the last one to suggest a paragraph.
+
+<Example>
+  <Column gap="2" width="300px">
+    <Skeleton className="h-4" />
+    <Skeleton className="h-4" />
+    <Box width="60%">
+      <Skeleton className="h-4" />
+    </Box>
+  </Column>
+
+  ```jsx
+  <Column gap="2" width="300px">
+    <Skeleton className="h-4" />
+    <Skeleton className="h-4" />
+    <Box width="60%">
+      <Skeleton className="h-4" />
+    </Box>
+  </Column>
+  ```
+</Example>
+
+## Component props
+
+`Skeleton` takes standard `div` props, including `className` and `style`. In a Tailwind app, size
+it directly, for example `<Skeleton className="h-4 w-[250px]" />`.
+
+The `SkeletonText` and `SkeletonAvatar` helpers are removed in 1.0; compose `Skeleton` as above
+instead.

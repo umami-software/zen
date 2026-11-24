@@ -1,30 +1,91 @@
 ---
 title: Kbd
-description: "Kbd displays keyboard input such as shortcuts and key combinations."
+description: "Displays a keyboard key or shortcut."
 ---
 
-import { Example, Kbd, Text } from '../../../mdx-components';
+import { Button, Column, Example, Kbd, KbdGroup, Text } from '../../../mdx-components';
 
-Kbd displays keyboard input such as shortcuts and key combinations.
+Displays a keyboard key or shortcut.
 
 <Example>
-  <Text><Kbd>⌘</Kbd> <Kbd>K</Kbd></Text>
+  <KbdGroup>
+    <Kbd>⌘</Kbd>
+    <Kbd>⇧</Kbd>
+    <Kbd>⌥</Kbd>
+    <Kbd>⌃</Kbd>
+  </KbdGroup>
 
   ```jsx
-  <Kbd>⌘</Kbd> <Kbd>K</Kbd>
+  <KbdGroup>
+    <Kbd>⌘</Kbd>
+    <Kbd>⇧</Kbd>
+    <Kbd>⌥</Kbd>
+    <Kbd>⌃</Kbd>
+  </KbdGroup>
   ```
 </Example>
 
-## Combinations
+## Group
+
+Use `KbdGroup` to keep the keys of a shortcut together.
 
 <Example>
-  <Text>Press <Kbd>Ctrl + Shift + P</Kbd> to open the command palette.</Text>
+  <Column gap="3" alignItems="center">
+    <Text size="sm" color="muted-foreground">
+      Use{' '}
+      <KbdGroup>
+        <Kbd>Ctrl + B</Kbd>
+        <Kbd>Ctrl + K</Kbd>
+      </KbdGroup>{' '}
+      to open the command palette.
+    </Text>
+    <KbdGroup>
+      <Kbd>Ctrl</Kbd>
+      <span>+</span>
+      <Kbd>Shift</Kbd>
+      <span>+</span>
+      <Kbd>P</Kbd>
+    </KbdGroup>
+  </Column>
 
   ```jsx
-  <Text>Press <Kbd>Ctrl + Shift + P</Kbd> to open the command palette.</Text>
+  <Column gap="3" alignItems="center">
+    <Text size="sm" color="muted-foreground">
+      Use{' '}
+      <KbdGroup>
+        <Kbd>Ctrl + B</Kbd>
+        <Kbd>Ctrl + K</Kbd>
+      </KbdGroup>{' '}
+      to open the command palette.
+    </Text>
+    <KbdGroup>
+      <Kbd>Ctrl</Kbd>
+      <span>+</span>
+      <Kbd>Shift</Kbd>
+      <span>+</span>
+      <Kbd>P</Kbd>
+    </KbdGroup>
+  </Column>
+  ```
+</Example>
+
+## Button
+
+A `Kbd` inside a button shows the button's shortcut.
+
+<Example>
+  <Button variant="outline">
+    Accept <Kbd>⏎</Kbd>
+  </Button>
+
+  ```jsx
+  <Button variant="outline">
+    Accept <Kbd>⏎</Kbd>
+  </Button>
   ```
 </Example>
 
 ## Component props
 
-Accepts standard HTML props and renders a native `kbd` element.
+`Kbd` renders a native `kbd` element and `KbdGroup` renders a `kbd` that wraps several keys. Both
+accept the standard HTML props.

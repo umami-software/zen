@@ -1,144 +1,177 @@
 ---
 title: Tabs
-description: "Tabs organize content into multiple sections and allow users to navigate between them."
+description: "A set of layered sections of content, known as tab panels, that are displayed one at a time."
 ---
 
-import { Example, Tab, TabList, TabPanel, Tabs } from '../../../mdx-components';
+import { Box, Example, Lucide, Tabs, TabsContent, TabsList, TabsTrigger, Text } from '../../../mdx-components';
 
-Tabs organize content into multiple sections and allow users to navigate between them.
+A set of layered sections of content, known as tab panels, that are displayed one at a time. Each
+`TabsTrigger` is paired with the `TabsContent` that has the same `value`.
 
 <Example>
-  <Tabs>
-    <TabList>
-      <Tab id="one">One</Tab>
-      <Tab id="two">Two</Tab>
-      <Tab id="three">Three</Tab>
-    </TabList>
-    <TabPanel id="one">Content for tab one.</TabPanel>
-    <TabPanel id="two">Content for tab two.</TabPanel>
-    <TabPanel id="three">Content for tab three.</TabPanel>
-  </Tabs>
+  <Box width="400px" maxWidth="100%">
+    <Tabs defaultValue="overview">
+      <TabsList>
+        <TabsTrigger value="overview">Overview</TabsTrigger>
+        <TabsTrigger value="analytics">Analytics</TabsTrigger>
+        <TabsTrigger value="reports">Reports</TabsTrigger>
+      </TabsList>
+      <TabsContent value="overview">
+        <Text size="sm" color="muted-foreground">View your key metrics and recent project activity.</Text>
+      </TabsContent>
+      <TabsContent value="analytics">
+        <Text size="sm" color="muted-foreground">Track performance and user engagement.</Text>
+      </TabsContent>
+      <TabsContent value="reports">
+        <Text size="sm" color="muted-foreground">Generate and download your detailed reports.</Text>
+      </TabsContent>
+    </Tabs>
+  </Box>
 
   ```jsx
-  <Tabs>
-    <TabList>
-      <Tab id="one">One</Tab>
-      <Tab id="two">Two</Tab>
-      <Tab id="three">Three</Tab>
-    </TabList>
-    <TabPanel id="one">Content for tab one.</TabPanel>
-    <TabPanel id="two">Content for tab two.</TabPanel>
-    <TabPanel id="three">Content for tab three.</TabPanel>
+  <Tabs defaultValue="overview">
+    <TabsList>
+      <TabsTrigger value="overview">Overview</TabsTrigger>
+      <TabsTrigger value="analytics">Analytics</TabsTrigger>
+      <TabsTrigger value="reports">Reports</TabsTrigger>
+    </TabsList>
+    <TabsContent value="overview">
+      <Text size="sm" color="muted-foreground">View your key metrics and recent project activity.</Text>
+    </TabsContent>
+    <TabsContent value="analytics">
+      <Text size="sm" color="muted-foreground">Track performance and user engagement.</Text>
+    </TabsContent>
+    <TabsContent value="reports">
+      <Text size="sm" color="muted-foreground">Generate and download your detailed reports.</Text>
+    </TabsContent>
   </Tabs>
   ```
 </Example>
 
-## Pill
+## Line
 
-Use `variant="pill"` for a segmented control with the active tab raised on a muted track.
+Use `variant="line"` on `TabsList` for underlined tabs without a background.
 
 <Example>
-  <Tabs>
-    <TabList variant="pill">
-      <Tab id="one">One</Tab>
-      <Tab id="two">Two</Tab>
-      <Tab id="three">Three</Tab>
-    </TabList>
-    <TabPanel id="one">Content for tab one.</TabPanel>
-    <TabPanel id="two">Content for tab two.</TabPanel>
-    <TabPanel id="three">Content for tab three.</TabPanel>
+  <Tabs defaultValue="overview">
+    <TabsList variant="line">
+      <TabsTrigger value="overview">Overview</TabsTrigger>
+      <TabsTrigger value="analytics">Analytics</TabsTrigger>
+      <TabsTrigger value="reports">Reports</TabsTrigger>
+    </TabsList>
   </Tabs>
 
   ```jsx
-  <Tabs>
-    <TabList variant="pill">
-      <Tab id="one">One</Tab>
-      <Tab id="two">Two</Tab>
-      <Tab id="three">Three</Tab>
-    </TabList>
-    <TabPanel id="one">Content for tab one.</TabPanel>
-    <TabPanel id="two">Content for tab two.</TabPanel>
-    <TabPanel id="three">Content for tab three.</TabPanel>
+  <Tabs defaultValue="overview">
+    <TabsList variant="line">
+      <TabsTrigger value="overview">Overview</TabsTrigger>
+      <TabsTrigger value="analytics">Analytics</TabsTrigger>
+      <TabsTrigger value="reports">Reports</TabsTrigger>
+    </TabsList>
   </Tabs>
   ```
 </Example>
 
-## Disabled
+## Vertical
 
 <Example>
-  <Tabs>
-    <TabList>
-      <Tab id="one">One</Tab>
-      <Tab id="two">Two</Tab>
-      <Tab id="three" isDisabled>Three</Tab>
-    </TabList>
-    <TabPanel id="one">Content for tab one.</TabPanel>
-    <TabPanel id="two">Content for tab two.</TabPanel>
-    <TabPanel id="three">Content for tab three.</TabPanel>
+  <Tabs defaultValue="account" orientation="vertical">
+    <TabsList>
+      <TabsTrigger value="account">Account</TabsTrigger>
+      <TabsTrigger value="password">Password</TabsTrigger>
+      <TabsTrigger value="notifications">Notifications</TabsTrigger>
+    </TabsList>
   </Tabs>
 
   ```jsx
-  <Tabs>
-    <TabList>
-      <Tab id="one">One</Tab>
-      <Tab id="two">Two</Tab>
-      <Tab id="three" isDisabled>Three</Tab>
-    </TabList>
-    <TabPanel id="one">Content for tab one.</TabPanel>
-    <TabPanel id="two">Content for tab two.</TabPanel>
-    <TabPanel id="three">Content for tab three.</TabPanel>
+  <Tabs defaultValue="account" orientation="vertical">
+    <TabsList>
+      <TabsTrigger value="account">Account</TabsTrigger>
+      <TabsTrigger value="password">Password</TabsTrigger>
+      <TabsTrigger value="notifications">Notifications</TabsTrigger>
+    </TabsList>
   </Tabs>
   ```
 </Example>
 
-## With links
+## Icons and disabled
 
 <Example>
-  <Tabs>
-    <TabList>
-      <Tab id="one" href="#">One</Tab>
-      <Tab id="two" href="#">Two</Tab>
-      <Tab id="three" href="#">Three</Tab>
-    </TabList>
-    <TabPanel id="one">Content for tab one.</TabPanel>
-    <TabPanel id="two">Content for tab two.</TabPanel>
-    <TabPanel id="three">Content for tab three.</TabPanel>
+  <Tabs defaultValue="preview">
+    <TabsList>
+      <TabsTrigger value="preview">
+        <Lucide.AppWindow />
+        Preview
+      </TabsTrigger>
+      <TabsTrigger value="code">
+        <Lucide.Code />
+        Code
+      </TabsTrigger>
+      <TabsTrigger value="deploy" disabled>
+        <Lucide.Rocket />
+        Deploy
+      </TabsTrigger>
+    </TabsList>
   </Tabs>
 
   ```jsx
-  <Tabs>
-    <TabList>
-      <Tab id="one" href="#">One</Tab>
-      <Tab id="two" href="#">Two</Tab>
-      <Tab id="three" href="#">Three</Tab>
-    </TabList>
-    <TabPanel id="one">Content for tab one.</TabPanel>
-    <TabPanel id="two">Content for tab two.</TabPanel>
-    <TabPanel id="three">Content for tab three.</TabPanel>
+  <Tabs defaultValue="preview">
+    <TabsList>
+      <TabsTrigger value="preview">
+        <Lucide.AppWindow />
+        Preview
+      </TabsTrigger>
+      <TabsTrigger value="code">
+        <Lucide.Code />
+        Code
+      </TabsTrigger>
+      <TabsTrigger value="deploy" disabled>
+        <Lucide.Rocket />
+        Deploy
+      </TabsTrigger>
+    </TabsList>
   </Tabs>
   ```
 </Example>
+
+## Controlled
+
+```jsx
+const [tab, setTab] = useState('overview');
+
+<Tabs value={tab} onValueChange={setTab}>
+  ...
+</Tabs>
+```
 
 ## Component props
 
 ### Tabs
 
 <PropertiesTable>
-  <ResponseField name="selectedKey" type="string">Controlled selected tab key</ResponseField>
-  <ResponseField name="defaultSelectedKey" type="string">Default selected tab key</ResponseField>
-  <ResponseField name="onSelectionChange" type="(key: string) => void">Called when selection changes</ResponseField>
+  <PropertiesTable.Row name="value" type="any">Controlled active tab</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultValue" type="any">Initial active tab when uncontrolled (default: 0)</PropertiesTable.Row>
+  <PropertiesTable.Row name="onValueChange" type="(value, details) => void">Called when the active tab changes</PropertiesTable.Row>
+  <PropertiesTable.Row name="orientation" type="string">"horizontal" | "vertical" (default: "horizontal")</PropertiesTable.Row>
 </PropertiesTable>
 
-### TabList
+### TabsList
 
 <PropertiesTable>
-  <ResponseField name="variant" type="'line' | 'pill'">`line` underlines the active tab with an animated indicator; `pill` renders a segmented control (default: `line`)</ResponseField>
+  <PropertiesTable.Row name="variant" type="string">"default" | "line" (default: "default")</PropertiesTable.Row>
+  <PropertiesTable.Row name="activateOnFocus" type="boolean">Activates a tab when it receives keyboard focus (default: false)</PropertiesTable.Row>
 </PropertiesTable>
 
-### Tab
+### TabsTrigger
 
 <PropertiesTable>
-  <ResponseField name="id" type="string">Unique tab identifier (required)</ResponseField>
-  <ResponseField name="href" type="string">Makes the tab a link</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the tab</ResponseField>
+  <PropertiesTable.Row name="value" type="any">Matches the `value` of a `TabsContent` (required)</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the tab</PropertiesTable.Row>
+</PropertiesTable>
+
+### TabsContent
+
+<PropertiesTable>
+  <PropertiesTable.Row name="value" type="any">Matches the `value` of a `TabsTrigger` (required)</PropertiesTable.Row>
+  <PropertiesTable.Row name="keepMounted" type="boolean">Keeps the panel in the DOM while hidden (default: false)</PropertiesTable.Row>
 </PropertiesTable>

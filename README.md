@@ -1,55 +1,48 @@
 # Zen
 
 Zen is the design system and React component collection used by [Umami](https://umami.is).
-It contains the design tokens, layout primitives, controls, and interface patterns used across
-Umami products.
+It contains the theme, layout primitives, controls, and interface patterns used across Umami
+products.
 
-The components follow [shadcn](https://ui.shadcn.com/) conventions, use
-[Base UI](https://base-ui.com/) primitives for interactive behavior, and are styled with
-[Tailwind CSS](https://tailwindcss.com/) and CSS custom properties.
+Zen 1.0 is built on [shadcn/ui](https://ui.shadcn.com/) with the **base-vega** style, uses
+[Base UI](https://base-ui.com/) primitives for interactive behavior, and is styled with
+[Tailwind CSS](https://tailwindcss.com/) v4.
 
 [Documentation](https://zen.umami.is/) ·
-[Component source](./packages/react-zen/src/components)
+[Component source](./packages/react-zen/src/components) ·
+[Migrating from 0.x](./MIGRATION-1.0.md)
 
 ## Contents
 
-- Design tokens for color, typography, spacing, borders, and shadows
-- Layout and typography primitives
-- Form controls and interactive components
-- Reusable interface patterns from Umami products
+- The shadcn/ui components (base-vega), unmodified and exported with shadcn's names and parts
+- Layout and typography primitives with style props (Box, Row, Column, Grid, Text, Heading)
+- Fields, react-hook-form forms, DataTable, toasts and other Zen components
+- The shadcn theme tokens with seven palettes (neutral, stone, zinc, mauve, olive, mist, taupe),
+  `.dark` mode, and Zen's `success`, `warning` and `info` colors
 
 ## Installation
 
 ```shell
-pnpm install @umami/react-zen
+pnpm add @umami/react-zen
 ```
 
 ### With Tailwind CSS
 
-For projects using Tailwind CSS v4, add the Zen preset and include the package in the content
-paths:
+For projects using Tailwind CSS v4, import Zen's stylesheet after Tailwind and add the package to
+Tailwind's sources:
 
-```ts
-import zenPreset from '@umami/react-zen/tailwind-preset';
+```css
+@import "tailwindcss";
+@import "@umami/react-zen/styles.css";
 
-export default {
-  presets: [zenPreset],
-  content: [
-    './src/**/*.{ts,tsx}',
-    './node_modules/@umami/react-zen/dist/**/*.{js,mjs}',
-  ],
-};
+@source "../node_modules/@umami/react-zen/dist";
 ```
 
-Import the theme variables and component animations:
-
-```js
-import '@umami/react-zen/styles.css';
-```
+There is no Tailwind config or preset to add.
 
 ### Without Tailwind CSS
 
-Import the full stylesheet:
+Import the prebuilt stylesheet:
 
 ```js
 import '@umami/react-zen/styles.full.css';
@@ -64,14 +57,29 @@ import { Button, ZenProvider } from '@umami/react-zen';
 
 export function App() {
   return (
-    <ZenProvider>
-      <Button variant="primary">Save</Button>
+    <ZenProvider palette="neutral">
+      <Button>Save</Button>
     </ZenProvider>
   );
 }
 ```
 
-See the [documentation](https://zen.umami.is/docs) for component APIs, design tokens, and patterns.
+Dark mode is the `.dark` class on `<html>`. Color props on layout components take theme token names
+(`<Text color="muted-foreground">`, `<Box backgroundColor="muted">`). Zen ships no font; components
+use your app's `--font-sans`. To customize the theme, override the shadcn CSS variables
+(`--primary`, `--radius`, …); any shadcn theme works.
+
+See the [documentation](https://zen.umami.is/docs) for component APIs, the theme, and patterns.
+
+## Migrating from 0.x
+
+1.0 has no backward compatibility layer. Read [MIGRATION-1.0.md](./MIGRATION-1.0.md) and run the
+codemod once:
+
+```shell
+pnpm dlx tsx packages/react-zen/codemods/zen-1.0.ts <your-src-dir> --dry   # preview
+pnpm dlx tsx packages/react-zen/codemods/zen-1.0.ts <your-src-dir>
+```
 
 ## Development
 

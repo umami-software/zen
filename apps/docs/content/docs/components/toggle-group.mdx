@@ -3,126 +3,156 @@ title: Toggle Group
 description: "A set of two-state buttons that can be toggled on or off."
 ---
 
-import { Example, Icon, Label, Lucide, ToggleGroup, ToggleGroupItem } from '../../../mdx-components';
+import { Example, Lucide, ToggleGroup, ToggleGroupItem } from '../../../mdx-components';
 
-A set of two-state buttons that can be toggled on or off.
-
-<Example>
-  <ToggleGroup selectionMode="single">
-    <ToggleGroupItem id="one">One</ToggleGroupItem>
-    <ToggleGroupItem id="two">Two</ToggleGroupItem>
-    <ToggleGroupItem id="three">Three</ToggleGroupItem>
-  </ToggleGroup>
-
-  ```jsx
-  <ToggleGroup selectionMode="single">
-    <ToggleGroupItem id="one">One</ToggleGroupItem>
-    <ToggleGroupItem id="two">Two</ToggleGroupItem>
-    <ToggleGroupItem id="three">Three</ToggleGroupItem>
-  </ToggleGroup>
-  ```
-</Example>
-
-## Multiple select
+A set of two-state buttons that can be toggled on or off. By default one item can be pressed at a
+time; the group's value is always an array of the pressed items' `value`s.
 
 <Example>
-  <ToggleGroup selectionMode="multiple">
-    <ToggleGroupItem id="one">One</ToggleGroupItem>
-    <ToggleGroupItem id="two">Two</ToggleGroupItem>
-    <ToggleGroupItem id="three">Three</ToggleGroupItem>
-  </ToggleGroup>
-
-  ```jsx
-  <ToggleGroup selectionMode="multiple">
-    <ToggleGroupItem id="one">One</ToggleGroupItem>
-    <ToggleGroupItem id="two">Two</ToggleGroupItem>
-    <ToggleGroupItem id="three">Three</ToggleGroupItem>
-  </ToggleGroup>
-  ```
-</Example>
-
-## Icons
-
-<Example>
-  <ToggleGroup selectionMode="single">
-    <ToggleGroupItem id="one">
-      <Icon size="sm">
-        <Lucide.AlignLeft />
-      </Icon>
+  <ToggleGroup variant="outline" defaultValue={['center']}>
+    <ToggleGroupItem value="left" aria-label="Align left">
+      <Lucide.AlignLeft />
     </ToggleGroupItem>
-    <ToggleGroupItem id="two">
-      <Icon size="sm">
-        <Lucide.AlignCenter />
-      </Icon>
+    <ToggleGroupItem value="center" aria-label="Align center">
+      <Lucide.AlignCenter />
     </ToggleGroupItem>
-    <ToggleGroupItem id="three">
-      <Icon size="sm">
-        <Lucide.AlignRight />
-      </Icon>
+    <ToggleGroupItem value="right" aria-label="Align right">
+      <Lucide.AlignRight />
     </ToggleGroupItem>
   </ToggleGroup>
 
   ```jsx
-  <ToggleGroup selectionMode="single">
-    <ToggleGroupItem id="one">
-      <Icon size="sm">
-        <Lucide.AlignLeft />
-      </Icon>
+  <ToggleGroup variant="outline" defaultValue={['center']}>
+    <ToggleGroupItem value="left" aria-label="Align left">
+      <Lucide.AlignLeft />
     </ToggleGroupItem>
-    <ToggleGroupItem id="two">
-      <Icon size="sm">
-        <Lucide.AlignCenter />
-      </Icon>
+    <ToggleGroupItem value="center" aria-label="Align center">
+      <Lucide.AlignCenter />
     </ToggleGroupItem>
-    <ToggleGroupItem id="three">
-      <Icon size="sm">
-        <Lucide.AlignRight />
-      </Icon>
+    <ToggleGroupItem value="right" aria-label="Align right">
+      <Lucide.AlignRight />
     </ToggleGroupItem>
   </ToggleGroup>
   ```
 </Example>
 
-## Variants
+## Multiple
+
+Pass `multiple` to let several items be pressed at once.
 
 <Example>
-  <Label>Primary</Label>
-  <ToggleGroup variant="primary">
-    <ToggleGroupItem id="one">One</ToggleGroupItem>
-    <ToggleGroupItem id="two">Two</ToggleGroupItem>
-    <ToggleGroupItem id="three">Three</ToggleGroupItem>
+  <ToggleGroup multiple variant="outline" defaultValue={['bold']}>
+    <ToggleGroupItem value="bold" aria-label="Toggle bold">
+      <Lucide.Bold />
+    </ToggleGroupItem>
+    <ToggleGroupItem value="italic" aria-label="Toggle italic">
+      <Lucide.Italic />
+    </ToggleGroupItem>
+    <ToggleGroupItem value="underline" aria-label="Toggle underline">
+      <Lucide.Underline />
+    </ToggleGroupItem>
   </ToggleGroup>
 
   ```jsx
-  <ToggleGroup variant="primary">
-    <ToggleGroupItem id="one">One</ToggleGroupItem>
-    <ToggleGroupItem id="two">Two</ToggleGroupItem>
-    <ToggleGroupItem id="three">Three</ToggleGroupItem>
+  <ToggleGroup multiple variant="outline" defaultValue={['bold']}>
+    <ToggleGroupItem value="bold" aria-label="Toggle bold">
+      <Lucide.Bold />
+    </ToggleGroupItem>
+    <ToggleGroupItem value="italic" aria-label="Toggle italic">
+      <Lucide.Italic />
+    </ToggleGroupItem>
+    <ToggleGroupItem value="underline" aria-label="Toggle underline">
+      <Lucide.Underline />
+    </ToggleGroupItem>
   </ToggleGroup>
   ```
 </Example>
+
+## Spacing
+
+`spacing` sets the gap between items. `spacing={0}` joins them into one segmented control.
+
+<Example>
+  <ToggleGroup variant="outline" spacing={0} defaultValue={['week']}>
+    <ToggleGroupItem value="day">Day</ToggleGroupItem>
+    <ToggleGroupItem value="week">Week</ToggleGroupItem>
+    <ToggleGroupItem value="month">Month</ToggleGroupItem>
+    <ToggleGroupItem value="year">Year</ToggleGroupItem>
+  </ToggleGroup>
+
+  ```jsx
+  <ToggleGroup variant="outline" spacing={0} defaultValue={['week']}>
+    <ToggleGroupItem value="day">Day</ToggleGroupItem>
+    <ToggleGroupItem value="week">Week</ToggleGroupItem>
+    <ToggleGroupItem value="month">Month</ToggleGroupItem>
+    <ToggleGroupItem value="year">Year</ToggleGroupItem>
+  </ToggleGroup>
+  ```
+</Example>
+
+## Sizes
+
+`variant` and `size` on the group apply to every item.
+
+<Example>
+  <ToggleGroup size="sm" defaultValue={['top']}>
+    <ToggleGroupItem value="top">Top</ToggleGroupItem>
+    <ToggleGroupItem value="bottom">Bottom</ToggleGroupItem>
+  </ToggleGroup>
+  <ToggleGroup defaultValue={['top']}>
+    <ToggleGroupItem value="top">Top</ToggleGroupItem>
+    <ToggleGroupItem value="bottom">Bottom</ToggleGroupItem>
+  </ToggleGroup>
+  <ToggleGroup size="lg" defaultValue={['top']}>
+    <ToggleGroupItem value="top">Top</ToggleGroupItem>
+    <ToggleGroupItem value="bottom">Bottom</ToggleGroupItem>
+  </ToggleGroup>
+
+  ```jsx
+  <ToggleGroup size="sm" defaultValue={['top']}>
+    <ToggleGroupItem value="top">Top</ToggleGroupItem>
+    <ToggleGroupItem value="bottom">Bottom</ToggleGroupItem>
+  </ToggleGroup>
+  <ToggleGroup defaultValue={['top']}>
+    <ToggleGroupItem value="top">Top</ToggleGroupItem>
+    <ToggleGroupItem value="bottom">Bottom</ToggleGroupItem>
+  </ToggleGroup>
+  <ToggleGroup size="lg" defaultValue={['top']}>
+    <ToggleGroupItem value="top">Top</ToggleGroupItem>
+    <ToggleGroupItem value="bottom">Bottom</ToggleGroupItem>
+  </ToggleGroup>
+  ```
+</Example>
+
+## Controlled
+
+```jsx
+const [value, setValue] = useState(['left']);
+
+<ToggleGroup value={value} onValueChange={setValue}>
+  ...
+</ToggleGroup>
+```
 
 ## Component props
 
 ### ToggleGroup
 
 <PropertiesTable>
-  <ResponseField name="label" type="string">Label text displayed above the group</ResponseField>
-  <ResponseField name="selectionMode" type="SelectionMode">"single" | "multiple" (default: "single")</ResponseField>
-  <ResponseField name="value" type="string[]">Controlled selected values</ResponseField>
-  <ResponseField name="defaultValue" type="string[]">Default selected values</ResponseField>
-  <ResponseField name="variant" type="'default' | 'outline' | 'primary'">Item style, shared with items through context ("primary" is kept for backward compatibility)</ResponseField>
-  <ResponseField name="size" type="'sm' | 'md' | 'lg'">Item size, shared with items through context</ResponseField>
-  <ResponseField name="spacing" type="number">Gap between items in spacing units. `0` (default) renders a joined group.</ResponseField>
-  <ResponseField name="orientation" type="'horizontal' | 'vertical'">Layout direction (default: "horizontal")</ResponseField>
-  <ResponseField name="onChange" type="(value: string[]) => void">Called when selection changes</ResponseField>
+  <PropertiesTable.Row name="value" type="string[]">Controlled pressed values</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultValue" type="string[]">Initial pressed values when uncontrolled</PropertiesTable.Row>
+  <PropertiesTable.Row name="onValueChange" type="(value: string[], details) => void">Called when the pressed items change</PropertiesTable.Row>
+  <PropertiesTable.Row name="multiple" type="boolean">Allows several items to be pressed (default: false)</PropertiesTable.Row>
+  <PropertiesTable.Row name="variant" type="string">"default" | "outline", applied to every item</PropertiesTable.Row>
+  <PropertiesTable.Row name="size" type="string">"sm" | "default" | "lg", applied to every item</PropertiesTable.Row>
+  <PropertiesTable.Row name="spacing" type="number">Gap between items in spacing units. `0` joins them (default: 2)</PropertiesTable.Row>
+  <PropertiesTable.Row name="orientation" type="string">"horizontal" | "vertical" (default: "horizontal")</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables every item</PropertiesTable.Row>
 </PropertiesTable>
 
 ### ToggleGroupItem
 
 <PropertiesTable>
-  <ResponseField name="id" type="string">Unique item identifier (required unless `value` is set)</ResponseField>
-  <ResponseField name="variant" type="'default' | 'outline' | 'primary'">Overridden by the parent group when set there</ResponseField>
-  <ResponseField name="size" type="'sm' | 'md' | 'lg'">Overridden by the parent group when set there</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the item</ResponseField>
+  <PropertiesTable.Row name="value" type="string">Identifies the item in the group's value (required)</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the item</PropertiesTable.Row>
 </PropertiesTable>

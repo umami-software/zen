@@ -12,12 +12,12 @@ export function ThemeButtonExample() {
       padding="6"
       border
       borderRadius="lg"
-      backgroundColor="surface"
+      backgroundColor="background"
+      color="foreground"
       width="100%"
-      data-theme="dark"
     >
       <Row alignItems="center" justifyContent="space-between" gap="6">
-        <Text color="primary">This container has its own theme</Text>
+        <Text>This container has its own theme</Text>
         <ThemeButton variant="outline" target={containerRef} />
       </Row>
     </Box>

@@ -32,25 +32,33 @@ export function FormFieldArrayExample() {
                       {({ field }) => {
                         return (
                           <TextField
-                            name={`items.${index}.name`}
+                            name={field.name}
                             value={field.value}
-                            onChange={field.onChange}
+                            onValueChange={field.onChange}
+                            onBlur={field.onBlur}
                           />
                         );
                       }}
                     </FormController>
-                    <Button onPress={() => remove(index)}>Remove</Button>
+                    <Button variant="outline" onClick={() => remove(index)}>
+                      Remove
+                    </Button>
                   </Row>
                 );
               })}
-              <Button onPress={() => append({ name: `Item ${fields.length + 1}` })}>Add</Button>
+              <Button
+                variant="secondary"
+                onClick={() => append({ name: `Item ${fields.length + 1}` })}
+              >
+                Add
+              </Button>
             </Column>
           );
         }}
       </FormFieldArray>
       <FormButtons>
         <FormResetButton>Reset</FormResetButton>
-        <FormSubmitButton variant="primary">Submit</FormSubmitButton>
+        <FormSubmitButton>Submit</FormSubmitButton>
       </FormButtons>
     </Form>
   );

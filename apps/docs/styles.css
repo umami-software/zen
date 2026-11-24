@@ -1,51 +1,48 @@
 @import "tailwindcss";
-@config "../../packages/react-zen/tailwind.config.mts";
 
-/* Consume the package's assembled stylesheet (theme tokens + component CSS) the
-   same way a real consumer does, so the docs can't drift from what ships.
-   Regenerate with `pnpm --filter @umami/react-zen build`. */
+/* Consume the package's stylesheet (theme tokens + shadcn utilities + component
+   CSS) the same way a Tailwind consumer does, so the docs can't drift from what
+   ships. Regenerate with `pnpm --filter @umami/react-zen build`. */
 @import "../../packages/react-zen/styles.css";
 
+/* A consumer sources `node_modules/@umami/react-zen/dist`; in the monorepo we
+   source the package src directly so changes show up without a build. */
 @source "../../packages/react-zen/src/components";
-@source "./app/components";
-@source "./app/examples";
+@source "./app";
+@source "./content";
+@source "./mdx-components.ts";
 
-/* Safelist responsive width classes using brace expansion */
+/* Shiso ships its own Tailwind build, which loads before ours. Any plain utility
+   ours also emits (e.g. `.hidden`) would then override shiso's responsive
+   variants (`lg:flex`) by document order and force the mobile layout at every
+   width. Scanning shiso's components regenerates those variants in our build,
+   in the correct order. */
+@source "./node_modules/@umami/shiso/dist";
+
+/* Layout props build class names at runtime, so safelist the values they can
+   produce (same list as packages/react-zen/src/styles/tailwind.css). */
 @source inline("{,sm:,md:,lg:,xl:,2xl:}w-{full,1/2,1/3,2/3,1/4,3/4,1/5,2/5,3/5,4/5,1/6,5/6,auto,screen,min,max,fit}");
 @source inline("{,sm:,md:,lg:,xl:,2xl:}h-{full,1/2,1/3,2/3,1/4,3/4,auto,screen,min,max,fit}");
 
-/* Safelist primary color classes */
-@source inline("{,hover:,focus:,active:}bg-primary");
-@source inline("{,hover:,focus:,active:}text-primary{,-fg}");
-
-/* Safelist state style classes (hover, focus, active) for Box component */
-@source inline("{hover:,focus:,active:}bg-{slate,gray,zinc,neutral,stone,red,orange,amber,yellow,lime,green,emerald,teal,cyan,sky,blue,indigo,violet,purple,fuchsia,pink,rose}-{50,100,200,300,400,500,600,700,800,900,950}");
-@source inline("{hover:,focus:,active:}text-{slate,gray,zinc,neutral,stone,red,orange,amber,yellow,lime,green,emerald,teal,cyan,sky,blue,indigo,violet,purple,fuchsia,pink,rose}-{50,100,200,300,400,500,600,700,800,900,950}");
-@source inline("{hover:,focus:,active:}border-{slate,gray,zinc,neutral,stone,red,orange,amber,yellow,lime,green,emerald,teal,cyan,sky,blue,indigo,violet,purple,fuchsia,pink,rose}-{50,100,200,300,400,500,600,700,800,900,950}");
-@source inline("{hover:,focus:,active:}bg-surface{,-raised,-sunken,-overlay,-inverted,-disabled}");
-@source inline("{hover:,focus:,active:}bg-interactive{,-hover,-pressed}");
-@source inline("{hover:,focus:,active:}text-fg{,-muted,-disabled}");
-@source inline("{hover:,focus:,active:}border-edge{,-muted,-strong}");
+/* Theme token and Tailwind palette colors accepted by layout color props */
+@source inline("{,hover:,focus:,active:}{bg,text,border}-{background,foreground,card,card-foreground,popover,popover-foreground,primary,primary-foreground,secondary,secondary-foreground,muted,muted-foreground,accent,accent-foreground,destructive,border,input,ring,success,warning,info}");
+@source inline("{,hover:,focus:,active:}{bg,text,border}-{slate,gray,zinc,neutral,stone,red,orange,amber,yellow,lime,green,emerald,teal,cyan,sky,blue,indigo,violet,purple,fuchsia,pink,rose}-{50,100,200,300,400,500,600,700,800,900,950}");
 @source inline("{hover:,focus:,active:}opacity-{0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100}");
+@source inline("{,hover:,focus:,active:}{bg,text,border}-transparent");
+@source inline("{,hover:,focus:,active:}bg-sidebar");
+@source inline("decoration-{foreground,muted-foreground,primary,primary-foreground,secondary-foreground,accent-foreground,background,card-foreground,popover-foreground,destructive,success,warning,info}");
+@source inline("decoration-{slate,gray,zinc,neutral,stone,red,orange,amber,yellow,lime,green,emerald,teal,cyan,sky,blue,indigo,violet,purple,fuchsia,pink,rose}-{50,100,200,300,400,500,600,700,800,900,950}");
 
-/* Shiso chrome (tabs, sidebar, buttons) — shiso's token namespace. */
-:root {
-  --primary: #262626;
-  --sidebar-primary: #262626;
-}
-
-html[data-theme='dark'] {
-  --primary: #f5f5f5;
-  --sidebar-primary: #f5f5f5;
-}
-
-/* Zen components — zen's isolated token namespace. */
-:root {
-  --zen-primary: #262626;
-}
-
-html[data-theme='dark'] {
-  --zen-primary: #f5f5f5;
+/* Shiso (the docs chrome) uses the same shadcn token names, so Zen's tokens,
+   palettes and `.dark` mode theme the whole site. entry-client.tsx keeps
+   shiso's data-theme and Zen's `.dark` class in sync.
+   Keep shiso's active nav link neutral in dark mode instead of shadcn's blue
+   sidebar-primary (the palette rules use `[data-palette].dark`, hence the
+   attribute here). */
+html.dark,
+html.dark[data-palette] {
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
 }
 
 /* Two Tailwind builds share this page (shiso's and ours). Ours loads last, so
@@ -67,18 +64,27 @@ html[data-theme='dark'] .dark\:hidden {
   border-bottom-color: var(--primary);
 }
 
+/* Zen ships no font. The docs use shiso's --font-sans / --font-mono. */
 body {
-  /* Feed shiso's site fonts into zen's isolated font tokens. */
-  --zen-font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  --zen-font-family-mono: var(--font-mono), ui-monospace, monospace;
-  font-family: var(--zen-font-family);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
 code,
 kbd,
 samp,
 pre {
-  font-family: var(--zen-font-family-mono);
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+/* Shiso's code blocks use `bg-card`, but Zen's theme redefines `--card` (white,
+   shadcn's value) after shiso's tokens load, so the blocks lost their tint.
+   Give them shiso's own card colors back. */
+[data-slot="code-block"] {
+  background-color: #fafafa;
+}
+
+html[data-theme="dark"] [data-slot="code-block"] {
+  background-color: #171717;
 }
 
 /* Remove border radius from code blocks inside Example */

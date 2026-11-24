@@ -1,6 +1,6 @@
 import type { ProgressRoot } from '@base-ui/react/progress';
 import { Progress as BaseProgress } from '@base-ui/react/progress';
-import { cn } from './lib/tailwind';
+import { cn } from '@/lib/utils';
 
 export interface ProgressCircleProps extends ProgressRoot.Props {
   showPercentage?: boolean;
@@ -43,7 +43,7 @@ export function ProgressCircle({
       >
         <circle
           data-slot="progress-circle-track"
-          className="stroke-interactive"
+          className="stroke-muted"
           cx="50"
           cy="50"
           r={RADIUS}
@@ -62,7 +62,7 @@ export function ProgressCircle({
       {showPercentage && !isIndeterminate && (
         <BaseProgress.Value
           data-slot="progress-circle-value"
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm font-bold"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm font-medium tabular-nums"
         />
       )}
     </BaseProgress.Root>

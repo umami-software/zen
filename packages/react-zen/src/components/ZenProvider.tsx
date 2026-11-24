@@ -1,29 +1,20 @@
-import { Tooltip as BaseTooltip } from '@base-ui/react/tooltip';
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { type Palette, type Theme, useInitTheme } from '@/components/hooks/useTheme';
 import type { ToasterProps } from '@/components/toast/Toaster';
 import { ToastProvider } from '@/components/toast/ToastProvider';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 const defaultToastConfig = {
   duration: 3000,
 } satisfies ToasterProps;
-
-export interface ZenTooltipConfig {
-  /** How long to wait before opening a tooltip on hover, in milliseconds. */
-  delay?: number;
-  /** How long to wait before closing a tooltip, in milliseconds. */
-  closeDelay?: number;
-  /** Window in which an adjacent tooltip opens instantly, in milliseconds. */
-  timeout?: number;
-}
 
 export interface ZenProviderProps {
   theme?: Theme;
   colorScheme?: 'light' | 'dark' | 'system';
   palette?: Palette;
   toast?: ToasterProps;
-  /** Shared tooltip grouping/delay config. Defaults to Base UI's own defaults. */
-  tooltip?: ZenTooltipConfig;
+  /** Props for the shared `TooltipProvider` (`delay`, `closeDelay`, `timeout`). */
+  tooltip?: Omit<ComponentProps<typeof TooltipProvider>, 'children'>;
   children: ReactNode;
 }
 
@@ -38,10 +29,10 @@ export function ZenProvider({
   useInitTheme(theme, colorScheme, palette);
 
   return (
-    <BaseTooltip.Provider {...tooltip}>
+    <TooltipProvider {...tooltip}>
       <ToastProvider {...defaultToastConfig} {...toast}>
         {children}
       </ToastProvider>
-    </BaseTooltip.Provider>
+    </TooltipProvider>
   );
 }

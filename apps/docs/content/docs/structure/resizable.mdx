@@ -1,77 +1,172 @@
 ---
 title: Resizable
-description: "Resizable panels allow users to adjust the size of adjacent sections by dragging a handle."
+description: "Accessible resizable panel groups and layouts with keyboard support."
 ---
 
-import { Box, Example, Flexbox, ResizableHandle, ResizablePanel, ResizablePanelGroup } from '../../../mdx-components';
+import { Box, Example, Flexbox, ResizableHandle, ResizablePanel, ResizablePanelGroup, Text } from '../../../mdx-components';
 
-Resizable panels allow users to adjust the size of adjacent sections by dragging a handle.
+Accessible resizable panel groups and layouts with keyboard support, built on
+[react-resizable-panels](https://github.com/bvaughn/react-resizable-panels). Drag a
+`ResizableHandle`, or focus it and use the arrow keys.
 
 <Example>
-  <Box width="400px" height="200px" border borderRadius="lg" overflow="hidden">
-    <ResizablePanelGroup direction="horizontal">
-      <ResizablePanel defaultSize={50}>
-        <Flexbox alignItems="center" justifyContent="center" height="100%">One</Flexbox>
+  <Box width="448px" maxWidth="100%" height="200px" border borderRadius="lg" overflow="hidden">
+    <ResizablePanelGroup orientation="horizontal">
+      <ResizablePanel defaultSize="50%">
+        <Flexbox alignItems="center" justifyContent="center" height="100%">
+          <Text weight="semibold">One</Text>
+        </Flexbox>
       </ResizablePanel>
-      <ResizableHandle withHandle />
-      <ResizablePanel defaultSize={50}>
-        <Flexbox alignItems="center" justifyContent="center" height="100%">Two</Flexbox>
+      <ResizableHandle />
+      <ResizablePanel defaultSize="50%">
+        <ResizablePanelGroup orientation="vertical">
+          <ResizablePanel defaultSize="25%">
+            <Flexbox alignItems="center" justifyContent="center" height="100%">
+              <Text weight="semibold">Two</Text>
+            </Flexbox>
+          </ResizablePanel>
+          <ResizableHandle />
+          <ResizablePanel defaultSize="75%">
+            <Flexbox alignItems="center" justifyContent="center" height="100%">
+              <Text weight="semibold">Three</Text>
+            </Flexbox>
+          </ResizablePanel>
+        </ResizablePanelGroup>
       </ResizablePanel>
     </ResizablePanelGroup>
   </Box>
 
   ```jsx
-  <ResizablePanelGroup direction="horizontal">
-    <ResizablePanel defaultSize={50}>One</ResizablePanel>
-    <ResizableHandle withHandle />
-    <ResizablePanel defaultSize={50}>Two</ResizablePanel>
+  <ResizablePanelGroup orientation="horizontal">
+    <ResizablePanel defaultSize="50%">
+      <Flexbox alignItems="center" justifyContent="center" height="100%">
+        <Text weight="semibold">One</Text>
+      </Flexbox>
+    </ResizablePanel>
+    <ResizableHandle />
+    <ResizablePanel defaultSize="50%">
+      <ResizablePanelGroup orientation="vertical">
+        <ResizablePanel defaultSize="25%">
+          <Flexbox alignItems="center" justifyContent="center" height="100%">
+            <Text weight="semibold">Two</Text>
+          </Flexbox>
+        </ResizablePanel>
+        <ResizableHandle />
+        <ResizablePanel defaultSize="75%">
+          <Flexbox alignItems="center" justifyContent="center" height="100%">
+            <Text weight="semibold">Three</Text>
+          </Flexbox>
+        </ResizablePanel>
+      </ResizablePanelGroup>
+    </ResizablePanel>
   </ResizablePanelGroup>
   ```
 </Example>
 
 ## Vertical
 
+Use `orientation="vertical"` to stack the panels.
+
 <Example>
-  <Box width="400px" height="200px" border borderRadius="lg" overflow="hidden">
-    <ResizablePanelGroup direction="vertical">
-      <ResizablePanel defaultSize={50}>
-        <Flexbox alignItems="center" justifyContent="center" height="100%">Top</Flexbox>
+  <Box width="320px" maxWidth="100%" height="200px" border borderRadius="lg" overflow="hidden">
+    <ResizablePanelGroup orientation="vertical">
+      <ResizablePanel defaultSize="25%">
+        <Flexbox alignItems="center" justifyContent="center" height="100%">
+          <Text weight="semibold">Header</Text>
+        </Flexbox>
       </ResizablePanel>
-      <ResizableHandle withHandle />
-      <ResizablePanel defaultSize={50}>
-        <Flexbox alignItems="center" justifyContent="center" height="100%">Bottom</Flexbox>
+      <ResizableHandle />
+      <ResizablePanel defaultSize="75%">
+        <Flexbox alignItems="center" justifyContent="center" height="100%">
+          <Text weight="semibold">Content</Text>
+        </Flexbox>
       </ResizablePanel>
     </ResizablePanelGroup>
   </Box>
 
   ```jsx
-  <ResizablePanelGroup direction="vertical">
-    <ResizablePanel defaultSize={50}>Top</ResizablePanel>
+  <ResizablePanelGroup orientation="vertical">
+    <ResizablePanel defaultSize="25%">
+      <Flexbox alignItems="center" justifyContent="center" height="100%">
+        <Text weight="semibold">Header</Text>
+      </Flexbox>
+    </ResizablePanel>
+    <ResizableHandle />
+    <ResizablePanel defaultSize="75%">
+      <Flexbox alignItems="center" justifyContent="center" height="100%">
+        <Text weight="semibold">Content</Text>
+      </Flexbox>
+    </ResizablePanel>
+  </ResizablePanelGroup>
+  ```
+</Example>
+
+## Handle
+
+`withHandle` shows a visible grip on the handle.
+
+<Example>
+  <Box width="448px" maxWidth="100%" height="200px" border borderRadius="lg" overflow="hidden">
+    <ResizablePanelGroup orientation="horizontal">
+      <ResizablePanel defaultSize="25%" minSize="15%">
+        <Flexbox alignItems="center" justifyContent="center" height="100%">
+          <Text weight="semibold">Sidebar</Text>
+        </Flexbox>
+      </ResizablePanel>
+      <ResizableHandle withHandle />
+      <ResizablePanel defaultSize="75%">
+        <Flexbox alignItems="center" justifyContent="center" height="100%">
+          <Text weight="semibold">Content</Text>
+        </Flexbox>
+      </ResizablePanel>
+    </ResizablePanelGroup>
+  </Box>
+
+  ```jsx
+  <ResizablePanelGroup orientation="horizontal">
+    <ResizablePanel defaultSize="25%" minSize="15%">
+      <Flexbox alignItems="center" justifyContent="center" height="100%">
+        <Text weight="semibold">Sidebar</Text>
+      </Flexbox>
+    </ResizablePanel>
     <ResizableHandle withHandle />
-    <ResizablePanel defaultSize={50}>Bottom</ResizablePanel>
+    <ResizablePanel defaultSize="75%">
+      <Flexbox alignItems="center" justifyContent="center" height="100%">
+        <Text weight="semibold">Content</Text>
+      </Flexbox>
+    </ResizablePanel>
   </ResizablePanelGroup>
   ```
 </Example>
 
 ## Component props
 
+Sizes accept a number of pixels (`200`) or a string with units (`"50%"`, `"12rem"`). A string
+without units is a percentage.
+
 ### ResizablePanelGroup
 
 <PropertiesTable>
-  <ResponseField name="direction" type="string">"horizontal" | "vertical" (default: "horizontal")</ResponseField>
+  <PropertiesTable.Row name="orientation" type="string">"horizontal" | "vertical" (default: "horizontal")</PropertiesTable.Row>
+  <PropertiesTable.Row name="onLayoutChange" type="(layout) => void">Called while panel sizes change</PropertiesTable.Row>
+  <PropertiesTable.Row name="onLayoutChanged" type="(layout, meta) => void">Called once a resize finishes</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables resizing</PropertiesTable.Row>
 </PropertiesTable>
 
 ### ResizablePanel
 
 <PropertiesTable>
-  <ResponseField name="defaultSize" type="number">Initial size as a percentage</ResponseField>
-  <ResponseField name="minSize" type="number">Minimum size as a percentage</ResponseField>
-  <ResponseField name="maxSize" type="number">Maximum size as a percentage</ResponseField>
-  <ResponseField name="collapsible" type="boolean">Allows the panel to collapse below its minimum size</ResponseField>
+  <PropertiesTable.Row name="defaultSize" type="number | string">Initial size</PropertiesTable.Row>
+  <PropertiesTable.Row name="minSize" type="number | string">Minimum size (default: "0%")</PropertiesTable.Row>
+  <PropertiesTable.Row name="maxSize" type="number | string">Maximum size (default: "100%")</PropertiesTable.Row>
+  <PropertiesTable.Row name="collapsible" type="boolean">Collapses when dragged below `minSize`</PropertiesTable.Row>
+  <PropertiesTable.Row name="collapsedSize" type="number | string">Size when collapsed (default: "0%")</PropertiesTable.Row>
+  <PropertiesTable.Row name="id" type="string">Identifies the panel, used when persisting layouts</PropertiesTable.Row>
 </PropertiesTable>
 
 ### ResizableHandle
 
 <PropertiesTable>
-  <ResponseField name="withHandle" type="boolean">Shows a visible grip on the handle</ResponseField>
+  <PropertiesTable.Row name="withHandle" type="boolean">Shows a visible grip</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables this handle</PropertiesTable.Row>
 </PropertiesTable>

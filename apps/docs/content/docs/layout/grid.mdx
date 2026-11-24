@@ -132,15 +132,16 @@ Custom CSS templates can also be responsive by passing an object with breakpoint
 Grid extends [Box](/docs/layout/box) and accepts all Box props.
 
 <PropertiesTable>
-  <ResponseField name="display" type="Responsive<GridDisplay>">"grid" | "inline-grid" | "none"</ResponseField>
-  <ResponseField name="columns" type="Responsive<GridColumns | string>">"1"-"12" | "none" | "subgrid" | custom CSS template</ResponseField>
-  <ResponseField name="rows" type="Responsive<GridRows | string>">"1"-"12" | "none" | "subgrid" | custom CSS template</ResponseField>
-  <ResponseField name="autoFlow" type="Responsive<GridAutoFlow>">"row" | "column" | "dense" | "row-dense" | "column-dense"</ResponseField>
-  <ResponseField name="justifyContent" type="Responsive<JustifyContent>">"center" | "start" | "end" | "space-between" | "space-around" | ...</ResponseField>
-  <ResponseField name="justifyItems" type="Responsive<JustifyItems>">"center" | "start" | "end" | "stretch" | "baseline" | ...</ResponseField>
-  <ResponseField name="alignContent" type="Responsive<AlignContent>">"center" | "start" | "end" | "space-between" | "stretch" | ...</ResponseField>
-  <ResponseField name="alignItems" type="Responsive<AlignItems>">"center" | "start" | "end" | "stretch" | "baseline" | ...</ResponseField>
-  <ResponseField name="gap" type="Responsive<Gap>">true | Spacing scale</ResponseField>
-  <ResponseField name="gapX" type="Responsive<Gap>">true | Spacing scale</ResponseField>
-  <ResponseField name="gapY" type="Responsive<Gap>">true | Spacing scale</ResponseField>
+  <PropertiesTable.Row name="display" type="Responsive<GridDisplay>">"grid" | "inline-grid" | "none"</PropertiesTable.Row>
+  <PropertiesTable.Row name="columns" type="Responsive<GridColumns | string>">"1"-"12" | "none" | "subgrid" | custom CSS template</PropertiesTable.Row>
+  <PropertiesTable.Row name="rows" type="Responsive<GridRows | string>">"1"-"12" | "none" | "subgrid" | custom CSS template</PropertiesTable.Row>
+  <PropertiesTable.Row name="areas" type="string">CSS grid-template-areas value (inline style)</PropertiesTable.Row>
+  <PropertiesTable.Row name="autoFlow" type="Responsive<GridAutoFlow>">"row" | "column" | "dense" | "row-dense" | "column-dense"</PropertiesTable.Row>
+  <PropertiesTable.Row name="justifyContent" type="Responsive<JustifyContent>">"center" | "start" | "end" | "space-between" | "space-around" | ...</PropertiesTable.Row>
+  <PropertiesTable.Row name="justifyItems" type="Responsive<JustifyItems>">"center" | "start" | "end" | "stretch" | "baseline" | ...</PropertiesTable.Row>
+  <PropertiesTable.Row name="alignContent" type="AlignContent">"center" | "start" | "end" | "space-between" | "stretch" | ...</PropertiesTable.Row>
+  <PropertiesTable.Row name="alignItems" type="AlignItems">"center" | "start" | "end" | "stretch" | "baseline" | ...</PropertiesTable.Row>
+  <PropertiesTable.Row name="gap" type="Responsive<Gap>">true | Spacing scale</PropertiesTable.Row>
+  <PropertiesTable.Row name="gapX" type="Responsive<Gap>">true | Spacing scale</PropertiesTable.Row>
+  <PropertiesTable.Row name="gapY" type="Responsive<Gap>">true | Spacing scale</PropertiesTable.Row>
 </PropertiesTable>

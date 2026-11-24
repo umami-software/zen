@@ -1,3 +1,4 @@
+'use client';
 import {
   Form,
   FormButtons,
@@ -8,15 +9,16 @@ import {
 } from '@umami/react-zen';
 
 export function FormValidationExample() {
-  const validateAge = (value: number) => {
-    if (Number.isNaN(Number(value))) return 'Must enter a number';
-    if (value <= 18) return 'You must be older than 18';
-    if (value >= 100) return 'Age must be less than 100';
+  const validateAge = (value: string) => {
+    const age = Number(value);
+    if (Number.isNaN(age)) return 'Must enter a number';
+    if (age <= 18) return 'You must be older than 18';
+    if (age >= 100) return 'Age must be less than 100';
     return true;
   };
 
   return (
-    <Form onSubmit={values => console.log(values)}>
+    <Form defaultValues={{ name: '', age: '' }} onSubmit={values => console.log(values)}>
       <FormField name="name" label="Name" rules={{ required: 'Name is required' }}>
         <TextField />
       </FormField>
@@ -29,7 +31,7 @@ export function FormValidationExample() {
       </FormField>
       <FormButtons>
         <FormResetButton>Reset</FormResetButton>
-        <FormSubmitButton isDisabled={false}>Submit</FormSubmitButton>
+        <FormSubmitButton>Submit</FormSubmitButton>
       </FormButtons>
     </Form>
   );

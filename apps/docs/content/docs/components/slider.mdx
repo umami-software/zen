@@ -1,32 +1,82 @@
 ---
 title: Slider
-description: "A slider allows a user to select a value within a range."
+description: "An input where the user selects a value from within a given range."
 ---
 
 import { Box, Example, Slider } from '../../../mdx-components';
 
-A slider allows a user to select a value within a range.
+An input where the user selects a value from within a given range. The slider renders one thumb
+per value, so pass an array to get a range.
 
 <Example>
-  <Box width="300px" maxWidth="100%"><Slider label="Opacity" defaultValue={50} /></Box>
+  <Box width="320px" maxWidth="100%">
+    <Slider defaultValue={[75]} max={100} step={1} />
+  </Box>
 
   ```jsx
-  <Slider label="Opacity" defaultValue={50} />
+  <Slider defaultValue={[75]} max={100} step={1} />
   ```
 </Example>
+
+## Range
+
+Two values render two thumbs.
+
+<Example>
+  <Box width="320px" maxWidth="100%">
+    <Slider defaultValue={[25, 50]} max={100} step={5} />
+  </Box>
+
+  ```jsx
+  <Slider defaultValue={[25, 50]} max={100} step={5} />
+  ```
+</Example>
+
+## Vertical
+
+<Example>
+  <Box height="160px">
+    <Slider defaultValue={[50]} max={100} step={1} orientation="vertical" />
+  </Box>
+
+  ```jsx
+  <Slider defaultValue={[50]} max={100} step={1} orientation="vertical" />
+  ```
+</Example>
+
+## Disabled
+
+<Example>
+  <Box width="320px" maxWidth="100%">
+    <Slider defaultValue={[50]} max={100} step={1} disabled />
+  </Box>
+
+  ```jsx
+  <Slider defaultValue={[50]} max={100} step={1} disabled />
+  ```
+</Example>
+
+## Controlled
+
+`onValueChange` fires while dragging; `onValueCommitted` fires once the user releases the thumb.
+
+```jsx
+const [value, setValue] = useState([0.3, 0.7]);
+
+<Slider value={value} onValueChange={setValue} min={0} max={1} step={0.1} />
+```
 
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="label" type="ReactNode">Label text displayed above the slider</ResponseField>
-  <ResponseField name="value" type="number | number[]">Controlled value. An array renders one thumb per entry (range slider).</ResponseField>
-  <ResponseField name="defaultValue" type="number | number[]">Default value</ResponseField>
-  <ResponseField name="minValue" type="number">Minimum value (default: 0)</ResponseField>
-  <ResponseField name="maxValue" type="number">Maximum value (default: 100)</ResponseField>
-  <ResponseField name="step" type="number">Step increment (default: 1)</ResponseField>
-  <ResponseField name="showValue" type="boolean">Shows current value (default: true)</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the slider</ResponseField>
-  <ResponseField name="orientation" type="'horizontal' | 'vertical'">Layout direction (default: "horizontal")</ResponseField>
-  <ResponseField name="onChange" type="(value: number | number[]) => void">Called when value changes</ResponseField>
-  <ResponseField name="onChangeEnd" type="(value: number | number[]) => void">Called when the drag is committed</ResponseField>
+  <PropertiesTable.Row name="value" type="number | number[]">Controlled value. Use an array for a range</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultValue" type="number | number[]">Initial value when uncontrolled</PropertiesTable.Row>
+  <PropertiesTable.Row name="onValueChange" type="(value, details) => void">Called on every change while dragging</PropertiesTable.Row>
+  <PropertiesTable.Row name="onValueCommitted" type="(value, details) => void">Called when the user stops dragging</PropertiesTable.Row>
+  <PropertiesTable.Row name="min" type="number">Minimum value (default: 0)</PropertiesTable.Row>
+  <PropertiesTable.Row name="max" type="number">Maximum value (default: 100)</PropertiesTable.Row>
+  <PropertiesTable.Row name="step" type="number">Step between values (default: 1)</PropertiesTable.Row>
+  <PropertiesTable.Row name="orientation" type="string">"horizontal" | "vertical" (default: "horizontal")</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the slider</PropertiesTable.Row>
+  <PropertiesTable.Row name="name" type="string">Form field name</PropertiesTable.Row>
 </PropertiesTable>

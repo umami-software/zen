@@ -5,7 +5,7 @@ description: "A composable, themeable and collapsible application sidebar."
 
 import { Example, SidebarControlledExample, SidebarExample, SidebarSkeletonExample, SidebarVariantsExample } from '../../../mdx-components';
 
-A composable application sidebar, ported from shadcn/ui and built on Base UI primitives. It collapses off canvas or down to icons on desktop, becomes a `Sheet` on small screens, remembers its state in a cookie, and toggles with <kbd>⌘ B</kbd> / <kbd>Ctrl B</kbd>.
+A composable, themeable and collapsible sidebar: the shadcn/ui Sidebar on Base UI. It collapses off canvas or down to icons on desktop, becomes a `Sheet` on small screens, remembers its state in a cookie, and toggles with <kbd>⌘ B</kbd> / <kbd>Ctrl B</kbd>.
 
 <Example padding="4">
   <SidebarExample />
@@ -71,7 +71,7 @@ A sidebar is assembled from the following parts:
 - `SidebarTrigger` and `SidebarRail` toggle the sidebar.
 - `SidebarInset` is the main content area next to the sidebar.
 
-In an application, `SidebarProvider` usually wraps the whole layout. It fills at least the viewport height and the desktop sidebar is `fixed` to the viewport edge. The demos on this page put the provider inside a bordered frame and pass `className="absolute h-full"` to `Sidebar` so that it stays inside the frame.
+In an application, `SidebarProvider` usually wraps the whole layout. It fills at least the viewport height and the desktop sidebar is `fixed` to the viewport edge. The demos on this page put the provider inside a bordered frame and pass `className="absolute h-full"` to `Sidebar` so that it stays inside the frame. Every provider listens for the keyboard shortcut, so use one per page in an application.
 
 ## Variants, collapsing and side
 
@@ -151,19 +151,19 @@ Add a `SidebarMenuAction` beside a button for a secondary action, and a `Sidebar
 Nest a `SidebarMenuSub` in a menu item for a second level. Combine it with `Collapsible` to make the group expandable. The trigger renders the menu button and the chevron rotates with `group-data-panel-open/menu-button:rotate-90`.
 
 ```jsx
-<Collapsible defaultExpanded render={<SidebarMenuItem />}>
+<Collapsible defaultOpen render={<SidebarMenuItem />}>
   <CollapsibleTrigger render={<SidebarMenuButton tooltip="Settings" />}>
     <Settings2 />
     <span>Settings</span>
     <ChevronRight className="ml-auto transition-transform group-data-panel-open/menu-button:rotate-90" />
   </CollapsibleTrigger>
-  <CollapsiblePanel>
+  <CollapsibleContent>
     <SidebarMenuSub>
       <SidebarMenuSubItem>
         <SidebarMenuSubButton href="/settings/general">General</SidebarMenuSubButton>
       </SidebarMenuSubItem>
     </SidebarMenuSub>
-  </CollapsiblePanel>
+  </CollapsibleContent>
 </Collapsible>
 ```
 
@@ -194,18 +194,18 @@ const { state, open, setOpen, openMobile, setOpenMobile, isMobile, toggleSidebar
 ```
 
 <PropertiesTable>
-  <ResponseField name="state" type="'expanded' | 'collapsed'">The desktop state</ResponseField>
-  <ResponseField name="open" type="boolean">Whether the desktop sidebar is open</ResponseField>
-  <ResponseField name="setOpen" type="(open: boolean) => void">Opens or closes the desktop sidebar</ResponseField>
-  <ResponseField name="openMobile" type="boolean">Whether the mobile sheet is open</ResponseField>
-  <ResponseField name="setOpenMobile" type="(open: boolean) => void">Opens or closes the mobile sheet</ResponseField>
-  <ResponseField name="isMobile" type="boolean">True below the `md` breakpoint (768px)</ResponseField>
-  <ResponseField name="toggleSidebar" type="() => void">Toggles the desktop sidebar, or the mobile sheet on small screens</ResponseField>
+  <PropertiesTable.Row name="state" type="'expanded' | 'collapsed'">The desktop state</PropertiesTable.Row>
+  <PropertiesTable.Row name="open" type="boolean">Whether the desktop sidebar is open</PropertiesTable.Row>
+  <PropertiesTable.Row name="setOpen" type="(open: boolean) => void">Opens or closes the desktop sidebar</PropertiesTable.Row>
+  <PropertiesTable.Row name="openMobile" type="boolean">Whether the mobile sheet is open</PropertiesTable.Row>
+  <PropertiesTable.Row name="setOpenMobile" type="(open: boolean) => void">Opens or closes the mobile sheet</PropertiesTable.Row>
+  <PropertiesTable.Row name="isMobile" type="boolean">True below the `md` breakpoint (768px)</PropertiesTable.Row>
+  <PropertiesTable.Row name="toggleSidebar" type="() => void">Toggles the desktop sidebar, or the mobile sheet on small screens</PropertiesTable.Row>
 </PropertiesTable>
 
 ## Theming
 
-The sidebar uses the Zen theme tokens: `surface` for its background, `interactive` for hovered and active items, and `edge` for borders. Its widths come from CSS variables on `SidebarProvider`, which you can override with `style`:
+The sidebar has its own shadcn tokens: `--sidebar`, `--sidebar-foreground`, `--sidebar-primary`, `--sidebar-primary-foreground`, `--sidebar-accent`, `--sidebar-accent-foreground`, `--sidebar-border` and `--sidebar-ring`. Its widths come from CSS variables on `SidebarProvider`, which you can override with `style`:
 
 ```jsx
 <SidebarProvider style={{ '--sidebar-width': '20rem', '--sidebar-width-icon': '3.5rem' }}>
@@ -218,66 +218,65 @@ The defaults are `16rem` expanded, `3rem` collapsed to icons, and `18rem` for th
 ### SidebarProvider
 
 <PropertiesTable>
-  <ResponseField name="defaultOpen" type="boolean">Initial desktop open state when uncontrolled (default: true)</ResponseField>
-  <ResponseField name="open" type="boolean">Controlled desktop open state. `isOpen` is accepted as an alias</ResponseField>
-  <ResponseField name="onOpenChange" type="(open: boolean) => void">Called when the desktop open state changes</ResponseField>
-  <ResponseField name="keyboardShortcut" type="string | false">Key that toggles the sidebar together with ⌘ or Ctrl. Pass `false` to disable it, for example when several providers share a page (default: "b")</ResponseField>
+  <PropertiesTable.Row name="defaultOpen" type="boolean">Initial desktop open state when uncontrolled (default: true)</PropertiesTable.Row>
+  <PropertiesTable.Row name="open" type="boolean">Controlled desktop open state</PropertiesTable.Row>
+  <PropertiesTable.Row name="onOpenChange" type="(open: boolean) => void">Called when the desktop open state changes</PropertiesTable.Row>
 </PropertiesTable>
 
 ### Sidebar
 
 <PropertiesTable>
-  <ResponseField name="side" type="string">"left" | "right" (default: "left")</ResponseField>
-  <ResponseField name="variant" type="string">"sidebar" | "floating" | "inset" (default: "sidebar")</ResponseField>
-  <ResponseField name="collapsible" type="string">"offcanvas" | "icon" | "none" (default: "offcanvas")</ResponseField>
+  <PropertiesTable.Row name="side" type="string">"left" | "right" (default: "left")</PropertiesTable.Row>
+  <PropertiesTable.Row name="variant" type="string">"sidebar" | "floating" | "inset" (default: "sidebar")</PropertiesTable.Row>
+  <PropertiesTable.Row name="collapsible" type="string">"offcanvas" | "icon" | "none" (default: "offcanvas")</PropertiesTable.Row>
 </PropertiesTable>
 
 ### SidebarMenuButton
 
 <PropertiesTable>
-  <ResponseField name="isActive" type="boolean">Marks the button as the current page. Sets `data-active`</ResponseField>
-  <ResponseField name="tooltip" type="ReactNode | TooltipProps">Shown beside the button while the sidebar is collapsed to icons</ResponseField>
-  <ResponseField name="variant" type="string">"default" | "outline" (default: "default")</ResponseField>
-  <ResponseField name="size" type="string">"sm" | "md" | "lg" (default: "md")</ResponseField>
-  <ResponseField name="render" type="ReactElement | function">Replaces the rendered `button`, e.g. `render={<a href="/" />}`</ResponseField>
+  <PropertiesTable.Row name="isActive" type="boolean">Marks the button as the current page. Sets `data-active`</PropertiesTable.Row>
+  <PropertiesTable.Row name="tooltip" type="string | TooltipContentProps">Shown beside the button while the sidebar is collapsed to icons</PropertiesTable.Row>
+  <PropertiesTable.Row name="variant" type="string">"default" | "outline" (default: "default")</PropertiesTable.Row>
+  <PropertiesTable.Row name="size" type="string">"default" | "sm" | "lg" (default: "default")</PropertiesTable.Row>
+  <PropertiesTable.Row name="render" type="ReactElement | function">Replaces the rendered `button`, e.g. `render={<a href="/" />}`</PropertiesTable.Row>
 </PropertiesTable>
 
 ### SidebarMenuAction
 
 <PropertiesTable>
-  <ResponseField name="showOnHover" type="boolean">Only shows the action while its menu item is hovered or focused (desktop)</ResponseField>
-  <ResponseField name="render" type="ReactElement | function">Replaces the rendered `button`</ResponseField>
+  <PropertiesTable.Row name="showOnHover" type="boolean">Only shows the action while its menu item is hovered or focused (desktop)</PropertiesTable.Row>
+  <PropertiesTable.Row name="render" type="ReactElement | function">Replaces the rendered `button`</PropertiesTable.Row>
 </PropertiesTable>
 
 ### SidebarMenuSubButton
 
 <PropertiesTable>
-  <ResponseField name="isActive" type="boolean">Marks the link as the current page. Sets `data-active`</ResponseField>
-  <ResponseField name="size" type="string">"sm" | "md" (default: "md")</ResponseField>
-  <ResponseField name="render" type="ReactElement | function">Replaces the rendered `a`</ResponseField>
+  <PropertiesTable.Row name="isActive" type="boolean">Marks the link as the current page. Sets `data-active`</PropertiesTable.Row>
+  <PropertiesTable.Row name="size" type="string">"sm" | "md" (default: "md")</PropertiesTable.Row>
+  <PropertiesTable.Row name="render" type="ReactElement | function">Replaces the rendered `a`</PropertiesTable.Row>
 </PropertiesTable>
 
 ### SidebarMenuSkeleton
 
 <PropertiesTable>
-  <ResponseField name="showIcon" type="boolean">Shows an icon placeholder before the text</ResponseField>
+  <PropertiesTable.Row name="showIcon" type="boolean">Shows an icon placeholder before the text</PropertiesTable.Row>
 </PropertiesTable>
 
 ### Other parts
 
 <PropertiesTable>
-  <ResponseField name="SidebarHeader / SidebarFooter" type="component">Sticky top and bottom sections</ResponseField>
-  <ResponseField name="SidebarContent" type="component">Scrollable middle section</ResponseField>
-  <ResponseField name="SidebarGroup" type="component">A section within the content</ResponseField>
-  <ResponseField name="SidebarGroupLabel" type="component">Group heading. Hidden when collapsed to icons. Accepts `render`</ResponseField>
-  <ResponseField name="SidebarGroupAction" type="component">Button in the group's top-right corner. Accepts `render`</ResponseField>
-  <ResponseField name="SidebarGroupContent" type="component">Wraps the group's menu</ResponseField>
-  <ResponseField name="SidebarMenu / SidebarMenuItem" type="component">The `ul` and `li` of a menu</ResponseField>
-  <ResponseField name="SidebarMenuBadge" type="component">Count or label at the end of a menu item</ResponseField>
-  <ResponseField name="SidebarMenuSub / SidebarMenuSubItem" type="component">The `ul` and `li` of a nested menu</ResponseField>
-  <ResponseField name="SidebarInput" type="component">An `Input` sized for the sidebar</ResponseField>
-  <ResponseField name="SidebarSeparator" type="component">A `Separator` inset to the sidebar's padding</ResponseField>
-  <ResponseField name="SidebarTrigger" type="component">A quiet icon `Button` that toggles the sidebar</ResponseField>
-  <ResponseField name="SidebarRail" type="component">Thin hit area on the sidebar's edge that toggles it on click</ResponseField>
-  <ResponseField name="SidebarInset" type="component">The `main` content area beside the sidebar</ResponseField>
+  <PropertiesTable.Row name="SidebarHeader / SidebarFooter" type="component">Sticky top and bottom sections</PropertiesTable.Row>
+  <PropertiesTable.Row name="SidebarContent" type="component">Scrollable middle section</PropertiesTable.Row>
+  <PropertiesTable.Row name="SidebarGroup" type="component">A section within the content</PropertiesTable.Row>
+  <PropertiesTable.Row name="SidebarGroupLabel" type="component">Group heading. Hidden when collapsed to icons. Accepts `render`</PropertiesTable.Row>
+  <PropertiesTable.Row name="SidebarGroupAction" type="component">Button in the group's top-right corner. Accepts `render`</PropertiesTable.Row>
+  <PropertiesTable.Row name="SidebarGroupContent" type="component">Wraps the group's menu</PropertiesTable.Row>
+  <PropertiesTable.Row name="SidebarMenu / SidebarMenuItem" type="component">The `ul` and `li` of a menu</PropertiesTable.Row>
+  <PropertiesTable.Row name="SidebarMenuBadge" type="component">Count or label at the end of a menu item</PropertiesTable.Row>
+  <PropertiesTable.Row name="SidebarMenuSub / SidebarMenuSubItem" type="component">The `ul` and `li` of a nested menu</PropertiesTable.Row>
+  <PropertiesTable.Row name="SidebarInput" type="component">An `Input` sized for the sidebar</PropertiesTable.Row>
+  <PropertiesTable.Row name="SidebarSeparator" type="component">A `Separator` inset to the sidebar's padding</PropertiesTable.Row>
+  <PropertiesTable.Row name="SidebarTrigger" type="component">A ghost icon `Button` that toggles the sidebar</PropertiesTable.Row>
+  <PropertiesTable.Row name="SidebarRail" type="component">Thin hit area on the sidebar's edge that toggles it on click</PropertiesTable.Row>
+  <PropertiesTable.Row name="SidebarInset" type="component">The `main` content area beside the sidebar</PropertiesTable.Row>
 </PropertiesTable>

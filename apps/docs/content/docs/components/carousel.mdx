@@ -1,81 +1,194 @@
 ---
 title: Carousel
-description: "A carousel displays a set of slides that users can scroll through."
+description: "A carousel with motion and swipe built using Embla."
 ---
 
-import { Box, Carousel, CarouselItem, Example } from '../../../mdx-components';
+import {
+  Box,
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  Example,
+  Row,
+} from '../../../mdx-components';
+import { CarouselApiExample, CarouselSizesExample } from '../../../app/examples/CarouselExample';
 
-A carousel displays a set of slides that users can scroll through.
+A carousel with motion and swipe built using [Embla](https://www.embla-carousel.com). Put the
+slides in `CarouselContent` and add `CarouselPrevious` and `CarouselNext` for the arrow buttons.
+The arrow keys also move between slides.
 
 <Example>
-  <Box width="400px">
+  <Box width="300px">
     <Carousel>
-      <CarouselItem>
-        <Box height="200px" backgroundColor="surface-raised" border borderRadius="lg" display="flex" alignItems="center" justifyContent="center">1</Box>
-      </CarouselItem>
-      <CarouselItem>
-        <Box height="200px" backgroundColor="surface-raised" border borderRadius="lg" display="flex" alignItems="center" justifyContent="center">2</Box>
-      </CarouselItem>
-      <CarouselItem>
-        <Box height="200px" backgroundColor="surface-raised" border borderRadius="lg" display="flex" alignItems="center" justifyContent="center">3</Box>
-      </CarouselItem>
+      <CarouselContent>
+        <CarouselItem>
+          <Row height="200px" alignItems="center" justifyContent="center" border borderRadius="lg" backgroundColor="muted">1</Row>
+        </CarouselItem>
+        <CarouselItem>
+          <Row height="200px" alignItems="center" justifyContent="center" border borderRadius="lg" backgroundColor="muted">2</Row>
+        </CarouselItem>
+        <CarouselItem>
+          <Row height="200px" alignItems="center" justifyContent="center" border borderRadius="lg" backgroundColor="muted">3</Row>
+        </CarouselItem>
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
     </Carousel>
   </Box>
 
   ```jsx
-  <Carousel>
-    <CarouselItem>
-      <Box height="200px">1</Box>
-    </CarouselItem>
-    <CarouselItem>
-      <Box height="200px">2</Box>
-    </CarouselItem>
-    <CarouselItem>
-      <Box height="200px">3</Box>
-    </CarouselItem>
-  </Carousel>
+  <Box width="300px">
+    <Carousel>
+      <CarouselContent>
+        <CarouselItem>
+          <Row height="200px" alignItems="center" justifyContent="center" border borderRadius="lg" backgroundColor="muted">1</Row>
+        </CarouselItem>
+        <CarouselItem>
+          <Row height="200px" alignItems="center" justifyContent="center" border borderRadius="lg" backgroundColor="muted">2</Row>
+        </CarouselItem>
+        <CarouselItem>
+          <Row height="200px" alignItems="center" justifyContent="center" border borderRadius="lg" backgroundColor="muted">3</Row>
+        </CarouselItem>
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
+  </Box>
   ```
 </Example>
 
-## Dots
+## Sizes
+
+Set a `basis` class on `CarouselItem` to show several slides at once.
 
 <Example>
-  <Box width="400px">
-    <Carousel loop showDots>
-      <CarouselItem>
-        <Box height="200px" backgroundColor="surface-raised" border borderRadius="lg" display="flex" alignItems="center" justifyContent="center">1</Box>
-      </CarouselItem>
-      <CarouselItem>
-        <Box height="200px" backgroundColor="surface-raised" border borderRadius="lg" display="flex" alignItems="center" justifyContent="center">2</Box>
-      </CarouselItem>
-      <CarouselItem>
-        <Box height="200px" backgroundColor="surface-raised" border borderRadius="lg" display="flex" alignItems="center" justifyContent="center">3</Box>
-      </CarouselItem>
+  <CarouselSizesExample />
+
+  ```jsx
+  <Carousel className="w-full max-w-sm">
+    <CarouselContent>
+      {Array.from({ length: 5 }).map((_, index) => (
+        <CarouselItem key={index} className="basis-1/2 lg:basis-1/3">
+          <Slide index={index} />
+        </CarouselItem>
+      ))}
+    </CarouselContent>
+    <CarouselPrevious />
+    <CarouselNext />
+  </Carousel>
+  ```
+</Example>
+
+## Options and loop
+
+`opts` is passed to Embla. For example, `opts={{ loop: true }}` wraps around from the last slide to
+the first, and `opts={{ align: 'start' }}` aligns slides to the start of the viewport.
+
+<Example>
+  <Box width="300px">
+    <Carousel opts={{ loop: true }}>
+      <CarouselContent>
+        <CarouselItem>
+          <Row height="200px" alignItems="center" justifyContent="center" border borderRadius="lg" backgroundColor="muted">1</Row>
+        </CarouselItem>
+        <CarouselItem>
+          <Row height="200px" alignItems="center" justifyContent="center" border borderRadius="lg" backgroundColor="muted">2</Row>
+        </CarouselItem>
+        <CarouselItem>
+          <Row height="200px" alignItems="center" justifyContent="center" border borderRadius="lg" backgroundColor="muted">3</Row>
+        </CarouselItem>
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
     </Carousel>
   </Box>
 
   ```jsx
-  <Carousel loop showDots>
-    <CarouselItem>...</CarouselItem>
-    <CarouselItem>...</CarouselItem>
-    <CarouselItem>...</CarouselItem>
-  </Carousel>
+  <Box width="300px">
+    <Carousel opts={{ loop: true }}>
+      <CarouselContent>
+        <CarouselItem>
+          <Row height="200px" alignItems="center" justifyContent="center" border borderRadius="lg" backgroundColor="muted">1</Row>
+        </CarouselItem>
+        <CarouselItem>
+          <Row height="200px" alignItems="center" justifyContent="center" border borderRadius="lg" backgroundColor="muted">2</Row>
+        </CarouselItem>
+        <CarouselItem>
+          <Row height="200px" alignItems="center" justifyContent="center" border borderRadius="lg" backgroundColor="muted">3</Row>
+        </CarouselItem>
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
+  </Box>
   ```
 </Example>
+
+## API
+
+Use `setApi` to get the Embla API, for example to show the current slide.
+
+<Example>
+  <CarouselApiExample />
+
+  ```jsx
+  function CarouselApiExample() {
+    const [api, setApi] = useState();
+    const [current, setCurrent] = useState(0);
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+      if (!api) return;
+
+      setCount(api.scrollSnapList().length);
+      setCurrent(api.selectedScrollSnap() + 1);
+
+      const onSelect = () => setCurrent(api.selectedScrollSnap() + 1);
+      api.on('select', onSelect);
+
+      return () => {
+        api.off('select', onSelect);
+      };
+    }, [api]);
+
+    return (
+      <Column alignItems="center" gap="2" className="w-full max-w-xs">
+        <Carousel setApi={setApi} className="w-full">
+          <CarouselContent>
+            {Array.from({ length: 5 }).map((_, index) => (
+              <CarouselItem key={index}>
+                <Slide index={index} />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+        <Text size="sm" color="muted-foreground">
+          Slide {current} of {count}
+        </Text>
+      </Column>
+    );
+  }
+  ```
+</Example>
+
+## Parts
+
+- `Carousel` is the root. It owns the Embla instance and keyboard handling.
+- `CarouselContent` is the scrolling track.
+- `CarouselItem` is one slide. Size it with a `basis-*` class.
+- `CarouselPrevious` and `CarouselNext` are outline icon buttons placed outside the track. They accept `Button` props.
 
 ## Component props
 
 ### Carousel
 
 <PropertiesTable>
-  <ResponseField name="orientation" type="string">"horizontal" | "vertical" (default: "horizontal")</ResponseField>
-  <ResponseField name="loop" type="boolean">Loops back to the first slide</ResponseField>
-  <ResponseField name="showArrows" type="boolean">Shows previous/next arrows (default: true)</ResponseField>
-  <ResponseField name="showDots" type="boolean">Shows dot indicators</ResponseField>
-  <ResponseField name="opts" type="EmblaOptions">Additional Embla carousel options</ResponseField>
-  <ResponseField name="onIndexChange" type="(index: number) => void">Called when the selected slide changes</ResponseField>
+  <PropertiesTable.Row name="orientation" type="string">"horizontal" | "vertical" (default: "horizontal")</PropertiesTable.Row>
+  <PropertiesTable.Row name="opts" type="EmblaOptionsType">Options passed to Embla, such as `loop` and `align`</PropertiesTable.Row>
+  <PropertiesTable.Row name="plugins" type="EmblaPluginType[]">Embla plugins, such as autoplay</PropertiesTable.Row>
+  <PropertiesTable.Row name="setApi" type="(api: CarouselApi) => void">Receives the Embla API</PropertiesTable.Row>
 </PropertiesTable>
-
-### CarouselItem
-
-Accepts standard HTML div props. Each item renders as a slide.

@@ -1,59 +1,100 @@
 ---
 title: Colors
-description: "Our color system is based on Tailwind CSS colors."
+description: "Colors are shadcn/ui theme tokens, plus the full Tailwind CSS palette."
 ---
 
-import { AccentColorsExample, ColorSwatchesExample, Column, Example, ExampleBox, Icon, Lucide, Text } from '../../../mdx-components';
+import { AccentColorsExample, ColorSwatchesExample, DataColumn, DataTable, Example, Icon, Lucide, Text } from '../../../mdx-components';
+import { ThemeTokensExample } from '../../../app/examples/ThemeTokensExample';
 
-Our color system is based on Tailwind CSS colors. There are two categories of colors: semantic colors and accent colors.
+Zen uses the [shadcn/ui](https://ui.shadcn.com/docs/theming) color system. There are two kinds of
+colors:
 
-## Semantic colors
+- **Theme tokens** such as `background`, `foreground`, `primary` and `muted`. They are CSS variables
+  that change with [dark mode and the palette](/docs/design/themes), and you can
+  [override them](/docs/design/customization). Use them for almost everything.
+- **Tailwind palette colors** such as `blue-500`. They are fixed and don't change with the theme.
 
-Semantic colors provide meaning to UI elements and are used for common states.
+## Theme tokens
 
-<Example direction="row" gap="6">
-  <Column alignItems="center">
-    <ExampleBox backgroundColor="primary" />
-    <Text align="center">primary</Text>
-  </Column>
-  <Column alignItems="center">
-    <ExampleBox backgroundColor="muted" />
-    <Text align="center">muted</Text>
-  </Column>
-  <Column alignItems="center">
-    <ExampleBox backgroundColor="transparent" />
-    <Text align="center">transparent</Text>
-  </Column>
+Most tokens come in pairs: a background color and the foreground color for text on top of it.
+
+<Example>
+  <ThemeTokensExample />
 </Example>
 
-## Accent colors
+<Example>
+  <DataTable
+    data={[
+      { id: 'background', token: 'background / foreground', usage: 'The page background and default text color.' },
+      { id: 'card', token: 'card / card-foreground', usage: 'Cards and other raised panels.' },
+      { id: 'popover', token: 'popover / popover-foreground', usage: 'Menus, popovers, select lists and other floating surfaces.' },
+      { id: 'primary', token: 'primary / primary-foreground', usage: 'The brand color: default buttons, badges and selected states.' },
+      { id: 'secondary', token: 'secondary / secondary-foreground', usage: 'Secondary buttons and badges.' },
+      { id: 'muted', token: 'muted / muted-foreground', usage: 'Subtle backgrounds, and secondary text such as descriptions and placeholders.' },
+      { id: 'accent', token: 'accent / accent-foreground', usage: 'Hover and highlighted states of menu items and list options.' },
+      { id: 'destructive', token: 'destructive', usage: 'Errors and destructive actions.' },
+      { id: 'border', token: 'border', usage: 'Default border color.' },
+      { id: 'input', token: 'input', usage: 'Borders of form controls.' },
+      { id: 'ring', token: 'ring', usage: 'Focus rings.' },
+      { id: 'chart', token: 'chart-1 … chart-5', usage: 'Chart series colors.' },
+      { id: 'sidebar', token: 'sidebar, sidebar-*', usage: 'The Sidebar component and its parts.' },
+      { id: 'status', token: 'success, warning, info', usage: 'Zen extension (not part of shadcn): status colors for StatusLight, Toast and your own UI.' },
+    ]}
+  >
+    <DataColumn id="token" label="Token" />
+    <DataColumn id="usage" label="Usage" />
+  </DataTable>
+</Example>
 
-Accent colors provide additional meaning to UI elements and are used in buttons, links and statuses.
+Each token is a CSS variable (`--primary`) and a Tailwind color (`bg-primary`, `text-primary`,
+`border-primary`), so it also works with opacity modifiers: `bg-success/10` is a soft success
+background.
+
+## Color props
+
+Layout and typography components take colors through props: `color`, `backgroundColor`,
+`borderColor`, their `hover`/`focus`/`active` versions, `decorationColor`, and Icon's
+`strokeColor`/`fillColor`. The value is the token name, and it becomes the Tailwind class of the same
+name: `backgroundColor="muted"` renders `bg-muted`, `color="muted-foreground"` renders
+`text-muted-foreground`.
+
+<Example direction="row" gap="4">
+  <Text color="foreground">Foreground</Text>
+  <Text color="muted-foreground">Muted</Text>
+  <Text color="primary">Primary</Text>
+  <Text color="destructive">Destructive</Text>
+  <Text color="success">Success</Text>
+
+  ```jsx
+  <Text color="foreground">Foreground</Text>
+  <Text color="muted-foreground">Muted</Text>
+  <Text color="primary">Primary</Text>
+  <Text color="destructive">Destructive</Text>
+  <Text color="success">Success</Text>
+  ```
+</Example>
+
+Each prop accepts the tokens that make sense for it:
+
+<PropertiesTable>
+  <PropertiesTable.Row name="color" type="FontColor">"foreground" | "muted-foreground" | "primary" | "primary-foreground" | "secondary-foreground" | "accent-foreground" | "background" | "card-foreground" | "popover-foreground" | "destructive" | "success" | "warning" | "info" | PaletteColor | true</PropertiesTable.Row>
+  <PropertiesTable.Row name="backgroundColor" type="BackgroundColor">"background" | "card" | "popover" | "primary" | "secondary" | "muted" | "accent" | "foreground" | "sidebar" | "destructive" | "success" | "warning" | "info" | PaletteColor | true</PropertiesTable.Row>
+  <PropertiesTable.Row name="borderColor" type="BorderColor">"border" | "input" | "ring" | "primary" | "destructive" | "success" | "warning" | "info" | PaletteColor | true</PropertiesTable.Row>
+</PropertiesTable>
+
+`true` picks the default token: `foreground` for text, `muted` for backgrounds and `border` for
+borders. `PaletteColor` is a Tailwind color name (`red`), a color with a shade (`red-300`) or
+`transparent`.
+
+## Tailwind palette colors
+
+Any Tailwind color works in a color prop, with or without a shade (50–950). Without a shade, 500 is
+used.
 
 <Example direction="row" wrap="wrap">
   <AccentColorsExample />
 </Example>
 
-## Text colors
-
-<Example direction="row" gap="4">
-  <Text color="primary">Primary text</Text>
-  <Text color="muted">Muted text</Text>
-  <Text color="disabled">Disabled text</Text>
-  <Text color="red">Colored text</Text>
-
-  ```jsx
-  <Text color="primary">Primary text</Text>
-  <Text color="muted">Muted text</Text>
-  <Text color="disabled">Disabled text</Text>
-  <Text color="red">Colored text</Text>
-  ```
-</Example>
-
-## Color shades
-
-You can use any Tailwind color with a specific shade (50-950). If no shade is specified, 500 is used by default.
-
 <Example direction="row" gap="4">
   <Text color="blue-300">blue-300</Text>
   <Text color="blue-500">blue-500</Text>
@@ -67,38 +108,28 @@ You can use any Tailwind color with a specific shade (50-950). If no shade is sp
   <Text color="blue-900">blue-900</Text>
   ```
 </Example>
+
+Palette colors don't adapt to dark mode. Prefer a theme token wherever one fits.
 
 ## Icon colors
 
-Icons support the same color props including shades.
+Icons take the same values.
 
 <Example direction="row" gap="4">
-  <Icon color="green-400" size="lg"><Lucide.Wifi /></Icon>
+  <Icon color="success" size="lg"><Lucide.Wifi /></Icon>
+  <Icon color="muted-foreground" size="lg"><Lucide.Wifi /></Icon>
   <Icon color="blue-500" size="lg"><Lucide.Wifi /></Icon>
   <Icon color="purple-600" size="lg"><Lucide.Wifi /></Icon>
-  <Icon color="red-700" size="lg"><Lucide.Wifi /></Icon>
 
   ```jsx
-  <Icon color="green-400" size="lg"><Lucide.Wifi /></Icon>
+  <Icon color="success" size="lg"><Lucide.Wifi /></Icon>
+  <Icon color="muted-foreground" size="lg"><Lucide.Wifi /></Icon>
   <Icon color="blue-500" size="lg"><Lucide.Wifi /></Icon>
   <Icon color="purple-600" size="lg"><Lucide.Wifi /></Icon>
-  <Icon color="red-700" size="lg"><Lucide.Wifi /></Icon>
   ```
 </Example>
 
-## Component props
-
-<PropertiesTable>
-  <ResponseField name="color" type="FontColor">SemanticColor | ColorName | TailwindColor</ResponseField>
-  <ResponseField name="backgroundColor" type="BackgroundColor">SemanticColor | SurfaceColor | ColorName | TailwindColor</ResponseField>
-  <ResponseField name="borderColor" type="BorderColor">SemanticColor | ColorName | TailwindColor</ResponseField>
-</PropertiesTable>
-
-Where `ColorName` is a base Tailwind color (e.g., `blue`, `red`) and `TailwindColor` is a color with shade (e.g., `blue-500`, `red-300`).
-
-## Available colors
-
-The following Tailwind colors are available, each with shades from 50 to 950:
+## Available palette colors
 
 <Example>
   <ColorSwatchesExample />

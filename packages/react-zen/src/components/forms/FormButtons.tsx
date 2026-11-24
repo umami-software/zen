@@ -1,15 +1,14 @@
-import type { ReactNode } from 'react';
-import { Row, type RowProps } from '../Row';
+import type { ComponentProps } from 'react';
+import { cn } from '@/lib/utils';
 
-export interface FormButtonsProps extends RowProps {
-  children?: ReactNode;
-  fill?: boolean;
-}
+export interface FormButtonsProps extends ComponentProps<'div'> {}
 
-export function FormButtons({ fill, children, ...props }: FormButtonsProps) {
+export function FormButtons({ className, ...props }: FormButtonsProps) {
   return (
-    <Row paddingTop="3" gap="3" justifyContent="flex-end" {...props}>
-      {children}
-    </Row>
+    <div
+      {...props}
+      data-slot="form-buttons"
+      className={cn('flex items-center justify-end gap-3', className)}
+    />
   );
 }

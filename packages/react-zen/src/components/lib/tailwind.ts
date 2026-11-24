@@ -41,7 +41,7 @@ const paddingMap: Record<string, string> = {
   '72': 'p-72',
   '80': 'p-80',
   '96': 'p-96',
-  true: 'px-[var(--zen-padding-x)] py-[var(--zen-padding-y)]',
+  true: 'px-3 py-2',
 };
 const pxMap: Record<string, string> = {
   '0': 'px-0',
@@ -79,7 +79,7 @@ const pxMap: Record<string, string> = {
   '72': 'px-72',
   '80': 'px-80',
   '96': 'px-96',
-  true: 'px-[var(--zen-padding-x)]',
+  true: 'px-3',
 };
 const pyMap: Record<string, string> = {
   '0': 'py-0',
@@ -117,7 +117,7 @@ const pyMap: Record<string, string> = {
   '72': 'py-72',
   '80': 'py-80',
   '96': 'py-96',
-  true: 'py-[var(--zen-padding-y)]',
+  true: 'py-2',
 };
 const ptMap: Record<string, string> = {
   '0': 'pt-0',
@@ -594,7 +594,7 @@ const gapMap: Record<string, string> = {
   '72': 'gap-72',
   '80': 'gap-80',
   '96': 'gap-96',
-  true: 'gap-[var(--zen-gap)]',
+  true: 'gap-3',
 };
 const gapXMap: Record<string, string> = {
   '0': 'gap-x-0',
@@ -621,7 +621,7 @@ const gapXMap: Record<string, string> = {
   '24': 'gap-x-24',
   '28': 'gap-x-28',
   '32': 'gap-x-32',
-  true: 'gap-x-[var(--zen-gap)]',
+  true: 'gap-x-3',
 };
 const gapYMap: Record<string, string> = {
   '0': 'gap-y-0',
@@ -648,7 +648,7 @@ const gapYMap: Record<string, string> = {
   '24': 'gap-y-24',
   '28': 'gap-y-28',
   '32': 'gap-y-32',
-  true: 'gap-y-[var(--zen-gap)]',
+  true: 'gap-y-3',
 };
 
 // Space-between maps (for child spacing utilities)
@@ -783,7 +783,7 @@ const borderRadiusMap: Record<string, string> = {
   '2xl': 'rounded-2xl',
   '3xl': 'rounded-3xl',
   full: 'rounded-full',
-  true: 'rounded-[var(--zen-radius)]',
+  true: 'rounded-lg',
 };
 
 // Border width mapping - sm=1, md=2, lg=4, xl=8
@@ -803,29 +803,48 @@ const shadowMap: Record<string, string> = {
   xl: 'shadow-xl',
   '2xl': 'shadow-2xl',
   inner: 'shadow-inner',
-  true: 'shadow-[var(--zen-shadow)]',
+  true: 'shadow-md',
 };
 
-// Semantic color mapping
-const semanticColorMap: Record<string, { text: string; bg: string }> = {
-  primary: { text: 'text-fg', bg: 'bg-primary' },
-  muted: { text: 'text-fg-muted', bg: 'bg-surface-raised' },
-  inverted: { text: 'text-surface', bg: 'bg-surface-inverted' },
-  disabled: { text: 'text-fg-disabled', bg: 'bg-surface-disabled' },
-  transparent: { text: 'text-transparent', bg: 'bg-transparent' },
-  true: { text: 'text-fg', bg: 'bg-interactive' },
-  // Surface colors
-  surface: { text: '', bg: 'bg-surface' },
-  'surface-raised': { text: '', bg: 'bg-surface-raised' },
-  'surface-sunken': { text: '', bg: 'bg-surface-sunken' },
-  'surface-overlay': { text: '', bg: 'bg-surface-overlay' },
-  'surface-inverted': { text: '', bg: 'bg-surface-inverted' },
-  'surface-disabled': { text: '', bg: 'bg-surface-disabled' },
-  // Interactive colors
-  interactive: { text: '', bg: 'bg-interactive' },
-  'interactive-hover': { text: '', bg: 'bg-interactive-hover' },
-  'interactive-pressed': { text: '', bg: 'bg-interactive-pressed' },
-};
+// Theme token colors. Prop value = token name, class = `${prefix}-${value}`.
+// Every generated class is safelisted in src/styles/tailwind.css.
+const statusColorTokens = ['destructive', 'success', 'warning', 'info'];
+
+const textColorTokens = new Set([
+  'foreground',
+  'muted-foreground',
+  'primary',
+  'primary-foreground',
+  'secondary-foreground',
+  'accent-foreground',
+  'background',
+  'card-foreground',
+  'popover-foreground',
+  ...statusColorTokens,
+]);
+
+const backgroundColorTokens = new Set([
+  'background',
+  'card',
+  'popover',
+  'primary',
+  'secondary',
+  'muted',
+  'accent',
+  'foreground',
+  'sidebar',
+  ...statusColorTokens,
+]);
+
+const borderColorTokens = new Set(['border', 'input', 'ring', 'primary', ...statusColorTokens]);
+
+// Token used when a color prop is `true`
+const defaultColorToken = {
+  text: 'foreground',
+  bg: 'muted',
+  border: 'border',
+  decoration: 'foreground',
+} as const;
 
 // Tailwind color names for pattern matching
 const tailwindColors = new Set([
@@ -865,7 +884,10 @@ function isTailwindColor(value: string): boolean {
 }
 
 // Get Tailwind color class (handles both 'blue' and 'blue-500' formats)
-function getTailwindColorClass(value: string, prefix: 'text' | 'bg' | 'border'): string {
+function getTailwindColorClass(
+  value: string,
+  prefix: 'text' | 'bg' | 'border' | 'decoration',
+): string {
   // If it's a base color without shade, default to 500
   if (tailwindColors.has(value)) {
     return `${prefix}-${value}-500`;
@@ -1200,22 +1222,12 @@ const gridRowsMap: Record<string, string> = {
 
 // Border mapping
 const borderMap: Record<string, string> = {
-  true: 'border border-edge',
+  true: 'border border-border',
   none: 'border-0',
-  top: 'border-t border-edge',
-  right: 'border-r border-edge',
-  bottom: 'border-b border-edge',
-  left: 'border-l border-edge',
-};
-
-// Semantic border color mapping
-const semanticBorderColorMap: Record<string, string> = {
-  true: 'border-edge',
-  transparent: 'border-transparent',
-  primary: 'border-primary',
-  muted: 'border-edge-muted',
-  strong: 'border-edge-strong',
-  disabled: 'border-edge-muted',
+  top: 'border-t border-border',
+  right: 'border-r border-border',
+  bottom: 'border-b border-border',
+  left: 'border-l border-border',
 };
 
 // Helper to handle responsive values
@@ -1329,30 +1341,27 @@ export function mapFontWeight(value: Responsive<string> | undefined): string {
   return mapResponsive(value, v => fontWeightMap[v]);
 }
 
-export function mapTextColor(value: string | undefined): string {
+type ColorPrefix = 'text' | 'bg' | 'border' | 'decoration';
+
+function mapColor(value: string | undefined, prefix: ColorPrefix, tokens: Set<string>): string {
   if (!value) return '';
-  // Check semantic colors first
-  if (semanticColorMap[value]) {
-    return semanticColorMap[value].text;
-  }
-  // Check Tailwind colors
-  if (isTailwindColor(value)) {
-    return getTailwindColorClass(value, 'text');
-  }
+  if (value === 'true') return `${prefix}-${defaultColorToken[prefix]}`;
+  if (value === 'transparent') return `${prefix}-transparent`;
+  if (tokens.has(value)) return `${prefix}-${value}`;
+  if (isTailwindColor(value)) return getTailwindColorClass(value, prefix);
   return '';
 }
 
+export function mapTextColor(value: string | undefined): string {
+  return mapColor(value, 'text', textColorTokens);
+}
+
+export function mapDecorationColor(value: string | undefined): string {
+  return mapColor(value, 'decoration', textColorTokens);
+}
+
 export function mapBackgroundColor(value: string | undefined): string {
-  if (!value) return '';
-  // Check semantic colors first
-  if (semanticColorMap[value]) {
-    return semanticColorMap[value].bg;
-  }
-  // Check Tailwind colors
-  if (isTailwindColor(value)) {
-    return getTailwindColorClass(value, 'bg');
-  }
-  return '';
+  return mapColor(value, 'bg', backgroundColorTokens);
 }
 
 export function mapBorderRadius(value: Responsive<string> | undefined): string {
@@ -1452,24 +1461,8 @@ export function mapBorder(value: Responsive<string | boolean> | undefined): stri
 }
 
 export function mapBorderColor(value: string | undefined): string {
-  if (!value) return '';
-  // Check semantic colors first
-  if (semanticBorderColorMap[value]) {
-    return semanticBorderColorMap[value];
-  }
-  // Check Tailwind colors
-  if (isTailwindColor(value)) {
-    return getTailwindColorClass(value, 'border');
-  }
-  return '';
+  return mapColor(value, 'border', borderColorTokens);
 }
-
-// Semantic CSS color values for SVG stroke/fill
-const semanticCssColorValues: Record<string, string> = {
-  primary: 'var(--zen-fg)',
-  muted: 'var(--zen-fg-muted)',
-  disabled: 'var(--zen-fg-disabled)',
-};
 
 // Tailwind color hex values (500 shade as default)
 const tailwindColorHex: Record<string, Record<string, string>> = {
@@ -1761,15 +1754,14 @@ const tailwindColorHex: Record<string, Record<string, string>> = {
   },
 };
 
+// CSS color value for SVG stroke/fill props. Accepts the same values as text color.
 export function getCssColorValue(value: string | undefined): string | undefined {
   if (!value) return undefined;
+  if (value === 'true') return `var(--${defaultColorToken.text})`;
+  if (value === 'transparent') return 'transparent';
+  if (textColorTokens.has(value)) return `var(--${value})`;
 
-  // Check semantic colors first
-  if (semanticCssColorValues[value]) {
-    return semanticCssColorValues[value];
-  }
-
-  // Check Tailwind colors
+  // Tailwind color with shade (e.g. 'blue-500')
   const parts = value.split('-');
   if (parts.length === 2 && tailwindColors.has(parts[0])) {
     return tailwindColorHex[parts[0]]?.[parts[1]];

@@ -1,58 +1,41 @@
 import { Meter as BaseMeter } from '@base-ui/react/meter';
-import { Label } from './Label';
-import { cn } from './lib/tailwind';
-import { Text } from './Text';
+import type { ReactNode } from 'react';
+import { cn } from '@/lib/utils';
 
-export interface MeterProps extends Omit<BaseMeter.Root.Props, 'min' | 'max' | 'format'> {
-  value: number;
-  minValue?: number;
-  maxValue?: number;
-  label?: string;
+export interface MeterProps extends BaseMeter.Root.Props {
+  label?: ReactNode;
   showValue?: boolean;
-  formatOptions?: Intl.NumberFormatOptions;
 }
 
-export function Meter({
-  value,
-  minValue,
-  maxValue,
-  label,
-  showValue,
-  formatOptions,
-  className,
-  ...props
-}: MeterProps) {
+export function Meter({ label, showValue, className, ...props }: MeterProps) {
   return (
     <BaseMeter.Root
       {...props}
-      value={value}
-      min={minValue}
-      max={maxValue}
-      format={formatOptions}
       data-slot="meter"
-      className={cn('flex flex-col gap-2 w-full', className)}
+      className={cn('flex w-full flex-col gap-3', className)}
     >
       {(label || showValue) && (
         <div data-slot="meter-header" className="flex items-center justify-between gap-3">
           {label && (
-            <BaseMeter.Label data-slot="meter-label" render={<Label />}>
+            <BaseMeter.Label data-slot="meter-label" className="text-sm font-medium">
               {label}
             </BaseMeter.Label>
           )}
           {showValue && (
-            <Text className="tabular-nums">
-              <BaseMeter.Value data-slot="meter-value" />
-            </Text>
+            <BaseMeter.Value
+              data-slot="meter-value"
+              className="ml-auto text-sm text-muted-foreground tabular-nums"
+            />
           )}
         </div>
       )}
       <BaseMeter.Track
         data-slot="meter-track"
-        className="relative overflow-hidden w-full h-2 rounded-full bg-interactive"
+        className="relative h-1.5 w-full overflow-hidden rounded-full bg-muted"
       >
         <BaseMeter.Indicator
           data-slot="meter-indicator"
-          className="h-full rounded-full bg-primary transition-all"
+          className="h-full bg-primary transition-all"
         />
       </BaseMeter.Track>
     </BaseMeter.Root>

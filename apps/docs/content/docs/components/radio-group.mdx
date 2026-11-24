@@ -1,80 +1,147 @@
 ---
 title: Radio Group
-description: "A radio group allows a user to select a single item from a list of mutually exclusive options."
+description: "A set of checkable buttons where no more than one can be checked at a time."
 ---
 
-import { Example, Radio, RadioGroup } from '../../../mdx-components';
+import { Example, Field, FieldContent, FieldDescription, FieldLabel, RadioGroup, RadioGroupItem } from '../../../mdx-components';
 
-A radio group allows a user to select a single item from a list of mutually exclusive options.
+A set of checkable buttons, known as radio buttons, where no more than one can be checked at a
+time. `RadioGroupItem` renders only the radio, so pair each one with a `FieldLabel`.
 
 <Example>
-  <RadioGroup>
-    <Radio value="one">One</Radio>
-    <Radio value="two">Two</Radio>
-    <Radio value="three">Three</Radio>
+  <RadioGroup defaultValue="comfortable" className="w-fit">
+    <Field orientation="horizontal">
+      <RadioGroupItem value="default" id="r1" />
+      <FieldLabel htmlFor="r1">Default</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <RadioGroupItem value="comfortable" id="r2" />
+      <FieldLabel htmlFor="r2">Comfortable</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <RadioGroupItem value="compact" id="r3" />
+      <FieldLabel htmlFor="r3">Compact</FieldLabel>
+    </Field>
   </RadioGroup>
 
   ```jsx
-  <RadioGroup>
-    <Radio value="one">One</Radio>
-    <Radio value="two">Two</Radio>
-    <Radio value="three">Three</Radio>
+  <RadioGroup defaultValue="comfortable" className="w-fit">
+    <Field orientation="horizontal">
+      <RadioGroupItem value="default" id="r1" />
+      <FieldLabel htmlFor="r1">Default</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <RadioGroupItem value="comfortable" id="r2" />
+      <FieldLabel htmlFor="r2">Comfortable</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <RadioGroupItem value="compact" id="r3" />
+      <FieldLabel htmlFor="r3">Compact</FieldLabel>
+    </Field>
   </RadioGroup>
   ```
 </Example>
 
-## Orientation
+## With description
+
+Wrap the label and a `FieldDescription` in `FieldContent`.
 
 <Example>
-  <RadioGroup orientation="horizontal">
-    <Radio value="one">One</Radio>
-    <Radio value="two">Two</Radio>
-    <Radio value="three">Three</Radio>
+  <RadioGroup defaultValue="monthly" className="w-fit">
+    <Field orientation="horizontal">
+      <RadioGroupItem value="monthly" id="plan-monthly" />
+      <FieldContent>
+        <FieldLabel htmlFor="plan-monthly">Monthly</FieldLabel>
+        <FieldDescription>Billed every month. Cancel any time.</FieldDescription>
+      </FieldContent>
+    </Field>
+    <Field orientation="horizontal">
+      <RadioGroupItem value="yearly" id="plan-yearly" />
+      <FieldContent>
+        <FieldLabel htmlFor="plan-yearly">Yearly</FieldLabel>
+        <FieldDescription>Billed once a year. Two months free.</FieldDescription>
+      </FieldContent>
+    </Field>
   </RadioGroup>
 
   ```jsx
-  <RadioGroup orientation="horizontal">
-    <Radio value="one">One</Radio>
-    <Radio value="two">Two</Radio>
-    <Radio value="three">Three</Radio>
+  <RadioGroup defaultValue="monthly" className="w-fit">
+    <Field orientation="horizontal">
+      <RadioGroupItem value="monthly" id="plan-monthly" />
+      <FieldContent>
+        <FieldLabel htmlFor="plan-monthly">Monthly</FieldLabel>
+        <FieldDescription>Billed every month. Cancel any time.</FieldDescription>
+      </FieldContent>
+    </Field>
+    <Field orientation="horizontal">
+      <RadioGroupItem value="yearly" id="plan-yearly" />
+      <FieldContent>
+        <FieldLabel htmlFor="plan-yearly">Yearly</FieldLabel>
+        <FieldDescription>Billed once a year. Two months free.</FieldDescription>
+      </FieldContent>
+    </Field>
   </RadioGroup>
   ```
 </Example>
 
 ## Disabled
 
+Disable the whole group with `disabled` on `RadioGroup`, or a single option on its `RadioGroupItem`.
+
 <Example>
-  <RadioGroup>
-    <Radio value="one">One</Radio>
-    <Radio value="two">Two</Radio>
-    <Radio value="three" isDisabled>Three</Radio>
+  <RadioGroup defaultValue="email" className="w-fit">
+    <Field orientation="horizontal">
+      <RadioGroupItem value="email" id="notify-email" />
+      <FieldLabel htmlFor="notify-email">Email</FieldLabel>
+    </Field>
+    <Field orientation="horizontal" data-disabled="true">
+      <RadioGroupItem value="sms" id="notify-sms" disabled />
+      <FieldLabel htmlFor="notify-sms">SMS</FieldLabel>
+    </Field>
   </RadioGroup>
 
   ```jsx
-  <RadioGroup>
-    <Radio value="one">One</Radio>
-    <Radio value="two">Two</Radio>
-    <Radio value="three" isDisabled>Three</Radio>
+  <RadioGroup defaultValue="email" className="w-fit">
+    <Field orientation="horizontal">
+      <RadioGroupItem value="email" id="notify-email" />
+      <FieldLabel htmlFor="notify-email">Email</FieldLabel>
+    </Field>
+    <Field orientation="horizontal" data-disabled="true">
+      <RadioGroupItem value="sms" id="notify-sms" disabled />
+      <FieldLabel htmlFor="notify-sms">SMS</FieldLabel>
+    </Field>
   </RadioGroup>
   ```
 </Example>
+
+## Controlled
+
+```jsx
+const [value, setValue] = useState('comfortable');
+
+<RadioGroup value={value} onValueChange={setValue}>
+  ...
+</RadioGroup>
+```
 
 ## Component props
 
 ### RadioGroup
 
 <PropertiesTable>
-  <ResponseField name="label" type="string">Label text displayed above the group</ResponseField>
-  <ResponseField name="value" type="string">Controlled selected value</ResponseField>
-  <ResponseField name="defaultValue" type="string">Default selected value</ResponseField>
-  <ResponseField name="orientation" type="Orientation">"horizontal" | "vertical"</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables all radios in the group</ResponseField>
-  <ResponseField name="onChange" type="(value: string) => void">Called when selection changes</ResponseField>
+  <PropertiesTable.Row name="value" type="string">Controlled selected value</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultValue" type="string">Initial value when uncontrolled</PropertiesTable.Row>
+  <PropertiesTable.Row name="onValueChange" type="(value: string, details) => void">Called when the selection changes</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables every item</PropertiesTable.Row>
+  <PropertiesTable.Row name="readOnly" type="boolean">Prevents changing the selection</PropertiesTable.Row>
+  <PropertiesTable.Row name="required" type="boolean">Requires a selection before submitting a form</PropertiesTable.Row>
+  <PropertiesTable.Row name="name" type="string">Form field name</PropertiesTable.Row>
 </PropertiesTable>
 
-### Radio
+### RadioGroupItem
 
 <PropertiesTable>
-  <ResponseField name="value" type="string">Value of this radio option (required)</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables this radio option</ResponseField>
+  <PropertiesTable.Row name="value" type="string">The value this item selects (required)</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables this item</PropertiesTable.Row>
+  <PropertiesTable.Row name="id" type="string">Connects the item to a `FieldLabel` via `htmlFor`</PropertiesTable.Row>
 </PropertiesTable>

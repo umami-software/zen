@@ -4,23 +4,19 @@ import { useState } from 'react';
 export function FloatingTooltipExample() {
   const [show, setShow] = useState(false);
 
-  const handleEnter = () => setShow(true);
-  const handleLeave = () => setShow(false);
-
   return (
     <>
       <Box
-        backgroundColor={true}
+        backgroundColor="muted"
+        borderRadius
         width="400px"
         height="300px"
-        onMouseEnter={handleEnter}
-        onMouseLeave={handleLeave}
+        onMouseEnter={() => setShow(true)}
+        onMouseLeave={() => setShow(false)}
       />
-      {show && (
-        <FloatingTooltip>
-          <Text>Hello</Text>
-        </FloatingTooltip>
-      )}
+      <FloatingTooltip open={show}>
+        <Text color="background">Hello</Text>
+      </FloatingTooltip>
     </>
   );
 }

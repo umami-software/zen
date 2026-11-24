@@ -1,37 +1,143 @@
 ---
 title: Alert Dialog
-description: "Alert dialogs are a specific type of Dialog."
+description: "A modal dialog that interrupts the user with important content and expects a response."
 ---
 
-import { AlertDialog, AlertDialogExample, Button, DialogTrigger, Example, Modal, Text } from '../../../mdx-components';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogMedia,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+  AlertDialogExample,
+  Button,
+  Example,
+  Lucide,
+} from '../../../mdx-components';
 
-Alert dialogs are a specific type of Dialog. They display important information that users need
-to acknowledge.
+A modal dialog that interrupts the user with important content and expects a response. Unlike a
+`Dialog`, it can't be dismissed by clicking outside.
+
+`AlertDialogCancel` closes the dialog. `AlertDialogAction` is a plain `Button` and does not close it
+on its own, so control the dialog with `open` and `onOpenChange` and close it once the action is
+done. For simple confirmations, `ConfirmationDialog` wires this up for you.
 
 <Example>
   <AlertDialogExample />
 
   ```jsx
-    <DialogTrigger overlayType="alert-dialog">
-    <Button variant="primary">Delete account</Button>
-    <Modal>
-      <AlertDialog title="Are you sure you want to delete your account?">
-        <Text>This cannot be undone. All your data will be permanantly deleted.</Text>
+  function AlertDialogExample() {
+    const [open, setOpen] = useState(false);
+
+    const handleDelete = () => {
+      // Delete the account, then close the dialog.
+      setOpen(false);
+    };
+
+    return (
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialogTrigger render={<Button variant="destructive" />}>
+          Delete account
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete your account?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This cannot be undone. Your account and all of its data will be permanently deleted.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction variant="destructive" onClick={handleDelete}>
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
       </AlertDialog>
-    </Modal>
-  </DialogTrigger>
+    );
+  }
   ```
 </Example>
 
+## Small with media
+
+Set `size="sm"` on `AlertDialogContent` for a compact, centered layout, and add an icon with
+`AlertDialogMedia`.
+
+<Example>
+  <AlertDialog>
+    <AlertDialogTrigger render={<Button variant="outline" />}>Connect device</AlertDialogTrigger>
+    <AlertDialogContent size="sm">
+      <AlertDialogHeader>
+        <AlertDialogMedia>
+          <Lucide.Bluetooth />
+        </AlertDialogMedia>
+        <AlertDialogTitle>Allow accessory to connect?</AlertDialogTitle>
+        <AlertDialogDescription>
+          Do you want to allow the USB accessory to connect to this device?
+        </AlertDialogDescription>
+      </AlertDialogHeader>
+      <AlertDialogFooter>
+        <AlertDialogCancel>Don't allow</AlertDialogCancel>
+        <AlertDialogAction>Allow</AlertDialogAction>
+      </AlertDialogFooter>
+    </AlertDialogContent>
+  </AlertDialog>
+
+  ```jsx
+  <AlertDialog>
+    <AlertDialogTrigger render={<Button variant="outline" />}>Connect device</AlertDialogTrigger>
+    <AlertDialogContent size="sm">
+      <AlertDialogHeader>
+        <AlertDialogMedia>
+          <Lucide.Bluetooth />
+        </AlertDialogMedia>
+        <AlertDialogTitle>Allow accessory to connect?</AlertDialogTitle>
+        <AlertDialogDescription>
+          Do you want to allow the USB accessory to connect to this device?
+        </AlertDialogDescription>
+      </AlertDialogHeader>
+      <AlertDialogFooter>
+        <AlertDialogCancel>Don't allow</AlertDialogCancel>
+        <AlertDialogAction>Allow</AlertDialogAction>
+      </AlertDialogFooter>
+    </AlertDialogContent>
+  </AlertDialog>
+  ```
+</Example>
+
+## Parts
+
+- `AlertDialog` is the root. It holds the open state.
+- `AlertDialogTrigger` opens the dialog. Use `render={<Button />}` to style it.
+- `AlertDialogContent` is the popup, rendered in a portal with a backdrop.
+- `AlertDialogHeader`, `AlertDialogTitle`, `AlertDialogDescription` and `AlertDialogMedia` make up the header.
+- `AlertDialogFooter` holds `AlertDialogCancel` (closes the dialog) and `AlertDialogAction`.
+
 ## Component props
 
+### AlertDialog
+
 <PropertiesTable>
-  <ResponseField name="title" type="ReactNode">Dialog title</ResponseField>
-  <ResponseField name="description" type="ReactNode">Dialog description</ResponseField>
-  <ResponseField name="isDanger" type="boolean">Shows confirm button as danger variant</ResponseField>
-  <ResponseField name="isConfirmDisabled" type="boolean">Disables the confirm button</ResponseField>
-  <ResponseField name="confirmLabel" type="ReactNode">Confirm button text (default: "Confirm")</ResponseField>
-  <ResponseField name="cancelLabel" type="ReactNode">Cancel button text (default: "Cancel")</ResponseField>
-  <ResponseField name="onConfirm" type="() => void | Promise<unknown>">Called when confirm is clicked. When it returns a promise the dialog stays open until it resolves, and stays open on rejection</ResponseField>
-  <ResponseField name="onCancel" type="() => void">Called when cancel is clicked</ResponseField>
+  <PropertiesTable.Row name="open" type="boolean">Controlled open state</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultOpen" type="boolean">Initial open state when uncontrolled (default: false)</PropertiesTable.Row>
+  <PropertiesTable.Row name="onOpenChange" type="(open, eventDetails) => void">Called when the dialog opens or closes</PropertiesTable.Row>
+</PropertiesTable>
+
+### AlertDialogContent
+
+<PropertiesTable>
+  <PropertiesTable.Row name="size" type="string">"default" | "sm" (default: "default")</PropertiesTable.Row>
+</PropertiesTable>
+
+### AlertDialogAction and AlertDialogCancel
+
+<PropertiesTable>
+  <PropertiesTable.Row name="variant" type="ButtonVariant">Button variant. `AlertDialogCancel` defaults to "outline"</PropertiesTable.Row>
+  <PropertiesTable.Row name="size" type="ButtonSize">Button size (default: "default")</PropertiesTable.Row>
 </PropertiesTable>

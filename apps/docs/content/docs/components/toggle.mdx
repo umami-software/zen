@@ -1,31 +1,114 @@
 ---
 title: Toggle
-description: "A toggle button allows a user to toggle a selection on or off, for example switching between two states or modes."
+description: "A two-state button that can be either on or off."
 ---
 
-import { Example, Toggle } from '../../../mdx-components';
+import { Example, Lucide, Row, Toggle } from '../../../mdx-components';
 
-A toggle button allows a user to toggle a selection on or off, for example switching between two states or modes.
+A two-state button that can be either on or off.
 
 <Example>
-  <Toggle>B</Toggle>
+  <Toggle aria-label="Toggle bookmark">
+    <Lucide.Bookmark />
+    Bookmark
+  </Toggle>
 
   ```jsx
-  <Toggle>B</Toggle>
+  <Toggle aria-label="Toggle bookmark">
+    <Lucide.Bookmark />
+    Bookmark
+  </Toggle>
   ```
 </Example>
+
+## Outline
+
+<Example>
+  <Row gap="2">
+    <Toggle variant="outline" aria-label="Toggle italic">
+      <Lucide.Italic />
+      Italic
+    </Toggle>
+    <Toggle variant="outline" aria-label="Toggle bold" defaultPressed>
+      <Lucide.Bold />
+      Bold
+    </Toggle>
+  </Row>
+
+  ```jsx
+  <Toggle variant="outline" aria-label="Toggle italic">
+    <Lucide.Italic />
+    Italic
+  </Toggle>
+  <Toggle variant="outline" aria-label="Toggle bold" defaultPressed>
+    <Lucide.Bold />
+    Bold
+  </Toggle>
+  ```
+</Example>
+
+## Sizes
+
+<Example>
+  <Row gap="2" alignItems="center">
+    <Toggle variant="outline" size="sm" aria-label="Toggle italic">
+      <Lucide.Italic />
+    </Toggle>
+    <Toggle variant="outline" aria-label="Toggle italic">
+      <Lucide.Italic />
+    </Toggle>
+    <Toggle variant="outline" size="lg" aria-label="Toggle italic">
+      <Lucide.Italic />
+    </Toggle>
+  </Row>
+
+  ```jsx
+  <Toggle variant="outline" size="sm" aria-label="Toggle italic">
+    <Lucide.Italic />
+  </Toggle>
+  <Toggle variant="outline" aria-label="Toggle italic">
+    <Lucide.Italic />
+  </Toggle>
+  <Toggle variant="outline" size="lg" aria-label="Toggle italic">
+    <Lucide.Italic />
+  </Toggle>
+  ```
+</Example>
+
+## Disabled
+
+<Example>
+  <Toggle aria-label="Toggle underline" disabled>
+    <Lucide.Underline />
+  </Toggle>
+
+  ```jsx
+  <Toggle aria-label="Toggle underline" disabled>
+    <Lucide.Underline />
+  </Toggle>
+  ```
+</Example>
+
+## Controlled
+
+```jsx
+const [pressed, setPressed] = useState(false);
+
+<Toggle pressed={pressed} onPressedChange={setPressed} aria-label="Toggle bold">
+  <Lucide.Bold />
+</Toggle>
+```
 
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="label" type="string">Label text displayed above the toggle</ResponseField>
-  <ResponseField name="variant" type="'default' | 'outline'">Visual style (default: "default")</ResponseField>
-  <ResponseField name="size" type="'sm' | 'md' | 'lg'">Control size (default: "md")</ResponseField>
-  <ResponseField name="isSelected" type="boolean">Controlled selected state</ResponseField>
-  <ResponseField name="defaultSelected" type="boolean">Default selected state</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the toggle</ResponseField>
-  <ResponseField name="onChange" type="(isSelected: boolean) => void">Called when state changes</ResponseField>
-  <ResponseField name="onPressedChange" type="(pressed: boolean, event: Event) => void">Base UI passthrough, called alongside `onChange`</ResponseField>
+  <PropertiesTable.Row name="pressed" type="boolean">Controlled pressed state</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultPressed" type="boolean">Initial pressed state when uncontrolled</PropertiesTable.Row>
+  <PropertiesTable.Row name="onPressedChange" type="(pressed: boolean, details) => void">Called when the pressed state changes</PropertiesTable.Row>
+  <PropertiesTable.Row name="variant" type="string">"default" | "outline" (default: "default")</PropertiesTable.Row>
+  <PropertiesTable.Row name="size" type="string">"sm" | "default" | "lg" (default: "default")</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the toggle</PropertiesTable.Row>
+  <PropertiesTable.Row name="value" type="string">Identifies the toggle inside a `ToggleGroup`</PropertiesTable.Row>
 </PropertiesTable>
 
-The `toggleVariants` helper is exported so other components (such as `ToggleGroupItem`) can share the same styles.
+`toggleVariants({ variant, size })` returns the class names, for styling other elements as a toggle.

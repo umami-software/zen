@@ -5,7 +5,8 @@ description: "A number field allows a user to enter a numeric value with stepper
 
 import { Box, Example, NumberField } from '../../../mdx-components';
 
-A number field allows a user to enter a numeric value with stepper buttons for incrementing and decrementing.
+A number field allows a user to enter a numeric value with stepper buttons for incrementing and
+decrementing. It is built on Base UI's `NumberField`.
 
 <Example>
   <Box width="200px"><NumberField label="Quantity" defaultValue={1} /></Box>
@@ -18,25 +19,25 @@ A number field allows a user to enter a numeric value with stepper buttons for i
 ## Min, max, and step
 
 <Example>
-  <Box width="200px"><NumberField label="Percent" defaultValue={50} minValue={0} maxValue={100} step={10} /></Box>
+  <Box width="200px"><NumberField label="Percent" defaultValue={50} min={0} max={100} step={10} /></Box>
 
   ```jsx
-  <NumberField label="Percent" defaultValue={50} minValue={0} maxValue={100} step={10} />
+  <NumberField label="Percent" defaultValue={50} min={0} max={100} step={10} />
   ```
 </Example>
 
-## Format options
+## Format
 
-Values are formatted with `Intl.NumberFormat` using the `formatOptions` prop.
+Values are formatted with `Intl.NumberFormat` using the `format` prop.
 
 <Example>
-  <Box width="200px"><NumberField label="Price" defaultValue={25} formatOptions={{ style: 'currency', currency: 'USD' }} /></Box>
+  <Box width="200px"><NumberField label="Price" defaultValue={25} format={{ style: 'currency', currency: 'USD' }} /></Box>
 
   ```jsx
   <NumberField
     label="Price"
     defaultValue={25}
-    formatOptions={{ style: 'currency', currency: 'USD' }}
+    format={{ style: 'currency', currency: 'USD' }}
   />
   ```
 </Example>
@@ -44,28 +45,38 @@ Values are formatted with `Intl.NumberFormat` using the `formatOptions` prop.
 ## Disabled
 
 <Example>
-  <Box width="200px"><NumberField label="Quantity" defaultValue={1} isDisabled /></Box>
+  <Box width="200px"><NumberField label="Quantity" defaultValue={1} disabled /></Box>
 
   ```jsx
-  <NumberField label="Quantity" defaultValue={1} isDisabled />
+  <NumberField label="Quantity" defaultValue={1} disabled />
   ```
 </Example>
 
+## Controlled
+
+```jsx
+const [value, setValue] = useState(1);
+
+<NumberField label="Quantity" value={value} onValueChange={setValue} />
+```
+
 ## Component props
 
+Other Base UI `NumberField.Root` props (`name`, `locale`, `largeStep`, `smallStep`, …) are passed through.
+
 <PropertiesTable>
-  <ResponseField name="label" type="string">Label text displayed above the field</ResponseField>
-  <ResponseField name="placeholder" type="string">Placeholder text</ResponseField>
-  <ResponseField name="value" type="number">Controlled value</ResponseField>
-  <ResponseField name="defaultValue" type="number">Default value</ResponseField>
-  <ResponseField name="minValue" type="number">Minimum value</ResponseField>
-  <ResponseField name="maxValue" type="number">Maximum value</ResponseField>
-  <ResponseField name="step" type="number">Amount to increment or decrement</ResponseField>
-  <ResponseField name="formatOptions" type="Intl.NumberFormatOptions">Number format options</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the field</ResponseField>
-  <ResponseField name="isReadOnly" type="boolean">Prevents changing the value</ResponseField>
-  <ResponseField name="isRequired" type="boolean">Marks the field as required</ResponseField>
-  <ResponseField name="onChange" type="(value: number | null) => void">Called when the value changes</ResponseField>
-  <ResponseField name="decrementLabel" type="string">Accessible label for the decrement button (default: "Decrease")</ResponseField>
-  <ResponseField name="incrementLabel" type="string">Accessible label for the increment button (default: "Increase")</ResponseField>
+  <PropertiesTable.Row name="label" type="ReactNode">Label displayed above the field</PropertiesTable.Row>
+  <PropertiesTable.Row name="placeholder" type="string">Placeholder text</PropertiesTable.Row>
+  <PropertiesTable.Row name="value" type="number | null">Controlled value</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultValue" type="number">Initial value</PropertiesTable.Row>
+  <PropertiesTable.Row name="onValueChange" type="(value: number | null, details) => void">Called when the value changes</PropertiesTable.Row>
+  <PropertiesTable.Row name="min" type="number">Minimum value</PropertiesTable.Row>
+  <PropertiesTable.Row name="max" type="number">Maximum value</PropertiesTable.Row>
+  <PropertiesTable.Row name="step" type="number">Amount to increment or decrement (default: 1)</PropertiesTable.Row>
+  <PropertiesTable.Row name="format" type="Intl.NumberFormatOptions">Number format options</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the field</PropertiesTable.Row>
+  <PropertiesTable.Row name="readOnly" type="boolean">Prevents changing the value</PropertiesTable.Row>
+  <PropertiesTable.Row name="required" type="boolean">Marks the field as required</PropertiesTable.Row>
+  <PropertiesTable.Row name="decrementLabel" type="string">Accessible label for the decrement button (default: "Decrease")</PropertiesTable.Row>
+  <PropertiesTable.Row name="incrementLabel" type="string">Accessible label for the increment button (default: "Increase")</PropertiesTable.Row>
 </PropertiesTable>

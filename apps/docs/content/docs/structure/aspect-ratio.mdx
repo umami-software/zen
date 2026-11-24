@@ -1,121 +1,85 @@
 ---
 title: Aspect Ratio
-description: "Aspect ratio constrains its content to a fixed width-to-height ratio."
+description: "Displays content within a desired ratio."
 ---
 
-import { AspectRatio, Box, Column, Example, Flexbox, Grid, Label, Text } from '../../../mdx-components';
+import { AspectRatio, Box, Column, Example, Flexbox, Grid, Text } from '../../../mdx-components';
 
-Aspect ratio constrains its content to a fixed width-to-height ratio.
+Displays content within a desired ratio. `AspectRatio` takes the full width of its container and
+sets its height from `ratio`, the width divided by the height.
 
 <Example>
-  <Box width="400px">
-    <AspectRatio ratio={16 / 9}>
-      <img src="/images/sample.jpg" alt="Sample" style={{ borderRadius: '8px' }} />
+  <Box width="400px" maxWidth="100%">
+    <AspectRatio ratio={16 / 9} className="rounded-lg bg-muted">
+      <img src="/images/sample.jpg" alt="Sample" className="size-full rounded-lg object-cover" />
     </AspectRatio>
   </Box>
 
   ```jsx
-  <AspectRatio ratio={16 / 9}>
-    <img src="/images/sample.jpg" alt="Sample" />
+  <AspectRatio ratio={16 / 9} className="rounded-lg bg-muted">
+    <img src="/images/sample.jpg" alt="Sample" className="size-full rounded-lg object-cover" />
   </AspectRatio>
   ```
 </Example>
 
 ## Common ratios
 
-Pass any width-to-height ratio. The default is `1` (square).
+`ratio` is required. Pass any width-to-height ratio.
 
 <Example>
-  <Grid gap="3" columns="3" width="600px">
+  <Grid gap="3" columns="3" width="600px" maxWidth="100%">
     <Column gap="2">
-      <Label>1 / 1</Label>
+      <Text size="sm" weight="medium">1 / 1</Text>
       <AspectRatio ratio={1}>
-        <Flexbox alignItems="center" justifyContent="center" backgroundColor="interactive" borderRadius>
-          <Text color="muted">Square</Text>
+        <Flexbox alignItems="center" justifyContent="center" height="100%" backgroundColor="muted" borderRadius>
+          <Text size="sm" color="muted-foreground">Square</Text>
         </Flexbox>
       </AspectRatio>
     </Column>
     <Column gap="2">
-      <Label>4 / 3</Label>
+      <Text size="sm" weight="medium">4 / 3</Text>
       <AspectRatio ratio={4 / 3}>
-        <Flexbox alignItems="center" justifyContent="center" backgroundColor="interactive" borderRadius>
-          <Text color="muted">Standard</Text>
+        <Flexbox alignItems="center" justifyContent="center" height="100%" backgroundColor="muted" borderRadius>
+          <Text size="sm" color="muted-foreground">Standard</Text>
         </Flexbox>
       </AspectRatio>
     </Column>
     <Column gap="2">
-      <Label>16 / 9</Label>
+      <Text size="sm" weight="medium">16 / 9</Text>
       <AspectRatio ratio={16 / 9}>
-        <Flexbox alignItems="center" justifyContent="center" backgroundColor="interactive" borderRadius>
-          <Text color="muted">Widescreen</Text>
+        <Flexbox alignItems="center" justifyContent="center" height="100%" backgroundColor="muted" borderRadius>
+          <Text size="sm" color="muted-foreground">Widescreen</Text>
         </Flexbox>
       </AspectRatio>
     </Column>
   </Grid>
 
   ```jsx
-  <Grid gap="3" columns="3">
-    <AspectRatio ratio={1}>
-      <Flexbox alignItems="center" justifyContent="center">Square</Flexbox>
-    </AspectRatio>
-    <AspectRatio ratio={4 / 3}>
-      <Flexbox alignItems="center" justifyContent="center">Standard</Flexbox>
-    </AspectRatio>
-    <AspectRatio ratio={16 / 9}>
-      <Flexbox alignItems="center" justifyContent="center">Widescreen</Flexbox>
-    </AspectRatio>
-  </Grid>
-  ```
-</Example>
-
-## Portrait
-
-Ratios below `1` produce portrait orientation, useful for posters and profile cards.
-
-<Example>
-  <Box width="200px">
-    <AspectRatio ratio={3 / 4}>
-      <img src="/images/sample.jpg" alt="Sample" style={{ borderRadius: '8px' }} />
-    </AspectRatio>
-  </Box>
-
-  ```jsx
-  <Box width="200px">
-    <AspectRatio ratio={3 / 4}>
-      <img src="/images/sample.jpg" alt="Sample" />
-    </AspectRatio>
-  </Box>
-  ```
-</Example>
-
-## Image grid
-
-Images are cropped with `object-cover`, so mixed-size images stay uniform in a grid.
-
-<Example>
-  <Grid gap="3" columns="3" width="600px">
-    <AspectRatio>
-      <img src="/images/sample.jpg" alt="Sample" style={{ borderRadius: '8px' }} />
-    </AspectRatio>
-    <AspectRatio>
-      <img src="/images/sample.jpg" alt="Sample" style={{ borderRadius: '8px' }} />
-    </AspectRatio>
-    <AspectRatio>
-      <img src="/images/sample.jpg" alt="Sample" style={{ borderRadius: '8px' }} />
-    </AspectRatio>
-  </Grid>
-
-  ```jsx
-  <Grid gap="3" columns="3">
-    <AspectRatio>
-      <img src="/images/sample.jpg" alt="Sample" />
-    </AspectRatio>
-    <AspectRatio>
-      <img src="/images/sample.jpg" alt="Sample" />
-    </AspectRatio>
-    <AspectRatio>
-      <img src="/images/sample.jpg" alt="Sample" />
-    </AspectRatio>
+  <Grid gap="3" columns="3" width="600px" maxWidth="100%">
+    <Column gap="2">
+      <Text size="sm" weight="medium">1 / 1</Text>
+      <AspectRatio ratio={1}>
+        <Flexbox alignItems="center" justifyContent="center" height="100%" backgroundColor="muted" borderRadius>
+          <Text size="sm" color="muted-foreground">Square</Text>
+        </Flexbox>
+      </AspectRatio>
+    </Column>
+    <Column gap="2">
+      <Text size="sm" weight="medium">4 / 3</Text>
+      <AspectRatio ratio={4 / 3}>
+        <Flexbox alignItems="center" justifyContent="center" height="100%" backgroundColor="muted" borderRadius>
+          <Text size="sm" color="muted-foreground">Standard</Text>
+        </Flexbox>
+      </AspectRatio>
+    </Column>
+    <Column gap="2">
+      <Text size="sm" weight="medium">16 / 9</Text>
+      <AspectRatio ratio={16 / 9}>
+        <Flexbox alignItems="center" justifyContent="center" height="100%" backgroundColor="muted" borderRadius>
+          <Text size="sm" color="muted-foreground">Widescreen</Text>
+        </Flexbox>
+      </AspectRatio>
+    </Column>
   </Grid>
   ```
 </Example>
@@ -123,5 +87,7 @@ Images are cropped with `object-cover`, so mixed-size images stay uniform in a g
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="ratio" type="number">Width-to-height ratio, e.g. 16 / 9 (default: 1)</ResponseField>
+  <PropertiesTable.Row name="ratio" type="number">Width divided by height, e.g. `16 / 9` (required)</PropertiesTable.Row>
 </PropertiesTable>
+
+`AspectRatio` renders a `div` and accepts its props, including `className`.

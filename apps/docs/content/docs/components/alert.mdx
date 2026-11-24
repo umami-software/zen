@@ -3,60 +3,88 @@ title: Alert
 description: "Displays a callout for user attention."
 ---
 
-import { Alert, AlertDescription, AlertTitle, Box, Example, Lucide } from '../../../mdx-components';
+import { Alert, AlertAction, AlertDescription, AlertTitle, Box, Button, Example, Lucide } from '../../../mdx-components';
 
-Displays a callout for user attention. Compose an `Alert` from an optional icon,
-an `AlertTitle`, and an `AlertDescription`.
+Displays a callout for user attention. Compose an `Alert` from an optional icon, an `AlertTitle`,
+an `AlertDescription` and an optional `AlertAction`.
 
 <Example>
   <Box width="448px" maxWidth="100%">
     <Alert>
-      <Lucide.Terminal />
-      <AlertTitle>Heads up!</AlertTitle>
-      <AlertDescription>
-        You can add components to your app using the CLI.
-      </AlertDescription>
+      <Lucide.CircleCheck />
+      <AlertTitle>Success! Your changes have been saved</AlertTitle>
+      <AlertDescription>This is an alert with an icon, title and description.</AlertDescription>
     </Alert>
   </Box>
 
   ```jsx
   <Alert>
-    <Lucide.Terminal />
-    <AlertTitle>Heads up!</AlertTitle>
-    <AlertDescription>You can add components to your app using the CLI.</AlertDescription>
+    <Lucide.CircleCheck />
+    <AlertTitle>Success! Your changes have been saved</AlertTitle>
+    <AlertDescription>This is an alert with an icon, title and description.</AlertDescription>
   </Alert>
   ```
 </Example>
 
-## Danger
+## Destructive
 
-Use `variant="danger"` for errors and dangerous or failed operations.
+Use `variant="destructive"` for errors and failed operations.
 
 <Example>
   <Box width="448px" maxWidth="100%">
-    <Alert variant="danger">
+    <Alert variant="destructive">
       <Lucide.CircleAlert />
-      <AlertTitle>Payment failed</AlertTitle>
+      <AlertTitle>Unable to process your payment.</AlertTitle>
       <AlertDescription>
-        Your payment could not be processed. Please check your payment method and try again.
+        Please verify your billing information and try again.
       </AlertDescription>
     </Alert>
   </Box>
 
   ```jsx
-  <Alert variant="danger">
+  <Alert variant="destructive">
     <Lucide.CircleAlert />
-    <AlertTitle>Payment failed</AlertTitle>
-    <AlertDescription>
-      Your payment could not be processed. Please check your payment method and try again.
-    </AlertDescription>
+    <AlertTitle>Unable to process your payment.</AlertTitle>
+    <AlertDescription>Please verify your billing information and try again.</AlertDescription>
+  </Alert>
+  ```
+</Example>
+
+## With action
+
+`AlertAction` is positioned in the top-right corner of the alert.
+
+<Example>
+  <Box width="448px" maxWidth="100%">
+    <Alert>
+      <Lucide.Info />
+      <AlertTitle>A new version is available</AlertTitle>
+      <AlertDescription>Reload the page to get the latest features.</AlertDescription>
+      <AlertAction>
+        <Button size="xs" variant="outline">
+          Reload
+        </Button>
+      </AlertAction>
+    </Alert>
+  </Box>
+
+  ```jsx
+  <Alert>
+    <Lucide.Info />
+    <AlertTitle>A new version is available</AlertTitle>
+    <AlertDescription>Reload the page to get the latest features.</AlertDescription>
+    <AlertAction>
+      <Button size="xs" variant="outline">
+        Reload
+      </Button>
+    </AlertAction>
   </Alert>
   ```
 </Example>
 
 ## Without icon
 
-Icons are optional children — omit the icon and the content spans the full width.
+The icon is optional. Without it, the content spans the full width.
 
 <Example>
   <Box width="448px" maxWidth="100%">
@@ -76,33 +104,13 @@ Icons are optional children — omit the icon and the content spans the full wid
   ```
 </Example>
 
-## Title only
-
-<Example>
-  <Box width="448px" maxWidth="100%">
-    <Alert>
-      <Lucide.CircleCheck />
-      <AlertTitle>Your changes have been saved.</AlertTitle>
-    </Alert>
-  </Box>
-
-  ```jsx
-  <Alert>
-    <Lucide.CircleCheck />
-    <AlertTitle>Your changes have been saved.</AlertTitle>
-  </Alert>
-  ```
-</Example>
-
-## Component props
-
-### Alert
+## Parts
 
 <PropertiesTable>
-  <ResponseField name="variant" type="'default' | 'danger'">Visual style (default: "default")</ResponseField>
-  <ResponseField name="children" type="ReactNode">An optional svg icon, AlertTitle, and AlertDescription</ResponseField>
+  <PropertiesTable.Row name="Alert" type="div">Root. `variant`: `"default" | "destructive"` (default: `"default"`)</PropertiesTable.Row>
+  <PropertiesTable.Row name="AlertTitle" type="div">The heading</PropertiesTable.Row>
+  <PropertiesTable.Row name="AlertDescription" type="div">The body text</PropertiesTable.Row>
+  <PropertiesTable.Row name="AlertAction" type="div">An action placed in the top-right corner</PropertiesTable.Row>
 </PropertiesTable>
 
-`Alert`, `AlertTitle`, and `AlertDescription` all accept standard `div` props
-including `className`, and expose `data-slot="alert"`, `data-slot="alert-title"`,
-and `data-slot="alert-description"` attributes for styling.
+All parts accept standard `div` props, including `className`.

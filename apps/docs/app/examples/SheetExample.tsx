@@ -1,20 +1,33 @@
 'use client';
 
-import { Button, DialogTrigger, Row, Sheet, SheetHeader, Text } from '@umami/react-zen';
+import {
+  Button,
+  Row,
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@umami/react-zen';
 
-const sides = ['left', 'right', 'top', 'bottom'] as const;
+const sides = ['top', 'right', 'bottom', 'left'] as const;
 
 export function SheetExample() {
   return (
-    <Row gap wrap="wrap" justifyContent="center">
+    <Row gap="2" wrap="wrap" justifyContent="center">
       {sides.map(side => (
-        <DialogTrigger key={side}>
-          <Button variant="outline">{side.charAt(0).toUpperCase() + side.slice(1)}</Button>
-          <Sheet side={side}>
-            <SheetHeader title="Settings" />
-            <Text>Sheet content slides in from the {side}.</Text>
-          </Sheet>
-        </DialogTrigger>
+        <Sheet key={side}>
+          <SheetTrigger render={<Button variant="outline" className="capitalize" />}>
+            {side}
+          </SheetTrigger>
+          <SheetContent side={side}>
+            <SheetHeader>
+              <SheetTitle>Edit profile</SheetTitle>
+              <SheetDescription>This sheet slides in from the {side}.</SheetDescription>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
       ))}
     </Row>
   );

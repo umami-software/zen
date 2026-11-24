@@ -5,7 +5,8 @@ description: "A meter represents a measured value within a known range, such as 
 
 import { Box, Example, Meter } from '../../../mdx-components';
 
-A meter represents a measured value within a known range, such as disk usage or battery level.
+A meter represents a measured value within a known range, such as disk usage or battery level. It is
+built on Base UI's `Meter`.
 
 <Example>
   <Box width="300px"><Meter label="Storage used" value={60} showValue /></Box>
@@ -18,39 +19,39 @@ A meter represents a measured value within a known range, such as disk usage or 
 ## Custom range
 
 <Example>
-  <Box width="300px"><Meter label="Battery" value={2500} minValue={0} maxValue={5000} showValue /></Box>
+  <Box width="300px"><Meter label="Battery" value={2500} min={0} max={5000} showValue /></Box>
 
   ```jsx
-  <Meter label="Battery" value={2500} minValue={0} maxValue={5000} showValue />
+  <Meter label="Battery" value={2500} min={0} max={5000} showValue />
   ```
 </Example>
 
-## Format options
+## Format
 
-Values are formatted with `Intl.NumberFormat` using the `formatOptions` prop.
+Values are formatted with `Intl.NumberFormat` using the `format` prop.
 
 <Example>
-  <Box width="300px"><Meter label="Memory" value={0.35} minValue={0} maxValue={1} showValue formatOptions={{ style: 'percent' }} /></Box>
+  <Box width="300px"><Meter label="Memory" value={35} showValue format={{ style: 'unit', unit: 'percent' }} /></Box>
 
   ```jsx
   <Meter
     label="Memory"
-    value={0.35}
-    minValue={0}
-    maxValue={1}
+    value={35}
     showValue
-    formatOptions={{ style: 'percent' }}
+    format={{ style: 'unit', unit: 'percent' }}
   />
   ```
 </Example>
 
 ## Component props
 
+Other Base UI `Meter.Root` props (`locale`, `getAriaValueText`, …) are passed through.
+
 <PropertiesTable>
-  <ResponseField name="value" type="number">Current value (required)</ResponseField>
-  <ResponseField name="minValue" type="number">Minimum value</ResponseField>
-  <ResponseField name="maxValue" type="number">Maximum value</ResponseField>
-  <ResponseField name="label" type="string">Label text displayed above the meter</ResponseField>
-  <ResponseField name="showValue" type="boolean">Shows the formatted value</ResponseField>
-  <ResponseField name="formatOptions" type="Intl.NumberFormatOptions">Number format options for the displayed value</ResponseField>
+  <PropertiesTable.Row name="value" type="number">Current value (required)</PropertiesTable.Row>
+  <PropertiesTable.Row name="min" type="number">Minimum value (default: 0)</PropertiesTable.Row>
+  <PropertiesTable.Row name="max" type="number">Maximum value (default: 100)</PropertiesTable.Row>
+  <PropertiesTable.Row name="label" type="ReactNode">Label displayed above the meter</PropertiesTable.Row>
+  <PropertiesTable.Row name="showValue" type="boolean">Shows the formatted value</PropertiesTable.Row>
+  <PropertiesTable.Row name="format" type="Intl.NumberFormatOptions">Number format options for the displayed value</PropertiesTable.Row>
 </PropertiesTable>

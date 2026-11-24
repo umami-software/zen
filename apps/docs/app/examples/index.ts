@@ -4,9 +4,11 @@ export { AccentColorsExample } from './AccentColorsExample';
 export { AlertDialogExample } from './AlertDialogExample';
 export { BreakpointExample } from './BreakpointExample';
 export { CalendarExample } from './CalendarExample';
+export { CarouselApiExample, CarouselSizesExample } from './CarouselExample';
 export { CheckboxGroupExample } from './CheckboxGroupExample';
 export { ColorSwatchesExample } from './ColorSwatchesExample';
 export { ComboBoxEmptyExample } from './ComboBoxEmptyExample';
+export { ComboboxMultipleExample } from './ComboboxExample';
 export { CommandDialogExample, CommandExample } from './CommandExample';
 export { ConfirmationDialogExample } from './ConfirmationDialogExample';
 export { DatePickerExample } from './DatePickerExample';
@@ -20,12 +22,11 @@ export { FormFieldArrayExample } from './FormFieldArrayExample';
 export { FormInputsExample } from './FormInputsExample';
 export { FormLoadingExample } from './FormLoadingExample';
 export { FormValidationExample } from './FormValidationExample';
-export { OTPFieldExample } from './OTPFieldExample';
+export { InputOTPExample } from './InputOTPExample';
 export { PaginationExample } from './PaginationExample';
 export { PaletteSwatchesExample } from './PaletteSwatchesExample';
 export { PlaygroundExample } from './PlaygroundExample';
 export { SearchDelayExample } from './SearchDelayExample';
-export { SelectSearchExample } from './SelectSearchExample';
 export { SelectValueExample } from './SelectValueExample';
 export { SheetExample } from './SheetExample';
 export {
@@ -36,6 +37,7 @@ export {
 } from './SidebarExample';
 export { RemovableTagGroupExample } from './TagGroupExample';
 export { ThemeButtonExample } from './ThemeButtonExample';
+export { ThemeTokensExample } from './ThemeTokensExample';
 export {
   ToastActionExample,
   ToastExample,

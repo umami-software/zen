@@ -1,60 +1,45 @@
 import { CheckboxGroup as BaseCheckboxGroup } from '@base-ui/react/checkbox-group';
-import { Fieldset } from '@base-ui/react/fieldset';
 import type { ReactNode } from 'react';
-import { useFieldId } from './hooks/useFieldId';
-import { cn } from './lib/tailwind';
+import { FieldDescription, FieldLegend, FieldSet } from '@/components/ui/field';
+import { cn } from '@/lib/utils';
 
-export interface CheckboxGroupProps
-  extends Omit<BaseCheckboxGroup.Props, 'disabled' | 'onValueChange' | 'onChange'> {
+export interface CheckboxGroupProps extends Omit<BaseCheckboxGroup.Props, 'className'> {
   className?: string;
-  label?: string;
-  isDisabled?: boolean;
+  label?: ReactNode;
+  description?: ReactNode;
   orientation?: 'vertical' | 'horizontal';
-  onChange?: (value: string[]) => void;
-  children?: ReactNode;
 }
 
 export function CheckboxGroup({
-  id,
   label,
-  isDisabled,
+  description,
+  disabled,
   orientation = 'vertical',
-  onChange,
   className,
   children,
   ...props
 }: CheckboxGroupProps) {
-  const labelId = useFieldId(id);
-
   return (
-    <Fieldset.Root
-      data-slot="checkbox-group"
-      data-orientation={orientation}
-      disabled={isDisabled}
-      aria-disabled={isDisabled || undefined}
-      className={cn('flex flex-col gap-2 border-0 m-0 p-0 min-w-0', className)}
+    <FieldSet
+      data-slot="checkbox-group-fieldset"
+      data-disabled={disabled || undefined}
+      disabled={disabled}
+      className={className}
     >
-      {label && (
-        <Fieldset.Legend
-          id={labelId}
-          data-slot="checkbox-group-label"
-          className="text-sm font-semibold text-fg"
-        >
-          {label}
-        </Fieldset.Legend>
-      )}
+      {label && <FieldLegend variant="label">{label}</FieldLegend>}
+      {description && <FieldDescription>{description}</FieldDescription>}
       <BaseCheckboxGroup
         {...props}
-        data-slot="checkbox-group-items"
+        data-slot="checkbox-group"
         data-orientation={orientation}
-        aria-labelledby={label ? labelId : props['aria-labelledby']}
-        disabled={isDisabled}
-        aria-disabled={isDisabled || undefined}
-        onValueChange={value => onChange?.(value)}
-        className={cn('flex gap-3', orientation === 'vertical' ? 'flex-col' : 'flex-row flex-wrap')}
+        disabled={disabled}
+        className={cn(
+          'flex gap-3',
+          orientation === 'vertical' ? 'flex-col' : 'flex-row flex-wrap gap-x-6',
+        )}
       >
         {children}
       </BaseCheckboxGroup>
-    </Fieldset.Root>
+    </FieldSet>
   );
 }

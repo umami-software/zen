@@ -6,7 +6,7 @@ export interface ImageProps extends HTMLAttributes<HTMLImageElement> {
   src: string;
   alt?: string;
   objectFit?: ObjectFit;
-  isCentered?: boolean;
+  centered?: boolean;
   borderRadius?: Responsive<BorderRadius>;
   shadow?: Responsive<BoxShadow>;
 }
@@ -23,7 +23,7 @@ export function Image({
   src,
   alt,
   objectFit,
-  isCentered,
+  centered,
   borderRadius,
   shadow,
   className,
@@ -35,7 +35,7 @@ export function Image({
     mapShadow(shadow as Responsive<string>),
     objectFit && objectFitMap[objectFit],
     objectFit && 'w-full h-full',
-    isCentered && 'mx-auto',
+    centered && 'mx-auto',
     className,
   );
 

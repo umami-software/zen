@@ -5,67 +5,56 @@ description: "A button that indicates an action is still pending."
 
 import { Example, LoadingButton } from '../../../mdx-components';
 
-A button that indicates an action is still pending.
+A button that indicates an action is still pending. It is a shadcn `Button` that shows a `Spinner`
+before its content and is disabled while `loading` is true.
 
 <Example>
-  <LoadingButton isLoading />
+  <LoadingButton loading>Saving...</LoadingButton>
 
   ```jsx
-  <LoadingButton isLoading />
-  ```
-</Example>
-
-## With text
-
-<Example>
-  <LoadingButton isLoading>Loading...</LoadingButton>
-
-  ```jsx
-  <LoadingButton isLoading>Loading...</LoadingButton>
+  <LoadingButton loading>Saving...</LoadingButton>
   ```
 </Example>
 
 ## Variants
 
 <Example>
-  <LoadingButton variant="primary" isLoading>Loading...</LoadingButton>
-  <LoadingButton isLoading>Loading...</LoadingButton>
-  <LoadingButton variant="outline" isLoading>Loading...</LoadingButton>
-  <LoadingButton variant="quiet" isLoading>Loading...</LoadingButton>
-  <LoadingButton variant="danger" isLoading>Loading...</LoadingButton>
+  <LoadingButton loading>Loading...</LoadingButton>
+  <LoadingButton variant="secondary" loading>Loading...</LoadingButton>
+  <LoadingButton variant="outline" loading>Loading...</LoadingButton>
+  <LoadingButton variant="ghost" loading>Loading...</LoadingButton>
+  <LoadingButton variant="destructive" loading>Loading...</LoadingButton>
 
   ```jsx
-  <LoadingButton variant="primary" isLoading>Loading...</LoadingButton>
-  <LoadingButton isLoading>Loading...</LoadingButton>
-  <LoadingButton variant="outline" isLoading>Loading...</LoadingButton>
-  <LoadingButton variant="quiet" isLoading>Loading...</LoadingButton>
-  <LoadingButton variant="danger" isLoading>Loading...</LoadingButton>
+  <LoadingButton loading>Loading...</LoadingButton>
+  <LoadingButton variant="secondary" loading>Loading...</LoadingButton>
+  <LoadingButton variant="outline" loading>Loading...</LoadingButton>
+  <LoadingButton variant="ghost" loading>Loading...</LoadingButton>
+  <LoadingButton variant="destructive" loading>Loading...</LoadingButton>
   ```
 </Example>
 
-## Disabled
+## Not loading
+
+When `loading` is false it renders as a regular button.
 
 <Example>
-  <LoadingButton variant="primary" isLoading isDisabled>Loading...</LoadingButton>
-  <LoadingButton isLoading isDisabled>Loading...</LoadingButton>
-  <LoadingButton variant="outline" isLoading isDisabled>Loading...</LoadingButton>
-  <LoadingButton variant="quiet" isLoading isDisabled>Loading...</LoadingButton>
-  <LoadingButton variant="danger" isLoading isDisabled>Loading...</LoadingButton>
+  <LoadingButton>Save</LoadingButton>
+  <LoadingButton disabled>Save</LoadingButton>
 
   ```jsx
-  <LoadingButton variant="primary" isLoading isDisabled>Loading...</LoadingButton>
-  <LoadingButton isLoading isDisabled>Loading...</LoadingButton>
-  <LoadingButton variant="outline" isLoading isDisabled>Loading...</LoadingButton>
-  <LoadingButton variant="quiet" isLoading isDisabled>Loading...</LoadingButton>
-  <LoadingButton variant="danger" isLoading isDisabled>Loading...</LoadingButton>
+  <LoadingButton>Save</LoadingButton>
+  <LoadingButton disabled>Save</LoadingButton>
   ```
 </Example>
 
 ## Component props
 
+All shadcn `Button` props are supported.
+
 <PropertiesTable>
-  <ResponseField name="isLoading" type="boolean">Shows loading indicator</ResponseField>
-  <ResponseField name="variant" type="ButtonVariant">"default" | "primary" | "outline" | "quiet" | "danger"</ResponseField>
-  <ResponseField name="size" type="ButtonSize">"xs" | "sm" | "md" | "lg" | "xl"</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the button</ResponseField>
+  <PropertiesTable.Row name="loading" type="boolean">Shows a spinner and disables the button (default: false)</PropertiesTable.Row>
+  <PropertiesTable.Row name="variant" type="string">"default" | "secondary" | "outline" | "ghost" | "destructive" | "link"</PropertiesTable.Row>
+  <PropertiesTable.Row name="size" type="string">"default" | "xs" | "sm" | "lg" | "icon" | "icon-xs" | "icon-sm" | "icon-lg"</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the button</PropertiesTable.Row>
 </PropertiesTable>

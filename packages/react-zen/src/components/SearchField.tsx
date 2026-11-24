@@ -1,28 +1,36 @@
-import type { ChangeEvent, InputHTMLAttributes, Ref } from 'react';
+import { SearchIcon, XIcon } from 'lucide-react';
+import type { ChangeEvent, InputHTMLAttributes, ReactNode } from 'react';
 import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
-import { Search, X } from '@/components/icons';
-import { useFieldId } from './hooks/useFieldId';
-import { Icon } from './Icon';
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from './InputGroup';
-import { Label } from './Label';
+import { useFieldId } from '@/components/hooks/useFieldId';
+import { Field, FieldLabel } from '@/components/ui/field';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '@/components/ui/input-group';
 
 export interface SearchFieldProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'onSearch'> {
-  label?: string;
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'onSearch' | 'children'> {
+  label?: ReactNode;
+  /** Debounce delay in milliseconds for `onSearch`. */
   delay?: number;
-  onChange?: (value: string) => void;
+  /** Called with the new string value on every change (and on clear). */
+  onValueChange?: (value: string) => void;
+  /** Called with the search term, debounced by `delay`. Fires immediately on Enter and clear. */
   onSearch?: (value: string) => void;
 }
 
 export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(function SearchField(
   {
     label,
-    placeholder,
     value,
     defaultValue,
     delay = 0,
     onChange,
+    onValueChange,
     onSearch,
+    onKeyDown,
     className,
     id,
     ...props
@@ -56,7 +64,7 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(functi
 
   const handleValue = (nextValue: string, immediate = false) => {
     setHasValue(nextValue !== '');
-    onChange?.(nextValue);
+    onValueChange?.(nextValue);
 
     clearTimeout(timerRef.current);
 
@@ -69,6 +77,7 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(functi
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    onChange?.(event);
     handleValue(event.target.value);
   };
 
@@ -77,9 +86,9 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(functi
 
     if (input && value === undefined) {
       input.value = '';
-      input.focus();
     }
 
+    input?.focus();
     handleValue('', true);
   };
 
@@ -88,64 +97,63 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(functi
     if (typeof forwardedRef === 'function') {
       forwardedRef(element);
     } else if (forwardedRef) {
-      (forwardedRef as { current: HTMLInputElement | null }).current = element;
+      forwardedRef.current = element;
     }
   };
 
   const isLabelled = Boolean(label || props['aria-label'] || props['aria-labelledby']);
   const showClear = value !== undefined ? value !== '' : hasValue;
 
-  const input = (
-    <InputGroup role="search" className={className}>
+  const control = (
+    <InputGroup
+      role="search"
+      data-slot="search-field"
+      data-disabled={props.disabled ? 'true' : undefined}
+      className={className}
+    >
       <InputGroupInput
         {...props}
-        ref={handleRef as Ref<HTMLInputElement>}
+        ref={handleRef}
         id={fieldId}
         type="search"
-        placeholder={placeholder}
         value={value}
         defaultValue={defaultValue}
         aria-label={isLabelled ? props['aria-label'] : 'Search'}
         className="[&::-webkit-search-cancel-button]:hidden"
         onChange={handleChange}
         onKeyDown={event => {
-          props.onKeyDown?.(event);
+          onKeyDown?.(event);
           if (event.key === 'Enter') {
             handleValue(event.currentTarget.value, true);
           }
         }}
       />
       <InputGroupAddon align="inline-start">
-        <Icon color="muted">
-          <Search />
-        </Icon>
+        <SearchIcon />
       </InputGroupAddon>
       {showClear && (
         <InputGroupAddon align="inline-end">
           <InputGroupButton
             size="icon-xs"
-            isDisabled={props.disabled}
+            disabled={props.disabled}
             aria-label="Clear search"
-            className="text-fg-muted"
             onClick={handleClear}
           >
-            <Icon size="sm">
-              <X />
-            </Icon>
+            <XIcon />
           </InputGroupButton>
         </InputGroupAddon>
       )}
     </InputGroup>
   );
 
-  if (label) {
-    return (
-      <div data-slot="search-field" className="flex flex-col gap-2">
-        <Label htmlFor={fieldId}>{label}</Label>
-        {input}
-      </div>
-    );
+  if (!label) {
+    return control;
   }
 
-  return input;
+  return (
+    <Field data-disabled={props.disabled ? true : undefined}>
+      <FieldLabel htmlFor={fieldId}>{label}</FieldLabel>
+      {control}
+    </Field>
+  );
 });

@@ -17,17 +17,27 @@ A text element with comprehensive typography controls including size, color, wei
 
 ## Colors
 
+`color` takes a theme token or a Tailwind palette color. The value becomes the class:
+`color="muted-foreground"` renders `text-muted-foreground`. The theme tokens are `foreground`,
+`muted-foreground`, `primary`, `primary-foreground`, `secondary-foreground`, `accent-foreground`,
+`background`, `card-foreground`, `popover-foreground`, `destructive`, `success`, `warning` and `info`.
+Palette colors are a name (`"red"`, the 500 shade) or a name with a shade (`"red-500"`).
+
 <Example>
   <Text>Normal text</Text>
-  <Text color="muted">Muted text</Text>
-  <Text color="disabled">Disabled text</Text>
-  <Text color="red">Colored text</Text>
+  <Text color="muted-foreground">Muted text</Text>
+  <Text color="primary">Primary text</Text>
+  <Text color="destructive">Destructive text</Text>
+  <Text color="success">Success text</Text>
+  <Text color="red-500">Colored text</Text>
 
   ```jsx
   <Text>Normal text</Text>
-  <Text color="muted">Muted text</Text>
-  <Text color="disabled">Disabled text</Text>
-  <Text color="red">Colored text</Text>
+  <Text color="muted-foreground">Muted text</Text>
+  <Text color="primary">Primary text</Text>
+  <Text color="destructive">Destructive text</Text>
+  <Text color="success">Success text</Text>
+  <Text color="red-500">Colored text</Text>
   ```
 </Example>
 
@@ -437,24 +447,24 @@ Text defaults to `size="sm"` (14px with Tailwind’s default theme). Explicit `s
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="color" type="FontColor">SemanticColor | ColorName | TailwindColor</ResponseField>
-  <ResponseField name="size" type="Responsive<FontSize>">"xs" | "sm" | "base" | "lg" | "xl" | ... | "9xl"</ResponseField>
-  <ResponseField name="weight" type="Responsive<FontWeight>">"thin" | "light" | "normal" | "medium" | "semibold" | "bold" | ...</ResponseField>
-  <ResponseField name="align" type="Responsive<TextAlign>">"left" | "center" | "right"</ResponseField>
-  <ResponseField name="spacing" type="Responsive<LetterSpacing>">"tighter" | "tight" | "normal" | "wide" | "wider" | "widest"</ResponseField>
-  <ResponseField name="lineHeight" type="Responsive<LineHeight>">"none" | "tight" | "snug" | "normal" | "relaxed" | "loose" | "3"-"10"</ResponseField>
-  <ResponseField name="wrap" type="Responsive<TextWrap>">"wrap" | "nowrap" | "balance" | "pretty"</ResponseField>
-  <ResponseField name="whitespace" type="Responsive<Whitespace>">"normal" | "nowrap" | "pre" | "pre-line" | "pre-wrap" | "break-spaces"</ResponseField>
-  <ResponseField name="wordBreak" type="Responsive<WordBreak>">"normal" | "words" | "all" | "keep"</ResponseField>
-  <ResponseField name="transform" type="Responsive<TextTransform>">"capitalize" | "uppercase" | "lowercase" | "none"</ResponseField>
-  <ResponseField name="indent" type="Responsive<TextIndent>">"0" | "px" | "0.5" | "1" | ... | "24"</ResponseField>
-  <ResponseField name="verticalAlign" type="Responsive<VerticalAlign>">"baseline" | "top" | "middle" | "bottom" | "text-top" | "text-bottom" | "sub" | "super"</ResponseField>
-  <ResponseField name="truncate" type="Responsive<boolean>">Truncate text with ellipsis</ResponseField>
-  <ResponseField name="italic" type="Responsive<boolean>">Italic text style</ResponseField>
-  <ResponseField name="underline" type="Responsive<boolean>">Underline text decoration</ResponseField>
-  <ResponseField name="strikethrough" type="Responsive<boolean>">Line-through text decoration</ResponseField>
-  <ResponseField name="decorationStyle" type="Responsive<TextDecorationStyle>">"solid" | "double" | "dotted" | "dashed" | "wavy"</ResponseField>
-  <ResponseField name="decorationColor" type="FontColor">SemanticColor | ColorName | TailwindColor</ResponseField>
-  <ResponseField name="as" type="TextElement">"span" | "div" | "label" | "p" | "h1" | ... | "code" | "blockquote"</ResponseField>
-  <ResponseField name="render" type="RenderProp">Render prop for polymorphism</ResponseField>
+  <PropertiesTable.Row name="color" type="FontColor">true | TextColorToken | ColorName | TailwindColor | "transparent"</PropertiesTable.Row>
+  <PropertiesTable.Row name="size" type="Responsive<FontSize>">"xs" | "sm" | "base" | "lg" | "xl" | ... | "9xl"</PropertiesTable.Row>
+  <PropertiesTable.Row name="weight" type="Responsive<FontWeight>">"thin" | "light" | "normal" | "medium" | "semibold" | "bold" | ...</PropertiesTable.Row>
+  <PropertiesTable.Row name="align" type="Responsive<TextAlign>">"left" | "center" | "right"</PropertiesTable.Row>
+  <PropertiesTable.Row name="spacing" type="Responsive<LetterSpacing>">"tighter" | "tight" | "normal" | "wide" | "wider" | "widest"</PropertiesTable.Row>
+  <PropertiesTable.Row name="lineHeight" type="Responsive<LineHeight>">"none" | "tight" | "snug" | "normal" | "relaxed" | "loose" | "3"-"10"</PropertiesTable.Row>
+  <PropertiesTable.Row name="wrap" type="Responsive<TextWrap>">"wrap" | "nowrap" | "balance" | "pretty"</PropertiesTable.Row>
+  <PropertiesTable.Row name="whitespace" type="Responsive<Whitespace>">"normal" | "nowrap" | "pre" | "pre-line" | "pre-wrap" | "break-spaces"</PropertiesTable.Row>
+  <PropertiesTable.Row name="wordBreak" type="Responsive<WordBreak>">"normal" | "words" | "all" | "keep"</PropertiesTable.Row>
+  <PropertiesTable.Row name="transform" type="Responsive<TextTransform>">"capitalize" | "uppercase" | "lowercase" | "none"</PropertiesTable.Row>
+  <PropertiesTable.Row name="indent" type="Responsive<TextIndent>">"0" | "px" | "0.5" | "1" | ... | "24"</PropertiesTable.Row>
+  <PropertiesTable.Row name="verticalAlign" type="Responsive<VerticalAlign>">"baseline" | "top" | "middle" | "bottom" | "text-top" | "text-bottom" | "sub" | "super"</PropertiesTable.Row>
+  <PropertiesTable.Row name="truncate" type="Responsive<boolean>">Truncate text with ellipsis</PropertiesTable.Row>
+  <PropertiesTable.Row name="italic" type="Responsive<boolean>">Italic text style</PropertiesTable.Row>
+  <PropertiesTable.Row name="underline" type="Responsive<boolean>">Underline text decoration</PropertiesTable.Row>
+  <PropertiesTable.Row name="strikethrough" type="Responsive<boolean>">Line-through text decoration</PropertiesTable.Row>
+  <PropertiesTable.Row name="decorationStyle" type="Responsive<TextDecorationStyle>">"solid" | "double" | "dotted" | "dashed" | "wavy"</PropertiesTable.Row>
+  <PropertiesTable.Row name="decorationColor" type="FontColor">TextColorToken | ColorName | TailwindColor</PropertiesTable.Row>
+  <PropertiesTable.Row name="as" type="TextElement">"span" | "div" | "label" | "p" | "h1" | ... | "code" | "blockquote"</PropertiesTable.Row>
+  <PropertiesTable.Row name="render" type="RenderProp">Render prop for polymorphism</PropertiesTable.Row>
 </PropertiesTable>

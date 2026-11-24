@@ -46,23 +46,24 @@ A flexible layout component using CSS Flexbox for one-dimensional arrangements. 
 </Example>
 
 There are convenience components `Row` and `Column` which render a `Flexbox` with the direction pre-selected. You should opt to use them
-by default as they provide more semantic meaning and are easier to read.
+by default as they provide more semantic meaning and are easier to read. Both accept a `reverse` prop to flip the direction
+(`row-reverse` / `column-reverse`).
 
 ## Component props
 
-A Flexbox renders a [Box](/docs/layout/box) as a child, so it also accepts all Box props.
+Flexbox renders a [Box](/docs/layout/box), so it also accepts all Box props.
 
 <PropertiesTable>
-  <ResponseField name="display" type="Responsive<FlexDisplay>">"flex" | "inline-flex" | "none"</ResponseField>
-  <ResponseField name="direction" type="Responsive<FlexDirection>">"row" | "column" | "row-reverse" | "column-reverse"</ResponseField>
-  <ResponseField name="wrap" type="Responsive<FlexWrap>">"wrap" | "nowrap" | "wrap-reverse"</ResponseField>
-  <ResponseField name="justifyContent" type="Responsive<JustifyContent>">"center" | "start" | "end" | "space-between" | "space-around" | ...</ResponseField>
-  <ResponseField name="justifyItems" type="Responsive<JustifyItems>">"center" | "start" | "end" | "stretch" | "baseline" | ...</ResponseField>
-  <ResponseField name="alignContent" type="Responsive<AlignContent>">"center" | "start" | "end" | "space-between" | "stretch" | ...</ResponseField>
-  <ResponseField name="alignItems" type="Responsive<AlignItems>">"center" | "start" | "end" | "stretch" | "baseline" | ...</ResponseField>
-  <ResponseField name="gap" type="Responsive<Gap>">true | Spacing scale</ResponseField>
-  <ResponseField name="gapX" type="Responsive<Gap>">true | Spacing scale</ResponseField>
-  <ResponseField name="gapY" type="Responsive<Gap>">true | Spacing scale</ResponseField>
-  <ResponseField name="as" type="string">HTML element to render</ResponseField>
-  <ResponseField name="render" type="RenderProp">Render prop for polymorphism</ResponseField>
+  <PropertiesTable.Row name="display" type="Responsive<FlexDisplay>">"flex" | "inline-flex" | "none"</PropertiesTable.Row>
+  <PropertiesTable.Row name="direction" type="Responsive<FlexDirection>">"row" | "column" | "row-reverse" | "column-reverse"</PropertiesTable.Row>
+  <PropertiesTable.Row name="wrap" type="Responsive<FlexWrap>">"wrap" | "nowrap" | "wrap-reverse"</PropertiesTable.Row>
+  <PropertiesTable.Row name="justifyContent" type="Responsive<JustifyContent>">"center" | "start" | "end" | "space-between" | "space-around" | ...</PropertiesTable.Row>
+  <PropertiesTable.Row name="justifyItems" type="Responsive<JustifyItems>">"center" | "start" | "end" | "stretch" | "baseline" | ...</PropertiesTable.Row>
+  <PropertiesTable.Row name="alignContent" type="AlignContent">"center" | "start" | "end" | "space-between" | "stretch" | ...</PropertiesTable.Row>
+  <PropertiesTable.Row name="alignItems" type="AlignItems">"center" | "start" | "end" | "stretch" | "baseline" | ...</PropertiesTable.Row>
+  <PropertiesTable.Row name="gap" type="Responsive<Gap>">true | Spacing scale</PropertiesTable.Row>
+  <PropertiesTable.Row name="gapX" type="Responsive<Gap>">true | Spacing scale</PropertiesTable.Row>
+  <PropertiesTable.Row name="gapY" type="Responsive<Gap>">true | Spacing scale</PropertiesTable.Row>
+  <PropertiesTable.Row name="as" type="string">HTML element to render</PropertiesTable.Row>
+  <PropertiesTable.Row name="render" type="RenderProp">Render prop for polymorphism</PropertiesTable.Row>
 </PropertiesTable>

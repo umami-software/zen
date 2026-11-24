@@ -1,57 +1,132 @@
 ---
 title: Avatar
-description: "An avatar displays a user's profile image with a fallback to their initials."
+description: "An image element with a fallback for representing the user."
 ---
 
-import { Avatar, Example } from '../../../mdx-components';
+import { Avatar, AvatarBadge, AvatarFallback, AvatarGroup, AvatarGroupCount, AvatarImage, Example, Row } from '../../../mdx-components';
 
-An avatar displays a user's profile image with a fallback to their initials.
+An image element with a fallback for representing the user. The `AvatarFallback` is shown while
+the image loads and when it fails to load.
 
 <Example>
-  <Avatar src="/images/sample.jpg" alt="Jane Doe" />
+  <Row gap="4" alignItems="center">
+    <Avatar>
+      <AvatarImage src="/images/sample.jpg" alt="Jane Doe" />
+      <AvatarFallback>JD</AvatarFallback>
+    </Avatar>
+    <Avatar>
+      <AvatarFallback>JD</AvatarFallback>
+    </Avatar>
+  </Row>
 
   ```jsx
-  <Avatar src="/images/sample.jpg" alt="Jane Doe" />
+  <Avatar>
+    <AvatarImage src="/images/sample.jpg" alt="Jane Doe" />
+    <AvatarFallback>JD</AvatarFallback>
+  </Avatar>
+  <Avatar>
+    <AvatarFallback>JD</AvatarFallback>
+  </Avatar>
   ```
 </Example>
 
 ## Sizes
 
 <Example>
-  <Avatar alt="Jane Doe" size="xs" />
-  <Avatar alt="Jane Doe" size="sm" />
-  <Avatar alt="Jane Doe" size="md" />
-  <Avatar alt="Jane Doe" size="lg" />
-  <Avatar alt="Jane Doe" size="xl" />
+  <Row gap="4" alignItems="center">
+    <Avatar size="sm">
+      <AvatarImage src="/images/sample.jpg" alt="Jane Doe" />
+      <AvatarFallback>JD</AvatarFallback>
+    </Avatar>
+    <Avatar>
+      <AvatarImage src="/images/sample.jpg" alt="Jane Doe" />
+      <AvatarFallback>JD</AvatarFallback>
+    </Avatar>
+    <Avatar size="lg">
+      <AvatarImage src="/images/sample.jpg" alt="Jane Doe" />
+      <AvatarFallback>JD</AvatarFallback>
+    </Avatar>
+  </Row>
 
   ```jsx
-  <Avatar alt="Jane Doe" size="xs" />
-  <Avatar alt="Jane Doe" size="sm" />
-  <Avatar alt="Jane Doe" size="md" />
-  <Avatar alt="Jane Doe" size="lg" />
-  <Avatar alt="Jane Doe" size="xl" />
+  <Avatar size="sm">
+    <AvatarImage src="/images/sample.jpg" alt="Jane Doe" />
+    <AvatarFallback>JD</AvatarFallback>
+  </Avatar>
+  <Avatar>
+    <AvatarImage src="/images/sample.jpg" alt="Jane Doe" />
+    <AvatarFallback>JD</AvatarFallback>
+  </Avatar>
+  <Avatar size="lg">
+    <AvatarImage src="/images/sample.jpg" alt="Jane Doe" />
+    <AvatarFallback>JD</AvatarFallback>
+  </Avatar>
   ```
 </Example>
 
-## Fallback
+## Badge
 
-When no image is provided, the avatar shows the initials derived from `alt`, or a custom `fallback`.
+`AvatarBadge` adds a status dot to the bottom-right corner.
 
 <Example>
-  <Avatar alt="Jane Doe" />
-  <Avatar fallback="?" />
+  <Avatar size="lg">
+    <AvatarImage src="/images/sample.jpg" alt="Jane Doe" />
+    <AvatarFallback>JD</AvatarFallback>
+    <AvatarBadge />
+  </Avatar>
 
   ```jsx
-  <Avatar alt="Jane Doe" />
-  <Avatar fallback="?" />
+  <Avatar size="lg">
+    <AvatarImage src="/images/sample.jpg" alt="Jane Doe" />
+    <AvatarFallback>JD</AvatarFallback>
+    <AvatarBadge />
+  </Avatar>
   ```
 </Example>
 
-## Component props
+## Group
+
+Stack avatars with `AvatarGroup`, and show the remainder with `AvatarGroupCount`.
+
+<Example>
+  <AvatarGroup>
+    <Avatar>
+      <AvatarImage src="/images/sample.jpg" alt="Jane Doe" />
+      <AvatarFallback>JD</AvatarFallback>
+    </Avatar>
+    <Avatar>
+      <AvatarFallback>MC</AvatarFallback>
+    </Avatar>
+    <Avatar>
+      <AvatarFallback>AB</AvatarFallback>
+    </Avatar>
+    <AvatarGroupCount>+3</AvatarGroupCount>
+  </AvatarGroup>
+
+  ```jsx
+  <AvatarGroup>
+    <Avatar>
+      <AvatarImage src="/images/sample.jpg" alt="Jane Doe" />
+      <AvatarFallback>JD</AvatarFallback>
+    </Avatar>
+    <Avatar>
+      <AvatarFallback>MC</AvatarFallback>
+    </Avatar>
+    <Avatar>
+      <AvatarFallback>AB</AvatarFallback>
+    </Avatar>
+    <AvatarGroupCount>+3</AvatarGroupCount>
+  </AvatarGroup>
+  ```
+</Example>
+
+## Parts
 
 <PropertiesTable>
-  <ResponseField name="src" type="string">Image source URL</ResponseField>
-  <ResponseField name="alt" type="string">Alt text (also used to generate initials)</ResponseField>
-  <ResponseField name="fallback" type="ReactNode">Custom fallback content (overrides initials)</ResponseField>
-  <ResponseField name="size" type="string">"xs" | "sm" | "md" | "lg" | "xl" (default: "md")</ResponseField>
+  <PropertiesTable.Row name="Avatar" type="Base UI Avatar.Root">Root. `size`: `"sm" | "default" | "lg"` (default: `"default"`)</PropertiesTable.Row>
+  <PropertiesTable.Row name="AvatarImage" type="Base UI Avatar.Image">The image. Takes `src` and `alt`</PropertiesTable.Row>
+  <PropertiesTable.Row name="AvatarFallback" type="Base UI Avatar.Fallback">Shown until the image loads, or when it fails. `delay` postpones it in milliseconds</PropertiesTable.Row>
+  <PropertiesTable.Row name="AvatarBadge" type="span">Status dot in the bottom-right corner</PropertiesTable.Row>
+  <PropertiesTable.Row name="AvatarGroup" type="div">Overlaps a row of avatars</PropertiesTable.Row>
+  <PropertiesTable.Row name="AvatarGroupCount" type="div">A trailing count inside `AvatarGroup`</PropertiesTable.Row>
 </PropertiesTable>

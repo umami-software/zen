@@ -3,7 +3,7 @@ title: Page Header
 description: "Provides a consistent title and action area for a page."
 ---
 
-import { Button, Example, Icon, Lucide, PageHeader, PageHeaderActions, PageHeaderTitle, Row, Text } from '../../../mdx-components';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator, Button, Example, PageHeader, PageHeaderActions, PageHeaderTitle } from '../../../mdx-components';
 
 Provides a consistent title and action area for a page.
 
@@ -15,7 +15,7 @@ Provides a consistent title and action area for a page.
     />
     <PageHeaderActions>
       <Button variant="outline">Export</Button>
-      <Button variant="primary">Add user</Button>
+      <Button>Add user</Button>
     </PageHeaderActions>
   </PageHeader>
 
@@ -34,7 +34,7 @@ import {
   />
   <PageHeaderActions>
     <Button variant="outline">Export</Button>
-    <Button variant="primary">Add user</Button>
+    <Button>Add user</Button>
   </PageHeaderActions>
 </PageHeader>
 ```
@@ -48,7 +48,7 @@ The outer layout. It accepts `Row` props.
 
 ### PageHeaderTitle
 
-Displays the breadcrumb, title, description, and optional children. It accepts `Column` props.
+Displays the breadcrumb, title, description (in `muted-foreground`), and optional children. It accepts `Column` props.
 
 | Prop | Type | Description |
 |------|------|-------------|
@@ -64,33 +64,53 @@ Groups page-level actions. It accepts `Row` props.
 
 ### With breadcrumb
 
+Pass any content as `breadcrumb`, such as the shadcn `Breadcrumb` parts.
+
 <Example>
   <PageHeader>
     <PageHeaderTitle
       breadcrumb={
-        <Row alignItems="center" gap="1">
-          <Text size="sm" color="muted">Settings</Text>
-          <Icon size="xs" color="muted"><Lucide.ChevronRight /></Icon>
-          <Text size="sm" color="muted">Team</Text>
-        </Row>
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="#">Settings</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Team</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
       }
       title="Team members"
       description="Invite and manage team members."
     />
     <PageHeaderActions>
-      <Button variant="primary">Invite member</Button>
+      <Button>Invite member</Button>
     </PageHeaderActions>
   </PageHeader>
 
 ```jsx
 <PageHeader>
   <PageHeaderTitle
-    breadcrumb={<Breadcrumbs />}
+    breadcrumb={
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">Settings</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Team</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+    }
     title="Team members"
     description="Invite and manage team members."
   />
   <PageHeaderActions>
-    <Button variant="primary">Invite member</Button>
+    <Button>Invite member</Button>
   </PageHeaderActions>
 </PageHeader>
 ```

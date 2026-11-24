@@ -3,89 +3,90 @@ title: Navbar
 description: "A horizontal navigation bar for website headers."
 ---
 
-import { Example, Menu, MenuItem, Navbar, NavbarItem } from '../../../mdx-components';
+import { Example, Navbar, NavbarItem, NavbarLink } from '../../../mdx-components';
 
-A horizontal navigation bar for website headers. Built on an accessible navigation menu primitive, it supports dropdown menus, links, and nested navigation items with a shared animated dropdown, full keyboard navigation, and hover/focus interactions.
+A horizontal navigation bar for website headers. Built on Base UI's `NavigationMenu`, it supports
+dropdowns and links with a shared animated popup, full keyboard navigation, and hover/focus
+interactions.
+
+Give a `NavbarItem` a `label` to turn it into a dropdown trigger, and put `NavbarLink`s in its
+children. A `NavbarItem` without a label renders its children directly.
 
 <Example>
   <Navbar>
     <NavbarItem label="Product">
-      <Menu>
-        <MenuItem>Features</MenuItem>
-        <MenuItem>Pricing</MenuItem>
-      </Menu>
+      <NavbarLink href="#">Features</NavbarLink>
+      <NavbarLink href="#">Pricing</NavbarLink>
     </NavbarItem>
     <NavbarItem label="Resources">
-      <Menu>
-        <MenuItem>Documentation</MenuItem>
-        <MenuItem>API Reference</MenuItem>
-        <MenuItem>Support</MenuItem>
-      </Menu>
+      <NavbarLink href="#">Documentation</NavbarLink>
+      <NavbarLink href="#">API Reference</NavbarLink>
+      <NavbarLink href="#">Support</NavbarLink>
     </NavbarItem>
     <NavbarItem label="Company">
-      <Menu>
-        <MenuItem>About</MenuItem>
-        <MenuItem>Blog</MenuItem>
-        <MenuItem>Careers</MenuItem>
-      </Menu>
+      <NavbarLink href="#">About</NavbarLink>
+      <NavbarLink href="#">Blog</NavbarLink>
+      <NavbarLink href="#">Careers</NavbarLink>
     </NavbarItem>
     <NavbarItem>
-      <a href="https://github.com/umami-software/umami">GitHub</a>
+      <NavbarLink href="https://github.com/umami-software/umami">GitHub</NavbarLink>
     </NavbarItem>
-
   </Navbar>
 
   ```jsx
   <Navbar>
     <NavbarItem label="Product">
-      <Menu>
-        <MenuItem>Features</MenuItem>
-        <MenuItem>Pricing</MenuItem>
-      </Menu>
+      <NavbarLink href="#">Features</NavbarLink>
+      <NavbarLink href="#">Pricing</NavbarLink>
     </NavbarItem>
     <NavbarItem label="Resources">
-      <Menu>
-        <MenuItem>Documentation</MenuItem>
-        <MenuItem>API Reference</MenuItem>
-        <MenuItem>Support</MenuItem>
-      </Menu>
+      <NavbarLink href="#">Documentation</NavbarLink>
+      <NavbarLink href="#">API Reference</NavbarLink>
+      <NavbarLink href="#">Support</NavbarLink>
     </NavbarItem>
     <NavbarItem label="Company">
-      <Menu>
-        <MenuItem>About</MenuItem>
-        <MenuItem>Blog</MenuItem>
-        <MenuItem>Careers</MenuItem>
-      </Menu>
+      <NavbarLink href="#">About</NavbarLink>
+      <NavbarLink href="#">Blog</NavbarLink>
+      <NavbarLink href="#">Careers</NavbarLink>
     </NavbarItem>
     <NavbarItem>
-      <a href="https://github.com/umami-software/umami">GitHub</a>
+      <NavbarLink href="https://github.com/umami-software/umami">GitHub</NavbarLink>
     </NavbarItem>
   </Navbar>
   ```
 </Example>
+
+## Router links
+
+`NavbarLink` accepts Base UI's `render` prop, so it can render your router's link component.
+
+```jsx
+<NavbarItem>
+  <NavbarLink render={<Link to="/pricing" />}>Pricing</NavbarLink>
+</NavbarItem>
+```
 
 ## Component props
 
 ### Navbar
 
 <PropertiesTable>
-  <ResponseField name="showArrow" type="boolean">Shows dropdown arrow on items (default: true)</ResponseField>
+  <PropertiesTable.Row name="showArrow" type="boolean">Shows the dropdown arrow on items that have a label (default: true)</PropertiesTable.Row>
 </PropertiesTable>
 
 ### NavbarItem
 
 <PropertiesTable>
-  <ResponseField name="label" type="string">Item label. When set, the item becomes a trigger and its children render in the dropdown.</ResponseField>
+  <PropertiesTable.Row name="label" type="ReactNode">Item label. When set, the item becomes a trigger and its children render in the dropdown.</PropertiesTable.Row>
 </PropertiesTable>
-
-A `Menu` rendered inside a `NavbarItem` dropdown automatically uses the `plain` variant, so it does
-not paint a second border and shadow on top of the navbar popup.
 
 ### NavbarLink
 
-A semantic navigation link that renders an `<a>` element and participates in keyboard navigation. Use it for direct links instead of a plain anchor.
+A semantic navigation link that renders an `<a>` element and participates in keyboard navigation.
+Inside a `NavbarItem` dropdown it renders as a menu row. It accepts Base UI `NavigationMenu.Link` props.
 
 <PropertiesTable>
-  <ResponseField name="href" type="string">The destination URL.</ResponseField>
-  <ResponseField name="active" type="boolean">Marks the link as the current page (default: false).</ResponseField>
+  <PropertiesTable.Row name="href" type="string">The destination URL.</PropertiesTable.Row>
+  <PropertiesTable.Row name="active" type="boolean">Marks the link as the current page (default: false).</PropertiesTable.Row>
+  <PropertiesTable.Row name="render" type="ReactElement">Renders a different element, such as a router link.</PropertiesTable.Row>
 </PropertiesTable>

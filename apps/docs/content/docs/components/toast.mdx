@@ -5,13 +5,18 @@ description: "A succinct message that is displayed temporarily."
 
 import { Button, Example, ToastActionExample, ToastExample, ToastTitleExample, ToastVariantsExample } from '../../../mdx-components';
 
-A succinct message that is displayed temporarily.
+A succinct message that is displayed temporarily. Call `toast` from the `useToast` hook. Toasts are
+rendered by the `Toaster` inside `ZenProvider` (or a standalone `ToastProvider`).
 
 <Example>
   <ToastExample />
 
   ```jsx
-  <Button onPress={() => toast('Your message has been sent.')}>Show toast</Button>
+  const { toast } = useToast();
+
+  <Button variant="outline" onClick={() => toast('Your message has been sent.')}>
+    Show toast
+  </Button>
   ```
 </Example>
 
@@ -22,7 +27,8 @@ A succinct message that is displayed temporarily.
 
   ```jsx
   <Button
-    onPress={() =>
+    variant="outline"
+    onClick={() =>
       toast('The application encountered an error.', { title: 'Oops! Something went wrong.' })
     }
   >
@@ -38,7 +44,8 @@ A succinct message that is displayed temporarily.
 
   ```jsx
   <Button
-    onPress={() =>
+    variant="outline"
+    onClick={() =>
       toast('The task was deleted successfully.', {
         title: 'Task deleted',
         actions: ['Undo'],
@@ -56,23 +63,46 @@ A succinct message that is displayed temporarily.
   <ToastVariantsExample />
 
   ```jsx
-  <>
-    <Button onPress={() => toast('Your message was sent.', { variant: 'success' })}>
-      Success toast
-    </Button>
-    <Button onPress={() => toast('Something went wrong.', { variant: 'error' })}>
-      Error toast
-    </Button>
-  </>
+  <Button
+    variant="outline"
+    onClick={() => toast('Your message was sent.', { variant: 'success' })}
+  >
+    Success toast
+  </Button>
+  <Button
+    variant="outline"
+    onClick={() => toast('Something went wrong.', { variant: 'destructive' })}
+  >
+    Destructive toast
+  </Button>
   ```
 </Example>
 
-## Component props
+## Provider
+
+`ZenProvider` renders the toaster for you. Configure it with the `toast` prop, or use
+`ToastProvider` directly.
+
+```jsx
+<ZenProvider toast={{ duration: 5000, position: 'top-right' }}>
+  <App />
+</ZenProvider>
+```
+
+## Options
+
+`toast(message, options)` accepts:
 
 <PropertiesTable>
-  <ResponseField name="message" type="ReactNode">Toast message content</ResponseField>
-  <ResponseField name="title" type="ReactNode">Optional toast title</ResponseField>
-  <ResponseField name="variant" type="ToastVariant">"default" | "success" | "error"</ResponseField>
-  <ResponseField name="action" type="ReactNode">Action element (e.g., button)</ResponseField>
-  <ResponseField name="onAction" type="() => void">Called when action is clicked</ResponseField>
+  <PropertiesTable.Row name="title" type="string">Optional toast title</PropertiesTable.Row>
+  <PropertiesTable.Row name="variant" type="string">"default" | "success" | "destructive" (default: "default")</PropertiesTable.Row>
+  <PropertiesTable.Row name="actions" type="string[]">Action button labels. Replaces the close button</PropertiesTable.Row>
+  <PropertiesTable.Row name="allowClose" type="boolean">Shows a close button when there are no actions (default: true)</PropertiesTable.Row>
+</PropertiesTable>
+
+## Provider props
+
+<PropertiesTable>
+  <PropertiesTable.Row name="duration" type="number">Time in ms before a toast is removed. `0` keeps it until closed. `ZenProvider` defaults to 3000</PropertiesTable.Row>
+  <PropertiesTable.Row name="position" type="string">"top-left" | "top" | "top-right" | "bottom-left" | "bottom" | "bottom-right" | "left" | "right" (default: "bottom-right")</PropertiesTable.Row>
 </PropertiesTable>

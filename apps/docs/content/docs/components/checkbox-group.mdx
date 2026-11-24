@@ -3,22 +3,70 @@ title: Checkbox Group
 description: "A checkbox group allows a user to select multiple items from a list of options."
 ---
 
-import { Checkbox, CheckboxGroup, CheckboxGroupExample, Example } from '../../../mdx-components';
+import { Checkbox, CheckboxGroup, CheckboxGroupExample, Example, Field, FieldLabel } from '../../../mdx-components';
 
-A checkbox group allows a user to select multiple items from a list of options.
+A checkbox group allows a user to select multiple items from a list of options. It wraps Base UI's
+`CheckboxGroup` in a fieldset with an optional legend. Each `Checkbox` needs a `value` and its own
+label, using `Field` and `FieldLabel`.
 
 <Example>
   <CheckboxGroup label="Notifications" defaultValue={['email']}>
-    <Checkbox value="email">Email</Checkbox>
-    <Checkbox value="sms">SMS</Checkbox>
-    <Checkbox value="push">Push</Checkbox>
+    <Field orientation="horizontal">
+      <Checkbox id="cg-email" value="email" />
+      <FieldLabel htmlFor="cg-email">Email</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <Checkbox id="cg-sms" value="sms" />
+      <FieldLabel htmlFor="cg-sms">SMS</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <Checkbox id="cg-push" value="push" />
+      <FieldLabel htmlFor="cg-push">Push</FieldLabel>
+    </Field>
   </CheckboxGroup>
 
   ```jsx
   <CheckboxGroup label="Notifications" defaultValue={['email']}>
-    <Checkbox value="email">Email</Checkbox>
-    <Checkbox value="sms">SMS</Checkbox>
-    <Checkbox value="push">Push</Checkbox>
+    <Field orientation="horizontal">
+      <Checkbox id="cg-email" value="email" />
+      <FieldLabel htmlFor="cg-email">Email</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <Checkbox id="cg-sms" value="sms" />
+      <FieldLabel htmlFor="cg-sms">SMS</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <Checkbox id="cg-push" value="push" />
+      <FieldLabel htmlFor="cg-push">Push</FieldLabel>
+    </Field>
+  </CheckboxGroup>
+  ```
+</Example>
+
+## Description
+
+<Example>
+  <CheckboxGroup label="Notifications" description="Choose how we contact you.">
+    <Field orientation="horizontal">
+      <Checkbox id="cgd-email" value="email" />
+      <FieldLabel htmlFor="cgd-email">Email</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <Checkbox id="cgd-sms" value="sms" />
+      <FieldLabel htmlFor="cgd-sms">SMS</FieldLabel>
+    </Field>
+  </CheckboxGroup>
+
+  ```jsx
+  <CheckboxGroup label="Notifications" description="Choose how we contact you.">
+    <Field orientation="horizontal">
+      <Checkbox id="cgd-email" value="email" />
+      <FieldLabel htmlFor="cgd-email">Email</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <Checkbox id="cgd-sms" value="sms" />
+      <FieldLabel htmlFor="cgd-sms">SMS</FieldLabel>
+    </Field>
   </CheckboxGroup>
   ```
 </Example>
@@ -27,16 +75,34 @@ A checkbox group allows a user to select multiple items from a list of options.
 
 <Example>
   <CheckboxGroup label="Toppings" orientation="horizontal">
-    <Checkbox value="cheese">Cheese</Checkbox>
-    <Checkbox value="mushrooms">Mushrooms</Checkbox>
-    <Checkbox value="peppers">Peppers</Checkbox>
+    <Field orientation="horizontal">
+      <Checkbox id="cg-cheese" value="cheese" />
+      <FieldLabel htmlFor="cg-cheese">Cheese</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <Checkbox id="cg-mushrooms" value="mushrooms" />
+      <FieldLabel htmlFor="cg-mushrooms">Mushrooms</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <Checkbox id="cg-peppers" value="peppers" />
+      <FieldLabel htmlFor="cg-peppers">Peppers</FieldLabel>
+    </Field>
   </CheckboxGroup>
 
   ```jsx
   <CheckboxGroup label="Toppings" orientation="horizontal">
-    <Checkbox value="cheese">Cheese</Checkbox>
-    <Checkbox value="mushrooms">Mushrooms</Checkbox>
-    <Checkbox value="peppers">Peppers</Checkbox>
+    <Field orientation="horizontal">
+      <Checkbox id="cg-cheese" value="cheese" />
+      <FieldLabel htmlFor="cg-cheese">Cheese</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <Checkbox id="cg-mushrooms" value="mushrooms" />
+      <FieldLabel htmlFor="cg-mushrooms">Mushrooms</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <Checkbox id="cg-peppers" value="peppers" />
+      <FieldLabel htmlFor="cg-peppers">Peppers</FieldLabel>
+    </Field>
   </CheckboxGroup>
   ```
 </Example>
@@ -44,15 +110,27 @@ A checkbox group allows a user to select multiple items from a list of options.
 ## Disabled
 
 <Example>
-  <CheckboxGroup label="Notifications" defaultValue={['email']} isDisabled>
-    <Checkbox value="email">Email</Checkbox>
-    <Checkbox value="sms">SMS</Checkbox>
+  <CheckboxGroup label="Notifications" defaultValue={['email']} disabled>
+    <Field orientation="horizontal">
+      <Checkbox id="cgx-email" value="email" />
+      <FieldLabel htmlFor="cgx-email">Email</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <Checkbox id="cgx-sms" value="sms" />
+      <FieldLabel htmlFor="cgx-sms">SMS</FieldLabel>
+    </Field>
   </CheckboxGroup>
 
   ```jsx
-  <CheckboxGroup label="Notifications" defaultValue={['email']} isDisabled>
-    <Checkbox value="email">Email</Checkbox>
-    <Checkbox value="sms">SMS</Checkbox>
+  <CheckboxGroup label="Notifications" defaultValue={['email']} disabled>
+    <Field orientation="horizontal">
+      <Checkbox id="cgx-email" value="email" />
+      <FieldLabel htmlFor="cgx-email">Email</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <Checkbox id="cgx-sms" value="sms" />
+      <FieldLabel htmlFor="cgx-sms">SMS</FieldLabel>
+    </Field>
   </CheckboxGroup>
   ```
 </Example>
@@ -65,22 +143,35 @@ A checkbox group allows a user to select multiple items from a list of options.
   ```jsx
   const [value, setValue] = useState(['email']);
 
-  <CheckboxGroup label="Notifications" value={value} onChange={setValue}>
-    <Checkbox value="email">Email</Checkbox>
-    <Checkbox value="sms">SMS</Checkbox>
-    <Checkbox value="push">Push</Checkbox>
+  <CheckboxGroup label="Notifications" value={value} onValueChange={setValue}>
+    <Field orientation="horizontal">
+      <Checkbox id="notify-email" value="email" />
+      <FieldLabel htmlFor="notify-email">Email</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <Checkbox id="notify-sms" value="sms" />
+      <FieldLabel htmlFor="notify-sms">SMS</FieldLabel>
+    </Field>
+    <Field orientation="horizontal">
+      <Checkbox id="notify-push" value="push" />
+      <FieldLabel htmlFor="notify-push">Push</FieldLabel>
+    </Field>
   </CheckboxGroup>
+  <Text color="muted-foreground">Selected: {value.length ? value.join(', ') : '(none)'}</Text>
   ```
 </Example>
 
 ## Component props
 
+Other Base UI `CheckboxGroup` props (`allValues`, `name`) are passed through.
+
 <PropertiesTable>
-  <ResponseField name="label" type="string">Label text displayed above the group</ResponseField>
-  <ResponseField name="value" type="string[]">Controlled selected values</ResponseField>
-  <ResponseField name="defaultValue" type="string[]">Default selected values</ResponseField>
-  <ResponseField name="orientation" type="string">"vertical" | "horizontal" (default: "vertical")</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables all checkboxes in the group</ResponseField>
-  <ResponseField name="onChange" type="(value: string[]) => void">Called when the selection changes</ResponseField>
-  <ResponseField name="children" type="ReactNode">Checkbox components with value props</ResponseField>
+  <PropertiesTable.Row name="label" type="ReactNode">Legend displayed above the group</PropertiesTable.Row>
+  <PropertiesTable.Row name="description" type="ReactNode">Helper text displayed below the legend</PropertiesTable.Row>
+  <PropertiesTable.Row name="value" type="string[]">Controlled selected values</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultValue" type="string[]">Initial selected values</PropertiesTable.Row>
+  <PropertiesTable.Row name="onValueChange" type="(value: string[], details) => void">Called when the selection changes</PropertiesTable.Row>
+  <PropertiesTable.Row name="orientation" type="string">"vertical" | "horizontal" (default: "vertical")</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables all checkboxes in the group</PropertiesTable.Row>
+  <PropertiesTable.Row name="children" type="ReactNode">Checkboxes with `value` props, each with its own label</PropertiesTable.Row>
 </PropertiesTable>

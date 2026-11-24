@@ -6,32 +6,45 @@ import {
   FormField,
   FormResetButton,
   FormSubmitButton,
+  Label,
   List,
   ListItem,
   PasswordField,
-  Radio,
   RadioGroup,
+  RadioGroupItem,
+  Row,
   SearchField,
   Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
   Slider,
   Switch,
   TextField,
   Toggle,
 } from '@umami/react-zen';
+import { Bold } from 'lucide-react';
 
 const defaultValues = {
   name: '',
   bio: '',
   password: '',
   search: '',
-  select: '',
+  select: null,
   checkbox: false,
   radio: '',
-  toggle: '',
+  toggle: false,
   switch: false,
-  slider: 0,
+  slider: [50],
   list: [],
 };
+
+const options = [
+  { value: 'one', label: 'One' },
+  { value: 'two', label: 'Two' },
+  { value: 'three', label: 'Three' },
+];
 
 export function FormInputsExample() {
   const handleSubmit = (values: any) => {
@@ -53,22 +66,38 @@ export function FormInputsExample() {
         <SearchField autoComplete="off" />
       </FormField>
       <FormField name="select" label="Select">
-        <Select items={['One', 'Two', 'Three']} />
+        <Select items={options}>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Select an option" />
+          </SelectTrigger>
+          <SelectContent>
+            {options.map(option => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </FormField>
-      <FormField name="checkbox" label="Checkbox">
-        <Checkbox>Checkbox</Checkbox>
+      <FormField name="checkbox" label="Checkbox" orientation="horizontal">
+        <Checkbox />
       </FormField>
       <FormField name="radio" label="Radio">
         <RadioGroup>
-          <Radio value="one">Option one</Radio>
-          <Radio value="two">Option two</Radio>
-          <Radio value="three">Option three</Radio>
+          {options.map(option => (
+            <Row key={option.value} alignItems="center" gap="2">
+              <RadioGroupItem id={`radio-${option.value}`} value={option.value} />
+              <Label htmlFor={`radio-${option.value}`}>{option.label}</Label>
+            </Row>
+          ))}
         </RadioGroup>
       </FormField>
       <FormField name="toggle" label="Toggle">
-        <Toggle>B</Toggle>
+        <Toggle variant="outline" aria-label="Bold">
+          <Bold />
+        </Toggle>
       </FormField>
-      <FormField name="switch" label="Switch">
+      <FormField name="switch" label="Switch" orientation="horizontal">
         <Switch />
       </FormField>
       <FormField name="slider" label="Slider">
@@ -76,16 +105,16 @@ export function FormInputsExample() {
       </FormField>
       <FormField name="list" label="List">
         <List selectionMode="multiple">
-          <ListItem id="one">One</ListItem>
-          <ListItem id="two">Two</ListItem>
-          <ListItem id="three">Three</ListItem>
-          <ListItem id="four">Four</ListItem>
-          <ListItem id="five">Five</ListItem>
+          <ListItem value="one">One</ListItem>
+          <ListItem value="two">Two</ListItem>
+          <ListItem value="three">Three</ListItem>
+          <ListItem value="four">Four</ListItem>
+          <ListItem value="five">Five</ListItem>
         </List>
       </FormField>
       <FormButtons>
         <FormResetButton>Reset</FormResetButton>
-        <FormSubmitButton variant="primary">Submit</FormSubmitButton>
+        <FormSubmitButton>Submit</FormSubmitButton>
       </FormButtons>
     </Form>
   );

@@ -1,85 +1,232 @@
 ---
 title: Menubar
-description: "A menubar displays a horizontal row of menus, like the menu bar found at the top of desktop applications."
+description: "A horizontal row of menus, like the menu bar at the top of a desktop application."
 ---
 
-import { Example, Menu, MenuItem, MenuSeparator, Menubar, MenubarMenu } from '../../../mdx-components';
+import {
+  Example,
+  Menubar,
+  MenubarCheckboxItem,
+  MenubarContent,
+  MenubarGroup,
+  MenubarItem,
+  MenubarLabel,
+  MenubarMenu,
+  MenubarRadioGroup,
+  MenubarRadioItem,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarSub,
+  MenubarSubContent,
+  MenubarSubTrigger,
+  MenubarTrigger,
+} from '../../../mdx-components';
 
-A menubar displays a horizontal row of menus, like the menu bar found at the top of desktop applications.
+A horizontal row of menus, like the menu bar at the top of a desktop application. Once one menu is
+open, hovering or using the arrow keys moves between menus. Each menu uses the same items as
+`DropdownMenu`.
 
 <Example>
   <Menubar>
-    <MenubarMenu label="File">
-      <Menu>
-        <MenuItem>New file</MenuItem>
-        <MenuItem>Open</MenuItem>
-        <MenuSeparator />
-        <MenuItem>Save</MenuItem>
-        <MenuItem>Save as</MenuItem>
-      </Menu>
+    <MenubarMenu>
+      <MenubarTrigger>File</MenubarTrigger>
+      <MenubarContent>
+        <MenubarGroup>
+          <MenubarItem>
+            New tab <MenubarShortcut>⌘T</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem>
+            New window <MenubarShortcut>⌘N</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem disabled>New incognito window</MenubarItem>
+        </MenubarGroup>
+        <MenubarSeparator />
+        <MenubarGroup>
+          <MenubarSub>
+            <MenubarSubTrigger>Share</MenubarSubTrigger>
+            <MenubarSubContent>
+              <MenubarItem>Email link</MenubarItem>
+              <MenubarItem>Messages</MenubarItem>
+              <MenubarItem>Notes</MenubarItem>
+            </MenubarSubContent>
+          </MenubarSub>
+        </MenubarGroup>
+        <MenubarSeparator />
+        <MenubarGroup>
+          <MenubarItem>
+            Print... <MenubarShortcut>⌘P</MenubarShortcut>
+          </MenubarItem>
+        </MenubarGroup>
+      </MenubarContent>
     </MenubarMenu>
-    <MenubarMenu label="Edit">
-      <Menu>
-        <MenuItem>Undo</MenuItem>
-        <MenuItem>Redo</MenuItem>
-        <MenuSeparator />
-        <MenuItem>Cut</MenuItem>
-        <MenuItem>Copy</MenuItem>
-        <MenuItem>Paste</MenuItem>
-      </Menu>
+    <MenubarMenu>
+      <MenubarTrigger>Edit</MenubarTrigger>
+      <MenubarContent>
+        <MenubarGroup>
+          <MenubarItem>
+            Undo <MenubarShortcut>⌘Z</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem>
+            Redo <MenubarShortcut>⇧⌘Z</MenubarShortcut>
+          </MenubarItem>
+        </MenubarGroup>
+        <MenubarSeparator />
+        <MenubarGroup>
+          <MenubarItem>Cut</MenubarItem>
+          <MenubarItem>Copy</MenubarItem>
+          <MenubarItem>Paste</MenubarItem>
+        </MenubarGroup>
+      </MenubarContent>
     </MenubarMenu>
-    <MenubarMenu label="View">
-      <Menu>
-        <MenuItem>Zoom in</MenuItem>
-        <MenuItem>Zoom out</MenuItem>
-        <MenuSeparator />
-        <MenuItem>Full screen</MenuItem>
-      </Menu>
+    <MenubarMenu>
+      <MenubarTrigger>View</MenubarTrigger>
+      <MenubarContent>
+        <MenubarGroup>
+          <MenubarCheckboxItem>Always show bookmarks bar</MenubarCheckboxItem>
+          <MenubarCheckboxItem defaultChecked>Always show full URLs</MenubarCheckboxItem>
+        </MenubarGroup>
+        <MenubarSeparator />
+        <MenubarGroup>
+          <MenubarItem inset>
+            Reload <MenubarShortcut>⌘R</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem inset>Toggle fullscreen</MenubarItem>
+        </MenubarGroup>
+      </MenubarContent>
     </MenubarMenu>
-    <MenubarMenu label="Help" isDisabled>
-      <Menu>
-        <MenuItem>Documentation</MenuItem>
-      </Menu>
+    <MenubarMenu>
+      <MenubarTrigger>Profiles</MenubarTrigger>
+      <MenubarContent>
+        <MenubarGroup>
+          <MenubarLabel inset>Switch profile</MenubarLabel>
+          <MenubarRadioGroup defaultValue="benoit">
+            <MenubarRadioItem value="andy">Andy</MenubarRadioItem>
+            <MenubarRadioItem value="benoit">Benoit</MenubarRadioItem>
+            <MenubarRadioItem value="luis">Luis</MenubarRadioItem>
+          </MenubarRadioGroup>
+        </MenubarGroup>
+        <MenubarSeparator />
+        <MenubarGroup>
+          <MenubarItem inset>Add profile...</MenubarItem>
+        </MenubarGroup>
+      </MenubarContent>
     </MenubarMenu>
   </Menubar>
 
   ```jsx
   <Menubar>
-    <MenubarMenu label="File">
-      <Menu>
-        <MenuItem>New file</MenuItem>
-        <MenuItem>Open</MenuItem>
-        <MenuSeparator />
-        <MenuItem>Save</MenuItem>
-      </Menu>
+    <MenubarMenu>
+      <MenubarTrigger>File</MenubarTrigger>
+      <MenubarContent>
+        <MenubarGroup>
+          <MenubarItem>
+            New tab <MenubarShortcut>⌘T</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem>
+            New window <MenubarShortcut>⌘N</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem disabled>New incognito window</MenubarItem>
+        </MenubarGroup>
+        <MenubarSeparator />
+        <MenubarGroup>
+          <MenubarSub>
+            <MenubarSubTrigger>Share</MenubarSubTrigger>
+            <MenubarSubContent>
+              <MenubarItem>Email link</MenubarItem>
+              <MenubarItem>Messages</MenubarItem>
+              <MenubarItem>Notes</MenubarItem>
+            </MenubarSubContent>
+          </MenubarSub>
+        </MenubarGroup>
+        <MenubarSeparator />
+        <MenubarGroup>
+          <MenubarItem>
+            Print... <MenubarShortcut>⌘P</MenubarShortcut>
+          </MenubarItem>
+        </MenubarGroup>
+      </MenubarContent>
     </MenubarMenu>
-    <MenubarMenu label="Edit">
-      <Menu>
-        <MenuItem>Undo</MenuItem>
-        <MenuItem>Redo</MenuItem>
-      </Menu>
+    <MenubarMenu>
+      <MenubarTrigger>Edit</MenubarTrigger>
+      <MenubarContent>
+        <MenubarGroup>
+          <MenubarItem>
+            Undo <MenubarShortcut>⌘Z</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem>
+            Redo <MenubarShortcut>⇧⌘Z</MenubarShortcut>
+          </MenubarItem>
+        </MenubarGroup>
+        <MenubarSeparator />
+        <MenubarGroup>
+          <MenubarItem>Cut</MenubarItem>
+          <MenubarItem>Copy</MenubarItem>
+          <MenubarItem>Paste</MenubarItem>
+        </MenubarGroup>
+      </MenubarContent>
     </MenubarMenu>
-    <MenubarMenu label="Help" isDisabled>
-      <Menu>
-        <MenuItem>Documentation</MenuItem>
-      </Menu>
+    <MenubarMenu>
+      <MenubarTrigger>View</MenubarTrigger>
+      <MenubarContent>
+        <MenubarGroup>
+          <MenubarCheckboxItem>Always show bookmarks bar</MenubarCheckboxItem>
+          <MenubarCheckboxItem defaultChecked>Always show full URLs</MenubarCheckboxItem>
+        </MenubarGroup>
+        <MenubarSeparator />
+        <MenubarGroup>
+          <MenubarItem inset>
+            Reload <MenubarShortcut>⌘R</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem inset>Toggle fullscreen</MenubarItem>
+        </MenubarGroup>
+      </MenubarContent>
+    </MenubarMenu>
+    <MenubarMenu>
+      <MenubarTrigger>Profiles</MenubarTrigger>
+      <MenubarContent>
+        <MenubarGroup>
+          <MenubarLabel inset>Switch profile</MenubarLabel>
+          <MenubarRadioGroup defaultValue="benoit">
+            <MenubarRadioItem value="andy">Andy</MenubarRadioItem>
+            <MenubarRadioItem value="benoit">Benoit</MenubarRadioItem>
+            <MenubarRadioItem value="luis">Luis</MenubarRadioItem>
+          </MenubarRadioGroup>
+        </MenubarGroup>
+        <MenubarSeparator />
+        <MenubarGroup>
+          <MenubarItem inset>Add profile...</MenubarItem>
+        </MenubarGroup>
+      </MenubarContent>
     </MenubarMenu>
   </Menubar>
   ```
 </Example>
+
+## Parts
+
+- `Menubar` is the root bar. `MenubarMenu` is one menu in it.
+- `MenubarTrigger` is the button that opens a menu. `MenubarContent` is the popup.
+- `MenubarItem`, `MenubarCheckboxItem`, `MenubarRadioGroup` and `MenubarRadioItem` are the items. Set `inset` to line plain items up with checkbox and radio items.
+- `MenubarGroup` and `MenubarLabel` group and label items. A label must be inside a group.
+- `MenubarSub`, `MenubarSubTrigger` and `MenubarSubContent` build a submenu.
+- `MenubarSeparator` and `MenubarShortcut` add a divider and a shortcut hint.
+
+The item props are the same as for [Dropdown Menu](/docs/components/dropdown-menu).
 
 ## Component props
 
 ### Menubar
 
 <PropertiesTable>
-  <ResponseField name="isDisabled" type="boolean">Disables the entire menubar</ResponseField>
+  <PropertiesTable.Row name="orientation" type="string">"horizontal" | "vertical" (default: "horizontal")</PropertiesTable.Row>
+  <PropertiesTable.Row name="loopFocus" type="boolean">Wraps keyboard focus at the ends of the bar (default: true)</PropertiesTable.Row>
+  <PropertiesTable.Row name="modal" type="boolean">Locks page scroll while a menu is open (default: true)</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables every menu in the bar</PropertiesTable.Row>
 </PropertiesTable>
 
 ### MenubarMenu
 
 <PropertiesTable>
-  <ResponseField name="label" type="ReactNode">Label shown on the menubar trigger button</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the menu</ResponseField>
-  <ResponseField name="children" type="ReactNode">A Menu containing MenuItems</ResponseField>
+  <PropertiesTable.Row name="open" type="boolean">Controlled open state of this menu</PropertiesTable.Row>
+  <PropertiesTable.Row name="onOpenChange" type="(open, eventDetails) => void">Called when this menu opens or closes</PropertiesTable.Row>
 </PropertiesTable>

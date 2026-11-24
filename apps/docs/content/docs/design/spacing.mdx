@@ -19,7 +19,7 @@ Spacing defines values that are used in `margin`, `padding` and `gap` properties
       <Label>Margin</Label>
       <Box border borderRadius>
         <Box padding="2" margin="4" border borderRadius>
-          <Text >Box with margin="4"</Text>
+          <Text>Box with margin="4"</Text>
         </Box>
       </Box>
     </Column>
@@ -44,8 +44,8 @@ Spacing defines values that are used in `margin`, `padding` and `gap` properties
     <Column gap="2">
       <Label>Margin</Label>
       <Box border borderRadius>
-        <Box backgroundColor="primary" padding="2" margin="4">
-          <Text color="inverted">Box with margin="4"</Text>
+        <Box padding="2" margin="4" border borderRadius>
+          <Text>Box with margin="4"</Text>
         </Box>
       </Box>
     </Column>
@@ -66,41 +66,41 @@ Spacing defines values that are used in `margin`, `padding` and `gap` properties
 <Example>
   <DataTable
     data={[
-      { name: '0', value: '0px' },
-      { name: 'px', value: '1px' },
-      { name: '0.5', value: '2px' },
-      { name: '1', value: '4px' },
-      { name: '1.5', value: '6px' },
-      { name: '2', value: '8px' },
-      { name: '2.5', value: '10px' },
-      { name: '3', value: '12px' },
-      { name: '3.5', value: '14px' },
-      { name: '4', value: '16px' },
-      { name: '5', value: '20px' },
-      { name: '6', value: '24px' },
-      { name: '7', value: '28px' },
-      { name: '8', value: '32px' },
-      { name: '9', value: '36px' },
-      { name: '10', value: '40px' },
-      { name: '11', value: '44px' },
-      { name: '12', value: '48px' },
-      { name: '14', value: '56px' },
-      { name: '16', value: '64px' },
-      { name: '20', value: '80px' },
-      { name: '24', value: '96px' },
-      { name: '28', value: '112px' },
-      { name: '32', value: '128px' },
-      { name: '36', value: '144px' },
-      { name: '40', value: '160px' },
-      { name: '44', value: '176px' },
-      { name: '48', value: '192px' },
-      { name: '52', value: '208px' },
-      { name: '56', value: '224px' },
-      { name: '60', value: '240px' },
-      { name: '64', value: '256px' },
-      { name: '72', value: '288px' },
-      { name: '80', value: '320px' },
-      { name: '96', value: '384px' },
+      { id: '0', name: '0', value: '0px' },
+      { id: 'px', name: 'px', value: '1px' },
+      { id: '0.5', name: '0.5', value: '2px' },
+      { id: '1', name: '1', value: '4px' },
+      { id: '1.5', name: '1.5', value: '6px' },
+      { id: '2', name: '2', value: '8px' },
+      { id: '2.5', name: '2.5', value: '10px' },
+      { id: '3', name: '3', value: '12px' },
+      { id: '3.5', name: '3.5', value: '14px' },
+      { id: '4', name: '4', value: '16px' },
+      { id: '5', name: '5', value: '20px' },
+      { id: '6', name: '6', value: '24px' },
+      { id: '7', name: '7', value: '28px' },
+      { id: '8', name: '8', value: '32px' },
+      { id: '9', name: '9', value: '36px' },
+      { id: '10', name: '10', value: '40px' },
+      { id: '11', name: '11', value: '44px' },
+      { id: '12', name: '12', value: '48px' },
+      { id: '14', name: '14', value: '56px' },
+      { id: '16', name: '16', value: '64px' },
+      { id: '20', name: '20', value: '80px' },
+      { id: '24', name: '24', value: '96px' },
+      { id: '28', name: '28', value: '112px' },
+      { id: '32', name: '32', value: '128px' },
+      { id: '36', name: '36', value: '144px' },
+      { id: '40', name: '40', value: '160px' },
+      { id: '44', name: '44', value: '176px' },
+      { id: '48', name: '48', value: '192px' },
+      { id: '52', name: '52', value: '208px' },
+      { id: '56', name: '56', value: '224px' },
+      { id: '60', name: '60', value: '240px' },
+      { id: '64', name: '64', value: '256px' },
+      { id: '72', name: '72', value: '288px' },
+      { id: '80', name: '80', value: '320px' },
+      { id: '96', name: '96', value: '384px' },
     ]}
   >
     <DataColumn id="name" label="Value" />
@@ -121,7 +121,7 @@ All spacing props accept responsive values for adapting layouts across breakpoin
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="padding" type="Responsive<Padding>">true | Spacing</ResponseField>
-  <ResponseField name="margin" type="Responsive<Margin>">Spacing | "auto" (supports negative values)</ResponseField>
-  <ResponseField name="gap" type="Responsive<Gap>">true | Spacing</ResponseField>
+  <PropertiesTable.Row name="padding" type="Responsive<Padding>">true | Spacing</PropertiesTable.Row>
+  <PropertiesTable.Row name="margin" type="Responsive<Margin>">Spacing | "auto" (supports negative values)</PropertiesTable.Row>
+  <PropertiesTable.Row name="gap" type="Responsive<Gap>">true | Spacing</PropertiesTable.Row>
 </PropertiesTable>

@@ -1,31 +1,52 @@
 ---
 title: Command
-description: "A command palette for searching and running actions with keyboard navigation."
+description: "A fast, composable command menu with search and keyboard navigation."
 ---
 
-import { Button, Calendar, Command, CommandDialog, CommandDialogExample, CommandEmpty, CommandExample, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, Example } from '../../../mdx-components';
+import { CommandDialogExample, CommandExample, Example } from '../../../mdx-components';
 
-A command palette for searching and running actions with keyboard navigation.
+A fast, composable command menu with search and keyboard navigation, built on
+[cmdk](https://github.com/pacocoursey/cmdk). Items are filtered as the user types.
 
 <Example>
   <CommandExample />
 
   ```jsx
-  <Command>
+  <Command className="max-w-sm rounded-lg border">
     <CommandInput placeholder="Type a command or search..." />
     <CommandList>
       <CommandEmpty>No results found.</CommandEmpty>
       <CommandGroup heading="Suggestions">
-        <CommandItem icon={<Calendar />}>Calendar</CommandItem>
-        <CommandItem icon={<Smile />}>Search emoji</CommandItem>
-        <CommandItem icon={<Search />} isDisabled>
-          Search web
+        <CommandItem>
+          <Calendar />
+          <span>Calendar</span>
+        </CommandItem>
+        <CommandItem>
+          <Smile />
+          <span>Search emoji</span>
+        </CommandItem>
+        <CommandItem disabled>
+          <Calculator />
+          <span>Calculator</span>
         </CommandItem>
       </CommandGroup>
       <CommandSeparator />
       <CommandGroup heading="Settings">
-        <CommandItem icon={<User />}>Profile</CommandItem>
-        <CommandItem icon={<Settings />}>Settings</CommandItem>
+        <CommandItem>
+          <User />
+          <span>Profile</span>
+          <CommandShortcut>⌘P</CommandShortcut>
+        </CommandItem>
+        <CommandItem>
+          <CreditCard />
+          <span>Billing</span>
+          <CommandShortcut>⌘B</CommandShortcut>
+        </CommandItem>
+        <CommandItem>
+          <Settings />
+          <span>Settings</span>
+          <CommandShortcut>⌘S</CommandShortcut>
+        </CommandItem>
       </CommandGroup>
     </CommandList>
   </Command>
@@ -34,34 +55,70 @@ A command palette for searching and running actions with keyboard navigation.
 
 ## Dialog
 
-Use `CommandDialog` to display the command palette in a modal overlay. Control visibility
-with the `isOpen` and `onOpenChange` props.
+`CommandDialog` shows the menu in a `Dialog`. Put a `Command` inside it and control it with `open`
+and `onOpenChange`, for example from a keyboard shortcut.
 
 <Example>
   <CommandDialogExample />
 
   ```jsx
-  function App() {
-    const [isOpen, setIsOpen] = useState(false);
+  function CommandDialogExample() {
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+      const onKeyDown = (event) => {
+        if (event.key === 'j' && (event.metaKey || event.ctrlKey)) {
+          event.preventDefault();
+          setOpen(open => !open);
+        }
+      };
+
+      document.addEventListener('keydown', onKeyDown);
+      return () => document.removeEventListener('keydown', onKeyDown);
+    }, []);
 
     return (
       <>
-        <Button variant="primary" onPress={() => setIsOpen(true)}>
-          Open command palette
-        </Button>
-        <CommandDialog isOpen={isOpen} onOpenChange={setIsOpen}>
-          <CommandInput placeholder="Type a command or search..." />
-          <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup heading="Suggestions">
-              <CommandItem icon={<Calendar />} onSelect={() => setIsOpen(false)}>
-                Calendar
-              </CommandItem>
-              <CommandItem icon={<Smile />} onSelect={() => setIsOpen(false)}>
-                Search emoji
-              </CommandItem>
-            </CommandGroup>
-          </CommandList>
+        <Row alignItems="center" gap="3">
+          <Button variant="outline" onClick={() => setOpen(true)}>
+            Open command palette
+          </Button>
+          <Text size="sm" color="muted-foreground">
+            or press{' '}
+            <KbdGroup>
+              <Kbd>⌘</Kbd>
+              <Kbd>J</Kbd>
+            </KbdGroup>
+          </Text>
+        </Row>
+        <CommandDialog open={open} onOpenChange={setOpen}>
+          <Command>
+            <CommandInput placeholder="Type a command or search..." />
+            <CommandList>
+              <CommandEmpty>No results found.</CommandEmpty>
+              <CommandGroup heading="Suggestions">
+                <CommandItem onSelect={() => setOpen(false)}>
+                  <Calendar />
+                  <span>Calendar</span>
+                </CommandItem>
+                <CommandItem onSelect={() => setOpen(false)}>
+                  <Smile />
+                  <span>Search emoji</span>
+                </CommandItem>
+              </CommandGroup>
+              <CommandSeparator />
+              <CommandGroup heading="Settings">
+                <CommandItem onSelect={() => setOpen(false)}>
+                  <User />
+                  <span>Profile</span>
+                </CommandItem>
+                <CommandItem onSelect={() => setOpen(false)}>
+                  <Settings />
+                  <span>Settings</span>
+                </CommandItem>
+              </CommandGroup>
+            </CommandList>
+          </Command>
         </CommandDialog>
       </>
     );
@@ -69,68 +126,42 @@ with the `isOpen` and `onOpenChange` props.
   ```
 </Example>
 
+## Parts
+
+- `Command` is the root. It filters and sorts the items.
+- `CommandInput` is the search input.
+- `CommandList` holds the results. `CommandEmpty` shows when nothing matches.
+- `CommandGroup` groups items under a `heading`. `CommandSeparator` divides groups.
+- `CommandItem` is one action. `CommandShortcut` shows its keyboard shortcut.
+- `CommandDialog` shows a `Command` in a dialog.
+
 ## Component props
 
 ### Command
 
 <PropertiesTable>
-  <ResponseField name="value" type="string">Controlled value of the selected item</ResponseField>
-  <ResponseField name="onValueChange" type="(value: string) => void">Called when the selected item changes</ResponseField>
-  <ResponseField name="filter" type="(value, search, keywords) => number">Custom filter function for ranking items</ResponseField>
-  <ResponseField name="shouldFilter" type="boolean">Disable built-in filtering when false</ResponseField>
-  <ResponseField name="loop" type="boolean">Loop keyboard navigation from last item to first</ResponseField>
-</PropertiesTable>
-
-### CommandInput
-
-<PropertiesTable>
-  <ResponseField name="placeholder" type="string">Input placeholder text</ResponseField>
-  <ResponseField name="value" type="string">Controlled search value</ResponseField>
-  <ResponseField name="onValueChange" type="(search: string) => void">Called when the search value changes</ResponseField>
-</PropertiesTable>
-
-### CommandGroup
-
-<PropertiesTable>
-  <ResponseField name="heading" type="ReactNode">Group heading displayed above items</ResponseField>
+  <PropertiesTable.Row name="value" type="string">The highlighted item (controlled)</PropertiesTable.Row>
+  <PropertiesTable.Row name="onValueChange" type="(value: string) => void">Called when the highlighted item changes</PropertiesTable.Row>
+  <PropertiesTable.Row name="filter" type="(value, search, keywords) => number">Custom ranking function. Return 0 to hide an item</PropertiesTable.Row>
+  <PropertiesTable.Row name="shouldFilter" type="boolean">Set to false to filter items yourself (default: true)</PropertiesTable.Row>
+  <PropertiesTable.Row name="loop" type="boolean">Wraps keyboard navigation at the ends of the list</PropertiesTable.Row>
 </PropertiesTable>
 
 ### CommandItem
 
 <PropertiesTable>
-  <ResponseField name="icon" type="ReactNode">Icon displayed before the label</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the item (`disabled` is also accepted)</ResponseField>
-  <ResponseField name="value" type="string">Value used for filtering (defaults to text content)</ResponseField>
-  <ResponseField name="keywords" type="string[]">Additional keywords used when filtering</ResponseField>
-  <ResponseField name="onSelect" type="(value: string) => void">Called when the item is selected</ResponseField>
+  <PropertiesTable.Row name="onSelect" type="(value: string) => void">Called when the item is chosen with a click or Enter</PropertiesTable.Row>
+  <PropertiesTable.Row name="value" type="string">Value used for filtering. Defaults to the text content</PropertiesTable.Row>
+  <PropertiesTable.Row name="keywords" type="string[]">Extra terms to match when filtering</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the item</PropertiesTable.Row>
 </PropertiesTable>
-
-### CommandList
-
-<PropertiesTable>
-  <ResponseField name="maxHeight" type="string | number">Wraps the list in a `ScrollArea` capped at this height. Without it the list scrolls natively at `max-h-[300px]`</ResponseField>
-</PropertiesTable>
-
-### CommandShortcut
-
-Renders a right-aligned muted `<span>` for keyboard shortcut hints inside a `CommandItem`.
-
-```jsx
-<CommandItem>
-  Settings
-  <CommandShortcut>⌘S</CommandShortcut>
-</CommandItem>
-```
 
 ### CommandDialog
 
 <PropertiesTable>
-  <ResponseField name="open" type="boolean">Whether the dialog is open (`isOpen` is an accepted alias)</ResponseField>
-  <ResponseField name="onOpenChange" type="(open: boolean) => void">Called when the open state changes</ResponseField>
+  <PropertiesTable.Row name="open" type="boolean">Controlled open state</PropertiesTable.Row>
+  <PropertiesTable.Row name="onOpenChange" type="(open, eventDetails) => void">Called when the dialog opens or closes</PropertiesTable.Row>
+  <PropertiesTable.Row name="title" type="string">Visually hidden dialog title (default: "Command Palette")</PropertiesTable.Row>
+  <PropertiesTable.Row name="description" type="string">Visually hidden dialog description</PropertiesTable.Row>
+  <PropertiesTable.Row name="showCloseButton" type="boolean">Shows the close button (default: false)</PropertiesTable.Row>
 </PropertiesTable>
-
-## Anatomy
-
-Every part exposes a `data-slot` attribute: `command`, `command-input-wrapper`, `command-input`,
-`command-list`, `command-empty`, `command-group`, `command-separator`, `command-item`, and
-`command-shortcut`. Inside `CommandDialog` the input wrapper grows to `h-12`.

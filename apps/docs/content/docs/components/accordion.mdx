@@ -1,140 +1,156 @@
 ---
 title: Accordion
-description: "A vertically stacked set of interactive headings that each reveal an associated section of content."
+description: "A vertically stacked set of interactive headings that each reveal a section of content."
 ---
 
-import { Accordion, AccordionItem, Example } from '../../../mdx-components';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, Box, Example } from '../../../mdx-components';
 
-A vertically stacked set of interactive headings that each reveal an associated section of content.
+A vertically stacked set of interactive headings that each reveal a section of content. Each
+`AccordionItem` is identified by its `value`.
 
 <Example>
-  <Accordion>
-    <AccordionItem id="one">
-      <div>What is supply and demand?</div>
-      <div>
-        Supply and demand is an economic model of price determination in a market. It states that
-        the price of a good or service is determined by the quantity available (supply) and the
-        desire for it (demand).
-      </div>
-    </AccordionItem>
-    <AccordionItem id="two">
-      <div>What is an algorithm?</div>
-      <div>
-        An algorithm is a set of well-defined instructions for performing a task or solving a
-        problem.
-      </div>
-    </AccordionItem>
-    <AccordionItem id="three">
-      <div>What is the second law of thermodynamics?</div>
-      <div>
-        The second law of thermodynamics states that the total entropy of an isolated system can
-        never decrease over time, and is often associated with the concept that natural processes
-        tend to lead towards a state of greater disorder.
-      </div>
-    </AccordionItem>
-  </Accordion>
+  <Box width="400px" maxWidth="100%">
+    <Accordion defaultValue={['shipping']}>
+      <AccordionItem value="shipping">
+        <AccordionTrigger>What are your shipping options?</AccordionTrigger>
+        <AccordionContent>
+          We offer standard (5-7 days), express (2-3 days) and overnight shipping. Free shipping is
+          available on international orders.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="returns">
+        <AccordionTrigger>What is your return policy?</AccordionTrigger>
+        <AccordionContent>
+          Returns are accepted within 30 days. Items must be unused and in their original packaging.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="support">
+        <AccordionTrigger>How can I contact customer support?</AccordionTrigger>
+        <AccordionContent>
+          Reach us by email or live chat. We respond to every request within 24 hours.
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  </Box>
 
   ```jsx
-  <Accordion>
-    <AccordionItem id="one">
-      <div>What is supply and demand?</div>
-      <div>
-        Supply and demand is an economic model of price determination in a market. It states that
-        the price of a good or service is determined by the quantity available (supply) and the
-        desire for it (demand).
-      </div>
+  <Accordion defaultValue={['shipping']}>
+    <AccordionItem value="shipping">
+      <AccordionTrigger>What are your shipping options?</AccordionTrigger>
+      <AccordionContent>
+        We offer standard (5-7 days), express (2-3 days) and overnight shipping. Free shipping is
+        available on international orders.
+      </AccordionContent>
     </AccordionItem>
-    <AccordionItem id="two">
-      <div>What is an algorithm?</div>
-      <div>
-        An algorithm is a set of well-defined instructions for performing a task or solving a
-        problem.
-      </div>
+    <AccordionItem value="returns">
+      <AccordionTrigger>What is your return policy?</AccordionTrigger>
+      <AccordionContent>
+        Returns are accepted within 30 days. Items must be unused and in their original packaging.
+      </AccordionContent>
     </AccordionItem>
-    <AccordionItem id="three">
-      <div>What is the second law of thermodynamics?</div>
-      <div>
-        The second law of thermodynamics states that the total entropy of an isolated system can
-        never decrease over time, and is often associated with the concept that natural processes
-        tend to lead towards a state of greater disorder.
-      </div>
+    <AccordionItem value="support">
+      <AccordionTrigger>How can I contact customer support?</AccordionTrigger>
+      <AccordionContent>
+        Reach us by email or live chat. We respond to every request within 24 hours.
+      </AccordionContent>
     </AccordionItem>
   </Accordion>
   ```
 </Example>
 
-## Multiple expansion
+## Multiple
+
+Set `multiple` to let more than one item stay open at a time.
 
 <Example>
-  <Accordion allowsMultipleExpanded>
-    <AccordionItem id="one">
-      <div>What is supply and demand?</div>
-      <div>
-        Supply and demand is an economic model of price determination in a market. It states that
-        the price of a good or service is determined by the quantity available (supply) and the
-        desire for it (demand).
-      </div>
-    </AccordionItem>
-    <AccordionItem id="two">
-      <div>What is an algorithm?</div>
-      <div>
-        An algorithm is a set of well-defined instructions for performing a task or solving a
-        problem.
-      </div>
-    </AccordionItem>
-    <AccordionItem id="three">
-      <div>What is the second law of thermodynamics?</div>
-      <div>
-        The second law of thermodynamics states that the total entropy of an isolated system can
-        never decrease over time, and is often associated with the concept that natural processes
-        tend to lead towards a state of greater disorder.
-      </div>
-    </AccordionItem>
-  </Accordion>
+  <Box width="400px" maxWidth="100%">
+    <Accordion multiple defaultValue={['notifications', 'privacy']}>
+      <AccordionItem value="notifications">
+        <AccordionTrigger>Notification settings</AccordionTrigger>
+        <AccordionContent>Choose which emails and push notifications you receive.</AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="privacy">
+        <AccordionTrigger>Privacy and security</AccordionTrigger>
+        <AccordionContent>Manage two-factor authentication and active sessions.</AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="billing">
+        <AccordionTrigger>Billing</AccordionTrigger>
+        <AccordionContent>Update your payment method and download invoices.</AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  </Box>
 
   ```jsx
-  <Accordion allowsMultipleExpanded>
-    <AccordionItem id="one">
-      <div>What is supply and demand?</div>
-      <div>
-        Supply and demand is an economic model of price determination in a market. It states that
-        the price of a good or service is determined by the quantity available (supply) and the
-        desire for it (demand).
-      </div>
+  <Accordion multiple defaultValue={['notifications', 'privacy']}>
+    <AccordionItem value="notifications">
+      <AccordionTrigger>Notification settings</AccordionTrigger>
+      <AccordionContent>Choose which emails and push notifications you receive.</AccordionContent>
     </AccordionItem>
-    <AccordionItem id="two">
-      <div>What is an algorithm?</div>
-      <div>
-        An algorithm is a set of well-defined instructions for performing a task or solving a
-        problem.
-      </div>
+    <AccordionItem value="privacy">
+      <AccordionTrigger>Privacy and security</AccordionTrigger>
+      <AccordionContent>Manage two-factor authentication and active sessions.</AccordionContent>
     </AccordionItem>
-    <AccordionItem id="three">
-      <div>What is the second law of thermodynamics?</div>
-      <div>
-        The second law of thermodynamics states that the total entropy of an isolated system can
-        never decrease over time, and is often associated with the concept that natural processes
-        tend to lead towards a state of greater disorder.
-      </div>
+    <AccordionItem value="billing">
+      <AccordionTrigger>Billing</AccordionTrigger>
+      <AccordionContent>Update your payment method and download invoices.</AccordionContent>
     </AccordionItem>
   </Accordion>
   ```
 </Example>
+
+## Disabled
+
+<Example>
+  <Box width="400px" maxWidth="100%">
+    <Accordion>
+      <AccordionItem value="account">
+        <AccordionTrigger>Account</AccordionTrigger>
+        <AccordionContent>Update your name, email and avatar.</AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="enterprise" disabled>
+        <AccordionTrigger>Enterprise (unavailable)</AccordionTrigger>
+        <AccordionContent>Single sign-on and audit logs.</AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  </Box>
+
+  ```jsx
+  <Accordion>
+    <AccordionItem value="account">
+      <AccordionTrigger>Account</AccordionTrigger>
+      <AccordionContent>Update your name, email and avatar.</AccordionContent>
+    </AccordionItem>
+    <AccordionItem value="enterprise" disabled>
+      <AccordionTrigger>Enterprise (unavailable)</AccordionTrigger>
+      <AccordionContent>Single sign-on and audit logs.</AccordionContent>
+    </AccordionItem>
+  </Accordion>
+  ```
+</Example>
+
+## Parts
+
+- `Accordion` is the root. It holds the open items.
+- `AccordionItem` groups a trigger with its content.
+- `AccordionTrigger` is the heading button that toggles the item. The chevron is added for you.
+- `AccordionContent` is the collapsible panel.
 
 ## Component props
 
 ### Accordion
 
 <PropertiesTable>
-  <ResponseField name="allowsMultipleExpanded" type="boolean">Allows multiple items to be expanded</ResponseField>
-  <ResponseField name="expandedKeys" type="string[]">Controlled expanded keys</ResponseField>
-  <ResponseField name="defaultExpandedKeys" type="string[]">Default expanded keys</ResponseField>
-  <ResponseField name="onExpandedChange" type="(keys: Set<string>) => void">Called when expansion changes</ResponseField>
+  <PropertiesTable.Row name="value" type="any[]">The open items (controlled)</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultValue" type="any[]">The initially open items (uncontrolled)</PropertiesTable.Row>
+  <PropertiesTable.Row name="onValueChange" type="(value, eventDetails) => void">Called when an item opens or closes</PropertiesTable.Row>
+  <PropertiesTable.Row name="multiple" type="boolean">Allows several items to be open at once (default: false)</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables every item</PropertiesTable.Row>
 </PropertiesTable>
 
 ### AccordionItem
 
 <PropertiesTable>
-  <ResponseField name="id" type="string">Unique item identifier (required)</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the item</ResponseField>
+  <PropertiesTable.Row name="value" type="any">Identifies the item</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the item</PropertiesTable.Row>
+  <PropertiesTable.Row name="onOpenChange" type="(open, eventDetails) => void">Called when this item opens or closes</PropertiesTable.Row>
 </PropertiesTable>

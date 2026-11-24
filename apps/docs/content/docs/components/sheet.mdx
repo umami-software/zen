@@ -1,74 +1,136 @@
 ---
 title: Sheet
-description: "A sheet is a panel that slides in from the edge of the screen, overlaying the current content."
+description: "Extends the Dialog component to display content that complements the main content of the screen."
 ---
 
-import { Button, DialogTrigger, Example, Sheet, SheetExample, SheetHeader, Text } from '../../../mdx-components';
+import { Button, Example, Field, FieldGroup, FieldLabel, Input, Sheet, SheetClose, SheetContent, SheetDescription, SheetExample, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '../../../mdx-components';
 
-A sheet is a panel that slides in from the edge of the screen, overlaying the current content.
+Extends the [Dialog](/docs/components/dialog) component to display content that complements the
+main content of the screen. The panel slides in from an edge of the viewport.
+
+<Example>
+  <Sheet>
+    <SheetTrigger render={<Button variant="outline" />}>Open</SheetTrigger>
+    <SheetContent>
+      <SheetHeader>
+        <SheetTitle>Edit profile</SheetTitle>
+        <SheetDescription>
+          Make changes to your profile here. Click save when you&apos;re done.
+        </SheetDescription>
+      </SheetHeader>
+      <FieldGroup className="px-4">
+        <Field>
+          <FieldLabel htmlFor="sheet-name">Name</FieldLabel>
+          <Input id="sheet-name" defaultValue="Jane Doe" />
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="sheet-username">Username</FieldLabel>
+          <Input id="sheet-username" defaultValue="@janedoe" />
+        </Field>
+      </FieldGroup>
+      <SheetFooter>
+        <Button type="submit">Save changes</Button>
+        <SheetClose render={<Button variant="outline" />}>Close</SheetClose>
+      </SheetFooter>
+    </SheetContent>
+  </Sheet>
+
+  ```jsx
+  <Sheet>
+    <SheetTrigger render={<Button variant="outline" />}>Open</SheetTrigger>
+    <SheetContent>
+      <SheetHeader>
+        <SheetTitle>Edit profile</SheetTitle>
+        <SheetDescription>
+          Make changes to your profile here. Click save when you&apos;re done.
+        </SheetDescription>
+      </SheetHeader>
+      <FieldGroup className="px-4">
+        <Field>
+          <FieldLabel htmlFor="sheet-name">Name</FieldLabel>
+          <Input id="sheet-name" defaultValue="Jane Doe" />
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="sheet-username">Username</FieldLabel>
+          <Input id="sheet-username" defaultValue="@janedoe" />
+        </Field>
+      </FieldGroup>
+      <SheetFooter>
+        <Button type="submit">Save changes</Button>
+        <SheetClose render={<Button variant="outline" />}>Close</SheetClose>
+      </SheetFooter>
+    </SheetContent>
+  </Sheet>
+  ```
+</Example>
+
+## Side
+
+Use `side` on `SheetContent` to choose the edge: `top`, `right`, `bottom` or `left`.
 
 <Example>
   <SheetExample />
 
   ```jsx
-  <DialogTrigger>
-    <Button variant="outline">Open sheet</Button>
-    <Sheet side="right">
-      <SheetHeader title="Settings" />
-      <Text>Sheet content slides in from the right.</Text>
+  {['top', 'right', 'bottom', 'left'].map(side => (
+    <Sheet key={side}>
+      <SheetTrigger render={<Button variant="outline" className="capitalize" />}>
+        {side}
+      </SheetTrigger>
+      <SheetContent side={side}>
+        <SheetHeader>
+          <SheetTitle>Edit profile</SheetTitle>
+          <SheetDescription>This sheet slides in from the {side}.</SheetDescription>
+        </SheetHeader>
+      </SheetContent>
     </Sheet>
-  </DialogTrigger>
+  ))}
   ```
 </Example>
+
+## Without close button
+
+`SheetContent` renders a close button in the top-right corner. Pass `showCloseButton={false}` to
+hide it, and provide your own `SheetClose`.
+
+```jsx
+<SheetContent showCloseButton={false}>...</SheetContent>
+```
 
 ## Size
 
-The `size` prop sets the width for left and right sheets, and the height for top and bottom sheets.
+A `left` or `right` sheet is three quarters of the viewport wide, up to `max-w-sm` from the `sm`
+breakpoint. The width classes are scoped to the side, so override them with the same prefix:
 
-<Example>
-  <DialogTrigger>
-    <Button variant="outline">Wide sheet</Button>
-    <Sheet side="right" size="40rem">
-      <SheetHeader title="Details" />
-      <Text>A wider sheet panel.</Text>
-    </Sheet>
-  </DialogTrigger>
-
-  ```jsx
-  <DialogTrigger>
-    <Button variant="outline">Wide sheet</Button>
-    <Sheet side="right" size="40rem">
-      <SheetHeader title="Details" />
-      <Text>A wider sheet panel.</Text>
-    </Sheet>
-  </DialogTrigger>
-  ```
-</Example>
-
-## Component props
-
-<PropertiesTable>
-  <ResponseField name="side" type="string">"left" | "right" | "top" | "bottom" (default: "right")</ResponseField>
-  <ResponseField name="size" type="string | number">Width (left/right) or height (top/bottom) of the sheet</ResponseField>
-  <ResponseField name="isOpen" type="boolean">Controlled open state</ResponseField>
-  <ResponseField name="defaultOpen" type="boolean">Initial open state. Used when the sheet is not wrapped in a `DialogTrigger`</ResponseField>
-  <ResponseField name="onOpenChange" type="(open: boolean) => void">Called when the open state changes</ResponseField>
-  <ResponseField name="showCloseButton" type="boolean">Renders a close button in the top-right corner. Defaults to `true` unless a `SheetHeader` is present, so only one close button is ever rendered</ResponseField>
-</PropertiesTable>
+```jsx
+<SheetContent className="data-[side=right]:sm:max-w-lg">...</SheetContent>
+```
 
 ## Parts
 
+### Sheet
+
 <PropertiesTable>
-  <ResponseField name="SheetTrigger" type="component">Opens the sheet</ResponseField>
-  <ResponseField name="SheetClose" type="component">Closes the sheet</ResponseField>
-  <ResponseField name="SheetTitle" type="component">Accessible title, rendered as a `Heading`</ResponseField>
-  <ResponseField name="SheetDescription" type="component">Accessible description, rendered as muted `Text`</ResponseField>
+  <PropertiesTable.Row name="open" type="boolean">Controlled open state</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultOpen" type="boolean">Initial open state when uncontrolled</PropertiesTable.Row>
+  <PropertiesTable.Row name="onOpenChange" type="(open: boolean, details) => void">Called when the sheet opens or closes</PropertiesTable.Row>
+  <PropertiesTable.Row name="modal" type="boolean | 'trap-focus'">Locks page scroll and traps focus while open (default: true)</PropertiesTable.Row>
 </PropertiesTable>
 
-## SheetHeader props
+### SheetContent
 
 <PropertiesTable>
-  <ResponseField name="title" type="ReactNode">Title displayed at the top of the sheet</ResponseField>
-  <ResponseField name="showClose" type="boolean">Shows the close button (default: true)</ResponseField>
-  <ResponseField name="children" type="ReactNode">Additional content below the title</ResponseField>
+  <PropertiesTable.Row name="side" type="string">"top" | "right" | "bottom" | "left" (default: "right")</PropertiesTable.Row>
+  <PropertiesTable.Row name="showCloseButton" type="boolean">Renders a close button in the corner (default: true)</PropertiesTable.Row>
+</PropertiesTable>
+
+### Other parts
+
+<PropertiesTable>
+  <PropertiesTable.Row name="SheetTrigger" type="Base UI Dialog.Trigger">Opens the sheet. Use `render` to render your own button</PropertiesTable.Row>
+  <PropertiesTable.Row name="SheetClose" type="Base UI Dialog.Close">Closes the sheet. Use `render` to render your own button</PropertiesTable.Row>
+  <PropertiesTable.Row name="SheetHeader" type="div">Stacks the title and description</PropertiesTable.Row>
+  <PropertiesTable.Row name="SheetTitle" type="Base UI Dialog.Title">Labels the sheet</PropertiesTable.Row>
+  <PropertiesTable.Row name="SheetDescription" type="Base UI Dialog.Description">Describes the sheet</PropertiesTable.Row>
+  <PropertiesTable.Row name="SheetFooter" type="div">Pinned to the bottom, usually for actions</PropertiesTable.Row>
 </PropertiesTable>

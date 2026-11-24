@@ -3,33 +3,22 @@ title: Data Table
 description: "A declarative table component for displaying structured data with minimal configuration."
 ---
 
-import { Button, DataColumn, DataTable, Example, Menu, MenuItem, MenuTrigger } from '../../../mdx-components';
+import { Button, DataColumn, DataTable, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Example, Lucide } from '../../../mdx-components';
 
-A declarative table component for displaying structured data with minimal configuration. Define columns and pass data to quickly render sortable, formatted tables. Ideal for admin panels, lists, and data-heavy interfaces.
+A declarative table component for displaying structured data with minimal configuration. Define columns and pass data to quickly render formatted tables. Ideal for admin panels, lists, and data-heavy interfaces. It is built on the shadcn `Table` parts.
 
 <Example>
   <DataTable
     data={[
-      { id: 1, name: 'Bob', title: 'CEO', email: <a href="#">bob@aol.com</a> },
-      { id: 2, name: 'Fred', title: 'VP Marketing', email: <a href="#">fred@aol.com</a> },
-      { id: 3, name: 'Ted', title: 'Engineer', email: <a href="#">ted@aol.com</a> },
+      { id: 1, name: 'Bob', title: 'CEO', email: 'bob@aol.com' },
+      { id: 2, name: 'Fred', title: 'VP Marketing', email: 'fred@aol.com' },
+      { id: 3, name: 'Ted', title: 'Engineer', email: 'ted@aol.com' },
     ]}
   >
     <DataColumn id="id" label="ID" />
     <DataColumn id="name" label="Name" />
     <DataColumn id="title" label="Title" />
     <DataColumn id="email" label="Email" />
-    <DataColumn id="actions" label="" align="end">
-      <MenuTrigger>
-        <Button variant="outline" size="xs">
-          {`⋯`}
-        </Button>
-        <Menu>
-          <MenuItem id="email">Send email</MenuItem>
-          <MenuItem id="phone">Call phone</MenuItem>
-        </Menu>
-      </MenuTrigger>
-    </DataColumn>
   </DataTable>
 
   ```jsx
@@ -42,37 +31,110 @@ A declarative table component for displaying structured data with minimal config
   ```
 </Example>
 
+## Custom cells
+
+Pass a function as the `DataColumn` child to render a cell from its row.
+
+<Example>
+  <DataTable
+    data={[
+      { id: 1, name: 'Bob', title: 'CEO', email: 'bob@aol.com' },
+      { id: 2, name: 'Fred', title: 'VP Marketing', email: 'fred@aol.com' },
+      { id: 3, name: 'Ted', title: 'Engineer', email: 'ted@aol.com' },
+    ]}
+  >
+    <DataColumn id="name" label="Name" />
+    <DataColumn id="email" label="Email">
+      {row => <a href={`mailto:${row.email}`}>{row.email}</a>}
+    </DataColumn>
+    <DataColumn id="actions" label="" align="end" width="60px">
+      <DropdownMenu>
+        <DropdownMenuTrigger render={<Button variant="ghost" size="icon-sm" aria-label="Actions" />}>
+          <Lucide.Ellipsis />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem>Send email</DropdownMenuItem>
+          <DropdownMenuItem>Call phone</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </DataColumn>
+  </DataTable>
+
+  ```jsx
+  <DataTable data={data}>
+    <DataColumn id="name" label="Name" />
+    <DataColumn id="email" label="Email">
+      {row => <a href={`mailto:${row.email}`}>{row.email}</a>}
+    </DataColumn>
+    <DataColumn id="actions" label="" align="end" width="60px">
+      <DropdownMenu>
+        <DropdownMenuTrigger render={<Button variant="ghost" size="icon-sm" aria-label="Actions" />}>
+          <Lucide.Ellipsis />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem>Send email</DropdownMenuItem>
+          <DropdownMenuItem>Call phone</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </DataColumn>
+  </DataTable>
+  ```
+</Example>
+
 ## Column widths
 
 <Example>
   <DataTable
     data={[
-      { id: 1, name: 'Bob', title: 'CEO', email: <a href="#">bob@aol.com</a> },
-      { id: 2, name: 'Fred', title: 'VP Marketing', email: <a href="#">fred@aol.com</a> },
-      { id: 3, name: 'Ted', title: 'Engineer', email: <a href="#">ted@aol.com</a> },
+      { id: 1, name: 'Bob', title: 'CEO', email: 'bob@aol.com' },
+      { id: 2, name: 'Fred', title: 'VP Marketing', email: 'fred@aol.com' },
+      { id: 3, name: 'Ted', title: 'Engineer', email: 'ted@aol.com' },
     ]}
   >
     <DataColumn id="id" label="ID" width="50px" />
     <DataColumn id="name" label="Name" width="2fr" />
     <DataColumn id="title" label="Title" />
     <DataColumn id="email" label="Email" />
-    <DataColumn id="actions" label="" align="end">
-      <MenuTrigger>
-        <Button variant="outline" size="xs">
-          {`⋯`}
-        </Button>
-        <Menu>
-          <MenuItem id="email">Send email</MenuItem>
-          <MenuItem id="phone">Call phone</MenuItem>
-        </Menu>
-      </MenuTrigger>
-    </DataColumn>
   </DataTable>
 
   ```jsx
   <DataTable data={data}>
     <DataColumn id="id" label="ID" width="50px" />
     <DataColumn id="name" label="Name" width="2fr" />
+    <DataColumn id="title" label="Title" />
+    <DataColumn id="email" label="Email" />
+  </DataTable>
+  ```
+</Example>
+
+## Row selection
+
+Set `selectionMode` to add a checkbox column. Rows are keyed by their `id`. Use `selectedRows` and
+`onSelectedRowsChange` to control the selection, or `defaultSelectedRows` for an initial value.
+
+<Example>
+  <DataTable
+    selectionMode="multiple"
+    defaultSelectedRows={['2']}
+    data={[
+      { id: 1, name: 'Bob', title: 'CEO', email: 'bob@aol.com' },
+      { id: 2, name: 'Fred', title: 'VP Marketing', email: 'fred@aol.com' },
+      { id: 3, name: 'Ted', title: 'Engineer', email: 'ted@aol.com' },
+    ]}
+  >
+    <DataColumn id="name" label="Name" />
+    <DataColumn id="title" label="Title" />
+    <DataColumn id="email" label="Email" />
+  </DataTable>
+
+  ```jsx
+  <DataTable
+    data={data}
+    selectionMode="multiple"
+    defaultSelectedRows={['2']}
+    onSelectedRowsChange={rows => console.log(rows)}
+  >
+    <DataColumn id="name" label="Name" />
     <DataColumn id="title" label="Title" />
     <DataColumn id="email" label="Email" />
   </DataTable>
@@ -84,14 +146,14 @@ A declarative table component for displaying structured data with minimal config
 <Example>
   <DataTable
     data={[
-      { id: 1, name: 'Bob', title: 'CEO', email: <a href="#">bob@aol.com</a> },
-      { id: 2, name: 'Fred', title: 'VP Marketing', email: <a href="#">fred@aol.com</a> },
-      { id: 3, name: 'Ted', title: 'Engineer', email: <a href="#">ted@aol.com</a> },
+      { id: 1, name: 'Bob', title: 'CEO', email: 'bob@aol.com' },
+      { id: 2, name: 'Fred', title: 'VP Marketing', email: 'fred@aol.com' },
+      { id: 3, name: 'Ted', title: 'Engineer', email: 'ted@aol.com' },
     ]}
     displayMode="cards"
   >
-    <DataColumn id="id" label="ID" width="50px" />
-    <DataColumn id="name" label="Name" width="2fr" />
+    <DataColumn id="id" label="ID" />
+    <DataColumn id="name" label="Name" />
     <DataColumn id="title" label="Title" />
     <DataColumn id="email" label="Email" />
   </DataTable>
@@ -110,16 +172,25 @@ A declarative table component for displaying structured data with minimal config
 
 ### DataTable
 
+Other shadcn `Table` props are passed through.
+
 <PropertiesTable>
-  <ResponseField name="data" type="object[]">Array of data objects to display</ResponseField>
-  <ResponseField name="displayMode" type="DisplayMode">"table" | "cards"</ResponseField>
+  <PropertiesTable.Row name="data" type="object[]">Array of data objects to display. Rows are keyed by `id`</PropertiesTable.Row>
+  <PropertiesTable.Row name="displayMode" type="string">"table" | "cards" (default: "table")</PropertiesTable.Row>
+  <PropertiesTable.Row name="selectionMode" type="string">"none" | "single" | "multiple" (default: "none")</PropertiesTable.Row>
+  <PropertiesTable.Row name="selectedRows" type="string[]">Selected row ids (controlled)</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultSelectedRows" type="string[]">Initially selected row ids (uncontrolled)</PropertiesTable.Row>
+  <PropertiesTable.Row name="onSelectedRowsChange" type="(selectedRows: string[]) => void">Called with the new list of selected row ids</PropertiesTable.Row>
 </PropertiesTable>
 
 ### DataColumn
 
 <PropertiesTable>
-  <ResponseField name="id" type="string">Column key matching data property (required)</ResponseField>
-  <ResponseField name="label" type="string">Column header text</ResponseField>
-  <ResponseField name="width" type="string">Column width (e.g., "100px", "2fr")</ResponseField>
-  <ResponseField name="align" type="Alignment">"start" | "center" | "end"</ResponseField>
+  <PropertiesTable.Row name="id" type="string">Column key matching a data property (required)</PropertiesTable.Row>
+  <PropertiesTable.Row name="label" type="ReactNode">Column header</PropertiesTable.Row>
+  <PropertiesTable.Row name="width" type="string">Column width (e.g., "100px", "2fr"). Default: "1fr"</PropertiesTable.Row>
+  <PropertiesTable.Row name="align" type="string">"start" | "center" | "end"</PropertiesTable.Row>
+  <PropertiesTable.Row name="hidden" type="boolean">Hides the column</PropertiesTable.Row>
+  <PropertiesTable.Row name="as" type="string">Element to wrap the cell value in</PropertiesTable.Row>
+  <PropertiesTable.Row name="children" type="ReactNode | (row, index) => ReactNode">Static cell content, or a function that renders the cell from its row</PropertiesTable.Row>
 </PropertiesTable>

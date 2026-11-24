@@ -8,64 +8,50 @@ import { Button, Example } from '../../mdx-components';
 Install with your favorite package manager.
 
 ```shell
-pnpm install @umami/react-zen
+pnpm add @umami/react-zen
 ```
 
 ## Setup
 
-Zen offers two setup options depending on whether your project uses Tailwind CSS.
+Zen offers two setups, depending on whether your project uses Tailwind CSS.
 
-### Option A: With Tailwind CSS (Recommended)
+### Option A: With Tailwind CSS (recommended)
 
-If your project uses Tailwind CSS v4, use the preset for the best experience with smaller bundle sizes.
+For projects on Tailwind CSS v4. Zen's stylesheet adds the theme tokens and the shadcn variants to
+your own Tailwind build, so utilities are generated once and only the classes you use ship.
 
-#### 1. Configure Tailwind
+In your main stylesheet, import Tailwind, then Zen, and tell Tailwind to scan Zen's compiled
+components for class names:
 
-Add the preset to your `tailwind.config.ts` and include the package in your content paths:
+```css
+@import "tailwindcss";
+@import "@umami/react-zen/styles.css";
 
-```ts
-import zenPreset from '@umami/react-zen/tailwind-preset';
-
-export default {
-  presets: [zenPreset],
-  content: [
-    './src/**/*.{ts,tsx}',
-    './node_modules/@umami/react-zen/dist/**/*.{js,mjs}',
-  ],
-};
+@source "../node_modules/@umami/react-zen/dist";
 ```
 
-#### 2. Import styles
-
-Import the minimal stylesheet which includes theme CSS variables and component animations:
-
-```js
-import '@umami/react-zen/styles.css';
-```
+The `@source` path is relative to the stylesheet, so adjust it to point at your `node_modules`.
+There is no Tailwind config or preset to add.
 
 ### Option B: Without Tailwind CSS
 
-If your project doesn't use Tailwind, import the full stylesheet which includes all necessary utility classes:
+If your project doesn't use Tailwind, import the prebuilt stylesheet, which includes the theme and
+every utility class Zen needs:
 
 ```js
 import '@umami/react-zen/styles.full.css';
 ```
 
-This is a self-contained CSS file with no additional configuration needed.
-
 ## Add ZenProvider
 
-Wrap your application with `ZenProvider` to enable theming and toast notifications.
+Wrap your application with `ZenProvider`. It applies the theme and palette, and provides toasts and
+tooltips.
 
 ```jsx
 import { ZenProvider } from '@umami/react-zen';
 
 export default function App({ children }) {
-  return (
-    <ZenProvider>
-      {children}
-    </ZenProvider>
-  );
+  return <ZenProvider>{children}</ZenProvider>;
 }
 ```
 
@@ -73,8 +59,14 @@ export default function App({ children }) {
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `colorScheme` | `'light' \| 'dark' \| 'system'` | `'system'` | Initial color scheme |
+| `theme` | `'light' \| 'dark'` | | Force a theme. Otherwise the stored preference, then `colorScheme`, then the system preference is used. |
+| `colorScheme` | `'light' \| 'dark' \| 'system'` | | Initial color scheme when no theme is stored |
+| `palette` | `'neutral' \| 'stone' \| 'zinc' \| 'mauve' \| 'olive' \| 'mist' \| 'taupe'` | `'neutral'` | Color palette. See [Themes](/docs/design/themes). |
 | `toast` | `ToasterProps` | `{ duration: 3000 }` | Toast notification settings |
+| `tooltip` | `TooltipProvider` props | | Shared tooltip settings (`delay`, `closeDelay`, `timeout`) |
+
+Dark mode is the `.dark` class on `<html>`, as in shadcn. Zen ships no font, so components use your
+app's font (`--font-sans`); see [Fonts](/docs/design/fonts).
 
 ## Use components
 
@@ -83,8 +75,60 @@ export default function App({ children }) {
 import { Button } from '@umami/react-zen';
 
 export function Component() {
-  return <Button variant="primary">Button</Button>;
+  return <Button>Button</Button>;
 }
 ```
-  <Button variant="primary">Button</Button>
+  <Button>Button</Button>
 </Example>
+
+The shadcn components are exported with their shadcn names and parts, so their
+[shadcn documentation](https://ui.shadcn.com/docs/components) applies directly:
+
+```jsx
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@umami/react-zen';
+
+export function Example() {
+  return (
+    <Dialog>
+      <DialogTrigger render={<Button variant="outline" />}>Open</DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Hello</DialogTitle>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
+  );
+}
+```
+
+## Migrating from 0.x
+
+1.0 replaces Zen's own design system with shadcn/ui base-vega on Base UI. There is no
+compatibility layer: removed props and values show up as TypeScript errors.
+
+1. Update your stylesheet as shown in [Setup](#setup). The `@umami/react-zen/tailwind-preset`
+   export is removed, and Tailwind apps must `@source` the Zen `dist` folder.
+2. Run the codemod **once**. It is not idempotent, because it adds `variant="secondary"` to Buttons
+   that have no variant. It lives in the
+   [react-zen repository](https://github.com/umami-software/react-zen), so run it from a checkout
+   (after `pnpm install`) against your app's source folder, previewing with `--dry` first:
+
+   ```shell
+   pnpm dlx tsx packages/react-zen/codemods/zen-1.0.ts <your-src-dir> --dry   # preview
+   pnpm dlx tsx packages/react-zen/codemods/zen-1.0.ts <your-src-dir> [--wrappers=LinkButton]
+   ```
+
+   `--wrappers` lists your own components that forward `variant` to a Zen Button.
+
+3. Run `tsc` and work through the errors and the `TODO(zen-1.0)` comments the codemod leaves.
+
+The [migration guide](https://github.com/umami-software/react-zen/blob/master/MIGRATION-1.0.md)
+lists every change: the token mapping, the components replaced by shadcn, variant values, and
+state props such as `isDisabled` → `disabled` and `onPress` → `onClick`.

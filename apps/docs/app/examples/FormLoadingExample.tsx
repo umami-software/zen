@@ -14,7 +14,7 @@ export function FormLoadingExample() {
         <TextField />
       </FormField>
       <FormButtons>
-        <FormSubmitButton variant="primary">Save</FormSubmitButton>
+        <FormSubmitButton>Save</FormSubmitButton>
       </FormButtons>
     </Form>
   );

@@ -1,63 +1,136 @@
 ---
 title: Popover
-description: "A popover is an overlay element positioned relative to a trigger."
+description: "Displays rich content in a portal, triggered by a button."
 ---
 
-import { Button, Column, Dialog, DialogTrigger, Example, Popover, Switch } from '../../../mdx-components';
+import { Button, Example, Field, FieldGroup, FieldLabel, Input, Popover, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger } from '../../../mdx-components';
 
-A popover is an overlay element positioned relative to a trigger.
+Displays rich content in a portal, triggered by a button. Use the `render` prop on
+`PopoverTrigger` to render it as your own button.
 
 <Example>
-  <DialogTrigger overlayType="popover">
-    <Button variant="outline">Settings</Button>
-    <Popover>
-      <Dialog>
-        <Column gap="3">
-          <Switch defaultSelected>Wi-Fi</Switch>
-          <Switch defaultSelected>Bluetooth</Switch>
-          <Switch>Mute</Switch>
-        </Column>
-      </Dialog>
-    </Popover>
-  </DialogTrigger>
+  <Popover>
+    <PopoverTrigger render={<Button variant="outline" />}>Open popover</PopoverTrigger>
+    <PopoverContent>
+      <PopoverHeader>
+        <PopoverTitle>Dimensions</PopoverTitle>
+        <PopoverDescription>Set the dimensions for the layer.</PopoverDescription>
+      </PopoverHeader>
+      <FieldGroup>
+        <Field orientation="horizontal">
+          <FieldLabel htmlFor="popover-width">Width</FieldLabel>
+          <Input id="popover-width" defaultValue="100%" />
+        </Field>
+        <Field orientation="horizontal">
+          <FieldLabel htmlFor="popover-height">Height</FieldLabel>
+          <Input id="popover-height" defaultValue="25px" />
+        </Field>
+      </FieldGroup>
+    </PopoverContent>
+  </Popover>
 
   ```jsx
-  <DialogTrigger overlayType="popover">
-    <Button variant="outline">Settings</Button>
-    <Popover>
-      <Dialog>
-        <Column gap="3">
-          <Switch defaultSelected>Wi-Fi</Switch>
-          <Switch defaultSelected>Bluetooth</Switch>
-          <Switch>Mute</Switch>
-        </Column>
-      </Dialog>
-    </Popover>
-  </DialogTrigger>
+  <Popover>
+    <PopoverTrigger render={<Button variant="outline" />}>Open popover</PopoverTrigger>
+    <PopoverContent>
+      <PopoverHeader>
+        <PopoverTitle>Dimensions</PopoverTitle>
+        <PopoverDescription>Set the dimensions for the layer.</PopoverDescription>
+      </PopoverHeader>
+      <FieldGroup>
+        <Field orientation="horizontal">
+          <FieldLabel htmlFor="popover-width">Width</FieldLabel>
+          <Input id="popover-width" defaultValue="100%" />
+        </Field>
+        <Field orientation="horizontal">
+          <FieldLabel htmlFor="popover-height">Height</FieldLabel>
+          <Input id="popover-height" defaultValue="25px" />
+        </Field>
+      </FieldGroup>
+    </PopoverContent>
+  </Popover>
   ```
 </Example>
 
-## Component props
+## Position
 
-<PropertiesTable>
-  <ResponseField name="placement" type="Placement">"top" | "bottom" | "left" | "right" | "start" | "end"</ResponseField>
-  <ResponseField name="offset" type="number">Distance from the trigger element</ResponseField>
-  <ResponseField name="isFullscreen" type="boolean">Opens popover in fullscreen mode</ResponseField>
-  <ResponseField name="isOpen" type="boolean">Controlled open state. Used when the popover is not wrapped in a `DialogTrigger`</ResponseField>
-  <ResponseField name="defaultOpen" type="boolean">Initial open state. Used when the popover is not wrapped in a `DialogTrigger`</ResponseField>
-  <ResponseField name="onOpenChange" type="(open: boolean) => void">Called when the open state changes</ResponseField>
-  <ResponseField name="isNonModal" type="boolean">Allows interaction with the rest of the page while open</ResponseField>
-  <ResponseField name="sideOffset" type="number">Distance from the trigger element (default: 4)</ResponseField>
-</PropertiesTable>
+`side` and `align` on `PopoverContent` position the popup relative to the trigger. `sideOffset`
+and `alignOffset` add distance in pixels.
 
-The popup carries the default surface (`w-72`, border, shadow, padding). A `Dialog` nested inside a
-popover drops its own surface so the two do not stack.
+<Example direction="row">
+  <Popover>
+    <PopoverTrigger render={<Button variant="outline" />}>Top</PopoverTrigger>
+    <PopoverContent side="top">
+      <PopoverTitle>Top</PopoverTitle>
+    </PopoverContent>
+  </Popover>
+  <Popover>
+    <PopoverTrigger render={<Button variant="outline" />}>Right, start</PopoverTrigger>
+    <PopoverContent side="right" align="start">
+      <PopoverTitle>Right, start</PopoverTitle>
+    </PopoverContent>
+  </Popover>
+
+  ```jsx
+  <Popover>
+    <PopoverTrigger render={<Button variant="outline" />}>Top</PopoverTrigger>
+    <PopoverContent side="top">
+      <PopoverTitle>Top</PopoverTitle>
+    </PopoverContent>
+  </Popover>
+  <Popover>
+    <PopoverTrigger render={<Button variant="outline" />}>Right, start</PopoverTrigger>
+    <PopoverContent side="right" align="start">
+      <PopoverTitle>Right, start</PopoverTitle>
+    </PopoverContent>
+  </Popover>
+  ```
+</Example>
+
+## Controlled
+
+Pass `open` and `onOpenChange` to `Popover` to control it.
+
+```jsx
+const [open, setOpen] = useState(false);
+
+<Popover open={open} onOpenChange={setOpen}>
+  <PopoverTrigger render={<Button variant="outline" />}>Open popover</PopoverTrigger>
+  <PopoverContent>...</PopoverContent>
+</Popover>
+```
 
 ## Parts
 
+### Popover
+
 <PropertiesTable>
-  <ResponseField name="PopoverTrigger" type="component">Opens the popover</ResponseField>
-  <ResponseField name="PopoverClose" type="component">Closes the popover</ResponseField>
-  <ResponseField name="PopoverTitle" type="component">Accessible title, rendered as a `Heading`</ResponseField>
-  <ResponseField name="PopoverDescription" type="component">Accessible description, rendered as muted `Text`</ResponseField>
+  <PropertiesTable.Row name="open" type="boolean">Controlled open state</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultOpen" type="boolean">Initial open state when uncontrolled</PropertiesTable.Row>
+  <PropertiesTable.Row name="onOpenChange" type="(open: boolean, details) => void">Called when the popover opens or closes</PropertiesTable.Row>
+  <PropertiesTable.Row name="modal" type="boolean | 'trap-focus'">Locks page scroll and traps focus while open (default: false)</PropertiesTable.Row>
+</PropertiesTable>
+
+### PopoverTrigger
+
+<PropertiesTable>
+  <PropertiesTable.Row name="render" type="ReactElement | function">Replaces the rendered `button`, e.g. `render={<Button variant="outline" />}`</PropertiesTable.Row>
+  <PropertiesTable.Row name="openOnHover" type="boolean">Also opens the popover on hover</PropertiesTable.Row>
+</PropertiesTable>
+
+### PopoverContent
+
+<PropertiesTable>
+  <PropertiesTable.Row name="side" type="string">"top" | "right" | "bottom" | "left" | "inline-start" | "inline-end" (default: "bottom")</PropertiesTable.Row>
+  <PropertiesTable.Row name="align" type="string">"start" | "center" | "end" (default: "center")</PropertiesTable.Row>
+  <PropertiesTable.Row name="sideOffset" type="number">Distance from the trigger in pixels (default: 4)</PropertiesTable.Row>
+  <PropertiesTable.Row name="alignOffset" type="number">Offset along the alignment axis in pixels (default: 0)</PropertiesTable.Row>
+</PropertiesTable>
+
+### Other parts
+
+<PropertiesTable>
+  <PropertiesTable.Row name="PopoverHeader" type="div">Stacks the title and description</PropertiesTable.Row>
+  <PropertiesTable.Row name="PopoverTitle" type="Base UI Popover.Title">Labels the popup</PropertiesTable.Row>
+  <PropertiesTable.Row name="PopoverDescription" type="Base UI Popover.Description">Describes the popup</PropertiesTable.Row>
 </PropertiesTable>

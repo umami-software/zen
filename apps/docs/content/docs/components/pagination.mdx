@@ -1,84 +1,141 @@
 ---
 title: Pagination
-description: "Pagination lets users navigate between pages of content."
+description: "Pagination with page navigation, next and previous links."
 ---
 
-import { Column, Example, Pagination, PaginationExample, Text } from '../../../mdx-components';
+import { Example, Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, PaginationExample } from '../../../mdx-components';
 
-Pagination lets users navigate between pages of content.
-
-<Example>
-  <Pagination pageCount={10} defaultPage={1} />
-
-  ```jsx
-  <Pagination pageCount={10} defaultPage={1} />
-  ```
-</Example>
-
-## Total items
-
-Instead of `pageCount`, pass `totalItems` and `pageSize` and the page count is calculated automatically.
+Pagination with page navigation, next and previous links. The parts are presentational: you render
+the links and decide which page each one points to. `PaginationLink` renders an `a` styled as a
+`Button`, and `isActive` marks the current page.
 
 <Example>
-  <Pagination totalItems={250} pageSize={25} />
+  <Pagination>
+    <PaginationContent>
+      <PaginationItem>
+        <PaginationPrevious href="#" />
+      </PaginationItem>
+      <PaginationItem>
+        <PaginationLink href="#">1</PaginationLink>
+      </PaginationItem>
+      <PaginationItem>
+        <PaginationLink href="#" isActive>
+          2
+        </PaginationLink>
+      </PaginationItem>
+      <PaginationItem>
+        <PaginationLink href="#">3</PaginationLink>
+      </PaginationItem>
+      <PaginationItem>
+        <PaginationEllipsis />
+      </PaginationItem>
+      <PaginationItem>
+        <PaginationNext href="#" />
+      </PaginationItem>
+    </PaginationContent>
+  </Pagination>
 
   ```jsx
-  <Pagination totalItems={250} pageSize={25} />
-  ```
-</Example>
-
-## Sibling count
-
-Control how many pages are shown on each side of the current page with `siblingCount`.
-
-<Example>
-  <Pagination pageCount={20} defaultPage={10} siblingCount={2} />
-
-  ```jsx
-  <Pagination pageCount={20} defaultPage={10} siblingCount={2} />
+  <Pagination>
+    <PaginationContent>
+      <PaginationItem>
+        <PaginationPrevious href="#" />
+      </PaginationItem>
+      <PaginationItem>
+        <PaginationLink href="#">1</PaginationLink>
+      </PaginationItem>
+      <PaginationItem>
+        <PaginationLink href="#" isActive>
+          2
+        </PaginationLink>
+      </PaginationItem>
+      <PaginationItem>
+        <PaginationLink href="#">3</PaginationLink>
+      </PaginationItem>
+      <PaginationItem>
+        <PaginationEllipsis />
+      </PaginationItem>
+      <PaginationItem>
+        <PaginationNext href="#" />
+      </PaginationItem>
+    </PaginationContent>
+  </Pagination>
   ```
 </Example>
 
 ## Controlled
 
-Use the `page` and `onChange` props to control the current page.
+For client-side paging, keep the page in state and handle `onClick` on each link. This example
+also disables Previous and Next at the ends.
 
 <Example>
   <PaginationExample />
 
   ```jsx
-  function App() {
-    const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1);
 
-    return (
-      <Column gap="3" alignItems="center">
-        <Pagination pageCount={10} page={page} onChange={setPage} />
-        <Text color="muted">Current page: {page}</Text>
-      </Column>
-    );
-  }
+  const go = next => event => {
+    event.preventDefault();
+    setPage(Math.min(Math.max(next, 1), pageCount));
+  };
+
+  <Pagination>
+    <PaginationContent>
+      <PaginationItem>
+        <PaginationPrevious
+          href="#"
+          onClick={go(page - 1)}
+          aria-disabled={page === 1}
+          className={page === 1 ? 'pointer-events-none opacity-50' : undefined}
+        />
+      </PaginationItem>
+      {pages.map((value, index) =>
+        value === null ? (
+          <PaginationItem key={`ellipsis-${index}`}>
+            <PaginationEllipsis />
+          </PaginationItem>
+        ) : (
+          <PaginationItem key={value}>
+            <PaginationLink href="#" isActive={value === page} onClick={go(value)}>
+              {value}
+            </PaginationLink>
+          </PaginationItem>
+        ),
+      )}
+      <PaginationItem>
+        <PaginationNext
+          href="#"
+          onClick={go(page + 1)}
+          aria-disabled={page === pageCount}
+          className={page === pageCount ? 'pointer-events-none opacity-50' : undefined}
+        />
+      </PaginationItem>
+    </PaginationContent>
+  </Pagination>
   ```
 </Example>
 
-## Disabled
+## Links
 
-<Example>
-  <Pagination pageCount={10} defaultPage={3} isDisabled />
+`PaginationLink` spreads its props onto the `a`, so for server-rendered paging pass the URL of each
+page as `href`.
 
-  ```jsx
-  <Pagination pageCount={10} defaultPage={3} isDisabled />
-  ```
-</Example>
+```jsx
+<PaginationItem>
+  <PaginationLink href="/posts?page=2" isActive>
+    2
+  </PaginationLink>
+</PaginationItem>
+```
 
-## Component props
+## Parts
 
 <PropertiesTable>
-  <ResponseField name="pageCount" type="number">Total number of pages</ResponseField>
-  <ResponseField name="totalItems" type="number">Total number of items (used when pageCount is not set)</ResponseField>
-  <ResponseField name="pageSize" type="number">Items per page used with totalItems (default: 10)</ResponseField>
-  <ResponseField name="page" type="number">Controlled current page</ResponseField>
-  <ResponseField name="defaultPage" type="number">Default current page (default: 1)</ResponseField>
-  <ResponseField name="siblingCount" type="number">Pages shown on each side of the current page (default: 1)</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables all pagination controls</ResponseField>
-  <ResponseField name="onChange" type="(page: number) => void">Called when the page changes</ResponseField>
+  <PropertiesTable.Row name="Pagination" type="nav">Root navigation landmark</PropertiesTable.Row>
+  <PropertiesTable.Row name="PaginationContent" type="ul">The list of items</PropertiesTable.Row>
+  <PropertiesTable.Row name="PaginationItem" type="li">Wraps one link or ellipsis</PropertiesTable.Row>
+  <PropertiesTable.Row name="PaginationLink" type="a">A page link. `isActive` marks the current page; `size` takes `Button` sizes (default: `"icon"`)</PropertiesTable.Row>
+  <PropertiesTable.Row name="PaginationPrevious" type="a">Previous link. `text` changes the label (default: `"Previous"`)</PropertiesTable.Row>
+  <PropertiesTable.Row name="PaginationNext" type="a">Next link. `text` changes the label (default: `"Next"`)</PropertiesTable.Row>
+  <PropertiesTable.Row name="PaginationEllipsis" type="span">Marks skipped pages</PropertiesTable.Row>
 </PropertiesTable>

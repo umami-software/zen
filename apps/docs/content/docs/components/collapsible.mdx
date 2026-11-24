@@ -1,73 +1,129 @@
 ---
 title: Collapsible
-description: "A collapsible shows and hides a section of content."
+description: "An interactive component which expands and collapses a panel."
 ---
 
-import { Box, Collapsible, CollapsiblePanel, CollapsibleTrigger, Example, Text } from '../../../mdx-components';
+import { Box, Button, Collapsible, CollapsibleContent, CollapsibleTrigger, Column, Example, Lucide, Row, Text } from '../../../mdx-components';
 
-A collapsible shows and hides a section of content.
+An interactive component which expands and collapses a panel.
 
 <Example>
-  <Box width="300px">
+  <Box width="350px" maxWidth="100%">
     <Collapsible>
-      <CollapsibleTrigger>Show details</CollapsibleTrigger>
-      <CollapsiblePanel>
-        <Box paddingY="2">
-          <Text>Here are the details you were looking for.</Text>
+      <Column gap="2">
+        <Row alignItems="center" justifyContent="space-between" gap="4" paddingX="4">
+          <Text size="sm" weight="semibold">Order #4189</Text>
+          <CollapsibleTrigger render={<Button variant="ghost" size="icon-sm" aria-label="Toggle details" />}>
+            <Lucide.ChevronsUpDown />
+          </CollapsibleTrigger>
+        </Row>
+        <Box border borderRadius="md" paddingX="4" paddingY="2">
+          <Text size="sm">Status: Shipped</Text>
         </Box>
-      </CollapsiblePanel>
+        <CollapsibleContent>
+          <Column gap="2">
+            <Box border borderRadius="md" paddingX="4" paddingY="2">
+              <Text size="sm">Shipping address: 100 Market St, San Francisco</Text>
+            </Box>
+            <Box border borderRadius="md" paddingX="4" paddingY="2">
+              <Text size="sm">Items: 2x Studio Headphones</Text>
+            </Box>
+          </Column>
+        </CollapsibleContent>
+      </Column>
     </Collapsible>
   </Box>
 
   ```jsx
   <Collapsible>
-    <CollapsibleTrigger>Show details</CollapsibleTrigger>
-    <CollapsiblePanel>
-      <Text>Here are the details you were looking for.</Text>
-    </CollapsiblePanel>
+    <Column gap="2">
+      <Row alignItems="center" justifyContent="space-between" gap="4" paddingX="4">
+        <Text size="sm" weight="semibold">Order #4189</Text>
+        <CollapsibleTrigger render={<Button variant="ghost" size="icon-sm" aria-label="Toggle details" />}>
+          <Lucide.ChevronsUpDown />
+        </CollapsibleTrigger>
+      </Row>
+      <Box border borderRadius="md" paddingX="4" paddingY="2">
+        <Text size="sm">Status: Shipped</Text>
+      </Box>
+      <CollapsibleContent>
+        <Column gap="2">
+          <Box border borderRadius="md" paddingX="4" paddingY="2">
+            <Text size="sm">Shipping address: 100 Market St, San Francisco</Text>
+          </Box>
+          <Box border borderRadius="md" paddingX="4" paddingY="2">
+            <Text size="sm">Items: 2x Studio Headphones</Text>
+          </Box>
+        </Column>
+      </CollapsibleContent>
+    </Column>
   </Collapsible>
   ```
 </Example>
 
-## Default expanded
+## Open by default
 
 <Example>
-  <Box width="300px">
-    <Collapsible defaultExpanded>
-      <CollapsibleTrigger>Show details</CollapsibleTrigger>
-      <CollapsiblePanel>
-        <Box paddingY="2">
-          <Text>This panel starts out expanded.</Text>
+  <Box width="350px" maxWidth="100%">
+    <Collapsible defaultOpen>
+      <CollapsibleTrigger render={<Button variant="outline" />}>
+        Advanced settings
+        <Lucide.ChevronDown data-icon="inline-end" />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <Box paddingY="3">
+          <Text size="sm" color="muted-foreground">These settings start out visible.</Text>
         </Box>
-      </CollapsiblePanel>
+      </CollapsibleContent>
     </Collapsible>
   </Box>
 
   ```jsx
-  <Collapsible defaultExpanded>
-    <CollapsibleTrigger>Show details</CollapsibleTrigger>
-    <CollapsiblePanel>
-      <Text>This panel starts out expanded.</Text>
-    </CollapsiblePanel>
+  <Collapsible defaultOpen>
+    <CollapsibleTrigger render={<Button variant="outline" />}>
+      Advanced settings
+      <Lucide.ChevronDown data-icon="inline-end" />
+    </CollapsibleTrigger>
+    <CollapsibleContent>
+      <Box paddingY="3">
+        <Text size="sm" color="muted-foreground">These settings start out visible.</Text>
+      </Box>
+    </CollapsibleContent>
   </Collapsible>
   ```
 </Example>
+
+## Controlled
+
+```jsx
+const [open, setOpen] = useState(false);
+
+<Collapsible open={open} onOpenChange={setOpen}>
+  <CollapsibleTrigger render={<Button variant="outline" />}>Toggle</CollapsibleTrigger>
+  <CollapsibleContent>...</CollapsibleContent>
+</Collapsible>
+```
+
+## Parts
+
+- `Collapsible` is the root. It holds the open state.
+- `CollapsibleTrigger` toggles the panel. Use `render={<Button />}` to style it.
+- `CollapsibleContent` is the panel that is shown and hidden.
 
 ## Component props
 
 ### Collapsible
 
 <PropertiesTable>
-  <ResponseField name="isExpanded" type="boolean">Controlled expanded state</ResponseField>
-  <ResponseField name="defaultExpanded" type="boolean">Default expanded state</ResponseField>
-  <ResponseField name="isDisabled" type="boolean">Disables the collapsible</ResponseField>
-  <ResponseField name="onExpandedChange" type="(expanded: boolean) => void">Called when the expanded state changes</ResponseField>
+  <PropertiesTable.Row name="open" type="boolean">Controlled open state</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultOpen" type="boolean">Initial open state when uncontrolled (default: false)</PropertiesTable.Row>
+  <PropertiesTable.Row name="onOpenChange" type="(open, eventDetails) => void">Called when the panel opens or closes</PropertiesTable.Row>
+  <PropertiesTable.Row name="disabled" type="boolean">Disables the trigger</PropertiesTable.Row>
 </PropertiesTable>
 
-### CollapsibleTrigger
+### CollapsibleContent
 
-The button that toggles the panel.
-
-### CollapsiblePanel
-
-The content that is shown and hidden.
+<PropertiesTable>
+  <PropertiesTable.Row name="keepMounted" type="boolean">Keeps the content in the DOM while closed (default: false)</PropertiesTable.Row>
+  <PropertiesTable.Row name="hiddenUntilFound" type="boolean">Lets the browser's find-in-page reveal the closed content</PropertiesTable.Row>
+</PropertiesTable>

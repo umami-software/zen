@@ -1,0 +1,175 @@
+---
+title: Breadcrumb
+description: "Displays the path to the current resource using a hierarchy of links."
+---
+
+import {
+  Breadcrumb,
+  BreadcrumbEllipsis,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+  Example,
+  Lucide,
+} from '../../../mdx-components';
+
+Displays the path to the current resource using a hierarchy of links.
+
+<Example>
+  <Breadcrumb>
+    <BreadcrumbList>
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#">Home</BreadcrumbLink>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#">Components</BreadcrumbLink>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+      </BreadcrumbItem>
+    </BreadcrumbList>
+  </Breadcrumb>
+
+  ```jsx
+  <Breadcrumb>
+    <BreadcrumbList>
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#">Home</BreadcrumbLink>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#">Components</BreadcrumbLink>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+      </BreadcrumbItem>
+    </BreadcrumbList>
+  </Breadcrumb>
+  ```
+</Example>
+
+## Custom separator
+
+Pass any element as the children of `BreadcrumbSeparator`.
+
+<Example>
+  <Breadcrumb>
+    <BreadcrumbList>
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#">Home</BreadcrumbLink>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator>
+        <Lucide.Slash />
+      </BreadcrumbSeparator>
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#">Components</BreadcrumbLink>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator>
+        <Lucide.Slash />
+      </BreadcrumbSeparator>
+      <BreadcrumbItem>
+        <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+      </BreadcrumbItem>
+    </BreadcrumbList>
+  </Breadcrumb>
+
+  ```jsx
+  <Breadcrumb>
+    <BreadcrumbList>
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#">Home</BreadcrumbLink>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator>
+        <Lucide.Slash />
+      </BreadcrumbSeparator>
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#">Components</BreadcrumbLink>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator>
+        <Lucide.Slash />
+      </BreadcrumbSeparator>
+      <BreadcrumbItem>
+        <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+      </BreadcrumbItem>
+    </BreadcrumbList>
+  </Breadcrumb>
+  ```
+</Example>
+
+## Collapsed
+
+Use `BreadcrumbEllipsis` to stand in for hidden levels in long paths.
+
+<Example>
+  <Breadcrumb>
+    <BreadcrumbList>
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#">Home</BreadcrumbLink>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbEllipsis />
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#">Components</BreadcrumbLink>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+      </BreadcrumbItem>
+    </BreadcrumbList>
+  </Breadcrumb>
+
+  ```jsx
+  <Breadcrumb>
+    <BreadcrumbList>
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#">Home</BreadcrumbLink>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbEllipsis />
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#">Components</BreadcrumbLink>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+      </BreadcrumbItem>
+    </BreadcrumbList>
+  </Breadcrumb>
+  ```
+</Example>
+
+## Router links
+
+`BreadcrumbLink` renders an `<a>`. Use the `render` prop to render your router's link component
+instead.
+
+```jsx
+import { Link } from 'react-router';
+
+<BreadcrumbItem>
+  <BreadcrumbLink render={<Link to="/components" />}>Components</BreadcrumbLink>
+</BreadcrumbItem>
+```
+
+## Parts
+
+<PropertiesTable>
+  <PropertiesTable.Row name="Breadcrumb" type="nav">The root `nav` landmark</PropertiesTable.Row>
+  <PropertiesTable.Row name="BreadcrumbList" type="ol">The ordered list of items</PropertiesTable.Row>
+  <PropertiesTable.Row name="BreadcrumbItem" type="li">Wraps a link, page or ellipsis</PropertiesTable.Row>
+  <PropertiesTable.Row name="BreadcrumbLink" type="a">A link to an ancestor page. Accepts `render`</PropertiesTable.Row>
+  <PropertiesTable.Row name="BreadcrumbPage" type="span">The current page, marked with `aria-current="page"`</PropertiesTable.Row>
+  <PropertiesTable.Row name="BreadcrumbSeparator" type="li">The divider between items. Defaults to a chevron</PropertiesTable.Row>
+  <PropertiesTable.Row name="BreadcrumbEllipsis" type="span">Indicates collapsed items</PropertiesTable.Row>
+</PropertiesTable>

@@ -1,11 +1,11 @@
 ---
 title: Badge
-description: "A badge displays a small label used to highlight a status or category."
+description: "Displays a badge or a component that looks like a badge."
 ---
 
-import { Badge, Example } from '../../../mdx-components';
+import { Badge, Example, Lucide, Row } from '../../../mdx-components';
 
-A badge displays a small label used to highlight a status or category.
+Displays a badge or a component that looks like a badge.
 
 <Example>
   <Badge>Badge</Badge>
@@ -18,76 +18,77 @@ A badge displays a small label used to highlight a status or category.
 ## Variants
 
 <Example>
-  <Badge variant="default">Default</Badge>
-  <Badge variant="primary">Primary</Badge>
-  <Badge variant="outline">Outline</Badge>
-  <Badge variant="success">Success</Badge>
-  <Badge variant="warning">Warning</Badge>
-  <Badge variant="error">Error</Badge>
-  <Badge variant="info">Info</Badge>
+  <Row gap="2" wrap="wrap" justifyContent="center">
+    <Badge>Default</Badge>
+    <Badge variant="secondary">Secondary</Badge>
+    <Badge variant="destructive">Destructive</Badge>
+    <Badge variant="outline">Outline</Badge>
+    <Badge variant="ghost">Ghost</Badge>
+    <Badge variant="link">Link</Badge>
+  </Row>
 
   ```jsx
-  <Badge variant="default">Default</Badge>
-  <Badge variant="primary">Primary</Badge>
+  <Badge>Default</Badge>
+  <Badge variant="secondary">Secondary</Badge>
+  <Badge variant="destructive">Destructive</Badge>
   <Badge variant="outline">Outline</Badge>
-  <Badge variant="success">Success</Badge>
-  <Badge variant="warning">Warning</Badge>
-  <Badge variant="error">Error</Badge>
-  <Badge variant="info">Info</Badge>
+  <Badge variant="ghost">Ghost</Badge>
+  <Badge variant="link">Link</Badge>
   ```
 </Example>
 
-## Colors
+## With icon
 
-In addition to the semantic variants above, `Badge` supports every Tailwind base color as a variant.
+Mark the icon with `data-icon="inline-start"` or `data-icon="inline-end"` to tighten the padding
+on that side.
 
 <Example>
-  <Badge variant="slate">slate</Badge>
-  <Badge variant="gray">gray</Badge>
-  <Badge variant="zinc">zinc</Badge>
-  <Badge variant="neutral">neutral</Badge>
-  <Badge variant="stone">stone</Badge>
-  <Badge variant="red">red</Badge>
-  <Badge variant="orange">orange</Badge>
-  <Badge variant="amber">amber</Badge>
-  <Badge variant="yellow">yellow</Badge>
-  <Badge variant="lime">lime</Badge>
-  <Badge variant="green">green</Badge>
-  <Badge variant="emerald">emerald</Badge>
-  <Badge variant="teal">teal</Badge>
-  <Badge variant="cyan">cyan</Badge>
-  <Badge variant="sky">sky</Badge>
-  <Badge variant="blue">blue</Badge>
-  <Badge variant="indigo">indigo</Badge>
-  <Badge variant="violet">violet</Badge>
-  <Badge variant="purple">purple</Badge>
-  <Badge variant="fuchsia">fuchsia</Badge>
-  <Badge variant="pink">pink</Badge>
-  <Badge variant="rose">rose</Badge>
+  <Row gap="2" wrap="wrap" justifyContent="center">
+    <Badge variant="secondary">
+      <Lucide.BadgeCheck data-icon="inline-start" />
+      Verified
+    </Badge>
+    <Badge variant="outline">
+      Bookmark
+      <Lucide.Bookmark data-icon="inline-end" />
+    </Badge>
+  </Row>
 
   ```jsx
-  <Badge variant="blue">blue</Badge>
-  <Badge variant="green">green</Badge>
-  <Badge variant="rose">rose</Badge>
-  // ...all Tailwind base colors are supported
+  <Badge variant="secondary">
+    <Lucide.BadgeCheck data-icon="inline-start" />
+    Verified
+  </Badge>
+  <Badge variant="outline">
+    Bookmark
+    <Lucide.Bookmark data-icon="inline-end" />
+  </Badge>
   ```
 </Example>
 
-## Sizes
+## As a link
+
+Use the `render` prop to render the badge as another element, such as a link.
 
 <Example>
-  <Badge size="sm">Small</Badge>
-  <Badge size="md">Medium</Badge>
+  <Badge render={<a href="#as-a-link" />}>
+    Open link
+    <Lucide.ArrowUpRight data-icon="inline-end" />
+  </Badge>
 
   ```jsx
-  <Badge size="sm">Small</Badge>
-  <Badge size="md">Medium</Badge>
+  <Badge render={<a href="#as-a-link" />}>
+    Open link
+    <Lucide.ArrowUpRight data-icon="inline-end" />
+  </Badge>
   ```
 </Example>
 
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="variant" type="string">"default" | "primary" | "outline" | "success" | "warning" | "error" | "info" | any Tailwind base color ("slate", "gray", "zinc", "neutral", "stone", "red", "orange", "amber", "yellow", "lime", "green", "emerald", "teal", "cyan", "sky", "blue", "indigo", "violet", "purple", "fuchsia", "pink", "rose") (default: "default")</ResponseField>
-  <ResponseField name="size" type="string">"sm" | "md" (default: "md")</ResponseField>
+  <PropertiesTable.Row name="variant" type="string">"default" | "secondary" | "destructive" | "outline" | "ghost" | "link" (default: "default")</PropertiesTable.Row>
+  <PropertiesTable.Row name="render" type="ReactElement | function">Replaces the rendered `span`, e.g. `render={<a href="/" />}`</PropertiesTable.Row>
 </PropertiesTable>
+
+`badgeVariants({ variant })` returns the class names, for styling other elements as a badge.

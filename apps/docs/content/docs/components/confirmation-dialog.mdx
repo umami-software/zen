@@ -3,39 +3,60 @@ title: Confirmation Dialog
 description: "A high-friction dialog for dangerous or irreversible actions."
 ---
 
-import { Button, ConfirmationDialog, ConfirmationDialogExample, DialogTrigger, Example, Modal, Text } from '../../../mdx-components';
+import { Button, ConfirmationDialog, ConfirmationDialogExample, Example, Text } from '../../../mdx-components';
 
 A high-friction dialog for dangerous or irreversible actions. Requires users to type a confirmation phrase before proceeding, preventing accidental deletions or critical changes.
+
+`ConfirmationDialog` renders its own shadcn `AlertDialog`. Pass the element that opens it as
+`trigger`, or control it with `open` and `onOpenChange`.
 
 <Example>
   <ConfirmationDialogExample />
 
   ```jsx
-    <DialogTrigger overlayType="alert-dialog">
-    <Button variant="danger">Delete account</Button>
-    <Modal>
-      <ConfirmationDialog
-        title="Delete account"
-        value={'abc123'}
-        confirmLabel="Delete"
-        isDanger={true}
-      >
-        <Text>This cannot be undone. All your data will be permananently deleted.</Text>
-      </ConfirmationDialog>
-    </Modal>
-  </DialogTrigger>
+  <ConfirmationDialog
+    trigger={<Button variant="destructive">Delete account</Button>}
+    title="Delete account"
+    value="abc123"
+    confirmLabel="Delete"
+  >
+    <Text>This cannot be undone. All your data will be permanently deleted.</Text>
+  </ConfirmationDialog>
   ```
 </Example>
 
+## Async confirm
+
+When `onConfirm` returns a promise, the confirm button is disabled until it settles. The dialog
+closes when the promise resolves and stays open if it rejects, so the user can retry.
+
+```jsx
+<ConfirmationDialog
+  trigger={<Button variant="destructive">Delete website</Button>}
+  title="Delete website"
+  description="All data for this website will be permanently deleted."
+  value="example.com"
+  confirmLabel="Delete"
+  onConfirm={() => deleteWebsite(id)}
+/>
+```
+
 ## Component props
 
+Other Base UI `AlertDialog` root props (`open`, `defaultOpen`, `onOpenChange`) are passed through.
+
 <PropertiesTable>
-  <ResponseField name="value" type="string">Text the user must type to confirm (required)</ResponseField>
-  <ResponseField name="confirmMessage" type="ReactNode">Message shown above the confirmation input</ResponseField>
-  <ResponseField name="title" type="ReactNode">Dialog title</ResponseField>
-  <ResponseField name="isDanger" type="boolean">Shows confirm button as danger variant</ResponseField>
-  <ResponseField name="confirmLabel" type="ReactNode">Confirm button text</ResponseField>
-  <ResponseField name="cancelLabel" type="ReactNode">Cancel button text</ResponseField>
-  <ResponseField name="onConfirm" type="() => void">Called when confirmed</ResponseField>
-  <ResponseField name="onCancel" type="() => void">Called when cancelled</ResponseField>
+  <PropertiesTable.Row name="value" type="string">Text the user must type to confirm (required)</PropertiesTable.Row>
+  <PropertiesTable.Row name="trigger" type="ReactElement">Element that opens the dialog</PropertiesTable.Row>
+  <PropertiesTable.Row name="title" type="ReactNode">Dialog title</PropertiesTable.Row>
+  <PropertiesTable.Row name="description" type="ReactNode">Dialog description</PropertiesTable.Row>
+  <PropertiesTable.Row name="confirmMessage" type="ReactNode">Prompt shown above the confirmation input (default: "Type the following value to confirm")</PropertiesTable.Row>
+  <PropertiesTable.Row name="confirmLabel" type="ReactNode">Confirm button text (default: "Confirm")</PropertiesTable.Row>
+  <PropertiesTable.Row name="cancelLabel" type="ReactNode">Cancel button text (default: "Cancel")</PropertiesTable.Row>
+  <PropertiesTable.Row name="variant" type="string">Button variant of the confirm button (default: "destructive")</PropertiesTable.Row>
+  <PropertiesTable.Row name="onConfirm" type="() => unknown">Called on confirm. Return a promise to keep the dialog open until it resolves</PropertiesTable.Row>
+  <PropertiesTable.Row name="onCancel" type="() => void">Called when cancelled</PropertiesTable.Row>
+  <PropertiesTable.Row name="open" type="boolean">Controlled open state</PropertiesTable.Row>
+  <PropertiesTable.Row name="onOpenChange" type="(open: boolean, details) => void">Called when the open state changes</PropertiesTable.Row>
+  <PropertiesTable.Row name="children" type="ReactNode">Extra content between the description and the confirmation input</PropertiesTable.Row>
 </PropertiesTable>

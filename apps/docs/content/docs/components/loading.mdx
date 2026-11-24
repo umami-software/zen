@@ -3,27 +3,30 @@ title: Loading
 description: "An element that indicates content is loading."
 ---
 
-import { Column, Dots, Example, Label, Row, Spinner } from '../../../mdx-components';
+import { Box, Column, Dots, Example, Label, Loading, Row, Spinner } from '../../../mdx-components';
 
-An element that indicates content is loading.
-
-## Spinner
+An element that indicates content is loading. `Loading` renders a `status` region containing either
+the shadcn `Spinner` or Zen's animated `Dots`.
 
 <Example>
-  <Spinner />
+  <Loading />
 
   ```jsx
-  <Spinner />
+  <Loading />
   ```
 </Example>
 
-## Dots
+## Icons
 
 <Example>
-  <Dots />
+  <Row gap="6" alignItems="center">
+    <Loading icon="spinner" />
+    <Loading icon="dots" />
+  </Row>
 
   ```jsx
-  <Dots />
+  <Loading icon="spinner" />
+  <Loading icon="dots" />
   ```
 </Example>
 
@@ -33,33 +36,73 @@ An element that indicates content is loading.
   <Row justifyContent="space-evenly" width="100%">
     <Column alignItems="center" gap>
       <Label>sm</Label>
-      <Spinner size="sm" />
+      <Loading size="sm" />
       <Label>md</Label>
-      <Spinner size="md" />
+      <Loading size="md" />
       <Label>lg</Label>
-      <Spinner size="lg" />
+      <Loading size="lg" />
     </Column>
     <Column alignItems="center" gap>
       <Label>sm</Label>
-      <Dots size="sm" />
+      <Loading icon="dots" size="sm" />
       <Label>md</Label>
-      <Dots size="md" />
+      <Loading icon="dots" size="md" />
       <Label>lg</Label>
-      <Dots size="lg" />
+      <Loading icon="dots" size="lg" />
     </Column>
   </Row>
 
   ```jsx
-  <Spinner size="sm" />
-  <Spinner size="md" />
-  <Spinner size="lg" />
+  <Loading size="sm" />
+  <Loading size="md" />
+  <Loading size="lg" />
+  <Loading icon="dots" size="sm" />
+  <Loading icon="dots" size="md" />
+  <Loading icon="dots" size="lg" />
+  ```
+</Example>
+
+## Placement
+
+`placement="absolute"` centers the indicator over its nearest positioned parent.
+
+<Example>
+  <Box position="relative" width="300px" height="160px" border borderRadius>
+    <Loading placement="absolute" size="lg" />
+  </Box>
+
+  ```jsx
+  <Box position="relative" width="300px" height="160px" border borderRadius>
+    <Loading placement="absolute" size="lg" />
+  </Box>
+  ```
+</Example>
+
+## Spinner and Dots
+
+The indicators can also be used on their own. `Spinner` is the shadcn component and is sized with a
+`size-*` class.
+
+<Example>
+  <Row gap="6" alignItems="center">
+    <Spinner />
+    <Spinner className="size-6" />
+    <Dots />
+  </Row>
+
+  ```jsx
+  <Spinner />
+  <Spinner className="size-6" />
+  <Dots />
   ```
 </Example>
 
 ## Component props
 
+`Loading` also accepts `Box` props.
+
 <PropertiesTable>
-  <ResponseField name="size" type="LoadingSize">"sm" | "md" | "lg"</ResponseField>
-  <ResponseField name="icon" type="LoadingIcon">"dots" | "spinner" (default: "spinner")</ResponseField>
-  <ResponseField name="placement" type="LoadingPlacement">"absolute" | "center" | "inline" (default: "inline")</ResponseField>
+  <PropertiesTable.Row name="size" type="string">"sm" | "md" | "lg" (default: "md")</PropertiesTable.Row>
+  <PropertiesTable.Row name="icon" type="string">"dots" | "spinner" (default: "spinner")</PropertiesTable.Row>
+  <PropertiesTable.Row name="placement" type="string">"absolute" | "center" | "inline" (default: "inline")</PropertiesTable.Row>
 </PropertiesTable>

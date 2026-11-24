@@ -22,3 +22,29 @@ export const ACCENT_COLORS = [
   'pink',
   'rose',
 ] as const;
+
+// shadcn theme color tokens plus Zen status extensions (see src/styles/theme.css)
+export const THEME_COLOR_TOKENS = [
+  'background',
+  'foreground',
+  'card',
+  'card-foreground',
+  'popover',
+  'popover-foreground',
+  'primary',
+  'primary-foreground',
+  'secondary',
+  'secondary-foreground',
+  'muted',
+  'muted-foreground',
+  'accent',
+  'accent-foreground',
+  'destructive',
+  'border',
+  'input',
+  'ring',
+  'sidebar',
+  'success',
+  'warning',
+  'info',
+] as const;

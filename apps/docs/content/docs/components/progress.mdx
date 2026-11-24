@@ -1,0 +1,79 @@
+---
+title: Progress
+description: "Displays an indicator showing the completion progress of a task."
+---
+
+import { Box, Example, Progress, ProgressLabel, ProgressValue } from '../../../mdx-components';
+
+Displays an indicator showing the completion progress of a task, typically displayed as a progress
+bar. `Progress` renders its own track and indicator; pass a `value` from 0 to 100.
+
+<Example>
+  <Box width="320px" maxWidth="100%">
+    <Progress value={33} />
+  </Box>
+
+  ```jsx
+  <Progress value={33} />
+  ```
+</Example>
+
+## With label
+
+Children render above the track. Add a `ProgressLabel` and a `ProgressValue`, which shows the
+formatted value.
+
+<Example>
+  <Box width="320px" maxWidth="100%">
+    <Progress value={56}>
+      <ProgressLabel>Upload progress</ProgressLabel>
+      <ProgressValue />
+    </Progress>
+  </Box>
+
+  ```jsx
+  <Progress value={56}>
+    <ProgressLabel>Upload progress</ProgressLabel>
+    <ProgressValue />
+  </Progress>
+  ```
+</Example>
+
+## Indeterminate
+
+Pass `value={null}` when the progress is unknown.
+
+<Example>
+  <Box width="320px" maxWidth="100%">
+    <Progress value={null}>
+      <ProgressLabel>Connecting</ProgressLabel>
+    </Progress>
+  </Box>
+
+  ```jsx
+  <Progress value={null}>
+    <ProgressLabel>Connecting</ProgressLabel>
+  </Progress>
+  ```
+</Example>
+
+## Component props
+
+### Progress
+
+<PropertiesTable>
+  <PropertiesTable.Row name="value" type="number | null">Current value. `null` is indeterminate</PropertiesTable.Row>
+  <PropertiesTable.Row name="min" type="number">Minimum value (default: 0)</PropertiesTable.Row>
+  <PropertiesTable.Row name="max" type="number">Maximum value (default: 100)</PropertiesTable.Row>
+  <PropertiesTable.Row name="format" type="Intl.NumberFormatOptions">Formats the value shown by `ProgressValue`</PropertiesTable.Row>
+  <PropertiesTable.Row name="children" type="ReactNode">Rendered above the track, usually `ProgressLabel` and `ProgressValue`</PropertiesTable.Row>
+</PropertiesTable>
+
+### Other parts
+
+<PropertiesTable>
+  <PropertiesTable.Row name="ProgressLabel" type="Base UI Progress.Label">Accessible label for the bar</PropertiesTable.Row>
+  <PropertiesTable.Row name="ProgressValue" type="Base UI Progress.Value">The formatted value, right-aligned. Accepts a `(formattedValue, value) => ReactNode` render function as children</PropertiesTable.Row>
+  <PropertiesTable.Row name="ProgressTrack" type="Base UI Progress.Track">The track. Rendered by `Progress`; exported for custom compositions</PropertiesTable.Row>
+  <PropertiesTable.Row name="ProgressIndicator" type="Base UI Progress.Indicator">The filled part. Rendered by `Progress`; exported for custom compositions</PropertiesTable.Row>
+</PropertiesTable>

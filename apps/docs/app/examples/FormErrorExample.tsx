@@ -17,7 +17,7 @@ export function FormErrorExample() {
         <TextField />
       </FormField>
       <FormButtons>
-        <FormSubmitButton variant="primary">Submit</FormSubmitButton>
+        <FormSubmitButton>Submit</FormSubmitButton>
       </FormButtons>
     </Form>
   );

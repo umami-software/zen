@@ -9,10 +9,12 @@ interface PaletteSwitcherProps {
 
 const PALETTE_LABELS: Record<Palette, string> = {
   neutral: 'Neutral',
-  slate: 'Slate',
-  gray: 'Gray',
-  zinc: 'Zinc',
   stone: 'Stone',
+  zinc: 'Zinc',
+  mauve: 'Mauve',
+  olive: 'Olive',
+  mist: 'Mist',
+  taupe: 'Taupe',
 };
 
 export function PaletteSwitcher({ className }: PaletteSwitcherProps) {
@@ -28,7 +30,7 @@ export function PaletteSwitcher({ className }: PaletteSwitcherProps) {
   return (
     <div
       className={cn(
-        'inline-flex items-center bg-surface border border-edge rounded-md overflow-hidden',
+        'inline-flex flex-wrap items-center overflow-hidden rounded-md border border-border bg-background',
         className,
       )}
     >
@@ -40,11 +42,13 @@ export function PaletteSwitcher({ className }: PaletteSwitcherProps) {
           aria-label={PALETTE_LABELS[paletteOption]}
           aria-pressed={currentPalette === paletteOption}
           className={cn(
-            'px-3 h-9 flex items-center justify-center cursor-pointer outline-none transition-colors text-sm',
-            '[&:not(:first-child)]:border-l [&:not(:first-child)]:border-edge',
-            'hover:bg-interactive',
-            'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset',
-            currentPalette === paletteOption ? 'bg-interactive text-fg' : 'text-fg-muted',
+            'flex h-9 cursor-pointer items-center justify-center px-3 text-sm outline-none transition-colors',
+            '[&:not(:first-child)]:border-l [&:not(:first-child)]:border-border',
+            'hover:bg-muted',
+            'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset',
+            currentPalette === paletteOption
+              ? 'bg-muted text-foreground'
+              : 'text-muted-foreground',
           )}
         >
           {PALETTE_LABELS[paletteOption]}

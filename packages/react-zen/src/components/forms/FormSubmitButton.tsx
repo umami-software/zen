@@ -1,7 +1,11 @@
+import type { ComponentProps } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { LoadingButton, type LoadingButtonProps } from '../LoadingButton';
+import { Button } from '@/components/ui/button';
+import { Spinner } from '@/components/ui/spinner';
 
-export interface FormSubmitButtonProps extends LoadingButtonProps {
+export interface FormSubmitButtonProps extends Omit<ComponentProps<typeof Button>, 'type'> {
+  /** Overrides the automatic loading state (on while the form is submitting). */
+  loading?: boolean;
   /**
    * Also disable the button while the form is pristine or invalid. Only useful with
    * `mode="onChange"` / `mode="all"`, since RHF's default `onSubmit` mode reports
@@ -11,9 +15,8 @@ export interface FormSubmitButtonProps extends LoadingButtonProps {
 }
 
 export function FormSubmitButton({
-  variant = 'primary',
-  isDisabled,
-  isLoading,
+  disabled,
+  loading,
   requireValid = false,
   children,
   ...props
@@ -22,17 +25,20 @@ export function FormSubmitButton({
     formState: { isDirty, isValid, isSubmitting },
   } = useFormContext();
 
+  const isLoading = loading ?? isSubmitting;
+  const isDisabled =
+    disabled ?? (requireValid ? !isDirty || !isValid || isSubmitting : isSubmitting);
+
   return (
-    <LoadingButton
+    <Button
       {...props}
       type="submit"
-      variant={variant}
-      isDisabled={
-        isDisabled ?? (requireValid ? !isDirty || !isValid || isSubmitting : isSubmitting)
-      }
-      isLoading={isLoading ?? isSubmitting}
+      data-loading={isLoading || undefined}
+      aria-busy={isLoading || undefined}
+      disabled={isDisabled || isLoading}
     >
+      {isLoading && <Spinner data-icon="inline-start" />}
       {children}
-    </LoadingButton>
+    </Button>
   );
 }

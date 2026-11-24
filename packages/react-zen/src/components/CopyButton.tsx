@@ -1,21 +1,27 @@
-import { useEffect, useRef, useState } from 'react';
+import { type ComponentProps, useEffect, useRef, useState } from 'react';
 import { Check, Copy } from '@/components/icons';
-import { Button, type ButtonProps } from './Button';
-import { Icon } from './Icon';
-import { cn } from './lib/tailwind';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 const TIMEOUT = 2000;
 
 export interface CopyButtonProps
-  extends Omit<
-    ButtonProps,
-    'children' | 'onClick' | 'onPress' | 'size' | 'type' | 'value' | 'variant'
-  > {
+  extends Omit<ComponentProps<typeof Button>, 'children' | 'value' | 'type'> {
+  /** Text to copy, or a function that returns it at click time. */
   value?: string | (() => string);
+  /** How long the copied state is shown, in milliseconds. */
   timeout?: number;
 }
 
-export function CopyButton({ value, timeout = TIMEOUT, className, ...props }: CopyButtonProps) {
+export function CopyButton({
+  value,
+  timeout = TIMEOUT,
+  variant = 'ghost',
+  size = 'icon-xs',
+  className,
+  onClick,
+  ...props
+}: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
@@ -25,7 +31,9 @@ export function CopyButton({ value, timeout = TIMEOUT, className, ...props }: Co
     };
   }, []);
 
-  const handleCopy = async () => {
+  const handleClick: CopyButtonProps['onClick'] = async event => {
+    onClick?.(event);
+
     const text = typeof value === 'function' ? value() : value;
     if (text) {
       await navigator.clipboard.writeText(text);
@@ -42,15 +50,15 @@ export function CopyButton({ value, timeout = TIMEOUT, className, ...props }: Co
     <Button
       {...props}
       type="button"
-      variant="quiet"
-      size="icon-xs"
+      variant={variant}
+      size={size}
       data-slot="copy-button"
       data-copied={copied || undefined}
       aria-label={props['aria-label'] ?? 'Copy'}
       className={cn('shrink-0', className)}
-      onClick={handleCopy}
+      onClick={handleClick}
     >
-      <Icon className="animate-icon-pop">{copied ? <Check /> : <Copy />}</Icon>
+      {copied ? <Check className="animate-in zoom-in-50" /> : <Copy />}
     </Button>
   );
 }

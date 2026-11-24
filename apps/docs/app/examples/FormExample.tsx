@@ -25,12 +25,12 @@ export function FormExample() {
       <FormField label="Password" name="password" rules={{ required: 'Password is required' }}>
         <PasswordField autoComplete="off" />
       </FormField>
-      <FormField name="remember_password">
-        <Checkbox>Remember me</Checkbox>
+      <FormField name="remember_password" label="Remember me" orientation="horizontal">
+        <Checkbox />
       </FormField>
       <FormButtons>
         <FormResetButton>Reset</FormResetButton>
-        <FormSubmitButton variant="primary">Submit</FormSubmitButton>
+        <FormSubmitButton>Submit</FormSubmitButton>
       </FormButtons>
     </Form>
   );

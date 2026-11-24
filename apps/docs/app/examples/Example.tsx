@@ -77,7 +77,7 @@ export function Example({
   wrap = 'wrap',
   position = 'relative',
   overflow = 'hidden',
-  backgroundColor = 'surface',
+  backgroundColor = 'background',
   className,
   children,
   ...props
@@ -92,7 +92,7 @@ export function Example({
 
   const toggleButton = (
     <Box position="absolute" className="bottom-2 right-2">
-      <Button size="xs" onPress={() => setShowSecondary(!showSecondary)}>
+      <Button variant="outline" size="xs" onClick={() => setShowSecondary(!showSecondary)}>
         {codeFirst
           ? showSecondary
             ? 'Hide preview'

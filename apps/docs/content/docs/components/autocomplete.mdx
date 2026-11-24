@@ -39,12 +39,12 @@ Free-text input with filtered suggestions.
 
 <Example>
 <Box width="300px">
-  <Autocomplete label="Language" isDisabled defaultValue="TypeScript" items={["JavaScript", "TypeScript"]} />
+  <Autocomplete label="Language" disabled defaultValue="TypeScript" items={["JavaScript", "TypeScript"]} />
 </Box>
 
 ```jsx
 <Box width="300px">
-  <Autocomplete label="Language" isDisabled defaultValue="TypeScript" items={["JavaScript", "TypeScript"]} />
+  <Autocomplete label="Language" disabled defaultValue="TypeScript" items={["JavaScript", "TypeScript"]} />
 </Box>
 ```
 </Example>
@@ -56,17 +56,17 @@ Free-text input with filtered suggestions.
 | Prop | Type | Purpose |
 | --- | --- | --- |
 | `items` | `readonly string[]` | Suggestions to filter and display |
-| `label` | `ReactNode` | Accessible input label |
+| `label` | `ReactNode` | Input label |
+| `placeholder` | `string` | Input placeholder |
 | `value` / `defaultValue` | `string` | Controlled or initial text |
-| `onChange` | `(value: string) => void` | Called after `onValueChange`, and only for changes that were not canceled |
-| `onValueChange` | Base UI callback | Receives the value and cancellable event details; runs first |
-| `isDisabled` | `boolean` | Disables the input (`disabled` is also accepted) |
+| `onValueChange` | `(value: string, details) => void` | Base UI callback; receives the new text and cancellable event details |
+| `disabled` | `boolean` | Disables the input |
 | `showClear` | `boolean` | Shows a clear button while the input has a value |
 | `mode` | `'list' \| 'both' \| 'inline' \| 'none'` | Filtering and inline completion behavior |
 | `inputProps` | Base UI Input props | Input attributes, including `aria-label` when no label is shown |
-| `positionerProps` | Base UI Positioner props | Popup placement |
+| `positionerProps` | Base UI Positioner props | Popup placement (`side`, `align`, `sideOffset`) |
 | `renderItem` | `(item: string) => ReactNode` | Custom suggestion content |
-| `emptyMessage` | `ReactNode` | Content shown when no suggestions match |
+| `emptyMessage` | `ReactNode` | Content shown when no suggestions match (default: `"No suggestions found."`) |
 
 The parts expose `data-slot` attributes (`autocomplete`, `autocomplete-input`, `autocomplete-clear`,
 `autocomplete-status`, `autocomplete-positioner`, `autocomplete-content`, `autocomplete-list`,

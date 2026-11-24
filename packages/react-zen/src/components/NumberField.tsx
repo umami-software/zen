@@ -1,56 +1,33 @@
 import { NumberField as BaseNumberField } from '@base-ui/react/number-field';
-import { forwardRef } from 'react';
-import { Minus, Plus } from '@/components/icons';
-import { useFieldId } from './hooks/useFieldId';
-import { Icon } from './Icon';
-import { Label } from './Label';
-import { cn } from './lib/tailwind';
-import { inputField } from './variants';
+import { MinusIcon, PlusIcon } from 'lucide-react';
+import { forwardRef, type ReactNode } from 'react';
+import { useFieldId } from '@/components/hooks/useFieldId';
+import { buttonVariants } from '@/components/ui/button';
+import { FieldLabel } from '@/components/ui/field';
+import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
+import { cn } from '@/lib/utils';
 
-export interface NumberFieldProps extends Omit<BaseNumberField.Root.Props, 'onValueChange'> {
-  label?: string;
+export interface NumberFieldProps extends BaseNumberField.Root.Props {
+  label?: ReactNode;
   placeholder?: string;
-  minValue?: number;
-  maxValue?: number;
-  isDisabled?: boolean;
-  isReadOnly?: boolean;
-  isRequired?: boolean;
-  formatOptions?: Intl.NumberFormatOptions;
-  onChange?: (value: number | null) => void;
   /** Labels announced for the stepper buttons. */
   decrementLabel?: string;
   incrementLabel?: string;
 }
 
-const stepperClasses = [
-  'flex items-center justify-center self-stretch px-3 shrink-0',
-  'cursor-pointer select-none bg-transparent text-fg',
-  'hover:bg-interactive active:bg-interactive-hover',
-  'data-disabled:text-fg-disabled data-disabled:cursor-default data-disabled:hover:bg-transparent',
-  'disabled:text-fg-disabled disabled:cursor-default disabled:hover:bg-transparent',
-];
+const stepperClassName = cn(
+  buttonVariants({ variant: 'ghost', size: 'icon-xs' }),
+  'rounded-[calc(var(--radius)-5px)] text-muted-foreground',
+);
 
 export const NumberField = forwardRef<HTMLDivElement, NumberFieldProps>(function NumberField(
   {
     label,
     placeholder,
-    minValue,
-    maxValue,
-    isDisabled,
-    isReadOnly,
-    isRequired,
-    formatOptions,
-    onChange,
     decrementLabel = 'Decrease',
     incrementLabel = 'Increase',
     className,
     id,
-    min,
-    max,
-    disabled,
-    readOnly,
-    required,
-    format,
     ...props
   },
   ref,
@@ -63,43 +40,37 @@ export const NumberField = forwardRef<HTMLDivElement, NumberFieldProps>(function
       ref={ref}
       id={fieldId}
       data-slot="number-field"
-      min={minValue ?? min}
-      max={maxValue ?? max}
-      disabled={isDisabled ?? disabled}
-      readOnly={isReadOnly ?? readOnly}
-      required={isRequired ?? required}
-      format={formatOptions ?? format}
-      onValueChange={value => onChange?.(value)}
-      className={cn('flex flex-col gap-2', className)}
+      className={cn(
+        'group/field flex w-full flex-col gap-3 data-disabled:[&_[data-slot=field-label]]:opacity-50',
+        className,
+      )}
     >
-      {label && <Label htmlFor={fieldId}>{label}</Label>}
+      {label && <FieldLabel htmlFor={fieldId}>{label}</FieldLabel>}
       <BaseNumberField.Group
-        data-slot="number-field-group"
-        className={cn(inputField(), 'p-0 px-0 gap-0 overflow-hidden')}
+        render={<InputGroup data-disabled={props.disabled ? 'true' : undefined} />}
       >
-        <BaseNumberField.Decrement
-          aria-label={decrementLabel}
-          data-slot="number-field-decrement"
-          className={cn(stepperClasses, 'border-r border-edge')}
-        >
-          <Icon size="sm">
-            <Minus />
-          </Icon>
-        </BaseNumberField.Decrement>
+        <InputGroupAddon align="inline-start">
+          <BaseNumberField.Decrement
+            aria-label={decrementLabel}
+            data-slot="number-field-decrement"
+            className={stepperClassName}
+          >
+            <MinusIcon />
+          </BaseNumberField.Decrement>
+        </InputGroupAddon>
         <BaseNumberField.Input
           placeholder={placeholder}
-          data-slot="number-field-input"
-          className="w-full min-w-0 text-sm text-center tabular-nums bg-transparent py-2 px-3 outline-none placeholder:text-fg-muted"
+          render={<InputGroupInput className="text-center tabular-nums" />}
         />
-        <BaseNumberField.Increment
-          aria-label={incrementLabel}
-          data-slot="number-field-increment"
-          className={cn(stepperClasses, 'border-l border-edge')}
-        >
-          <Icon size="sm">
-            <Plus />
-          </Icon>
-        </BaseNumberField.Increment>
+        <InputGroupAddon align="inline-end">
+          <BaseNumberField.Increment
+            aria-label={incrementLabel}
+            data-slot="number-field-increment"
+            className={stepperClassName}
+          >
+            <PlusIcon />
+          </BaseNumberField.Increment>
+        </InputGroupAddon>
       </BaseNumberField.Group>
     </BaseNumberField.Root>
   );

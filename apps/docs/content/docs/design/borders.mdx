@@ -5,32 +5,35 @@ description: "Borders are always solid with a default border color."
 
 import { Example, ExampleBox, Label } from '../../../mdx-components';
 
-Borders are always solid with a default border color. You can control the `position`, `radius`, and `color` of borders.
+Borders are always solid and use the `border` theme token by default. You can control the `position`, `width`, `radius`, and `color` of borders.
 
 ## Border position
 
 <Example gap="5">
   <Label>Default</Label>
-  <ExampleBox border backgroundColor="surface-raised" borderRadius="none" />
+  <ExampleBox border backgroundColor="muted" borderRadius="none" />
   <Label>Top</Label>
-  <ExampleBox border="top" backgroundColor="surface-raised" borderRadius="none" />
+  <ExampleBox border="top" backgroundColor="muted" borderRadius="none" />
   <Label>Right</Label>
-  <ExampleBox border="right" backgroundColor="surface-raised" borderRadius="none" />
+  <ExampleBox border="right" backgroundColor="muted" borderRadius="none" />
   <Label>Bottom</Label>
-  <ExampleBox border="bottom" backgroundColor="surface-raised" borderRadius="none" />
+  <ExampleBox border="bottom" backgroundColor="muted" borderRadius="none" />
   <Label>Left</Label>
-  <ExampleBox border="left" backgroundColor="surface-raised" borderRadius="none" />
+  <ExampleBox border="left" backgroundColor="muted" borderRadius="none" />
 
   ```jsx
-  <ExampleBox border backgroundColor="surface-raised" borderRadius="none" />
-  <ExampleBox border="top" backgroundColor="surface-raised" borderRadius="none" />
-  <ExampleBox border="right" backgroundColor="surface-raised" borderRadius="none" />
-  <ExampleBox border="bottom" backgroundColor="surface-raised" borderRadius="none" />
-  <ExampleBox border="left" backgroundColor="surface-raised" borderRadius="none" />
+  <ExampleBox border backgroundColor="muted" borderRadius="none" />
+  <ExampleBox border="top" backgroundColor="muted" borderRadius="none" />
+  <ExampleBox border="right" backgroundColor="muted" borderRadius="none" />
+  <ExampleBox border="bottom" backgroundColor="muted" borderRadius="none" />
+  <ExampleBox border="left" backgroundColor="muted" borderRadius="none" />
   ```
 </Example>
 
 ## Border radius
+
+Radius values are Tailwind's `rounded-*` utilities, which Zen derives from the `--radius` variable.
+`lg` equals `--radius`; see [Customization](/docs/design/customization#radius).
 
 <Example gap="5">
   <Label>sm</Label>
@@ -78,27 +81,30 @@ Borders are always solid with a default border color. You can control the `posit
 
 ## Border color
 
+Use a theme token (`border`, `input`, `ring`, `primary`, `destructive`, `success`, `warning`, `info`)
+or a Tailwind palette color.
+
 <Example gap="5" direction="row">
   <ExampleBox />
+  <ExampleBox borderColor="input" />
   <ExampleBox borderColor="primary" />
-  <ExampleBox borderColor="red" />
-  <ExampleBox borderColor="blue" />
-  <ExampleBox borderColor="green" />
+  <ExampleBox borderColor="destructive" />
+  <ExampleBox borderColor="blue-500" />
 
   ```jsx
   <ExampleBox />
+  <ExampleBox borderColor="input" />
   <ExampleBox borderColor="primary" />
-  <ExampleBox borderColor="red" />
-  <ExampleBox borderColor="blue" />
-  <ExampleBox borderColor="green" />
+  <ExampleBox borderColor="destructive" />
+  <ExampleBox borderColor="blue-500" />
   ```
 </Example>
 
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="border" type="Responsive<Border>">true | "top" | "right" | "bottom" | "left" | "none"</ResponseField>
-  <ResponseField name="borderWidth" type="Responsive<BorderWidth>">"sm" | "md" | "lg" | "xl"</ResponseField>
-  <ResponseField name="borderRadius" type="Responsive<BorderRadius>">true | "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full"</ResponseField>
-  <ResponseField name="borderColor" type="BorderColor">SemanticColor | ColorName | TailwindColor</ResponseField>
+  <PropertiesTable.Row name="border" type="Responsive<Border>">true | "top" | "right" | "bottom" | "left" | "none"</PropertiesTable.Row>
+  <PropertiesTable.Row name="borderWidth" type="Responsive<BorderWidth>">"sm" | "md" | "lg" | "xl"</PropertiesTable.Row>
+  <PropertiesTable.Row name="borderRadius" type="Responsive<BorderRadius>">true | "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full"</PropertiesTable.Row>
+  <PropertiesTable.Row name="borderColor" type="BorderColor">"border" | "input" | "ring" | "primary" | "destructive" | "success" | "warning" | "info" | PaletteColor | true</PropertiesTable.Row>
 </PropertiesTable>

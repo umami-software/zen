@@ -1,3 +1,5 @@
+export { cn } from 'cn';
+
 export function debounce(func: (...args: any[]) => void, delay: number) {
   let timer: number;
 

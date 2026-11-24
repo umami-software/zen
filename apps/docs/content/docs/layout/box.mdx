@@ -31,10 +31,10 @@ A versatile layout primitive that serves as the foundation for building UI. Box 
 
 ## Responsive sizing
 
-Use Tailwind preset values for width and height with responsive breakpoints. Resize your browser window to see this box change width: full width on mobile, half width on medium screens, and one-third on large screens.
+Use Tailwind sizing values for width and height with responsive breakpoints. Resize your browser window to see this box change width: full width on mobile, half width on medium screens, and one-third on large screens.
 
 <Example alignItems="stretch">
-  <Box width={{ base: 'full', md: '1/2', lg: '1/3' }} padding="4" backgroundColor="surface-raised" border borderRadius>
+  <Box width={{ base: 'full', md: '1/2', lg: '1/3' }} padding="4" backgroundColor="muted" border borderRadius>
     Responsive width
   </Box>
 
@@ -42,7 +42,7 @@ Use Tailwind preset values for width and height with responsive breakpoints. Res
   <Box
     width={{ base: 'full', md: '1/2', lg: '1/3' }}
     padding="4"
-    backgroundColor="surface-raised"
+    backgroundColor="muted"
     border
     borderRadius>
     Responsive width
@@ -89,7 +89,7 @@ Click to focus, then hover and click to see all states.
   <Box
     tabIndex={0}
     padding="4"
-    backgroundColor="surface"
+    backgroundColor="background"
     border
     borderRadius
     cursor="pointer"
@@ -104,7 +104,7 @@ Click to focus, then hover and click to see all states.
   <Box
     tabIndex={0}
     padding="4"
-    backgroundColor="surface"
+    backgroundColor="background"
     border
     borderRadius
     cursor="pointer"
@@ -117,64 +117,127 @@ Click to focus, then hover and click to see all states.
   ```
 </Example>
 
+## Colors
+
+Color props take a theme token name or a Tailwind palette color. The value is used as-is to build
+the class: `backgroundColor="muted"` becomes `bg-muted`, `color="muted-foreground"` becomes
+`text-muted-foreground` and `borderColor="red-500"` becomes `border-red-500`. Passing `true` uses the
+default token (`text-foreground`, `bg-muted`, `border-border`).
+
+| Prop | Theme tokens |
+|------|--------------|
+| `color` | `foreground`, `muted-foreground`, `primary`, `primary-foreground`, `secondary-foreground`, `accent-foreground`, `background`, `card-foreground`, `popover-foreground`, `destructive`, `success`, `warning`, `info` |
+| `backgroundColor` | `background`, `card`, `popover`, `primary`, `secondary`, `muted`, `accent`, `foreground`, `sidebar`, `destructive`, `success`, `warning`, `info` |
+| `borderColor` | `border`, `input`, `ring`, `primary`, `destructive`, `success`, `warning`, `info` |
+
+Any Tailwind palette color also works, either as a name (`"blue"`, the 500 shade) or with a shade
+(`"blue-100"`), as does `"transparent"`.
+
+<Example>
+  <Box padding="4" backgroundColor="primary" color="primary-foreground" borderRadius>
+    Primary
+  </Box>
+  <Box padding="4" backgroundColor="muted" color="muted-foreground" borderRadius>
+    Muted
+  </Box>
+  <Box padding="4" border borderColor="destructive" color="destructive" borderRadius>
+    Destructive
+  </Box>
+
+  ```jsx
+  <Box padding="4" backgroundColor="primary" color="primary-foreground" borderRadius>
+    Primary
+  </Box>
+  <Box padding="4" backgroundColor="muted" color="muted-foreground" borderRadius>
+    Muted
+  </Box>
+  <Box padding="4" border borderColor="destructive" color="destructive" borderRadius>
+    Destructive
+  </Box>
+  ```
+</Example>
+
+## Dark theme
+
+`theme="dark"` adds the `dark` class to the box, so everything inside it uses the dark-mode tokens
+regardless of the page theme.
+
+<Example>
+  <Box theme="dark" padding="4" backgroundColor="background" color="foreground" border borderRadius>
+    Always dark
+  </Box>
+
+  ```jsx
+  <Box theme="dark" padding="4" backgroundColor="background" color="foreground" border borderRadius>
+    Always dark
+  </Box>
+  ```
+</Example>
+
 ## Component props
 
 <PropertiesTable>
-  <ResponseField name="display" type="Responsive<Display>">"none" | "inline" | "inline-block" | "block"</ResponseField>
-  <ResponseField name="position" type="Responsive<Position>">"static" | "relative" | "absolute" | "fixed" | "sticky"</ResponseField>
-  <ResponseField name="color" type="FontColor">SemanticColor | ColorName | TailwindColor</ResponseField>
-  <ResponseField name="backgroundColor" type="BackgroundColor">SemanticColor | SurfaceColor | ColorName | TailwindColor</ResponseField>
-  <ResponseField name="fontSize" type="Responsive<FontSize>">"xs" | "sm" | "base" | "lg" | "xl" | "2xl" | ... | "9xl"</ResponseField>
-  <ResponseField name="fontWeight" type="Responsive<FontWeight>">"thin" | "light" | "normal" | "medium" | "semibold" | "bold" | ...</ResponseField>
-  <ResponseField name="textAlign" type="Responsive<TextAlign>">"left" | "center" | "right"</ResponseField>
-  <ResponseField name="border" type="Responsive<Border>">true | "top" | "right" | "bottom" | "left" | "none"</ResponseField>
-  <ResponseField name="borderColor" type="BorderColor">SemanticColor | ColorName | TailwindColor</ResponseField>
-  <ResponseField name="borderWidth" type="Responsive<BorderWidth>">"sm" | "md" | "lg" | "xl"</ResponseField>
-  <ResponseField name="borderRadius" type="Responsive<BorderRadius>">true | "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full"</ResponseField>
-  <ResponseField name="shadow" type="Responsive<BoxShadow>">true | "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "inner"</ResponseField>
-  <ResponseField name="padding" type="Responsive<Padding>">true | Spacing</ResponseField>
-  <ResponseField name="paddingX" type="Responsive<Padding>">true | Spacing</ResponseField>
-  <ResponseField name="paddingY" type="Responsive<Padding>">true | Spacing</ResponseField>
-  <ResponseField name="paddingTop" type="Responsive<Padding>">Spacing</ResponseField>
-  <ResponseField name="paddingRight" type="Responsive<Padding>">Spacing</ResponseField>
-  <ResponseField name="paddingBottom" type="Responsive<Padding>">Spacing</ResponseField>
-  <ResponseField name="paddingLeft" type="Responsive<Padding>">Spacing</ResponseField>
-  <ResponseField name="margin" type="Responsive<Spacing>">"0" | "1" | "2" | "3" | "4" | ... or negative</ResponseField>
-  <ResponseField name="marginX" type="Responsive<Spacing>">Spacing</ResponseField>
-  <ResponseField name="marginY" type="Responsive<Spacing>">Spacing</ResponseField>
-  <ResponseField name="marginTop" type="Responsive<Spacing>">Spacing</ResponseField>
-  <ResponseField name="marginRight" type="Responsive<Spacing>">Spacing</ResponseField>
-  <ResponseField name="marginBottom" type="Responsive<Spacing>">Spacing</ResponseField>
-  <ResponseField name="marginLeft" type="Responsive<Spacing>">Spacing</ResponseField>
-  <ResponseField name="width" type="Responsive<Width | string>">Spacing | Fraction | "auto" | "full" | "screen" | "min" | "max" | "fit" | custom CSS</ResponseField>
-  <ResponseField name="minWidth" type="Responsive<MinWidth | string>">Spacing | "full" | "min" | "max" | "fit" | custom CSS</ResponseField>
-  <ResponseField name="maxWidth" type="Responsive<MaxWidth | string>">Spacing | "none" | "xs"-"7xl" | "full" | "prose" | "screen-*" | custom CSS</ResponseField>
-  <ResponseField name="height" type="Responsive<Height | string>">Spacing | Fraction | "auto" | "full" | "screen" | "min" | "max" | "fit" | custom CSS</ResponseField>
-  <ResponseField name="minHeight" type="Responsive<MinHeight | string>">Spacing | "full" | "screen" | "min" | "max" | "fit" | custom CSS</ResponseField>
-  <ResponseField name="maxHeight" type="Responsive<MaxHeight | string>">Spacing | "none" | "full" | "screen" | "min" | "max" | "fit" | custom CSS</ResponseField>
-  <ResponseField name="top" type="string">CSS value (inline style)</ResponseField>
-  <ResponseField name="right" type="string">CSS value (inline style)</ResponseField>
-  <ResponseField name="bottom" type="string">CSS value (inline style)</ResponseField>
-  <ResponseField name="left" type="string">CSS value (inline style)</ResponseField>
-  <ResponseField name="overflow" type="Responsive<Overflow>">"visible" | "hidden" | "clip" | "scroll" | "auto"</ResponseField>
-  <ResponseField name="overflowX" type="Responsive<Overflow>">"visible" | "hidden" | "clip" | "scroll" | "auto"</ResponseField>
-  <ResponseField name="overflowY" type="Responsive<Overflow>">"visible" | "hidden" | "clip" | "scroll" | "auto"</ResponseField>
-  <ResponseField name="cursor" type="Responsive<Cursor>">"auto" | "default" | "pointer" | "wait" | "text" | "move" | "not-allowed" | ...</ResponseField>
-  <ResponseField name="opacity" type="Responsive<Opacity>">"0" | "5" | "10" | "15" | ... | "95" | "100"</ResponseField>
-  <ResponseField name="pointerEvents" type="Responsive<PointerEvents>">"none" | "auto"</ResponseField>
-  <ResponseField name="alignSelf" type="Responsive<AlignSelf>">"center" | "start" | "end" | "stretch" | "baseline" | ...</ResponseField>
-  <ResponseField name="justifySelf" type="Responsive<JustifySelf>">"center" | "start" | "end" | "stretch" | ...</ResponseField>
-  <ResponseField name="flexBasis" type="string">CSS value (inline style)</ResponseField>
-  <ResponseField name="flexGrow" type="string | number">Inline style</ResponseField>
-  <ResponseField name="flexShrink" type="string | number">Inline style</ResponseField>
-  <ResponseField name="gridArea" type="string">CSS value (inline style)</ResponseField>
-  <ResponseField name="gridRow" type="string">CSS value (inline style)</ResponseField>
-  <ResponseField name="gridColumn" type="string">CSS value (inline style)</ResponseField>
-  <ResponseField name="order" type="number">Inline style</ResponseField>
-  <ResponseField name="zIndex" type="number">Inline style</ResponseField>
-  <ResponseField name="hover" type="StateStyles">{"{ color?, backgroundColor?, borderColor?, opacity? }"}</ResponseField>
-  <ResponseField name="focus" type="StateStyles">{"{ color?, backgroundColor?, borderColor?, opacity? }"}</ResponseField>
-  <ResponseField name="active" type="StateStyles">{"{ color?, backgroundColor?, borderColor?, opacity? }"}</ResponseField>
-  <ResponseField name="as" type="string">HTML element to render</ResponseField>
-  <ResponseField name="render" type="RenderProp">Render prop for polymorphism</ResponseField>
+  <PropertiesTable.Row name="display" type="Responsive<Display>">"none" | "inline" | "inline-block" | "block"</PropertiesTable.Row>
+  <PropertiesTable.Row name="spaceX" type="Responsive<Spacing>">Horizontal space between children</PropertiesTable.Row>
+  <PropertiesTable.Row name="spaceY" type="Responsive<Spacing>">Vertical space between children</PropertiesTable.Row>
+  <PropertiesTable.Row name="position" type="Responsive<Position>">"static" | "relative" | "absolute" | "fixed" | "sticky"</PropertiesTable.Row>
+  <PropertiesTable.Row name="color" type="FontColor">true | TextColorToken | ColorName | TailwindColor | "transparent"</PropertiesTable.Row>
+  <PropertiesTable.Row name="backgroundColor" type="BackgroundColor">true | BackgroundColorToken | ColorName | TailwindColor | "transparent"</PropertiesTable.Row>
+  <PropertiesTable.Row name="textAlign" type="Responsive<TextAlign>">"left" | "center" | "right"</PropertiesTable.Row>
+  <PropertiesTable.Row name="border" type="Responsive<Border>">true | "top" | "right" | "bottom" | "left" | "none"</PropertiesTable.Row>
+  <PropertiesTable.Row name="borderColor" type="BorderColor">true | BorderColorToken | ColorName | TailwindColor | "transparent"</PropertiesTable.Row>
+  <PropertiesTable.Row name="borderWidth" type="Responsive<BorderWidth>">"sm" | "md" | "lg" | "xl"</PropertiesTable.Row>
+  <PropertiesTable.Row name="borderRadius" type="Responsive<BorderRadius>">true | "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full"</PropertiesTable.Row>
+  <PropertiesTable.Row name="shadow" type="Responsive<BoxShadow>">true | "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "inner"</PropertiesTable.Row>
+  <PropertiesTable.Row name="padding" type="Responsive<Padding>">true | Spacing</PropertiesTable.Row>
+  <PropertiesTable.Row name="paddingX" type="Responsive<Padding>">true | Spacing</PropertiesTable.Row>
+  <PropertiesTable.Row name="paddingY" type="Responsive<Padding>">true | Spacing</PropertiesTable.Row>
+  <PropertiesTable.Row name="paddingTop" type="Responsive<Padding>">true | Spacing</PropertiesTable.Row>
+  <PropertiesTable.Row name="paddingRight" type="Responsive<Padding>">true | Spacing</PropertiesTable.Row>
+  <PropertiesTable.Row name="paddingBottom" type="Responsive<Padding>">true | Spacing</PropertiesTable.Row>
+  <PropertiesTable.Row name="paddingLeft" type="Responsive<Padding>">true | Spacing</PropertiesTable.Row>
+  <PropertiesTable.Row name="margin" type="Responsive<Margin>">Spacing | NegativeSpacing | "auto"</PropertiesTable.Row>
+  <PropertiesTable.Row name="marginX" type="Responsive<Margin>">Spacing | NegativeSpacing | "auto"</PropertiesTable.Row>
+  <PropertiesTable.Row name="marginY" type="Responsive<Margin>">Spacing | NegativeSpacing | "auto"</PropertiesTable.Row>
+  <PropertiesTable.Row name="marginTop" type="Responsive<Margin>">Spacing | NegativeSpacing | "auto"</PropertiesTable.Row>
+  <PropertiesTable.Row name="marginRight" type="Responsive<Margin>">Spacing | NegativeSpacing | "auto"</PropertiesTable.Row>
+  <PropertiesTable.Row name="marginBottom" type="Responsive<Margin>">Spacing | NegativeSpacing | "auto"</PropertiesTable.Row>
+  <PropertiesTable.Row name="marginLeft" type="Responsive<Margin>">Spacing | NegativeSpacing | "auto"</PropertiesTable.Row>
+  <PropertiesTable.Row name="width" type="Responsive<Width | string>">Spacing | Fraction | "auto" | "full" | "screen" | "min" | "max" | "fit" | custom CSS</PropertiesTable.Row>
+  <PropertiesTable.Row name="minWidth" type="Responsive<MinWidth | string>">Spacing | "full" | "min" | "max" | "fit" | custom CSS</PropertiesTable.Row>
+  <PropertiesTable.Row name="maxWidth" type="Responsive<MaxWidth | string>">Spacing | "none" | "xs"-"7xl" | "full" | "prose" | "screen-*" | custom CSS</PropertiesTable.Row>
+  <PropertiesTable.Row name="height" type="Responsive<Height | string>">Spacing | Fraction | "auto" | "full" | "screen" | "min" | "max" | "fit" | custom CSS</PropertiesTable.Row>
+  <PropertiesTable.Row name="minHeight" type="Responsive<MinHeight | string>">Spacing | "full" | "screen" | "min" | "max" | "fit" | custom CSS</PropertiesTable.Row>
+  <PropertiesTable.Row name="maxHeight" type="Responsive<MaxHeight | string>">Spacing | "none" | "full" | "screen" | "min" | "max" | "fit" | custom CSS</PropertiesTable.Row>
+  <PropertiesTable.Row name="top" type="string">CSS value (inline style)</PropertiesTable.Row>
+  <PropertiesTable.Row name="right" type="string">CSS value (inline style)</PropertiesTable.Row>
+  <PropertiesTable.Row name="bottom" type="string">CSS value (inline style)</PropertiesTable.Row>
+  <PropertiesTable.Row name="left" type="string">CSS value (inline style)</PropertiesTable.Row>
+  <PropertiesTable.Row name="overflow" type="Responsive<Overflow>">"visible" | "hidden" | "clip" | "scroll" | "auto"</PropertiesTable.Row>
+  <PropertiesTable.Row name="overflowX" type="Responsive<Overflow>">"visible" | "hidden" | "clip" | "scroll" | "auto"</PropertiesTable.Row>
+  <PropertiesTable.Row name="overflowY" type="Responsive<Overflow>">"visible" | "hidden" | "clip" | "scroll" | "auto"</PropertiesTable.Row>
+  <PropertiesTable.Row name="cursor" type="Responsive<Cursor>">"auto" | "default" | "pointer" | "wait" | "text" | "move" | "not-allowed" | ...</PropertiesTable.Row>
+  <PropertiesTable.Row name="opacity" type="Responsive<Opacity>">"0" | "5" | "10" | "15" | ... | "95" | "100"</PropertiesTable.Row>
+  <PropertiesTable.Row name="pointerEvents" type="Responsive<PointerEvents>">"none" | "auto"</PropertiesTable.Row>
+  <PropertiesTable.Row name="alignContent" type="Responsive<AlignContent>">"center" | "start" | "end" | "space-between" | "space-around" | "stretch" | ...</PropertiesTable.Row>
+  <PropertiesTable.Row name="alignItems" type="Responsive<AlignItems>">"center" | "start" | "end" | "stretch" | "baseline" | ...</PropertiesTable.Row>
+  <PropertiesTable.Row name="alignSelf" type="Responsive<AlignSelf>">"center" | "start" | "end" | "stretch" | "baseline" | ...</PropertiesTable.Row>
+  <PropertiesTable.Row name="justifyContent" type="Responsive<JustifyContent>">"center" | "start" | "end" | "space-between" | "space-around" | "space-evenly" | ...</PropertiesTable.Row>
+  <PropertiesTable.Row name="justifyItems" type="Responsive<JustifyItems>">"center" | "start" | "end" | "stretch" | ...</PropertiesTable.Row>
+  <PropertiesTable.Row name="justifySelf" type="Responsive<JustifySelf>">"center" | "start" | "end" | "stretch" | ...</PropertiesTable.Row>
+  <PropertiesTable.Row name="flexBasis" type="string">CSS value (inline style)</PropertiesTable.Row>
+  <PropertiesTable.Row name="flexGrow" type="string | number">Inline style</PropertiesTable.Row>
+  <PropertiesTable.Row name="flexShrink" type="string | number">Inline style</PropertiesTable.Row>
+  <PropertiesTable.Row name="fill" type="boolean">Sets `flex: 1` so the box fills the available space</PropertiesTable.Row>
+  <PropertiesTable.Row name="gridArea" type="string">CSS value (inline style)</PropertiesTable.Row>
+  <PropertiesTable.Row name="gridRow" type="string">CSS value (inline style)</PropertiesTable.Row>
+  <PropertiesTable.Row name="gridColumn" type="string">CSS value (inline style)</PropertiesTable.Row>
+  <PropertiesTable.Row name="order" type="number">Inline style</PropertiesTable.Row>
+  <PropertiesTable.Row name="zIndex" type="number">Inline style</PropertiesTable.Row>
+  <PropertiesTable.Row name="theme" type="'dark'">Scopes dark-mode tokens to this subtree (adds the `dark` class)</PropertiesTable.Row>
+  <PropertiesTable.Row name="hover" type="StateStyles">{"{ color?, backgroundColor?, borderColor?, opacity? }"}</PropertiesTable.Row>
+  <PropertiesTable.Row name="focus" type="StateStyles">{"{ color?, backgroundColor?, borderColor?, opacity? }"}</PropertiesTable.Row>
+  <PropertiesTable.Row name="active" type="StateStyles">{"{ color?, backgroundColor?, borderColor?, opacity? }"}</PropertiesTable.Row>
+  <PropertiesTable.Row name="as" type="string">HTML element to render</PropertiesTable.Row>
+  <PropertiesTable.Row name="render" type="RenderProp">Render prop for polymorphism</PropertiesTable.Row>
 </PropertiesTable>
