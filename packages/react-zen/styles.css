@@ -1202,6 +1202,19 @@
 }
 
 
+/* ./src/styles/zen.css */
+/*
+ * Zen adjustments to the shadcn components. The files in src/components/ui stay
+ * unmodified so they can be re-pulled from shadcn; style decisions that differ
+ * from shadcn belong here instead.
+ *
+ * Rules here should be unlayered: unlayered CSS outranks Tailwind's
+ * `@layer utilities`, so they win over the utility classes in the ui files.
+ *
+ * There are currently no adjustments: Zen uses shadcn's styles as-is.
+ */
+
+
 /* src\components\Dots.css */
 .zen-dot {
   border-radius: 100%;

@@ -2,6 +2,7 @@
 @import "tailwindcss";
 @import "./theme.css";
 @import "./shadcn.css";
+@import "./zen.css";
 @import "../components/Dots.css";
 
 @source "../../src/components";

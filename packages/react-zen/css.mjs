@@ -3,11 +3,17 @@ import { execSync } from 'node:child_process';
 import { glob } from 'glob';
 
 // CSS files to concatenate for the minimal build (for apps that run Tailwind):
-// theme tokens, the vendored shadcn utilities/variants, then component CSS.
+// theme tokens, the vendored shadcn utilities/variants, Zen's adjustments to the
+// shadcn components, then component CSS.
 // Component stylesheets are discovered automatically so new components can't be
 // forgotten. theme.css must come first: it holds the only @import.
 const componentCssFiles = (await glob('./src/components/*.css')).sort();
-const cssFiles = ['./src/styles/theme.css', './src/styles/shadcn.css', ...componentCssFiles];
+const cssFiles = [
+  './src/styles/theme.css',
+  './src/styles/shadcn.css',
+  './src/styles/zen.css',
+  ...componentCssFiles,
+];
 
 async function buildMinimalCSS() {
   const contents = await Promise.all(

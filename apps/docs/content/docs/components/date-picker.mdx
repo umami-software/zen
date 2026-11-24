@@ -3,13 +3,15 @@ title: Date Picker
 description: "A date picker allows a user to select a date from a popup calendar."
 ---
 
-import { DatePicker, DatePickerExample, Example } from '../../../mdx-components';
+import { Box, DatePicker, DatePickerExample, Example } from '../../../mdx-components';
 
 A date picker allows a user to select a date from a popup calendar. It combines the shadcn
 `Popover`, `Calendar` and an outline `Button` trigger.
 
 <Example>
-  <DatePicker label="Date" />
+  <Box width="300px" maxWidth="100%">
+    <DatePicker label="Date" />
+  </Box>
 
   ```jsx
   <DatePicker label="Date" />
@@ -19,7 +21,9 @@ A date picker allows a user to select a date from a popup calendar. It combines 
 ## Default value
 
 <Example>
-  <DatePicker label="Date" defaultValue={new Date()} />
+  <Box width="300px" maxWidth="100%">
+    <DatePicker label="Date" defaultValue={new Date()} />
+  </Box>
 
   ```jsx
   <DatePicker label="Date" defaultValue={new Date()} />
@@ -31,7 +35,9 @@ A date picker allows a user to select a date from a popup calendar. It combines 
 Dates are formatted with `Intl.DateTimeFormat` using the `locale` and `formatOptions` props.
 
 <Example>
-  <DatePicker label="Date" defaultValue={new Date()} formatOptions={{ dateStyle: 'full' }} />
+  <Box width="300px" maxWidth="100%">
+    <DatePicker label="Date" defaultValue={new Date()} formatOptions={{ dateStyle: 'full' }} />
+  </Box>
 
   ```jsx
   <DatePicker label="Date" defaultValue={new Date()} formatOptions={{ dateStyle: 'full' }} />
@@ -43,11 +49,13 @@ Dates are formatted with `Intl.DateTimeFormat` using the `locale` and `formatOpt
 Dates outside `min` and `max` are disabled in the calendar.
 
 <Example>
-  <DatePicker
-    label="Date"
-    min={new Date(Date.now() - 7 * 86400000)}
-    max={new Date(Date.now() + 7 * 86400000)}
-  />
+  <Box width="300px" maxWidth="100%">
+    <DatePicker
+      label="Date"
+      min={new Date(Date.now() - 7 * 86400000)}
+      max={new Date(Date.now() + 7 * 86400000)}
+    />
+  </Box>
 
   ```jsx
   <DatePicker
@@ -61,7 +69,9 @@ Dates outside `min` and `max` are disabled in the calendar.
 ## Disabled
 
 <Example>
-  <DatePicker label="Date" disabled />
+  <Box width="300px" maxWidth="100%">
+    <DatePicker label="Date" disabled />
+  </Box>
 
   ```jsx
   <DatePicker label="Date" disabled />

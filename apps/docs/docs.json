@@ -2,7 +2,6 @@
 	"$schema": "./node_modules/@umami/shiso/docs.schema.json",
 	"name": "zen",
 	"description": "The design system and React components used by Umami.",
-	"colors": { "primary": "#262626" },
 	"logo": { "light": "/logo.png", "invert": true },
 	"favicon": "/favicon.ico",
 	"search": { "provider": "pagefind" },
