@@ -7,15 +7,20 @@ import { glob } from 'glob';
 // shadcn components, then component CSS.
 // Component stylesheets are discovered automatically so new components can't be
 // forgotten. theme.css must come first: it holds the only @import.
-const componentCssFiles = (await glob('./src/components/*.css')).sort();
-const cssFiles = [
-  './src/styles/theme.css',
-  './src/styles/shadcn.css',
-  './src/styles/zen.css',
-  ...componentCssFiles,
-];
+// The list is resolved on every build, so a running --watch process picks up
+// new files instead of silently rebuilding without them.
+async function getCssFiles() {
+  const componentCssFiles = (await glob('./src/components/*.css')).sort();
+  return [
+    './src/styles/theme.css',
+    './src/styles/shadcn.css',
+    './src/styles/zen.css',
+    ...componentCssFiles,
+  ];
+}
 
 async function buildMinimalCSS() {
+  const cssFiles = await getCssFiles();
   const contents = await Promise.all(
     cssFiles.map(async file => {
       const content = await fs.readFile(file, 'utf-8');

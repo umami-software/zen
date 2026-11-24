@@ -106,14 +106,15 @@ The default is `0.625rem`.
 
 ### Zen extensions
 
-shadcn has no status colors, so Zen adds three. They are used by `StatusLight`, `Toast` and the
-color props, and are Tailwind colors like the rest (`text-success`, `bg-warning/10`).
+Zen adds a few variables that shadcn doesn't have. The status colors are used by `StatusLight`,
+`Toast` and the color props, and are Tailwind colors like the rest (`text-success`, `bg-warning/10`).
 
 | Variable | Usage |
 | --- | --- |
 | `--success` | Success states |
 | `--warning` | Warning states |
 | `--info` | Informational states |
+| `--icon-size` | Default size of icons in components and of `Icon` without a `size` (default `14px`). Icons with an explicit `size-*` class keep it. |
 
 If you paste in a shadcn theme, keep these or define your own values for them.
 

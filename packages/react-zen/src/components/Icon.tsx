@@ -6,6 +6,7 @@ export type StrokeWidth = '0.5' | '1' | '1.5' | '2' | '3' | '4';
 
 export interface IconProps extends Omit<HTMLAttributes<HTMLElement>, 'color' | 'size'> {
   color?: FontColor;
+  /** Omit to use the theme's default icon size (`--icon-size`). */
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   rotate?: number;
   strokeWidth?: StrokeWidth;
@@ -32,7 +33,7 @@ const strokeWidthMap: Record<StrokeWidth, string> = {
 
 export function Icon({
   color,
-  size = 'sm',
+  size,
   rotate,
   strokeWidth,
   strokeColor,
@@ -59,7 +60,7 @@ export function Icon({
 
   // Build SVG classes
   const svgClasses = cn(
-    sizeMap[size],
+    size ? sizeMap[size] : 'size-(--icon-size)',
     mapTextColor(colorStr),
     strokeWidth && strokeWidthMap[strokeWidth],
     className,

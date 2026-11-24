@@ -36,7 +36,7 @@ export function CodeBlock({ className, children, ...props }: CodeBlockProps) {
         className="absolute top-4 right-4 cursor-pointer rounded-md border-0 bg-transparent text-muted-foreground outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50"
         onClick={handleCopy}
       >
-        <Icon size="sm">{copied ? <Check className="text-success" /> : <Copy />}</Icon>
+        <Icon>{copied ? <Check className="text-success" /> : <Copy />}</Icon>
       </button>
     </pre>
   );

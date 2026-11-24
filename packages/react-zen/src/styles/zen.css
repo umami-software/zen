@@ -5,6 +5,30 @@
  *
  * Rules here should be unlayered: unlayered CSS outranks Tailwind's
  * `@layer utilities`, so they win over the utility classes in the ui files.
- *
- * There are currently no adjustments: Zen uses shadcn's styles as-is.
  */
+
+/* shadcn components give unsized icons a default of `size-4`, written as
+   `[&_svg:not([class*='size-'])]:size-4` and similar. These selectors match
+   those utilities in the class attribute and use the theme's --icon-size
+   (theme.css) instead. Icons
+   with an explicit size-* class, and components whose default is a different
+   size (e.g. Button size="xs"), are unaffected. */
+[class*="_svg:not([class*='size-'])]:size-4"] svg:not([class*="size-"]),
+[class*="[&_svg]:size-4"] svg:not([class*="size-"]),
+[class*=">svg:not([class*='size-'])]:size-4"] > svg:not([class*="size-"]),
+[class*="[&>svg]:size-4"] > svg:not([class*="size-"]) {
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+
+/* Tabs, line variant: the underline spans the label only. Tabs have no
+   horizontal padding; the list's gap is the only space between them (the same
+   label spacing as shadcn's 2 x px-2 + gap-1). */
+[data-slot="tabs-list"][data-variant="line"] {
+  column-gap: calc(var(--spacing) * 5);
+  padding-inline: 0;
+}
+
+[data-slot="tabs-list"][data-variant="line"] > [data-slot="tabs-trigger"] {
+  padding-inline: 0;
+}

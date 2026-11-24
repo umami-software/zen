@@ -3,18 +3,20 @@ title: List
 description: "A list displays a collection of items and allows a user to select one or more of them."
 ---
 
-import { Example, List, ListItem, ListSection, ListSeparator } from '../../../mdx-components';
+import { Box, Example, List, ListItem, ListSection, ListSeparator } from '../../../mdx-components';
 
 A list displays a collection of items and allows a user to select one or more of them.
 
 <Example>
-  <List>
-    <ListItem>One</ListItem>
-    <ListItem>Two</ListItem>
-    <ListItem>Three</ListItem>
-    <ListItem>Four</ListItem>
-    <ListItem>Five</ListItem>
-  </List>
+  <Box width="300px" maxWidth="100%">
+    <List>
+      <ListItem>One</ListItem>
+      <ListItem>Two</ListItem>
+      <ListItem>Three</ListItem>
+      <ListItem>Four</ListItem>
+      <ListItem>Five</ListItem>
+    </List>
+  </Box>
 
   ```jsx
   <List>
@@ -28,15 +30,17 @@ A list displays a collection of items and allows a user to select one or more of
 ## Separators
 
 <Example>
-  <List>
-    <ListItem>One</ListItem>
-    <ListItem>Two</ListItem>
-    <ListSeparator />
-    <ListItem>Three</ListItem>
-    <ListItem>Four</ListItem>
-    <ListSeparator />
-    <ListItem>Five</ListItem>
-  </List>
+  <Box width="300px" maxWidth="100%">
+    <List>
+      <ListItem>One</ListItem>
+      <ListItem>Two</ListItem>
+      <ListSeparator />
+      <ListItem>Three</ListItem>
+      <ListItem>Four</ListItem>
+      <ListSeparator />
+      <ListItem>Five</ListItem>
+    </List>
+  </Box>
 
   ```jsx
   <List>
@@ -51,17 +55,19 @@ A list displays a collection of items and allows a user to select one or more of
 ## Sections
 
 <Example>
-  <List>
-    <ListSection title="Introduction">
-      <ListItem>One</ListItem>
-      <ListItem>Two</ListItem>
-      <ListItem>Three</ListItem>
-    </ListSection>
-    <ListSection title="Summary">
-      <ListItem>Four</ListItem>
-      <ListItem>Five</ListItem>
-    </ListSection>
-  </List>
+  <Box width="300px" maxWidth="100%">
+    <List>
+      <ListSection title="Introduction">
+        <ListItem>One</ListItem>
+        <ListItem>Two</ListItem>
+        <ListItem>Three</ListItem>
+      </ListSection>
+      <ListSection title="Summary">
+        <ListItem>Four</ListItem>
+        <ListItem>Five</ListItem>
+      </ListSection>
+    </List>
+  </Box>
 
   ```jsx
   <List>
@@ -79,13 +85,15 @@ A list displays a collection of items and allows a user to select one or more of
 ## Single select
 
 <Example>
-  <List selectionMode="single">
-    <ListItem>One</ListItem>
-    <ListItem>Two</ListItem>
-    <ListItem>Three</ListItem>
-    <ListItem>Four</ListItem>
-    <ListItem>Five</ListItem>
-  </List>
+  <Box width="300px" maxWidth="100%">
+    <List selectionMode="single">
+      <ListItem>One</ListItem>
+      <ListItem>Two</ListItem>
+      <ListItem>Three</ListItem>
+      <ListItem>Four</ListItem>
+      <ListItem>Five</ListItem>
+    </List>
+  </Box>
 
   ```jsx
   <List selectionMode="single">
@@ -99,13 +107,15 @@ A list displays a collection of items and allows a user to select one or more of
 ## Multiple select
 
 <Example>
-  <List selectionMode="multiple">
-    <ListItem>One</ListItem>
-    <ListItem>Two</ListItem>
-    <ListItem>Three</ListItem>
-    <ListItem>Four</ListItem>
-    <ListItem>Five</ListItem>
-  </List>
+  <Box width="300px" maxWidth="100%">
+    <List selectionMode="multiple">
+      <ListItem>One</ListItem>
+      <ListItem>Two</ListItem>
+      <ListItem>Three</ListItem>
+      <ListItem>Four</ListItem>
+      <ListItem>Five</ListItem>
+    </List>
+  </Box>
 
   ```jsx
   <List selectionMode="multiple">
@@ -119,13 +129,15 @@ A list displays a collection of items and allows a user to select one or more of
 ## Preselected
 
 <Example>
-  <List selectionMode="multiple" defaultValue={['three', 'five']}>
-    <ListItem value="one">One</ListItem>
-    <ListItem value="two">Two</ListItem>
-    <ListItem value="three">Three</ListItem>
-    <ListItem value="four">Four</ListItem>
-    <ListItem value="five">Five</ListItem>
-  </List>
+  <Box width="300px" maxWidth="100%">
+    <List selectionMode="multiple" defaultValue={['three', 'five']}>
+      <ListItem value="one">One</ListItem>
+      <ListItem value="two">Two</ListItem>
+      <ListItem value="three">Three</ListItem>
+      <ListItem value="four">Four</ListItem>
+      <ListItem value="five">Five</ListItem>
+    </List>
+  </Box>
 
   ```jsx
   <List selectionMode="multiple" defaultValue={['three', 'five']}>
@@ -139,11 +151,13 @@ A list displays a collection of items and allows a user to select one or more of
 ## Label
 
 <Example>
-  <List label="Fruits" selectionMode="single" defaultValue={['Apple']}>
-    <ListItem>Apple</ListItem>
-    <ListItem>Banana</ListItem>
-    <ListItem disabled>Cherry</ListItem>
-  </List>
+  <Box width="300px" maxWidth="100%">
+    <List label="Fruits" selectionMode="single" defaultValue={['Apple']}>
+      <ListItem>Apple</ListItem>
+      <ListItem>Banana</ListItem>
+      <ListItem disabled>Cherry</ListItem>
+    </List>
+  </Box>
 
   ```jsx
   <List label="Fruits" selectionMode="single" defaultValue={['Apple']}>

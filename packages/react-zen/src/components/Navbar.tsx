@@ -27,7 +27,7 @@ const linkClassName = cn(
 const contentLinkClassName = cn(
   'flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm no-underline transition-all outline-none select-none',
   'hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring/50',
-  'data-active:bg-muted/50 [&_svg:not([class*=size-])]:size-4',
+  'data-active:bg-muted/50 [&_svg:not([class*=size-])]:size-(--icon-size)',
 );
 
 const contentClassName = cn(
