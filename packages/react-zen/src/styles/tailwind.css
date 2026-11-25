@@ -5,6 +5,7 @@
 @import "./zen.css";
 @import "./safelist.css";
 @import "../components/Dots.css";
+@import "../components/Spinner.css";
 
 @source "../../src/components";
 

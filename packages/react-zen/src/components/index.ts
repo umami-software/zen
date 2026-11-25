@@ -47,6 +47,7 @@ export * from './PasswordField';
 export * from './ProgressCircle';
 export * from './Row';
 export * from './SearchField';
+export * from './Spinner';
 export * from './StatusLight';
 export * from './TagGroup';
 export * from './Text';
@@ -99,7 +100,7 @@ export * from './ui/sheet';
 export * from './ui/sidebar';
 export * from './ui/skeleton';
 export * from './ui/slider';
-export * from './ui/spinner';
+// ui/spinner is superseded by Zen's Spinner (same API, custom animation).
 export * from './ui/switch';
 export * from './ui/table';
 export * from './ui/tabs';

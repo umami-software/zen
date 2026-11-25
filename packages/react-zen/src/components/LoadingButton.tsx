@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
+import { Spinner } from '@/components/Spinner';
 import { Button } from '@/components/ui/button';
-import { Spinner } from '@/components/ui/spinner';
 
 export interface LoadingButtonProps extends ComponentProps<typeof Button> {
   /** Disables the button and shows a spinner before its content. */

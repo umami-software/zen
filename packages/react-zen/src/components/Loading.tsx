@@ -1,6 +1,6 @@
 import { Box, type BoxProps } from '@/components/Box';
 import { Dots } from '@/components/Dots';
-import { Spinner } from '@/components/ui/spinner';
+import { Spinner } from '@/components/Spinner';
 import { cn } from '@/lib/utils';
 
 export interface LoadingProps extends BoxProps {

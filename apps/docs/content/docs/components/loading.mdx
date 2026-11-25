@@ -6,7 +6,7 @@ description: "An element that indicates content is loading."
 import { Box, Column, Dots, Example, Label, Loading, Row, Spinner } from '../../../mdx-components';
 
 An element that indicates content is loading. `Loading` renders a `status` region containing either
-the shadcn `Spinner` or Zen's animated `Dots`.
+Zen's `Spinner` or its animated `Dots`.
 
 <Example>
   <Loading />
@@ -80,19 +80,22 @@ the shadcn `Spinner` or Zen's animated `Dots`.
 
 ## Spinner and Dots
 
-The indicators can also be used on their own. `Spinner` is the shadcn component and is sized with a
-`size-*` class.
+The indicators can also be used on their own. `Spinner` is an arc that grows and shrinks as it
+rotates over a faint track. It has the same API as shadcn's `Spinner`: an `svg` sized with a `size-*`
+class (default `size-4`) and drawn in the current text color. Set `quiet` to hide the track.
 
 <Example>
   <Row gap="6" alignItems="center">
     <Spinner />
     <Spinner className="size-6" />
+    <Spinner className="size-6" quiet />
     <Dots />
   </Row>
 
   ```jsx
   <Spinner />
   <Spinner className="size-6" />
+  <Spinner className="size-6" quiet />
   <Dots />
   ```
 </Example>

@@ -1285,14 +1285,6 @@
   background-color: var(--background);
 }
 
-/* Labels are semibold (shadcn's are font-medium). Covers Label, FieldLabel,
-   FieldTitle, and FieldLegend when used as a label (e.g. CheckboxGroup). */
-[data-slot="label"],
-[data-slot="field-label"],
-[data-slot="field-legend"][data-variant="label"] {
-  font-weight: 600;
-}
-
 /* Tabs, line variant: the underline spans the label only. Tabs have no
    horizontal padding; the list's gap is the only space between them (the same
    label spacing as shadcn's 2 x px-1.5 + gap-1). */
@@ -1460,5 +1452,49 @@
   }
   100% {
     opacity: 0.2;
+  }
+}
+
+
+/* src/components/Spinner.css */
+.zen-spinner {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 4;
+  animation: zen-spinner-rotate 1.6s linear infinite;
+}
+
+.zen-spinner-track {
+  opacity: 0.2;
+}
+
+.zen-spinner-fill {
+  stroke-linecap: square;
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  animation: zen-spinner-dash 1.2s ease-in-out infinite;
+}
+
+@keyframes zen-spinner-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes zen-spinner-dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124;
   }
 }

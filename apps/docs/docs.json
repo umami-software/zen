@@ -119,7 +119,10 @@
 				"components/field",
 				"components/input-group",
 				"components/number-field",
-				"components/input-otp",
+				{
+					"page": "components/input-otp",
+					"title": "Input OTP"
+				},
 				"components/password-field",
 				"components/radio-group",
 				"components/search-field",

@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
 import { useFormContext } from 'react-hook-form';
+import { Spinner } from '@/components/Spinner';
 import { Button } from '@/components/ui/button';
-import { Spinner } from '@/components/ui/spinner';
 
 export interface FormSubmitButtonProps extends Omit<ComponentProps<typeof Button>, 'type'> {
   /** Overrides the automatic loading state (on while the form is submitting). */
