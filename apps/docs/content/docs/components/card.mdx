@@ -3,7 +3,7 @@ title: Card
 description: "Displays a card with header, content, and footer."
 ---
 
-import { Box, Button, Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Example, Field, FieldGroup, FieldLabel, Input } from '../../../mdx-components';
+import { Box, Button, Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Example, Field, FieldGroup, FieldLabel, Image, Input } from '../../../mdx-components';
 
 Displays a card with header, content, and footer. A `Card` is a container; compose it from
 `CardHeader` (with `CardTitle`, `CardDescription` and an optional `CardAction`), `CardContent`
@@ -108,7 +108,8 @@ An `img` placed as the first child of the card fills the top edge without paddin
 <Example>
   <Box width="384px" maxWidth="100%">
     <Card>
-      <img src="/images/sample.jpg" alt="Sample" />
+      {/* Zen's Image renders a bare img; the docs turn a plain <img> into a zoomable wrapper. */}
+      <Image src="/images/sample.jpg" alt="Sample" />
       <CardHeader>
         <CardTitle>Design systems meetup</CardTitle>
         <CardDescription>A practical talk on component APIs and accessibility.</CardDescription>
