@@ -5,6 +5,7 @@ export function Layout({ isSelected, hidden, name, color }: any) {
   return (
     <Column backgroundColor="surface-raised" borderColor="strong" gap="3">
       <Text color="muted">Muted</Text>
+      <Text color="muted-foreground">Already migrated</Text>
       <Text color={'primary'}>Primary</Text>
       <Text color={name ? undefined : 'muted'}>{name}</Text>
       <Text color={hidden ? 'disabled' : undefined}>hidden</Text>

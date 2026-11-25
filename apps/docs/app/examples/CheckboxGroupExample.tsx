@@ -22,7 +22,7 @@ export function CheckboxGroupExample() {
           <FieldLabel htmlFor="notify-push">Push</FieldLabel>
         </Field>
       </CheckboxGroup>
-      <Text color="muted-foreground">Selected: {value.length ? value.join(', ') : '(none)'}</Text>
+      <Text color="muted">Selected: {value.length ? value.join(', ') : '(none)'}</Text>
     </Column>
   );
 }

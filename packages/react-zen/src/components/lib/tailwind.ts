@@ -810,9 +810,15 @@ const shadowMap: Record<string, string> = {
 // Every generated class is safelisted in src/styles/tailwind.css.
 const statusColorTokens = ['destructive', 'success', 'warning', 'info'];
 
+// Text color props already mean "foreground", so `muted` resolves to the
+// `muted-foreground` token rather than the `muted` background shade.
+const textColorAliases: Record<string, string> = {
+  muted: 'muted-foreground',
+};
+
 const textColorTokens = new Set([
   'foreground',
-  'muted-foreground',
+  'muted',
   'primary',
   'primary-foreground',
   'secondary-foreground',
@@ -1343,21 +1349,26 @@ export function mapFontWeight(value: Responsive<string> | undefined): string {
 
 type ColorPrefix = 'text' | 'bg' | 'border' | 'decoration';
 
-function mapColor(value: string | undefined, prefix: ColorPrefix, tokens: Set<string>): string {
+function mapColor(
+  value: string | undefined,
+  prefix: ColorPrefix,
+  tokens: Set<string>,
+  aliases: Record<string, string> = {},
+): string {
   if (!value) return '';
   if (value === 'true') return `${prefix}-${defaultColorToken[prefix]}`;
   if (value === 'transparent') return `${prefix}-transparent`;
-  if (tokens.has(value)) return `${prefix}-${value}`;
+  if (tokens.has(value)) return `${prefix}-${aliases[value] ?? value}`;
   if (isTailwindColor(value)) return getTailwindColorClass(value, prefix);
   return '';
 }
 
 export function mapTextColor(value: string | undefined): string {
-  return mapColor(value, 'text', textColorTokens);
+  return mapColor(value, 'text', textColorTokens, textColorAliases);
 }
 
 export function mapDecorationColor(value: string | undefined): string {
-  return mapColor(value, 'decoration', textColorTokens);
+  return mapColor(value, 'decoration', textColorTokens, textColorAliases);
 }
 
 export function mapBackgroundColor(value: string | undefined): string {
@@ -1759,7 +1770,7 @@ export function getCssColorValue(value: string | undefined): string | undefined 
   if (!value) return undefined;
   if (value === 'true') return `var(--${defaultColorToken.text})`;
   if (value === 'transparent') return 'transparent';
-  if (textColorTokens.has(value)) return `var(--${value})`;
+  if (textColorTokens.has(value)) return `var(--${textColorAliases[value] ?? value})`;
 
   // Tailwind color with shade (e.g. 'blue-500')
   const parts = value.split('-');

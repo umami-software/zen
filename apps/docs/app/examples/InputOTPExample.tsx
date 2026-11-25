@@ -18,7 +18,7 @@ export function InputOTPExample() {
           <InputOTPSlot index={5} />
         </InputOTPGroup>
       </InputOTP>
-      <Text size="sm" color="muted-foreground">
+      <Text size="sm" color="muted">
         {value === '' ? 'Enter your one-time password.' : `You entered: ${value}`}
       </Text>
     </Column>

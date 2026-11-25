@@ -42,7 +42,7 @@ export function PageHeaderTitle({
       <Text size="xl" weight="semibold">
         {title}
       </Text>
-      {description && <Text color="muted-foreground">{description}</Text>}
+      {description && <Text color="muted">{description}</Text>}
       {children}
     </Column>
   );

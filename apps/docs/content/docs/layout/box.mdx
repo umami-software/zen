@@ -120,13 +120,13 @@ Click to focus, then hover and click to see all states.
 ## Colors
 
 Color props take a theme token name or a Tailwind palette color. The value is used as-is to build
-the class: `backgroundColor="muted"` becomes `bg-muted`, `color="muted-foreground"` becomes
-`text-muted-foreground` and `borderColor="red-500"` becomes `border-red-500`. Passing `true` uses the
+the class: `backgroundColor="muted"` becomes `bg-muted` and `borderColor="red-500"` becomes
+`border-red-500`. The exception is `color="muted"`, which becomes `text-muted-foreground`. Passing `true` uses the
 default token (`text-foreground`, `bg-muted`, `border-border`).
 
 | Prop | Theme tokens |
 |------|--------------|
-| `color` | `foreground`, `muted-foreground`, `primary`, `primary-foreground`, `secondary-foreground`, `accent-foreground`, `background`, `card-foreground`, `popover-foreground`, `destructive`, `success`, `warning`, `info` |
+| `color` | `foreground`, `muted`, `primary`, `primary-foreground`, `secondary-foreground`, `accent-foreground`, `background`, `card-foreground`, `popover-foreground`, `destructive`, `success`, `warning`, `info` |
 | `backgroundColor` | `background`, `card`, `popover`, `primary`, `secondary`, `muted`, `accent`, `foreground`, `sidebar`, `destructive`, `success`, `warning`, `info` |
 | `borderColor` | `border`, `input`, `ring`, `primary`, `destructive`, `success`, `warning`, `info` |
 
@@ -137,7 +137,7 @@ Any Tailwind palette color also works, either as a name (`"blue"`, the 500 shade
   <Box padding="4" backgroundColor="primary" color="primary-foreground" borderRadius>
     Primary
   </Box>
-  <Box padding="4" backgroundColor="muted" color="muted-foreground" borderRadius>
+  <Box padding="4" backgroundColor="muted" color="muted" borderRadius>
     Muted
   </Box>
   <Box padding="4" border borderColor="destructive" color="destructive" borderRadius>
@@ -148,7 +148,7 @@ Any Tailwind palette color also works, either as a name (`"blue"`, the 500 shade
   <Box padding="4" backgroundColor="primary" color="primary-foreground" borderRadius>
     Primary
   </Box>
-  <Box padding="4" backgroundColor="muted" color="muted-foreground" borderRadius>
+  <Box padding="4" backgroundColor="muted" color="muted" borderRadius>
     Muted
   </Box>
   <Box padding="4" border borderColor="destructive" color="destructive" borderRadius>

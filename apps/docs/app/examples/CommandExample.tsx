@@ -82,7 +82,7 @@ export function CommandDialogExample() {
         <Button variant="outline" onClick={() => setOpen(true)}>
           Open command palette
         </Button>
-        <Text size="sm" color="muted-foreground">
+        <Text size="sm" color="muted">
           or press{' '}
           <KbdGroup>
             <Kbd>⌘</Kbd>

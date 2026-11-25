@@ -4,13 +4,14 @@ import { Text as OtherText } from './Text';
 export function Layout({ isSelected, hidden, name, color }: any) {
   return (
     <Column backgroundColor="muted" borderColor="input" gap="3">
-      <Text color="muted-foreground">Muted</Text>
+      <Text color="muted">Muted</Text>
+      <Text color="muted">Already migrated</Text>
       <Text color={'foreground'}>Primary</Text>
-      <Text color={name ? undefined : 'muted-foreground'}>{name}</Text>
-      {/* TODO(zen-1.0): <Text>: color="disabled" has no shadcn token; mapped to "muted-foreground" (consider opacity-50) */}
-      <Text color={hidden ? 'muted-foreground' : undefined}>hidden</Text>
+      <Text color={name ? undefined : 'muted'}>{name}</Text>
+      {/* TODO(zen-1.0): <Text>: color="disabled" has no shadcn token; mapped to "muted" (consider opacity-50) */}
+      <Text color={hidden ? 'muted' : undefined}>hidden</Text>
       <Heading color="background">Inverted</Heading>
-      <Icon color="muted-foreground" size="md">
+      <Icon color="muted" size="md">
         <svg />
       </Icon>
       <Row

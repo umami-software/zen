@@ -148,9 +148,10 @@ Most style props take a responsive object. Breakpoints: `base`, `sm`, `md`, `lg`
 
 `color`, `backgroundColor`, `borderColor` (and their `hover`/`focus`/`active` versions),
 `decorationColor`, and Icon `strokeColor`/`fillColor` take **a theme token name or a Tailwind palette
-color**. The value becomes the class: `backgroundColor="muted"` → `bg-muted`.
+color**. The value becomes the class: `backgroundColor="muted"` → `bg-muted`. The exception is text
+`color="muted"`, which renders `text-muted-foreground`.
 
-- Text: `foreground`, `muted-foreground`, `primary`, `primary-foreground`, `secondary-foreground`,
+- Text: `foreground`, `muted`, `primary`, `primary-foreground`, `secondary-foreground`,
   `accent-foreground`, `background`, `card-foreground`, `popover-foreground`
 - Background: `background`, `card`, `popover`, `primary`, `secondary`, `muted`, `accent`,
   `foreground`, `sidebar`
@@ -159,7 +160,7 @@ color**. The value becomes the class: `backgroundColor="muted"` → `bg-muted`.
   (`red`, `blue-500`), or `true` for the default (`foreground` / `muted` / `border`)
 
 ```tsx
-<Text color="muted-foreground">Muted text</Text>
+<Text color="muted">Muted text</Text>
 <Box backgroundColor="card" border borderColor="input">Card-like panel</Box>
 <Box backgroundColor="blue-50">Palette color (doesn't follow dark mode)</Box>
 ```
@@ -171,7 +172,7 @@ color**. The value becomes the class: `backgroundColor="muted"` → `bg-muted`.
 <Heading size="lg">Subsection</Heading>
 
 <Text>Default text</Text>
-<Text size="sm" color="muted-foreground">Small muted text</Text>
+<Text size="sm" color="muted">Small muted text</Text>
 <Text weight="bold" color="destructive">Bold error text</Text>
 
 <Code>inline code</Code>
@@ -199,7 +200,7 @@ shadcn Button. Variants: `default` (primary, the default), `secondary`, `outline
 ```
 
 Icons come from `lucide-react` (`import { Settings } from 'lucide-react'`). Wrap them in `Icon` for
-size and color props: `<Icon size="lg" color="muted-foreground"><Check /></Icon>`.
+size and color props: `<Icon size="lg" color="muted"><Check /></Icon>`.
 
 ## Forms
 
@@ -585,10 +586,10 @@ type TextColor = TextProps['color'];
 
 ## Best Practices
 
-1. **Use theme tokens** (`muted-foreground`, `muted`, `border`) rather than palette colors so UI
+1. **Use theme tokens** (`muted`, `border`) rather than palette colors so UI
    follows dark mode and the palette.
 2. **Prefer component props over raw `className`** on Zen layout components
-   (`<Text color="muted-foreground">` rather than `<Text className="text-muted-foreground">`).
+   (`<Text color="muted">` rather than `<Text className="text-muted-foreground">`).
    shadcn components are styled with `variant`, `size` and `className`.
 3. **Use responsive props** for mobile-first responsive design.
 4. **Use FormField** for form inputs to get labels, descriptions and error handling.

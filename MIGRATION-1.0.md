@@ -110,11 +110,11 @@ New in 1.0: `Card` (and its parts).
 
 - Color props (`color`, `backgroundColor`, `borderColor`, their `hover`/`focus`/`active` versions,
   `decorationColor`, Icon `strokeColor`/`fillColor`) take **a shadcn token name or a Tailwind
-  palette color**. The value is the token: `color="muted-foreground"` → `text-muted-foreground`,
-  `backgroundColor="muted"` → `bg-muted`, `color="red-500"`.
-- Text color: `muted` → `muted-foreground`, `primary` → `foreground` (`primary` now means the brand
-  color), `inverted` → `background`, `disabled` → `muted-foreground`. `secondary` and `strong` are
-  removed.
+  palette color**. The value is the token: `backgroundColor="muted"` → `bg-muted`,
+  `color="red-500"` → `text-red-500`. The one exception is text `color="muted"`, which renders
+  `text-muted-foreground`, since a text color is always a foreground.
+- Text color: `muted` is unchanged, `primary` → `foreground` (`primary` now means the brand color),
+  `inverted` → `background`, `disabled` → `muted`. `secondary` and `strong` are removed.
 - Background: `surface` → `background`, `surface-raised`/`surface-sunken` → `muted`,
   `surface-overlay` → `popover`, `surface-inverted`/`inverted` → `foreground`, `interactive*` →
   `muted`/`accent`. `surface-disabled` and `disabled` are removed.

@@ -73,7 +73,7 @@ When you need to position or add spacing to an interactive component, wrap it in
   <Row justifyContent="space-between" alignItems="start" gap="4" padding="4" border borderRadius="lg">
     <Column gap="2">
       <Text weight="medium">Form Section</Text>
-      <Text size="sm" color="muted-foreground">Fill out the details below</Text>
+      <Text size="sm" color="muted">Fill out the details below</Text>
     </Column>
     <Box alignSelf="end">
       <Button size="sm">Save</Button>
@@ -84,7 +84,7 @@ When you need to position or add spacing to an interactive component, wrap it in
   <Row justifyContent="space-between" alignItems="start" gap="4" padding="4" border borderRadius="lg">
     <Column gap="2">
       <Text weight="medium">Form Section</Text>
-      <Text size="sm" color="muted-foreground">Fill out the details below</Text>
+      <Text size="sm" color="muted">Fill out the details below</Text>
     </Column>
     <Box alignSelf="end">
       <Button size="sm">Save</Button>
@@ -187,20 +187,20 @@ Most style props accept responsive objects. Use `base` for mobile-first styles:
 <Example>
   <Grid columns={{ base: '1', sm: '2' }} gap="4">
     <Box padding="4" backgroundColor="muted" borderRadius="md">
-      <Text size="sm" color="muted-foreground">Resize to see layout change</Text>
+      <Text size="sm" color="muted">Resize to see layout change</Text>
     </Box>
     <Box padding="4" backgroundColor="muted" borderRadius="md">
-      <Text size="sm" color="muted-foreground">Stacks on mobile</Text>
+      <Text size="sm" color="muted">Stacks on mobile</Text>
     </Box>
   </Grid>
 
   ```jsx
   <Grid columns={{ base: '1', sm: '2' }} gap="4">
     <Box padding="4" backgroundColor="muted" borderRadius="md">
-      <Text size="sm" color="muted-foreground">Resize to see layout change</Text>
+      <Text size="sm" color="muted">Resize to see layout change</Text>
     </Box>
     <Box padding="4" backgroundColor="muted" borderRadius="md">
-      <Text size="sm" color="muted-foreground">Stacks on mobile</Text>
+      <Text size="sm" color="muted">Stacks on mobile</Text>
     </Box>
   </Grid>
   ```
@@ -348,7 +348,7 @@ Color props take a [theme token](/docs/design/colors) name. Tokens adapt to dark
 
 ```jsx
 <Box backgroundColor="muted" />
-<Text color="muted-foreground" />
+<Text color="muted" />
 <Box border borderColor="input" />
 ```
 
@@ -401,7 +401,7 @@ Use the shadcn `Card` parts for cards:
   <Row justifyContent="space-between" alignItems="center" gap="4" width="100%">
     <Column gap="1">
       <Heading size="2xl">Dashboard</Heading>
-      <Text color="muted-foreground">Welcome back, here's what's happening.</Text>
+      <Text color="muted">Welcome back, here's what's happening.</Text>
     </Column>
     <Row gap="2">
       <Button variant="outline">Export</Button>
@@ -413,7 +413,7 @@ Use the shadcn `Card` parts for cards:
   <Row justifyContent="space-between" alignItems="center" gap="4" width="100%">
     <Column gap="1">
       <Heading size="2xl">Dashboard</Heading>
-      <Text color="muted-foreground">Welcome back, here's what's happening.</Text>
+      <Text color="muted">Welcome back, here's what's happening.</Text>
     </Column>
     <Row gap="2">
       <Button variant="outline">Export</Button>
@@ -429,12 +429,12 @@ For a ready-made empty state, see the shadcn `Empty` component. With layout prim
 
 <Example>
   <Column alignItems="center" gap="4" padding="12">
-    <Icon size="xl" color="muted-foreground">
+    <Icon size="xl" color="muted">
       <Lucide.Inbox />
     </Icon>
     <Column alignItems="center" gap="2">
       <Heading size="lg">No items yet</Heading>
-      <Text color="muted-foreground" align="center">
+      <Text color="muted" align="center">
         Get started by creating your first item.
       </Text>
     </Column>
@@ -443,12 +443,12 @@ For a ready-made empty state, see the shadcn `Empty` component. With layout prim
 
   ```jsx
   <Column alignItems="center" gap="4" padding="12">
-    <Icon size="xl" color="muted-foreground">
+    <Icon size="xl" color="muted">
       <Lucide.Inbox />
     </Icon>
     <Column alignItems="center" gap="2">
       <Heading size="lg">No items yet</Heading>
-      <Text color="muted-foreground" align="center">
+      <Text color="muted" align="center">
         Get started by creating your first item.
       </Text>
     </Column>

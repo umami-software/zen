@@ -75,7 +75,7 @@ export function CarouselApiExample() {
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
-      <Text size="sm" color="muted-foreground">
+      <Text size="sm" color="muted">
         Slide {current} of {count}
       </Text>
     </Column>

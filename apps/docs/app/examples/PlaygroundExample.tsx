@@ -455,7 +455,7 @@ const plans = [
 
 function SectionTitle({ children }: { children: string }) {
   return (
-    <Text size="xs" weight="semibold" color="muted-foreground">
+    <Text size="xs" weight="semibold" color="muted">
       {children}
     </Text>
   );
@@ -638,7 +638,7 @@ export function PlaygroundExample() {
               <SectionTitle>TYPOGRAPHY</SectionTitle>
               <Heading size="2xl">The quick brown fox</Heading>
               <Text>Regular text using the --font-sans variable.</Text>
-              <Text size="sm" color="muted-foreground">
+              <Text size="sm" color="muted">
                 Muted text provides supporting context and secondary information.
               </Text>
               <Text>
@@ -655,7 +655,7 @@ export function PlaygroundExample() {
               <Grid columns={{ base: '1', xl: '3' }} gap="3">
                 <Box backgroundColor="background" border borderRadius padding="3" minWidth="100px">
                   <Column gap="1">
-                    <Text size="xs" color="muted-foreground">
+                    <Text size="xs" color="muted">
                       Background
                     </Text>
                     <Text>Foreground text</Text>
@@ -663,7 +663,7 @@ export function PlaygroundExample() {
                 </Box>
                 <Box backgroundColor="card" border borderRadius padding="3" minWidth="100px">
                   <Column gap="1">
-                    <Text size="xs" color="muted-foreground">
+                    <Text size="xs" color="muted">
                       Card
                     </Text>
                     <Text color="card-foreground">Card foreground</Text>
@@ -671,10 +671,10 @@ export function PlaygroundExample() {
                 </Box>
                 <Box backgroundColor="muted" border borderRadius padding="3" minWidth="100px">
                   <Column gap="1">
-                    <Text size="xs" color="muted-foreground">
+                    <Text size="xs" color="muted">
                       Muted
                     </Text>
-                    <Text color="muted-foreground">Muted foreground</Text>
+                    <Text color="muted">Muted foreground</Text>
                   </Column>
                 </Box>
               </Grid>
@@ -930,7 +930,7 @@ export function PlaygroundExample() {
                         </Box>
                         <Column gap="1" flexGrow="1">
                           <Text weight="semibold">Uploading brand-assets.zip</Text>
-                          <Text size="sm" color="muted-foreground">
+                          <Text size="sm" color="muted">
                             42.6 MB of 65.5 MB
                           </Text>
                         </Column>
@@ -942,7 +942,7 @@ export function PlaygroundExample() {
                       <Row justifyContent="space-between" alignItems="center">
                         <Row gap="2" alignItems="center">
                           <Spinner />
-                          <Text size="sm" color="muted-foreground">
+                          <Text size="sm" color="muted">
                             Encrypting and uploading
                           </Text>
                         </Row>
@@ -960,12 +960,12 @@ export function PlaygroundExample() {
                           <Users size={18} />
                           <Text weight="semibold">Importing contacts</Text>
                         </Row>
-                        <Text size="sm" color="muted-foreground">
+                        <Text size="sm" color="muted">
                           650 of 1,000 records imported
                         </Text>
                         <Row gap="2" alignItems="center">
                           <Dots size="sm" />
-                          <Text size="sm" color="muted-foreground">
+                          <Text size="sm" color="muted">
                             Checking for duplicates
                           </Text>
                         </Row>
@@ -1021,7 +1021,7 @@ export function PlaygroundExample() {
                   <Avatar size="sm">
                     <AvatarFallback>LT</AvatarFallback>
                   </Avatar>
-                  <Text size="sm" color="muted-foreground">
+                  <Text size="sm" color="muted">
                     Press{' '}
                     <KbdGroup>
                       <Kbd>⌘</Kbd>

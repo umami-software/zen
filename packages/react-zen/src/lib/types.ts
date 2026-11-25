@@ -51,9 +51,10 @@ export type TailwindColor = `${ColorName}-${ColorShade}`;
 // Prop value = token name; generated class = `${prefix}-${value}`.
 export type StatusColorToken = 'destructive' | 'success' | 'warning' | 'info';
 
+// `muted` renders `text-muted-foreground`: a text color is always a foreground.
 export type TextColorToken =
   | 'foreground'
-  | 'muted-foreground'
+  | 'muted'
   | 'primary'
   | 'primary-foreground'
   | 'secondary-foreground'

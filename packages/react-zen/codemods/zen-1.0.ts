@@ -367,11 +367,12 @@ function sizeMapper(comp: string): Mapper {
   };
 }
 
+// `muted` keeps its name: text color props resolve it to the `muted-foreground` token.
 const TEXT_COLOR: Record<string, string> = {
-  muted: 'muted-foreground',
+  'muted-foreground': 'muted',
   primary: 'foreground',
   inverted: 'background',
-  disabled: 'muted-foreground',
+  disabled: 'muted',
 };
 const BG_COLOR: Record<string, string> = {
   surface: 'background',

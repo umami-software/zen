@@ -8,7 +8,7 @@ export function CalendarExample() {
   return (
     <Column alignItems="center" gap="3">
       <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-lg border" />
-      <Text size="sm" color="muted-foreground">
+      <Text size="sm" color="muted">
         {date ? date.toDateString() : 'No date selected'}
       </Text>
     </Column>

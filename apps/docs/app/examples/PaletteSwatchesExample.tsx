@@ -25,7 +25,7 @@ export function PaletteSwatchesExample() {
             border
             style={{ backgroundColor: `var(--${token})` }}
           />
-          <Text size="xs" color="muted-foreground">
+          <Text size="xs" color="muted">
             {token}
           </Text>
         </Column>

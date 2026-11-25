@@ -12,7 +12,7 @@ export default function HomePage() {
       <Heading as="h1" size="4xl" align="center">
         Zen Design System
       </Heading>
-      <Text size="lg" color="muted-foreground" align="center" style={{ maxWidth: '600px' }}>
+      <Text size="lg" color="muted" align="center" style={{ maxWidth: '600px' }}>
         Umami’s design system for building consistent React interfaces.
       </Text>
       <Button render={<Link to="/docs" />} nativeButton={false}>

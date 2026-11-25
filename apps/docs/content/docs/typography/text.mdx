@@ -18,14 +18,15 @@ A text element with comprehensive typography controls including size, color, wei
 ## Colors
 
 `color` takes a theme token or a Tailwind palette color. The value becomes the class:
-`color="muted-foreground"` renders `text-muted-foreground`. The theme tokens are `foreground`,
-`muted-foreground`, `primary`, `primary-foreground`, `secondary-foreground`, `accent-foreground`,
-`background`, `card-foreground`, `popover-foreground`, `destructive`, `success`, `warning` and `info`.
+`color="primary"` renders `text-primary`, and `color="muted"` renders `text-muted-foreground`. The
+theme tokens are `foreground`, `muted`, `primary`, `primary-foreground`, `secondary-foreground`,
+`accent-foreground`, `background`, `card-foreground`, `popover-foreground`, `destructive`,
+`success`, `warning` and `info`.
 Palette colors are a name (`"red"`, the 500 shade) or a name with a shade (`"red-500"`).
 
 <Example>
   <Text>Normal text</Text>
-  <Text color="muted-foreground">Muted text</Text>
+  <Text color="muted">Muted text</Text>
   <Text color="primary">Primary text</Text>
   <Text color="destructive">Destructive text</Text>
   <Text color="success">Success text</Text>
@@ -33,7 +34,7 @@ Palette colors are a name (`"red"`, the 500 shade) or a name with a shade (`"red
 
   ```jsx
   <Text>Normal text</Text>
-  <Text color="muted-foreground">Muted text</Text>
+  <Text color="muted">Muted text</Text>
   <Text color="primary">Primary text</Text>
   <Text color="destructive">Destructive text</Text>
   <Text color="success">Success text</Text>

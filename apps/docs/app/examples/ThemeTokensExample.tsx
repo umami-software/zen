@@ -11,7 +11,7 @@ const TOKENS: { background: BackgroundColor; foreground?: FontColor }[] = [
   { background: 'popover', foreground: 'popover-foreground' },
   { background: 'primary', foreground: 'primary-foreground' },
   { background: 'secondary', foreground: 'secondary-foreground' },
-  { background: 'muted', foreground: 'muted-foreground' },
+  { background: 'muted', foreground: 'muted' },
   { background: 'accent', foreground: 'accent-foreground' },
   { background: 'destructive' },
   { background: 'success' },
@@ -45,7 +45,7 @@ export function ThemeTokensExample() {
               {String(background)}
             </Text>
             {foreground && (
-              <Text size="xs" color="muted-foreground">
+              <Text size="xs" color="muted">
                 {String(foreground)}
               </Text>
             )}

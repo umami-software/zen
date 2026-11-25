@@ -73,7 +73,7 @@ export function PaginationExample() {
           </PaginationItem>
         </PaginationContent>
       </Pagination>
-      <Text size="sm" color="muted-foreground">
+      <Text size="sm" color="muted">
         Page {page} of {PAGE_COUNT}
       </Text>
     </Column>

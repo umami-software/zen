@@ -65,7 +65,7 @@ export function App() {
 ```
 
 Dark mode is the `.dark` class on `<html>`. Color props on layout components take theme token names
-(`<Text color="muted-foreground">`, `<Box backgroundColor="muted">`). Zen ships no font; components
+(`<Text color="muted">`, `<Box backgroundColor="muted">`). Zen ships no font; components
 use your app's `--font-sans`. To customize the theme, override the shadcn CSS variables
 (`--primary`, `--radius`, …); any shadcn theme works.
 
