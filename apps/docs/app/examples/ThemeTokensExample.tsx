@@ -7,6 +7,7 @@ type FontColor = BoxProps['color'];
 
 const TOKENS: { background: BackgroundColor; foreground?: FontColor }[] = [
   { background: 'background', foreground: 'foreground' },
+  { background: 'page', foreground: 'foreground' },
   { background: 'card', foreground: 'card-foreground' },
   { background: 'popover', foreground: 'popover-foreground' },
   { background: 'primary', foreground: 'primary-foreground' },

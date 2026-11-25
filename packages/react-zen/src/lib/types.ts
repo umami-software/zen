@@ -66,6 +66,7 @@ export type TextColorToken =
 
 export type BackgroundColorToken =
   | 'background'
+  | 'page'
   | 'card'
   | 'popover'
   | 'primary'

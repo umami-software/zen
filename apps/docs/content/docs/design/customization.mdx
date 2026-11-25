@@ -89,7 +89,7 @@ The default is `0.625rem`.
 
 | Variable | Usage |
 | --- | --- |
-| `--background`, `--foreground` | Page background and default text |
+| `--background`, `--foreground` | Base surface color and default text |
 | `--card`, `--card-foreground` | Cards and raised panels |
 | `--popover`, `--popover-foreground` | Menus, popovers and other floating surfaces |
 | `--primary`, `--primary-foreground` | Brand color: default buttons, badges, selected states |
@@ -111,10 +111,15 @@ Zen adds a few variables that shadcn doesn't have. The status colors are used by
 
 | Variable | Usage |
 | --- | --- |
+| `--page` | Page background (`body`) and the sidebar background. Defaults to `--background` tinted 3% toward `--foreground`, so it's never pure white or black and cards stand out from it. Also a Tailwind color (`bg-page`). |
 | `--success` | Success states |
 | `--warning` | Warning states |
 | `--info` | Informational states |
 | `--icon-size` | Default size of icons in components and of `Icon` without a `size` (default `14px`). Icons with an explicit `size-*` class keep it. |
+
+Zen also adjusts two shadcn sidebar tokens: `--sidebar` is set to `var(--page)`, and
+`--sidebar-accent` (menu item hover and active) is derived from `--sidebar`, so it stays visible
+whatever color the sidebar is. Override `--sidebar` to give the sidebar its own panel color.
 
 If you paste in a shadcn theme, keep these or define your own values for them.
 

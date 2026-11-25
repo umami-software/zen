@@ -506,8 +506,41 @@
   --sidebar-ring: oklch(0.547 0.021 43.1);
 }
 
+/*
+ * Zen extension: page surface. The theme background tinted slightly toward the foreground, so
+ * the page is never pure white/black and cards (--card) stand out from it. The sidebar sits on
+ * the page surface (separated by its border) rather than its own tinted panel.
+ *
+ * --sidebar-accent (menu item hover/active) is derived from --sidebar instead of shadcn's fixed
+ * value, so it stays visible on the page-colored sidebar, or whatever an app recolors it to.
+ *
+ * Kept outside the generated palettes so regenerating them doesn't drop it. The selectors
+ * mirror the palette selectors and come after them, so they win in every palette, light and
+ * dark. --page is redeclared on .dark so a nested .dark resolves it from the dark tokens.
+ */
+:root,
+.dark,
+[data-palette],
+[data-palette].dark,
+[data-palette] .dark {
+  --page: color-mix(in oklch, var(--background) 97%, var(--foreground));
+  --sidebar: var(--page);
+}
+
+:root,
+[data-palette] {
+  --sidebar-accent: color-mix(in oklch, var(--sidebar) 94%, var(--foreground));
+}
+
+.dark,
+[data-palette].dark,
+[data-palette] .dark {
+  --sidebar-accent: color-mix(in oklch, var(--sidebar) 88%, var(--foreground));
+}
+
 @theme inline {
   --color-background: var(--background);
+  --color-page: var(--page);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -556,6 +589,6 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-page text-foreground;
   }
 }

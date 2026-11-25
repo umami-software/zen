@@ -831,6 +831,7 @@ const textColorTokens = new Set([
 
 const backgroundColorTokens = new Set([
   'background',
+  'page',
   'card',
   'popover',
   'primary',

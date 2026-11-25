@@ -25,7 +25,8 @@ Most tokens come in pairs: a background color and the foreground color for text 
 <Example>
   <DataTable
     data={[
-      { id: 'background', token: 'background / foreground', usage: 'The page background and default text color.' },
+      { id: 'background', token: 'background / foreground', usage: 'The base surface color and default text color.' },
+      { id: 'page', token: 'page', usage: 'Zen extension (not part of shadcn): the page background, the base surface tinted slightly toward the foreground so cards stand out from it. Also the sidebar background.' },
       { id: 'card', token: 'card / card-foreground', usage: 'Cards and other raised panels.' },
       { id: 'popover', token: 'popover / popover-foreground', usage: 'Menus, popovers, select lists and other floating surfaces.' },
       { id: 'primary', token: 'primary / primary-foreground', usage: 'The brand color: default buttons, badges and selected states.' },
@@ -78,7 +79,7 @@ Each prop accepts the tokens that make sense for it:
 
 <PropertiesTable>
   <PropertiesTable.Row name="color" type="FontColor">"foreground" | "muted" | "primary" | "primary-foreground" | "secondary-foreground" | "accent-foreground" | "background" | "card-foreground" | "popover-foreground" | "destructive" | "success" | "warning" | "info" | PaletteColor | true</PropertiesTable.Row>
-  <PropertiesTable.Row name="backgroundColor" type="BackgroundColor">"background" | "card" | "popover" | "primary" | "secondary" | "muted" | "accent" | "foreground" | "sidebar" | "destructive" | "success" | "warning" | "info" | PaletteColor | true</PropertiesTable.Row>
+  <PropertiesTable.Row name="backgroundColor" type="BackgroundColor">"background" | "page" | "card" | "popover" | "primary" | "secondary" | "muted" | "accent" | "foreground" | "sidebar" | "destructive" | "success" | "warning" | "info" | PaletteColor | true</PropertiesTable.Row>
   <PropertiesTable.Row name="borderColor" type="BorderColor">"border" | "input" | "ring" | "primary" | "destructive" | "success" | "warning" | "info" | PaletteColor | true</PropertiesTable.Row>
 </PropertiesTable>
 
