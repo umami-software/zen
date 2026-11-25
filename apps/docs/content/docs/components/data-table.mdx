@@ -3,9 +3,9 @@ title: Data Table
 description: "A declarative table component for displaying structured data with minimal configuration."
 ---
 
-import { Button, DataColumn, DataTable, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Example, Lucide } from '../../../mdx-components';
+import { Button, DataColumn, DataTable, DataTableFilterExample, DataTablePaginationExample, DataTableSortingExample, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Example, Lucide } from '../../../mdx-components';
 
-A declarative table component for displaying structured data with minimal configuration. Define columns and pass data to quickly render formatted tables. Ideal for admin panels, lists, and data-heavy interfaces. It is built on the shadcn `Table` parts.
+A declarative table component for displaying structured data with minimal configuration. Define columns and pass data to quickly render formatted tables. Ideal for admin panels, lists, and data-heavy interfaces. It is built on [TanStack Table](https://tanstack.com/table) and the shadcn `Table` parts, and supports sorting, filtering, pagination and row selection.
 
 <Example>
   <DataTable
@@ -109,7 +109,9 @@ Pass a function as the `DataColumn` child to render a cell from its row.
 
 ## Row selection
 
-Set `selectionMode` to add a checkbox column. Rows are keyed by their `id`. Use `selectedRows` and
+Set `selectionMode` to add a checkbox column. Rows are keyed by their `id` property (or their index
+without one); pass `getRowId` to use something else. With a `filter`, the header checkbox selects
+only the matching rows. Use `selectedRows` and
 `onSelectedRowsChange` to control the selection, or `defaultSelectedRows` for an initial value.
 
 <Example>
@@ -141,7 +143,92 @@ Set `selectionMode` to add a checkbox column. Rows are keyed by their `id`. Use 
   ```
 </Example>
 
+## Sorting
+
+Set `sortable` on a column to sort by clicking its header. Clicking cycles through ascending,
+descending and unsorted; shift-click to sort by several columns. Use `defaultSorting` for an initial
+order, or `sorting` and `onSortingChange` to control it.
+
+A column sorts by `row[id]` unless you pass `value`, which also feeds filtering. Here `Joined` shows
+a formatted date but sorts by the `Date`.
+
+<Example>
+  <DataTableSortingExample />
+
+  ```jsx
+  <DataTable data={data} defaultSorting={[{ id: 'name', desc: false }]}>
+    <DataColumn id="name" label="Name" sortable />
+    <DataColumn id="title" label="Title" sortable />
+    <DataColumn id="joined" label="Joined" sortable value={row => new Date(row.joined)}>
+      {row => formatDate(row.joined)}
+    </DataColumn>
+  </DataTable>
+  ```
+</Example>
+
+## Filtering
+
+Pass a search term to `filter` to show only rows where a column contains it, ignoring case. Text and
+number columns are searched; set `filterable={false}` on a column to leave it out. `emptyState`
+replaces the default "No results." message.
+
+<Example>
+  <DataTableFilterExample />
+
+  ```jsx
+  const [search, setSearch] = useState('');
+
+  <SearchField placeholder="Search members" value={search} onValueChange={setSearch} />
+  <DataTable data={data} filter={search} emptyState="No members match your search.">
+    <DataColumn id="name" label="Name" />
+    <DataColumn id="title" label="Title" />
+    <DataColumn id="email" label="Email" />
+  </DataTable>
+  ```
+</Example>
+
+## Pagination
+
+Set `pageSize` to split the rows into pages, with Previous and Next controls below the table. Use
+`defaultPageIndex`, or `pageIndex` and `onPageIndexChange`, for the current page (starting at 0).
+Sorting and filtering apply across all pages, and changing them returns to the first page.
+
+<Example>
+  <DataTablePaginationExample />
+
+  ```jsx
+  <DataTable data={data} pageSize={3}>
+    <DataColumn id="name" label="Name" sortable />
+    <DataColumn id="title" label="Title" />
+    <DataColumn id="email" label="Email" />
+  </DataTable>
+  ```
+</Example>
+
+## Empty state
+
+When there are no rows, the table shows "No results." under the header. Pass `emptyState` to show
+something else.
+
+<Example>
+  <DataTable data={[]} emptyState="No members yet.">
+    <DataColumn id="name" label="Name" />
+    <DataColumn id="email" label="Email" />
+  </DataTable>
+
+  ```jsx
+  <DataTable data={[]} emptyState="No members yet.">
+    <DataColumn id="name" label="Name" />
+    <DataColumn id="email" label="Email" />
+  </DataTable>
+  ```
+</Example>
+
 ## As cards
+
+Set `displayMode="cards"` to show each row as a card, for example on small screens. Sorting,
+`filter`, pagination and selection still apply; with `selectionMode`, each card gets a checkbox.
+There are no headers in this mode, so set the order with `sorting` or `defaultSorting`.
 
 <Example>
   <DataTable
@@ -175,12 +262,22 @@ Set `selectionMode` to add a checkbox column. Rows are keyed by their `id`. Use 
 Other shadcn `Table` props are passed through.
 
 <PropertiesTable>
-  <PropertiesTable.Row name="data" type="object[]">Array of data objects to display. Rows are keyed by `id`</PropertiesTable.Row>
+  <PropertiesTable.Row name="data" type="TData[]">Array of data objects to display</PropertiesTable.Row>
+  <PropertiesTable.Row name="getRowId" type="(row, index) => string">Returns a row's unique id (default: the row's `id`, or its index)</PropertiesTable.Row>
   <PropertiesTable.Row name="displayMode" type="string">"table" | "cards" (default: "table")</PropertiesTable.Row>
   <PropertiesTable.Row name="selectionMode" type="string">"none" | "single" | "multiple" (default: "none")</PropertiesTable.Row>
   <PropertiesTable.Row name="selectedRows" type="string[]">Selected row ids (controlled)</PropertiesTable.Row>
   <PropertiesTable.Row name="defaultSelectedRows" type="string[]">Initially selected row ids (uncontrolled)</PropertiesTable.Row>
   <PropertiesTable.Row name="onSelectedRowsChange" type="(selectedRows: string[]) => void">Called with the new list of selected row ids</PropertiesTable.Row>
+  <PropertiesTable.Row name="sorting" type="{ id: string, desc: boolean }[]">Sorted columns, in priority order (controlled)</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultSorting" type="{ id: string, desc: boolean }[]">Initially sorted columns (uncontrolled)</PropertiesTable.Row>
+  <PropertiesTable.Row name="onSortingChange" type="(sorting) => void">Called when the user changes the sorting</PropertiesTable.Row>
+  <PropertiesTable.Row name="filter" type="string">Shows only rows where a filterable column contains this text (case-insensitive)</PropertiesTable.Row>
+  <PropertiesTable.Row name="pageSize" type="number">Splits rows into pages of this size and shows Previous and Next controls</PropertiesTable.Row>
+  <PropertiesTable.Row name="pageIndex" type="number">Current page, starting at 0 (controlled)</PropertiesTable.Row>
+  <PropertiesTable.Row name="defaultPageIndex" type="number">Initial page, starting at 0 (uncontrolled)</PropertiesTable.Row>
+  <PropertiesTable.Row name="onPageIndexChange" type="(pageIndex: number) => void">Called when the page changes</PropertiesTable.Row>
+  <PropertiesTable.Row name="emptyState" type="ReactNode">Shown when there are no rows (default: "No results.")</PropertiesTable.Row>
 </PropertiesTable>
 
 ### DataColumn
@@ -192,5 +289,11 @@ Other shadcn `Table` props are passed through.
   <PropertiesTable.Row name="align" type="string">"start" | "center" | "end"</PropertiesTable.Row>
   <PropertiesTable.Row name="hidden" type="boolean">Hides the column</PropertiesTable.Row>
   <PropertiesTable.Row name="as" type="string">Element to wrap the cell value in</PropertiesTable.Row>
+  <PropertiesTable.Row name="value" type="(row) => unknown">The column's value for a row, used for sorting, filtering and the default cell (default: `row[id]`)</PropertiesTable.Row>
+  <PropertiesTable.Row name="sortable" type="boolean">Lets users sort by this column by clicking its header</PropertiesTable.Row>
+  <PropertiesTable.Row name="filterable" type="boolean">Includes the column when matching `filter` (default: true for text and number values)</PropertiesTable.Row>
   <PropertiesTable.Row name="children" type="ReactNode | (row, index) => ReactNode">Static cell content, or a function that renders the cell from its row</PropertiesTable.Row>
 </PropertiesTable>
+
+For typed rows, pass the row type to `DataTable` and `DataColumn` in TypeScript, e.g.
+`<DataColumn<User> id="email">{row => row.email}</DataColumn>`.

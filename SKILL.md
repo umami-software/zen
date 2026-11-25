@@ -470,6 +470,14 @@ function MyComponent() {
   </DataColumn>
 </DataTable>
 
+<SearchField value={search} onValueChange={setSearch} />
+<DataTable data={rows} filter={search} pageSize={20} defaultSorting={[{ id: 'name', desc: false }]}>
+  <DataColumn id="name" label="Name" sortable />
+  <DataColumn id="created" label="Created" sortable value={row => new Date(row.created)}>
+    {row => formatDate(row.created)}
+  </DataColumn>
+</DataTable>
+
 <Table>
   <TableHeader>
     <TableRow>
@@ -486,7 +494,10 @@ function MyComponent() {
 </Table>
 ```
 
-DataTable rows are keyed by their `id`.
+DataTable is built on TanStack Table. Rows are keyed by their `id` (or index; override with
+`getRowId`). `sortable` columns sort on header click; `filter` matches text and number columns
+(`filterable={false}` opts out); `pageSize` adds Previous/Next paging; `value` gives a column with a
+custom cell a value to sort and filter by; `emptyState` replaces "No results.".
 
 ## Sidebar
 

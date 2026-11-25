@@ -17,6 +17,11 @@ export { ComboBoxEmptyExample } from './ComboBoxEmptyExample';
 export { ComboboxMultipleExample } from './ComboboxExample';
 export { CommandDialogExample, CommandExample } from './CommandExample';
 export { ConfirmationDialogExample } from './ConfirmationDialogExample';
+export {
+  DataTableFilterExample,
+  DataTablePaginationExample,
+  DataTableSortingExample,
+} from './DataTableExample';
 export { DatePickerExample } from './DatePickerExample';
 export { DialogExample } from './DialogExample';
 export { Example } from './Example';

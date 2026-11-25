@@ -15,6 +15,7 @@ export default defineConfig({
     'react-dom',
     'react/jsx-runtime',
     '@base-ui/react',
+    '@tanstack/react-table',
     'react-hook-form',
     'zustand',
     '@react-spring/web',
