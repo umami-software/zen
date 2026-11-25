@@ -3,28 +3,20 @@ title: Breakpoints
 description: "Breakpoints allow you to build responsive layouts by reacting to screen size changes."
 ---
 
-import { BreakpointExample, DataColumn, DataTable, Example, Heading } from '../../../mdx-components';
+import { BreakpointExample, Example, Heading } from '../../../mdx-components';
 
 Breakpoints allow you to build responsive layouts by reacting to screen size changes.
 Zen uses Tailwind's default breakpoints with a **mobile-first** approach. Styles are applied
 from the smallest screen up, and breakpoints specify the **minimum width** at which styles take effect.
 
-<Example>
-  <DataTable
-    data={[
-      { id: 'base', name: 'base', device: 'All devices', width: '0px' },
-      { id: 'sm', name: 'sm', device: 'Small devices', width: '640px' },
-      { id: 'md', name: 'md', device: 'Medium devices', width: '768px' },
-      { id: 'lg', name: 'lg', device: 'Large devices', width: '1024px' },
-      { id: 'xl', name: 'xl', device: 'Extra large devices', width: '1280px' },
-      { id: '2xl', name: '2xl', device: 'Extra extra large devices', width: '1536px' },
-    ]}
-  >
-    <DataColumn id="name" label="Breakpoint" />
-    <DataColumn id="device" label="Device" />
-    <DataColumn id="width" label="Min Width" />
-  </DataTable>
-</Example>
+| Breakpoint | Device | Min Width |
+| --- | --- | --- |
+| base | All devices | 0px |
+| sm | Small devices | 640px |
+| md | Medium devices | 768px |
+| lg | Large devices | 1024px |
+| xl | Extra large devices | 1280px |
+| 2xl | Extra extra large devices | 1536px |
 
 ## Usage
 

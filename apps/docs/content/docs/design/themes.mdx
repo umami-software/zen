@@ -3,7 +3,7 @@ title: Themes
 description: "Light and dark mode, plus seven built-in color palettes."
 ---
 
-import { DataColumn, DataTable, Example, PaletteSwatchesExample, PaletteSwitcher, ThemeButton, ThemeButtonExample } from '../../../mdx-components';
+import { Example, PaletteSwatchesExample, PaletteSwitcher, ThemeButton, ThemeButtonExample } from '../../../mdx-components';
 
 Zen ships the [shadcn/ui](https://ui.shadcn.com/docs/theming) theme. Every color is a CSS variable,
 and two switches change them all at once:
@@ -128,22 +128,15 @@ primary color. There are seven, all shadcn base colors.
   <PaletteSwatchesExample />
 </Example>
 
-<Example>
-  <DataTable
-    data={[
-      { id: 'neutral', name: 'neutral', description: 'Pure gray with no tint (default)' },
-      { id: 'stone', name: 'stone', description: 'Warm gray' },
-      { id: 'zinc', name: 'zinc', description: 'Cool gray with a slight blue undertone' },
-      { id: 'mauve', name: 'mauve', description: 'Gray with a purple undertone' },
-      { id: 'olive', name: 'olive', description: 'Gray with a yellow-green undertone' },
-      { id: 'mist', name: 'mist', description: 'Gray with a blue-teal undertone' },
-      { id: 'taupe', name: 'taupe', description: 'Gray with a brown undertone' },
-    ]}
-  >
-    <DataColumn id="name" label="Palette" />
-    <DataColumn id="description" label="Description" />
-  </DataTable>
-</Example>
+| Palette | Description |
+| --- | --- |
+| neutral | Pure gray with no tint (default) |
+| stone | Warm gray |
+| zinc | Cool gray with a slight blue undertone |
+| mauve | Gray with a purple undertone |
+| olive | Gray with a yellow-green undertone |
+| mist | Gray with a blue-teal undertone |
+| taupe | Gray with a brown undertone |
 
 ### Setting the palette
 

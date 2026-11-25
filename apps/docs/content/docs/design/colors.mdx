@@ -3,7 +3,7 @@ title: Colors
 description: "Colors are shadcn/ui theme tokens, plus the full Tailwind CSS palette."
 ---
 
-import { AccentColorsExample, ColorSwatchesExample, DataColumn, DataTable, Example, Icon, Lucide, Text } from '../../../mdx-components';
+import { AccentColorsExample, ColorSwatchesExample, Example, Icon, Lucide, Text } from '../../../mdx-components';
 import { ThemeTokensExample } from '../../../app/examples/ThemeTokensExample';
 
 Zen uses the [shadcn/ui](https://ui.shadcn.com/docs/theming) color system. There are two kinds of
@@ -22,30 +22,23 @@ Most tokens come in pairs: a background color and the foreground color for text 
   <ThemeTokensExample />
 </Example>
 
-<Example>
-  <DataTable
-    data={[
-      { id: 'background', token: 'background / foreground', usage: 'The base surface color and default text color.' },
-      { id: 'page', token: 'page', usage: 'Zen extension (not part of shadcn): the page background, white in light mode and black in dark mode. Also the sidebar background.' },
-      { id: 'card', token: 'card / card-foreground', usage: 'Cards and other raised panels.' },
-      { id: 'popover', token: 'popover / popover-foreground', usage: 'Menus, popovers, select lists and other floating surfaces.' },
-      { id: 'primary', token: 'primary / primary-foreground', usage: 'The brand color: default buttons, badges and selected states.' },
-      { id: 'secondary', token: 'secondary / secondary-foreground', usage: 'Secondary buttons and badges.' },
-      { id: 'muted', token: 'muted / muted-foreground', usage: 'Subtle backgrounds, and secondary text such as descriptions and placeholders.' },
-      { id: 'accent', token: 'accent / accent-foreground', usage: 'Hover and highlighted states of menu items and list options.' },
-      { id: 'destructive', token: 'destructive', usage: 'Errors and destructive actions.' },
-      { id: 'border', token: 'border', usage: 'Default border color.' },
-      { id: 'input', token: 'input', usage: 'Borders of form controls.' },
-      { id: 'ring', token: 'ring', usage: 'Focus rings.' },
-      { id: 'chart', token: 'chart-1 … chart-5', usage: 'Chart series colors.' },
-      { id: 'sidebar', token: 'sidebar, sidebar-*', usage: 'The Sidebar component and its parts.' },
-      { id: 'status', token: 'success, warning, info', usage: 'Zen extension (not part of shadcn): status colors for StatusLight, Toast and your own UI.' },
-    ]}
-  >
-    <DataColumn id="token" label="Token" />
-    <DataColumn id="usage" label="Usage" />
-  </DataTable>
-</Example>
+| Token | Usage |
+| --- | --- |
+| background / foreground | The base surface color and default text color. |
+| page | Zen extension (not part of shadcn): the page background, white in light mode and black in dark mode. Also the sidebar background. |
+| card / card-foreground | Cards and other raised panels. |
+| popover / popover-foreground | Menus, popovers, select lists and other floating surfaces. |
+| primary / primary-foreground | The brand color: default buttons, badges and selected states. |
+| secondary / secondary-foreground | Secondary buttons and badges. |
+| muted / muted-foreground | Subtle backgrounds, and secondary text such as descriptions and placeholders. |
+| accent / accent-foreground | Hover and highlighted states of menu items and list options. |
+| destructive | Errors and destructive actions. |
+| border | Default border color. |
+| input | Borders of form controls. |
+| ring | Focus rings. |
+| chart-1 … chart-5 | Chart series colors. |
+| sidebar, sidebar-\* | The Sidebar component and its parts. |
+| success, warning, info | Zen extension (not part of shadcn): status colors for StatusLight, Toast and your own UI. |
 
 Each token is a CSS variable (`--primary`) and a Tailwind color (`bg-primary`, `text-primary`,
 `border-primary`), so it also works with opacity modifiers: `bg-success/10` is a soft success

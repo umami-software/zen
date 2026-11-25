@@ -8,7 +8,7 @@ import { Column, Example, ExampleBox, Flexbox, Label } from '../../../mdx-compon
 A flexible layout component using CSS Flexbox for one-dimensional arrangements. Provides fine-grained control over alignment, distribution, and wrapping. For common cases, prefer the simpler Row and Column components.
 
 <Example gap="8">
-  <Column alignItems="center">
+  <Column alignItems="center" gap="2">
     <Label>Row</Label>
     <Flexbox direction="row" gap="3">
       <ExampleBox />
@@ -16,7 +16,7 @@ A flexible layout component using CSS Flexbox for one-dimensional arrangements. 
       <ExampleBox />
     </Flexbox>
   </Column>
-  <Column>
+  <Column gap="2">
     <Label>Column</Label>
     <Flexbox direction="column" gap="3">
       <ExampleBox />
@@ -26,7 +26,7 @@ A flexible layout component using CSS Flexbox for one-dimensional arrangements. 
   </Column>
 
   ```jsx
-  <Column alignItems="center">
+  <Column alignItems="center" gap="2">
     <Label>Row</Label>
     <Flexbox direction="row" gap="3">
       <ExampleBox />
@@ -34,7 +34,7 @@ A flexible layout component using CSS Flexbox for one-dimensional arrangements. 
       <ExampleBox />
     </Flexbox>
   </Column>
-  <Column>
+  <Column gap="2">
     <Label>Column</Label>
     <Flexbox direction="column" gap="3">
       <ExampleBox />

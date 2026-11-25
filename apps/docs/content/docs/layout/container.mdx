@@ -3,7 +3,7 @@ title: Container
 description: "A centered wrapper that constrains content to a maximum width."
 ---
 
-import { Button, Container, DataColumn, DataTable, Dialog, DialogContent, DialogTrigger, Example, Text } from '../../../mdx-components';
+import { Button, Container, Dialog, DialogContent, DialogTrigger, Example, Text } from '../../../mdx-components';
 
 A centered wrapper that constrains content to a maximum width. Essential for readable line lengths and consistent page layouts, especially for text-heavy content like articles or documentation.
 
@@ -31,22 +31,14 @@ A centered wrapper that constrains content to a maximum width. Essential for rea
 
 The container is full width with `1rem` of horizontal padding, and has a `max-width` at each breakpoint.
 
-<Example>
-  <DataTable
-    data={[
-      { id: 'base', name: 'base', width: '0px', maxWidth: 'none (full width)' },
-      { id: 'sm', name: 'sm', width: '640px', maxWidth: '500px' },
-      { id: 'md', name: 'md', width: '768px', maxWidth: '740px' },
-      { id: 'lg', name: 'lg', width: '1024px', maxWidth: '1000px' },
-      { id: 'xl', name: 'xl', width: '1280px', maxWidth: '1240px' },
-      { id: '2xl', name: '2xl', width: '1536px', maxWidth: '1600px' },
-    ]}
-  >
-    <DataColumn id="name" label="Size" />
-    <DataColumn id="width" label="Breakpoint" />
-    <DataColumn id="maxWidth" label="Max width" />
-  </DataTable>
-</Example>
+| Size | Breakpoint | Max width |
+| --- | --- | --- |
+| base | 0px | none (full width) |
+| sm | 640px | 500px |
+| md | 768px | 740px |
+| lg | 1024px | 1000px |
+| xl | 1280px | 1240px |
+| 2xl | 1536px | 1600px |
 
 ## Component props
 

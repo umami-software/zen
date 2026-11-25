@@ -83,8 +83,8 @@ export function Example({
   ...props
 }: FlexboxProps) {
   const { preview, code, codeFirst } = separateChildren(children);
-  // Prop reference tables don't need the demo min-height; without this they
-  // get vertically centered inside 300px with dead space above and below.
+  // DataTable demos don't need the demo min-height; without this they get
+  // vertically centered inside 300px with dead space above and below.
   const isTableOnly =
     preview.length > 0 && preview.every(child => isValidElement(child) && child.type === DataTable);
   // If code comes first, show preview by default (expanded); otherwise hide code by default
