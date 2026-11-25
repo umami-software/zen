@@ -61,7 +61,10 @@ const features = tableFeatures({
   },
 });
 
-const SELECTION_COLUMN_WIDTH = '2rem';
+const SELECTION_COLUMN_WIDTH = '2.5rem';
+
+// Rows are grids. The first cell gets extra left padding so content sits clear of the border.
+const ROW_CLASS = 'grid [&>*:first-child]:pl-4';
 
 const alignClasses = {
   start: 'justify-start text-left',
@@ -345,10 +348,15 @@ export function DataTable<TData extends RowData = any>({
       role="table"
       data-slot="data-table"
       data-selection-mode={isSelectable ? selectionMode : undefined}
-      className={cn('grid', className)}
+      // Preflight sets `table { border-color: inherit }`, so the border color is set explicitly.
+      className={cn('grid overflow-hidden rounded-lg border border-border', className)}
     >
       <TableHeader role="rowgroup" className="contents">
-        <TableRow role="row" className="grid hover:bg-transparent" style={rowStyle}>
+        <TableRow
+          role="row"
+          className={cn(ROW_CLASS, 'bg-muted/50 hover:bg-muted/50')}
+          style={rowStyle}
+        >
           {isSelectable && (
             <TableHead role="columnheader" className="flex items-center">
               {selectionMode === 'multiple' && (
@@ -420,7 +428,7 @@ export function DataTable<TData extends RowData = any>({
                 role="row"
                 data-row-id={row.id}
                 data-state={isSelected ? 'selected' : undefined}
-                className="grid"
+                className={ROW_CLASS}
                 style={rowStyle}
               >
                 {isSelectable && (
@@ -454,7 +462,7 @@ export function DataTable<TData extends RowData = any>({
                       key={id}
                       role="cell"
                       className={cn(
-                        'flex min-w-0 items-center whitespace-normal',
+                        'flex min-w-0 items-center whitespace-normal wrap-anywhere',
                         align && alignClasses[align],
                         cellClassName,
                       )}
