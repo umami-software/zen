@@ -191,6 +191,7 @@
 				"components/data-table",
 				"components/icon",
 				"components/image",
+				"components/item",
 				"components/kbd",
 				"components/list",
 				"components/table",

@@ -1,0 +1,231 @@
+---
+title: Item
+description: "A flexible row for displaying content with media, a title, a description and actions."
+---
+
+import { Box, Button, Column, Example, Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemMedia, ItemSeparator, ItemTitle, Lucide } from '../../../mdx-components';
+
+A flexible row for displaying content: an optional `ItemMedia`, an `ItemContent` with an
+`ItemTitle` and `ItemDescription`, and optional `ItemActions`. Use it for settings rows, list
+entries, notifications and other repeated content. This is the shadcn `Item` component.
+
+<Example>
+  <Box width="100%" maxWidth="420px">
+    <Item variant="outline">
+      <ItemContent>
+        <ItemTitle>Two-factor authentication</ItemTitle>
+        <ItemDescription>Require a code from your phone when you sign in.</ItemDescription>
+      </ItemContent>
+      <ItemActions>
+        <Button variant="outline" size="sm">Enable</Button>
+      </ItemActions>
+    </Item>
+  </Box>
+
+  ```jsx
+  <Item variant="outline">
+    <ItemContent>
+      <ItemTitle>Two-factor authentication</ItemTitle>
+      <ItemDescription>Require a code from your phone when you sign in.</ItemDescription>
+    </ItemContent>
+    <ItemActions>
+      <Button variant="outline" size="sm">Enable</Button>
+    </ItemActions>
+  </Item>
+  ```
+</Example>
+
+## Variants
+
+`default` has no border or background, `outline` adds a border and `muted` a subtle background.
+
+<Example>
+  <Column gap="4" width="100%" maxWidth="420px">
+    <Item>
+      <ItemContent>
+        <ItemTitle>Default</ItemTitle>
+        <ItemDescription>No border or background.</ItemDescription>
+      </ItemContent>
+    </Item>
+    <Item variant="outline">
+      <ItemContent>
+        <ItemTitle>Outline</ItemTitle>
+        <ItemDescription>A border around the item.</ItemDescription>
+      </ItemContent>
+    </Item>
+    <Item variant="muted">
+      <ItemContent>
+        <ItemTitle>Muted</ItemTitle>
+        <ItemDescription>A subtle background.</ItemDescription>
+      </ItemContent>
+    </Item>
+  </Column>
+
+  ```jsx
+  <Item>...</Item>
+  <Item variant="outline">...</Item>
+  <Item variant="muted">...</Item>
+  ```
+</Example>
+
+## Sizes
+
+<Example>
+  <Column gap="4" width="100%" maxWidth="420px">
+    <Item variant="outline">
+      <ItemContent>
+        <ItemTitle>Default size</ItemTitle>
+      </ItemContent>
+    </Item>
+    <Item variant="outline" size="sm">
+      <ItemContent>
+        <ItemTitle>Small size</ItemTitle>
+      </ItemContent>
+    </Item>
+    <Item variant="outline" size="xs">
+      <ItemContent>
+        <ItemTitle>Extra small size</ItemTitle>
+      </ItemContent>
+    </Item>
+  </Column>
+
+  ```jsx
+  <Item variant="outline">...</Item>
+  <Item variant="outline" size="sm">...</Item>
+  <Item variant="outline" size="xs">...</Item>
+  ```
+</Example>
+
+## Media
+
+Put an icon, avatar or image in `ItemMedia`. The `icon` variant sizes an icon, and the `image`
+variant crops an image to a square.
+
+<Example>
+  <Box width="100%" maxWidth="420px">
+    <Item variant="outline">
+      <ItemMedia variant="icon">
+        <Lucide.ShieldAlert />
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle>Security alert</ItemTitle>
+        <ItemDescription>A new device signed in to your account.</ItemDescription>
+      </ItemContent>
+      <ItemActions>
+        <Button size="sm">Review</Button>
+      </ItemActions>
+    </Item>
+  </Box>
+
+  ```jsx
+  <Item variant="outline">
+    <ItemMedia variant="icon">
+      <ShieldAlert />
+    </ItemMedia>
+    <ItemContent>
+      <ItemTitle>Security alert</ItemTitle>
+      <ItemDescription>A new device signed in to your account.</ItemDescription>
+    </ItemContent>
+    <ItemActions>
+      <Button size="sm">Review</Button>
+    </ItemActions>
+  </Item>
+  ```
+</Example>
+
+## As a link
+
+Use `render` to render the item as another element, such as a link. Links get a hover background.
+
+<Example>
+  <Box width="100%" maxWidth="420px">
+    <Item variant="outline" render={<a href="#as-a-link" />}>
+      <ItemContent>
+        <ItemTitle>Account settings</ItemTitle>
+        <ItemDescription>Manage your profile, email and password.</ItemDescription>
+      </ItemContent>
+      <ItemActions>
+        <Lucide.ChevronRight className="size-4" />
+      </ItemActions>
+    </Item>
+  </Box>
+
+  ```jsx
+  <Item variant="outline" render={<a href="/settings" />}>
+    <ItemContent>
+      <ItemTitle>Account settings</ItemTitle>
+      <ItemDescription>Manage your profile, email and password.</ItemDescription>
+    </ItemContent>
+    <ItemActions>
+      <ChevronRight className="size-4" />
+    </ItemActions>
+  </Item>
+  ```
+</Example>
+
+## Group
+
+Wrap items in an `ItemGroup` to list them, with an `ItemSeparator` between them.
+
+<Example>
+  <Box width="100%" maxWidth="420px" border borderRadius="lg">
+    <ItemGroup>
+      <Item>
+        <ItemMedia variant="icon">
+          <Lucide.Mail />
+        </ItemMedia>
+        <ItemContent>
+          <ItemTitle>Email</ItemTitle>
+          <ItemDescription>Weekly summary of activity.</ItemDescription>
+        </ItemContent>
+      </Item>
+      <ItemSeparator />
+      <Item>
+        <ItemMedia variant="icon">
+          <Lucide.Bell />
+        </ItemMedia>
+        <ItemContent>
+          <ItemTitle>Push</ItemTitle>
+          <ItemDescription>Alerts on your devices.</ItemDescription>
+        </ItemContent>
+      </Item>
+    </ItemGroup>
+  </Box>
+
+  ```jsx
+  <ItemGroup>
+    <Item>
+      <ItemMedia variant="icon">
+        <Mail />
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle>Email</ItemTitle>
+        <ItemDescription>Weekly summary of activity.</ItemDescription>
+      </ItemContent>
+    </Item>
+    <ItemSeparator />
+    <Item>...</Item>
+  </ItemGroup>
+  ```
+</Example>
+
+## Component props
+
+### Item
+
+<PropertiesTable>
+  <PropertiesTable.Row name="variant" type="string">"default" | "outline" | "muted" (default: "default")</PropertiesTable.Row>
+  <PropertiesTable.Row name="size" type="string">"default" | "sm" | "xs" (default: "default")</PropertiesTable.Row>
+  <PropertiesTable.Row name="render" type="ReactElement">Renders the item as another element, e.g. `<a href="..." />`</PropertiesTable.Row>
+</PropertiesTable>
+
+### ItemMedia
+
+<PropertiesTable>
+  <PropertiesTable.Row name="variant" type="string">"default" | "icon" | "image" (default: "default")</PropertiesTable.Row>
+</PropertiesTable>
+
+`ItemContent`, `ItemTitle`, `ItemActions`, `ItemGroup`, `ItemHeader` and `ItemFooter` accept
+standard `div` props, and `ItemDescription` renders a `p`. `ItemHeader` and `ItemFooter` span the
+full width of the item, above and below its content. Each part exposes a matching `data-slot`
+attribute for styling, such as `data-slot="item"` and `data-slot="item-title"`.

@@ -70,3 +70,14 @@
   border-radius: 0 0 calc(var(--radius) * 1.4) calc(var(--radius) * 1.4);
   background-color: color-mix(in oklab, var(--muted) 50%, transparent);
 }
+
+/* Card: the footer is a shaded band with a top border, like the dialog footer.
+   The negative margin cancels the card's bottom padding (--card-spacing, which
+   is smaller for size="sm") so the band reaches the card's bottom edge; the
+   card's overflow-hidden and rounded-xl clip its corners. */
+[data-slot="card"] > [data-slot="card-footer"]:last-child {
+  margin-bottom: calc(var(--card-spacing) * -1);
+  padding-block: calc(var(--spacing) * 4);
+  border-top: 1px solid var(--border);
+  background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+}
