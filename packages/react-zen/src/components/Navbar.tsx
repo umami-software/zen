@@ -13,19 +13,19 @@ const NavbarContext = createContext<NavbarContextValue>({ showArrow: true });
 const NavbarContentContext = createContext(false);
 
 const triggerClassName = cn(
-  'inline-flex h-9 w-max items-center justify-center gap-1 rounded-md bg-background px-2.5 py-1.5 text-sm font-medium transition-all outline-none select-none',
+  'inline-flex h-9 w-max items-center justify-center gap-1 rounded-lg bg-background px-2.5 py-1.5 text-sm font-medium transition-all outline-none select-none',
   'hover:bg-muted focus:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50',
   'disabled:pointer-events-none disabled:opacity-50 data-popup-open:bg-muted/50 data-popup-open:hover:bg-muted',
 );
 
 const linkClassName = cn(
-  'inline-flex h-9 items-center gap-1 rounded-md px-2.5 py-1.5 text-sm font-medium no-underline transition-all outline-none select-none',
+  'inline-flex h-9 items-center gap-1 rounded-lg px-2.5 py-1.5 text-sm font-medium no-underline transition-all outline-none select-none',
   'hover:bg-muted focus:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50',
   'data-active:bg-muted/50',
 );
 
 const contentLinkClassName = cn(
-  'flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm no-underline transition-all outline-none select-none',
+  'flex items-center gap-2 rounded-md px-1.5 py-1 text-sm no-underline transition-all outline-none select-none',
   'hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring/50',
   'data-active:bg-muted/50 [&_svg:not([class*=size-])]:size-(--icon-size)',
 );

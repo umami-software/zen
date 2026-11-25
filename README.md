@@ -4,7 +4,7 @@ Zen is the design system and React component collection used by [Umami](https://
 It contains the theme, layout primitives, controls, and interface patterns used across Umami
 products.
 
-Zen 1.0 is built on [shadcn/ui](https://ui.shadcn.com/) with the **base-vega** style, uses
+Zen 1.0 is built on [shadcn/ui](https://ui.shadcn.com/) with the **base-nova** style, uses
 [Base UI](https://base-ui.com/) primitives for interactive behavior, and is styled with
 [Tailwind CSS](https://tailwindcss.com/) v4.
 
@@ -14,7 +14,7 @@ Zen 1.0 is built on [shadcn/ui](https://ui.shadcn.com/) with the **base-vega** s
 
 ## Contents
 
-- The shadcn/ui components (base-vega), unmodified and exported with shadcn's names and parts
+- The shadcn/ui components (base-nova), unmodified and exported with shadcn's names and parts
 - Layout and typography primitives with style props (Box, Row, Column, Grid, Text, Heading)
 - Fields, react-hook-form forms, DataTable, toasts and other Zen components
 - The shadcn theme tokens with seven palettes (neutral, stone, zinc, mauve, olive, mist, taupe),

@@ -46,9 +46,9 @@
 
 /* Tabs, line variant: the underline spans the label only. Tabs have no
    horizontal padding; the list's gap is the only space between them (the same
-   label spacing as shadcn's 2 x px-2 + gap-1). */
+   label spacing as shadcn's 2 x px-1.5 + gap-1). */
 [data-slot="tabs-list"][data-variant="line"] {
-  column-gap: calc(var(--spacing) * 5);
+  column-gap: calc(var(--spacing) * 4);
   padding-inline: 0;
 }
 

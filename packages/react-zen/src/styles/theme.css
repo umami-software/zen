@@ -1,7 +1,7 @@
 /*
  * @umami/react-zen theme
  *
- * Tokens are shadcn/ui "base-vega" (preset bIkeymG), generated from
+ * Tokens are shadcn/ui "base-nova" (preset b24), generated from
  * https://ui.shadcn.com/init?base=base&preset=<code>. Do not hand-edit the
  * palette values; regenerate them from shadcn instead.
  *
@@ -36,7 +36,7 @@
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
+  --radius: 0.45rem;
   --icon-size: calc(var(--spacing) * 3.5);
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);

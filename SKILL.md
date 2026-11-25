@@ -2,11 +2,11 @@
 
 This guide covers how to use the zen component library in your React applications.
 
-Zen 1.0 is built on [shadcn/ui](https://ui.shadcn.com/) (**base-vega** style) on
+Zen 1.0 is built on [shadcn/ui](https://ui.shadcn.com/) (**base-nova** style) on
 [Base UI](https://base-ui.com/), styled with Tailwind CSS v4. It has two kinds of components:
 
 - **shadcn components** (Button, Badge, Dialog, DropdownMenu, Select, Tabs, Tooltip, Checkbox,
-  Switch, Table, Sidebar, …) are the unmodified shadcn base-vega components, exported with shadcn's
+  Switch, Table, Sidebar, …) are the unmodified shadcn base-nova components, exported with shadcn's
   names and parts. Their shadcn docs apply as written.
 - **Zen components** add layout and typography primitives with style props (Box, Row, Column, Grid,
   Text, Heading), richer fields (TextField, PasswordField, SearchField, NumberField, DatePicker),
