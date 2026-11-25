@@ -1,4 +1,4 @@
-// shadcn/ui (base-nova). Files in ./ui are added with the shadcn CLI and kept unmodified.
+// shadcn/ui (base-vega). Files in ./ui are added with the shadcn CLI and kept unmodified.
 
 export type * from '@/lib/types';
 // Zen components

@@ -60,7 +60,7 @@ export function ThemeSwitcher({ className }: ThemeSwitcherProps) {
   return (
     <div
       className={cn(
-        'inline-flex items-center overflow-hidden rounded-lg border bg-background shadow-xs dark:border-input dark:bg-input/30',
+        'inline-flex items-center overflow-hidden rounded-md border bg-background shadow-xs dark:border-input dark:bg-input/30',
         className,
       )}
     >
@@ -72,7 +72,7 @@ export function ThemeSwitcher({ className }: ThemeSwitcherProps) {
           aria-label={option.label}
           aria-pressed={mode === option.value}
           className={cn(
-            'flex size-8 cursor-pointer items-center justify-center outline-none transition-colors [&_svg]:size-(--icon-size)',
+            'flex size-9 cursor-pointer items-center justify-center outline-none transition-colors [&_svg]:size-(--icon-size)',
             'not-first:border-l not-first:border-border dark:not-first:border-input',
             'hover:bg-muted hover:text-foreground',
             'focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:ring-inset',

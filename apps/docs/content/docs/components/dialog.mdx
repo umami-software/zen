@@ -132,13 +132,14 @@ submitted.
 
 ## Close button
 
-`DialogContent` shows a close button in the corner by default. Set `showCloseButton={false}` to hide
-it, and `showCloseButton` on `DialogFooter` to add a Close button to the footer instead.
+`DialogContent` has no close button by default; the dialog closes on Escape, a click outside, or a
+`DialogClose`. Set `showCloseButton` on `DialogContent` to add an X button in the top-right corner, or
+`showCloseButton` on `DialogFooter` to add a Close button to the footer.
 
 <Example>
   <Dialog>
     <DialogTrigger render={<Button variant="outline" />}>Share link</DialogTrigger>
-    <DialogContent showCloseButton={false}>
+    <DialogContent>
       <DialogHeader>
         <DialogTitle>Share link</DialogTitle>
         <DialogDescription>Anyone who has this link will be able to view this page.</DialogDescription>
@@ -151,7 +152,7 @@ it, and `showCloseButton` on `DialogFooter` to add a Close button to the footer 
   ```jsx
   <Dialog>
     <DialogTrigger render={<Button variant="outline" />}>Share link</DialogTrigger>
-    <DialogContent showCloseButton={false}>
+    <DialogContent>
       <DialogHeader>
         <DialogTitle>Share link</DialogTitle>
         <DialogDescription>Anyone who has this link will be able to view this page.</DialogDescription>
@@ -255,7 +256,7 @@ Limit the height of the body and let it scroll, keeping the header and footer in
 ### DialogContent
 
 <PropertiesTable>
-  <PropertiesTable.Row name="showCloseButton" type="boolean">Shows the close button in the top-right corner (default: true)</PropertiesTable.Row>
+  <PropertiesTable.Row name="showCloseButton" type="boolean">Shows an X close button in the top-right corner (default: false)</PropertiesTable.Row>
   <PropertiesTable.Row name="initialFocus" type="boolean | RefObject | function">Element to focus when the dialog opens</PropertiesTable.Row>
   <PropertiesTable.Row name="finalFocus" type="boolean | RefObject | function">Element to focus when the dialog closes</PropertiesTable.Row>
 </PropertiesTable>

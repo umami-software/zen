@@ -127,7 +127,7 @@ export function List({
         {...props}
         data-slot="list"
         className={cn(
-          'flex w-full flex-col overflow-auto rounded-lg p-1 outline-none focus-visible:ring-3 focus-visible:ring-ring/50',
+          'flex w-full flex-col overflow-auto rounded-md p-1 outline-none focus-visible:ring-3 focus-visible:ring-ring/50',
           className,
         )}
         onKeyDown={handleKeyDown}
@@ -180,7 +180,7 @@ export function ListItem({
       data-disabled={disabled || undefined}
       data-slot="list-item"
       className={cn(
-        "relative flex w-full cursor-default items-center gap-2 rounded-md py-1 pl-1.5 text-sm outline-hidden select-none hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-(--icon-size)",
+        "relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pl-2 text-sm outline-hidden select-none hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-(--icon-size)",
         hasIndicator ? 'pr-8' : 'pr-2',
         className,
       )}

@@ -30,7 +30,7 @@ export function PaletteSwitcher({ className }: PaletteSwitcherProps) {
   return (
     <div
       className={cn(
-        'inline-flex flex-wrap items-center overflow-hidden rounded-lg border border-border bg-background',
+        'inline-flex flex-wrap items-center overflow-hidden rounded-md border border-border bg-background',
         className,
       )}
     >
@@ -42,7 +42,7 @@ export function PaletteSwitcher({ className }: PaletteSwitcherProps) {
           aria-label={PALETTE_LABELS[paletteOption]}
           aria-pressed={currentPalette === paletteOption}
           className={cn(
-            'flex h-8 cursor-pointer items-center justify-center px-3 text-sm outline-none transition-colors',
+            'flex h-9 cursor-pointer items-center justify-center px-3 text-sm outline-none transition-colors',
             '[&:not(:first-child)]:border-l [&:not(:first-child)]:border-border',
             'hover:bg-muted',
             'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset',

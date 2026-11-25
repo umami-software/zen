@@ -38,12 +38,35 @@
 
 /* Tabs, line variant: the underline spans the label only. Tabs have no
    horizontal padding; the list's gap is the only space between them (the same
-   label spacing as shadcn's 2 x px-1.5 + gap-1). */
+   label spacing as shadcn's 2 x px-2 + gap-1). */
 [data-slot="tabs-list"][data-variant="line"] {
-  column-gap: calc(var(--spacing) * 4);
+  column-gap: calc(var(--spacing) * 5);
   padding-inline: 0;
 }
 
 [data-slot="tabs-list"][data-variant="line"] > [data-slot="tabs-trigger"] {
   padding-inline: 0;
+}
+
+/* Fields: a tighter gap between a label and its input when stacked (shadcn's
+   vertical Field is gap-3; this matches the nova style's gap-2). Horizontal
+   fields, e.g. a checkbox beside its label, keep gap-3. */
+[data-slot="field"][data-orientation="vertical"] {
+  row-gap: calc(var(--spacing) * 2);
+}
+
+/* Dialog: a larger title, and a footer set off as a shaded band with a top
+   border that runs to the dialog's edges (shadcn's nova style). The negative
+   margins cancel DialogContent's p-6, and the bottom corners follow its
+   rounded-xl. */
+[data-slot="dialog-title"] {
+  font-size: 1rem;
+}
+
+[data-slot="dialog-content"] [data-slot="dialog-footer"] {
+  margin: 0 calc(var(--spacing) * -6) calc(var(--spacing) * -6);
+  padding: calc(var(--spacing) * 4) calc(var(--spacing) * 6);
+  border-top: 1px solid var(--border);
+  border-radius: 0 0 calc(var(--radius) * 1.4) calc(var(--radius) * 1.4);
+  background-color: color-mix(in oklab, var(--muted) 50%, transparent);
 }

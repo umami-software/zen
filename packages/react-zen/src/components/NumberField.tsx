@@ -41,7 +41,7 @@ export const NumberField = forwardRef<HTMLDivElement, NumberFieldProps>(function
       id={fieldId}
       data-slot="number-field"
       className={cn(
-        'group/field flex w-full flex-col gap-3 data-disabled:[&_[data-slot=field-label]]:opacity-50',
+        'group/field flex w-full flex-col gap-2 data-disabled:[&_[data-slot=field-label]]:opacity-50',
         className,
       )}
     >
