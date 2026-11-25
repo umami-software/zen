@@ -1,0 +1,123 @@
+---
+title: Chart
+description: "Charts built with Recharts, styled with your theme's chart colors."
+---
+
+import { Example } from '../../../mdx-components';
+import { ChartAreaExample, ChartBarExample, ChartLineExample } from '../../../app/examples/ChartExample';
+
+Charts built with [Recharts](https://recharts.org). This is the shadcn `Chart` component: it does
+not wrap Recharts, so you compose charts from Recharts components (`BarChart`, `Bar`, `XAxis`,
+…) inside a `ChartContainer`, and Zen adds theming, a tooltip and a legend that match the other
+components.
+
+Import the Recharts components from `recharts`. Zen depends on Recharts 3 (`^3.8.0`); add it to your
+app with a compatible version so your charts and Zen share a single copy.
+
+```bash
+pnpm add recharts@^3.8.0
+```
+
+<Example>
+  <ChartBarExample />
+
+  ```jsx
+  import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts';
+
+  const config = {
+    desktop: { label: 'Desktop', color: 'var(--chart-1)' },
+    mobile: { label: 'Mobile', color: 'var(--chart-2)' },
+  } satisfies ChartConfig;
+
+  <ChartContainer config={config} className="min-h-[200px] w-full">
+    <BarChart accessibilityLayer data={data}>
+      <CartesianGrid vertical={false} />
+      <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={10} />
+      <ChartTooltip content={<ChartTooltipContent />} />
+      <ChartLegend content={<ChartLegendContent />} />
+      <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
+      <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+    </BarChart>
+  </ChartContainer>
+  ```
+</Example>
+
+## Chart config
+
+The `config` maps each data key to a `label`, shown in the tooltip and legend, and a `color`.
+`ChartContainer` turns each color into a CSS variable named after its key, so
+`desktop: { color: 'var(--chart-1)' }` becomes `var(--color-desktop)` for use in `fill` and
+`stroke`. Use the theme's `--chart-1` to `--chart-5` tokens so charts follow the palette and dark
+mode, or any CSS color. Pass `theme: { light, dark }` instead of `color` to set each mode
+separately. A key can also have an `icon`, shown in the legend.
+
+Give `ChartContainer` a height, e.g. `min-h-[200px]`, or an aspect ratio (the default is
+`aspect-video`); Recharts needs a sized container to render.
+
+## Line chart
+
+<Example>
+  <ChartLineExample />
+
+  ```jsx
+  <ChartContainer config={config} className="min-h-[200px] w-full">
+    <LineChart accessibilityLayer data={data} margin={{ left: 12, right: 12 }}>
+      <CartesianGrid vertical={false} />
+      <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />
+      <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+      <Line dataKey="desktop" type="monotone" stroke="var(--color-desktop)" strokeWidth={2} dot={false} />
+      <Line dataKey="mobile" type="monotone" stroke="var(--color-mobile)" strokeWidth={2} dot={false} />
+    </LineChart>
+  </ChartContainer>
+  ```
+</Example>
+
+## Area chart
+
+Areas with the same `stackId` stack on top of each other.
+
+<Example>
+  <ChartAreaExample />
+
+  ```jsx
+  <ChartContainer config={config} className="min-h-[200px] w-full">
+    <AreaChart accessibilityLayer data={data} margin={{ left: 12, right: 12 }}>
+      <CartesianGrid vertical={false} />
+      <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />
+      <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dot" />} />
+      <Area dataKey="mobile" type="natural" fill="var(--color-mobile)" fillOpacity={0.4} stroke="var(--color-mobile)" stackId="a" />
+      <Area dataKey="desktop" type="natural" fill="var(--color-desktop)" fillOpacity={0.4} stroke="var(--color-desktop)" stackId="a" />
+    </AreaChart>
+  </ChartContainer>
+  ```
+</Example>
+
+## Component props
+
+### ChartContainer
+
+<PropertiesTable>
+  <PropertiesTable.Row name="config" type="ChartConfig">Labels and colors for each data key (required)</PropertiesTable.Row>
+  <PropertiesTable.Row name="children" type="ReactNode">A Recharts chart, such as `BarChart` or `LineChart`</PropertiesTable.Row>
+</PropertiesTable>
+
+### ChartTooltipContent
+
+Pass as the `content` of `ChartTooltip` (Recharts' `Tooltip`).
+
+<PropertiesTable>
+  <PropertiesTable.Row name="indicator" type="string">"dot" | "line" | "dashed" (default: "dot")</PropertiesTable.Row>
+  <PropertiesTable.Row name="hideLabel" type="boolean">Hides the tooltip heading</PropertiesTable.Row>
+  <PropertiesTable.Row name="hideIndicator" type="boolean">Hides the color indicator next to each value</PropertiesTable.Row>
+  <PropertiesTable.Row name="nameKey" type="string">Data key to use for item names</PropertiesTable.Row>
+  <PropertiesTable.Row name="labelKey" type="string">Data key to use for the heading</PropertiesTable.Row>
+</PropertiesTable>
+
+### ChartLegendContent
+
+Pass as the `content` of `ChartLegend` (Recharts' `Legend`).
+
+<PropertiesTable>
+  <PropertiesTable.Row name="hideIcon" type="boolean">Hides the color swatch or icon</PropertiesTable.Row>
+  <PropertiesTable.Row name="nameKey" type="string">Data key to use for item names</PropertiesTable.Row>
+</PropertiesTable>

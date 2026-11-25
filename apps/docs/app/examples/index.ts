@@ -5,6 +5,7 @@ export { AlertDialogExample } from './AlertDialogExample';
 export { BreakpointExample } from './BreakpointExample';
 export { CalendarExample } from './CalendarExample';
 export { CarouselApiExample, CarouselSizesExample } from './CarouselExample';
+export { ChartAreaExample, ChartBarExample, ChartLineExample } from './ChartExample';
 export { CheckboxGroupExample } from './CheckboxGroupExample';
 export {
   CodeBlockDiffExample,

@@ -185,6 +185,7 @@
 				"components/calendar",
 				"components/card",
 				"components/carousel",
+				"components/chart",
 				"components/code-block",
 				"components/collapsible",
 				"components/data-card",

@@ -20,6 +20,7 @@ export default defineConfig({
     'zustand',
     '@react-spring/web',
     'react-day-picker',
+    'recharts',
     'cn',
     'tailwind-merge',
     'tailwind-variants',

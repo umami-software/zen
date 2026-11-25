@@ -619,6 +619,6 @@ type TextColor = TextProps['color'];
 | Selection | Select, Combobox, Autocomplete, Command, List, TagGroup |
 | Feedback | Alert, Badge, Empty, Toast, Loading, Spinner, Skeleton, Progress, ProgressCircle, Meter, StatusLight |
 | Overlays | Dialog, AlertDialog, ConfirmationDialog, Sheet, Drawer, Popover, HoverCard, Tooltip, FloatingTooltip, DropdownMenu, ContextMenu, Menubar |
-| Data | Table, DataTable, DataCard, Card, Breadcrumb, Pagination, Carousel, Calendar, Accordion, Collapsible, Tabs |
+| Data | Table, DataTable, DataCard, Card, Chart, Item, Breadcrumb, Pagination, Carousel, Calendar, Accordion, Collapsible, Tabs |
 | Media | Image, Icon, Avatar |
 | Theme | ZenProvider, ThemeButton, ThemeSwitcher, useTheme |
