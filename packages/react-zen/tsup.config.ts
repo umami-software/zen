@@ -23,6 +23,7 @@ export default defineConfig({
     'tailwind-merge',
     'tailwind-variants',
     'lucide-react',
+    'shiki',
   ],
   esbuildPlugins: [
     {

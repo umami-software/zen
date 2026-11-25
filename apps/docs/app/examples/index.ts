@@ -6,6 +6,12 @@ export { BreakpointExample } from './BreakpointExample';
 export { CalendarExample } from './CalendarExample';
 export { CarouselApiExample, CarouselSizesExample } from './CarouselExample';
 export { CheckboxGroupExample } from './CheckboxGroupExample';
+export {
+  CodeBlockDiffExample,
+  CodeBlockExample,
+  CodeBlockFloatingActionsExample,
+  CodeBlockLineNumbersExample,
+} from './CodeBlockExample';
 export { ColorSwatchesExample } from './ColorSwatchesExample';
 export { ComboBoxEmptyExample } from './ComboBoxEmptyExample';
 export { ComboboxMultipleExample } from './ComboboxExample';

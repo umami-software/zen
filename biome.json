@@ -6,7 +6,7 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**", "!!**/dist", "!styles.full.css", "!packages/react-zen/src/components/ui", "!packages/react-zen/src/styles/shadcn.css", "!packages/react-zen/codemods/__fixtures__"]
+    "includes": ["**", "!!**/dist", "!styles.full.css", "!packages/react-zen/src/components/ui", "!packages/react-zen/src/components/hooks/use-highlighted-code.ts", "!packages/react-zen/src/lib/highlighter.tsx", "!packages/react-zen/src/styles/shadcn.css", "!packages/react-zen/codemods/__fixtures__"]
   },
   "formatter": {
     "enabled": true,

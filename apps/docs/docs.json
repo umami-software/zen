@@ -182,6 +182,7 @@
 				"components/calendar",
 				"components/card",
 				"components/carousel",
+				"components/code-block",
 				"components/collapsible",
 				"components/data-card",
 				"components/data-table",

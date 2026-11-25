@@ -8,6 +8,7 @@
 /* A consumer sources `node_modules/@umami/react-zen/dist`; in the monorepo we
    source the package src directly so changes show up without a build. */
 @source "../../packages/react-zen/src/components";
+@source "../../packages/react-zen/src/lib";
 @source "./app";
 @source "./content";
 @source "./mdx-components.ts";
@@ -78,12 +79,13 @@ pre {
 
 /* Shiso's code blocks use `bg-card`, but Zen's theme redefines `--card` (white,
    shadcn's value) after shiso's tokens load, so the blocks lost their tint.
-   Give them shiso's own card colors back. */
-[data-slot="code-block"] {
+   Give them shiso's own card colors back. Skip live demos (`.not-prose`) so
+   Zen's own CodeBlock keeps its styles. */
+[data-slot="code-block"]:not(.not-prose *) {
   background-color: #fafafa;
 }
 
-html[data-theme="dark"] [data-slot="code-block"] {
+html[data-theme="dark"] [data-slot="code-block"]:not(.not-prose *) {
   background-color: #171717;
 }
 

@@ -1,0 +1,225 @@
+---
+title: Code Block
+description: "Displays a block of code with an optional header, copy button, line numbers, and syntax highlighting."
+---
+
+import { Box, CodeBlock, CodeBlockContent, CodeBlockFooter, Example, Text } from '../../../mdx-components';
+import {
+  CodeBlockDiffExample,
+  CodeBlockExample,
+  CodeBlockFloatingActionsExample,
+  CodeBlockLineNumbersExample,
+} from '../../../app/examples/CodeBlockExample';
+
+Displays a block of code. Compose a `CodeBlock` from an optional `CodeBlockHeader`
+with a `CodeBlockTitle` and `CodeBlockActions`, a `CodeBlockContent` holding the
+code, and an optional `CodeBlockFooter`. For code inside a sentence, use
+[Code](/docs/typography/code) instead.
+
+Syntax highlighting is opt-in: the `useHighlightedCode` hook turns a string into
+one highlighted node per line, which you render as `CodeBlockLine` elements.
+
+<Example>
+  <CodeBlockExample />
+
+  ```jsx
+  const code = `import { Button } from '@umami/react-zen';
+  ...`;
+
+  function SaveButton() {
+    const lines = useHighlightedCode(code, 'tsx');
+
+    return (
+      <CodeBlock>
+        <CodeBlockHeader>
+          <CodeBlockTitle>
+            <FileCode />
+            SaveButton.tsx
+          </CodeBlockTitle>
+          <CodeBlockActions>
+            <CodeBlockCopyButton value={code} />
+          </CodeBlockActions>
+        </CodeBlockHeader>
+        <CodeBlockContent>
+          {lines.map((line, index) => (
+            <CodeBlockLine key={index}>{line}</CodeBlockLine>
+          ))}
+        </CodeBlockContent>
+      </CodeBlock>
+    );
+  }
+  ```
+</Example>
+
+## Plain text
+
+Pass a string to `CodeBlockContent` to show code without highlighting. No hook
+is needed.
+
+<Example>
+  <Box width="100%">
+    <CodeBlock>
+      <CodeBlockContent>{`pnpm add @umami/react-zen
+pnpm build`}</CodeBlockContent>
+    </CodeBlock>
+  </Box>
+
+  ```jsx
+  <CodeBlock>
+    <CodeBlockContent>{`pnpm add @umami/react-zen
+  pnpm build`}</CodeBlockContent>
+  </CodeBlock>
+  ```
+</Example>
+
+## Floating actions
+
+Place `CodeBlockActions` directly inside `CodeBlock`, without a header, to pin
+the actions to the top-right corner. They appear when the block is hovered or
+focused, and always on touch screens.
+
+<Example>
+  <CodeBlockFloatingActionsExample />
+
+  ```jsx
+  <CodeBlock>
+    <CodeBlockActions>
+      <CodeBlockCopyButton value={code} />
+    </CodeBlockActions>
+    <CodeBlockContent>
+      {lines.map((line, index) => (
+        <CodeBlockLine key={index}>{line}</CodeBlockLine>
+      ))}
+    </CodeBlockContent>
+  </CodeBlock>
+  ```
+</Example>
+
+## Line numbers
+
+Set `lineNumbers` on `CodeBlockContent`. Use `startLine` to begin counting from
+another number, and the `highlighted` variant of `CodeBlockLine` to draw
+attention to a line.
+
+<Example>
+  <CodeBlockLineNumbersExample />
+
+  ```jsx
+  <CodeBlock>
+    <CodeBlockContent lineNumbers>
+      {lines.map((line, index) => (
+        <CodeBlockLine key={index} variant={index === 2 ? 'highlighted' : 'default'}>
+          {line}
+        </CodeBlockLine>
+      ))}
+    </CodeBlockContent>
+  </CodeBlock>
+  ```
+</Example>
+
+## Diff
+
+Use the `added` and `removed` variants of `CodeBlockLine` to show changes. Each
+line gets a `+` or `−` marker in the gutter.
+
+<Example>
+  <CodeBlockDiffExample />
+
+  ```jsx
+  const variants = ['default', 'removed', 'added', 'default'];
+
+  <CodeBlock>
+    <CodeBlockContent>
+      {lines.map((line, index) => (
+        <CodeBlockLine key={index} variant={variants[index]}>
+          {line}
+        </CodeBlockLine>
+      ))}
+    </CodeBlockContent>
+  </CodeBlock>
+  ```
+</Example>
+
+## Errors
+
+Use the `destructive` variant for error output. Set `wrap` on `CodeBlockContent`
+to wrap long lines instead of scrolling, and add a `CodeBlockFooter` for extra
+context.
+
+<Example>
+  <Box width="100%">
+    <CodeBlock variant="destructive" size="sm">
+      <CodeBlockContent wrap>{`Error: Cannot find module '@umami/react-zen/styles.css' imported from /app/src/main.tsx. Did you mean to import '@umami/react-zen/styles.full.css'?`}</CodeBlockContent>
+      <CodeBlockFooter>
+        <Text size="xs">Build failed after 1.2s</Text>
+      </CodeBlockFooter>
+    </CodeBlock>
+  </Box>
+
+  ```jsx
+  <CodeBlock variant="destructive" size="sm">
+    <CodeBlockContent wrap>{error}</CodeBlockContent>
+    <CodeBlockFooter>
+      <Text size="xs">Build failed after 1.2s</Text>
+    </CodeBlockFooter>
+  </CodeBlock>
+  ```
+</Example>
+
+## Highlighting
+
+`useHighlightedCode(code, language)` returns an array with one node per line.
+It renders the lines as plain text first, then highlights them once the
+language has loaded, so the block never appears empty. It loads
+[Shiki](https://shiki.style) with GitHub light and dark themes, and each language
+is fetched the first time it is used.
+
+Supported languages are `bash`, `css`, `diff`, `html`, `javascript`, `json`,
+`jsx`, `markdown`, `python`, `sql`, `tsx`, `typescript`, and `yaml`, plus the
+aliases `js`, `md`, `py`, `sh`, `shell`, `ts`, `yml`, and `zsh`. Pass `ansi` to
+color terminal output. Any other language renders as plain text.
+
+When the code grows, only the new lines are highlighted, so the hook works
+with text that streams in.
+
+## Component props
+
+### CodeBlock
+
+<PropertiesTable>
+  <PropertiesTable.Row name="variant" type="'default' | 'destructive'">Visual style (default: "default")</PropertiesTable.Row>
+  <PropertiesTable.Row name="size" type="'default' | 'sm'">Text size and padding (default: "default")</PropertiesTable.Row>
+</PropertiesTable>
+
+### CodeBlockContent
+
+<PropertiesTable>
+  <PropertiesTable.Row name="lineNumbers" type="boolean">Show a line number before each line (default: false). A string child is split into lines automatically.</PropertiesTable.Row>
+  <PropertiesTable.Row name="startLine" type="number">Number of the first line (default: 1)</PropertiesTable.Row>
+  <PropertiesTable.Row name="wrap" type="boolean">Wrap long lines instead of scrolling horizontally (default: false)</PropertiesTable.Row>
+  <PropertiesTable.Row name="children" type="ReactNode">A string, or `CodeBlockLine` elements</PropertiesTable.Row>
+</PropertiesTable>
+
+### CodeBlockLine
+
+<PropertiesTable>
+  <PropertiesTable.Row name="variant" type="'default' | 'added' | 'removed' | 'highlighted'">Line style (default: "default")</PropertiesTable.Row>
+</PropertiesTable>
+
+### CodeBlockCopyButton
+
+<PropertiesTable>
+  <PropertiesTable.Row name="value" type="string">Text copied to the clipboard. Required.</PropertiesTable.Row>
+  <PropertiesTable.Row name="variant" type="string">Button variant (default: "ghost"). See [Button](/docs/components/button).</PropertiesTable.Row>
+  <PropertiesTable.Row name="size" type="string">Button size (default: "icon-xs"). See [Button](/docs/components/button).</PropertiesTable.Row>
+</PropertiesTable>
+
+`CodeBlockCopyButton` accepts all [Button](/docs/components/button) props. After
+copying, it shows a check icon for two seconds.
+
+`CodeBlock`, `CodeBlockHeader`, `CodeBlockTitle`, `CodeBlockActions`, and
+`CodeBlockFooter` accept standard `div` props including `className`.
+`CodeBlockContent` renders a `pre` and `CodeBlockLine` renders a `span`. Each part
+exposes a matching `data-slot` attribute for styling, such as
+`data-slot="code-block"`, `data-slot="code-block-header"`, and
+`data-slot="code-block-line"`.
