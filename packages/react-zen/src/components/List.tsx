@@ -237,7 +237,9 @@ export function ListSection({ title, className, children, ...props }: ListSectio
       aria-labelledby={title ? titleId : undefined}
       {...props}
       data-slot="list-section"
-      className={cn('flex flex-col', className)}
+      // Space between consecutive sections so a title reads as the start of a new group,
+      // not as part of the items above it.
+      className={cn('flex flex-col not-first:mt-4', className)}
     >
       {title && (
         <div

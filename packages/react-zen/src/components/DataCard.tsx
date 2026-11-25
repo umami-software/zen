@@ -20,7 +20,7 @@ export function DataCard({ data = [], labelWidth = 'auto', className, ...props }
       border
       borderRadius="lg"
       {...props}
-      className={cn('overflow-hidden text-sm', className)}
+      className={cn('overflow-hidden bg-white text-sm dark:bg-black', className)}
     >
       {data.map((row, index) => {
         const isLast = index === data.length - 1;

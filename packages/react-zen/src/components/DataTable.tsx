@@ -349,7 +349,10 @@ export function DataTable<TData extends RowData = any>({
       data-slot="data-table"
       data-selection-mode={isSelectable ? selectionMode : undefined}
       // Preflight sets `table { border-color: inherit }`, so the border color is set explicitly.
-      className={cn('grid overflow-hidden rounded-lg border border-border', className)}
+      className={cn(
+        'grid overflow-hidden rounded-lg border border-border bg-white dark:bg-black',
+        className,
+      )}
     >
       <TableHeader role="rowgroup" className="contents">
         <TableRow
