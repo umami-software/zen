@@ -21,6 +21,11 @@ A wrapper around SVG elements to help control size, color and rotation.
 
 ## Sizes
 
+Each size matches the Tailwind text size of the same name, so an icon lines up with the text next to
+it: `xs` 12px, `sm` 14px, `md` 16px (`text-base`), `lg` 18px and `xl` 20px. Without `size`, icons
+use the theme's `--icon-size` (14px, the same as `sm`). For larger icons, pass a `size-*` class,
+e.g. `className="size-8"`.
+
 <Example>
   <Icon size="xs">
     <Lucide.Wifi />
@@ -154,7 +159,7 @@ Control SVG fill and stroke colors using the `fillColor` and `strokeColor` props
 ## Component props
 
 <PropertiesTable>
-  <PropertiesTable.Row name="size" type="IconSize">"xs" | "sm" | "md" | "lg" | "xl" (default: the theme's `--icon-size`, 14px)</PropertiesTable.Row>
+  <PropertiesTable.Row name="size" type="IconSize">"xs" | "sm" | "md" | "lg" | "xl": 12, 14, 16, 18 or 20px, matching the text sizes (default: the theme's `--icon-size`, 14px)</PropertiesTable.Row>
   <PropertiesTable.Row name="color" type="FontColor">Icon color: a theme token (`foreground`, `muted`, `primary`, `destructive`, `success`, ...) or a Tailwind color (`blue`, `blue-500`)</PropertiesTable.Row>
   <PropertiesTable.Row name="rotate" type="number">Rotation in degrees</PropertiesTable.Row>
   <PropertiesTable.Row name="strokeWidth" type="StrokeWidth">"0.5" | "1" | "1.5" | "2" | "3" | "4"</PropertiesTable.Row>

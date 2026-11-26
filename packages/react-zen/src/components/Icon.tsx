@@ -6,7 +6,7 @@ export type StrokeWidth = '0.5' | '1' | '1.5' | '2' | '3' | '4';
 
 export interface IconProps extends Omit<HTMLAttributes<HTMLElement>, 'color' | 'size'> {
   color?: FontColor;
-  /** Omit to use the theme's default icon size (`--icon-size`). */
+  /** Matches the text size of the same name (xs 12px … xl 20px). Omit to use the theme's `--icon-size`. */
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   rotate?: number;
   strokeWidth?: StrokeWidth;
@@ -14,12 +14,14 @@ export interface IconProps extends Omit<HTMLAttributes<HTMLElement>, 'color' | '
   fillColor?: FillColor;
 }
 
+// Sizes match Tailwind's text sizes of the same name (text-xs … text-xl), so an icon lines up
+// with the text it sits next to. md is text-base. Use a size-* class for anything larger.
 const sizeMap = {
-  xs: 'w-3 h-3',
-  sm: 'w-4 h-4',
-  md: 'w-5 h-5',
-  lg: 'w-6 h-6',
-  xl: 'w-8 h-8',
+  xs: 'size-3', // 12px
+  sm: 'size-3.5', // 14px
+  md: 'size-4', // 16px
+  lg: 'size-4.5', // 18px
+  xl: 'size-5', // 20px
 };
 
 const strokeWidthMap: Record<StrokeWidth, string> = {

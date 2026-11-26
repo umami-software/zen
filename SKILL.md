@@ -200,7 +200,8 @@ shadcn Button. Variants: `default` (primary, the default), `secondary`, `outline
 ```
 
 Icons come from `lucide-react` (`import { Settings } from 'lucide-react'`). Wrap them in `Icon` for
-size and color props: `<Icon size="lg" color="muted"><Check /></Icon>`.
+size and color props: `<Icon size="lg" color="muted"><Check /></Icon>`. Icon sizes match the text sizes of
+the same name (`xs` 12px … `xl` 20px); use a `size-*` class for larger icons.
 
 ## Forms
 
