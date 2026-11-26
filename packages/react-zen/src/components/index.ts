@@ -42,7 +42,6 @@ export * from './lib/tailwind';
 export * from './Meter';
 export * from './Navbar';
 export * from './NumberField';
-export * from './PageHeader';
 export * from './PasswordField';
 export * from './ProgressCircle';
 export * from './Row';

@@ -63,9 +63,6 @@ import {
   ListItem,
   LoadingButton,
   Meter,
-  PageHeader,
-  PageHeaderActions,
-  PageHeaderTitle,
   PasswordField,
   Progress,
   ProgressCircle,
@@ -589,29 +586,36 @@ export function PlaygroundExample() {
             <Column gap="3">
               <SectionTitle>PAGE STRUCTURE & NAVIGATION</SectionTitle>
               <Column gap="6">
-                <PageHeader>
-                  <PageHeaderTitle
-                    breadcrumb={
-                      <Breadcrumb>
-                        <BreadcrumbList>
-                          <BreadcrumbItem>
-                            <BreadcrumbLink href="#playground">Workspace</BreadcrumbLink>
-                          </BreadcrumbItem>
-                          <BreadcrumbSeparator />
-                          <BreadcrumbItem>
-                            <BreadcrumbPage>Overview</BreadcrumbPage>
-                          </BreadcrumbItem>
-                        </BreadcrumbList>
-                      </Breadcrumb>
-                    }
-                    title="Design system preview"
-                    description="See token changes across the component library."
-                  />
-                  <PageHeaderActions>
+                <Row
+                  width="100%"
+                  paddingY="4"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  border="bottom"
+                  gap="4"
+                >
+                  <Column gap="1">
+                    <Breadcrumb>
+                      <BreadcrumbList>
+                        <BreadcrumbItem>
+                          <BreadcrumbLink href="#playground">Workspace</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                          <BreadcrumbPage>Overview</BreadcrumbPage>
+                        </BreadcrumbItem>
+                      </BreadcrumbList>
+                    </Breadcrumb>
+                    <Text size="xl" weight="semibold">
+                      Design system preview
+                    </Text>
+                    <Text color="muted">See token changes across the component library.</Text>
+                  </Column>
+                  <Row gap="2" alignItems="center">
                     <Button variant="outline">Share</Button>
                     <Button>Create</Button>
-                  </PageHeaderActions>
-                </PageHeader>
+                  </Row>
+                </Row>
                 <Tabs defaultValue="preview">
                   <TabsList>
                     <TabsTrigger value="preview">Preview</TabsTrigger>

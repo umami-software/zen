@@ -94,7 +94,6 @@
 		{
 			"group": "Structure",
 			"pages": [
-				"structure/page-header",
 				"structure/aspect-ratio",
 				"structure/resizable",
 				"structure/scroll-area",
