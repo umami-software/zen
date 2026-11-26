@@ -63,8 +63,8 @@ const features = tableFeatures({
 
 const SELECTION_COLUMN_WIDTH = '2.5rem';
 
-// Rows are grids. The first cell gets extra left padding so content sits clear of the border.
-const ROW_CLASS = 'grid [&>*:first-child]:pl-4';
+// Rows are grids. The first and last cells get extra padding so content sits clear of the border.
+const ROW_CLASS = 'grid [&>*:first-child]:pl-4 [&>*:last-child]:pr-4';
 
 const alignClasses = {
   start: 'justify-start text-left',
