@@ -80,6 +80,11 @@ export type DataTableSorting = { id: string; desc: boolean }[];
 export interface DataTableProps<TData extends RowData = any> extends ComponentProps<typeof Table> {
   data?: TData[];
   displayMode?: 'table' | 'cards';
+  /**
+   * In card mode, lays the cards out in as many columns as fit, each at least this wide
+   * (e.g. `'360px'`). Without it, cards stack in a single column.
+   */
+  cardMinWidth?: string;
   /** Returns a row's unique id. Defaults to the row's `id` property, or its index without one. */
   getRowId?: (row: TData, index: number) => string;
   /** Adds a checkbox column for selecting rows. */
@@ -180,6 +185,7 @@ function renderCell<TData>(column: DataColumnProps<TData>, row: TData, index: nu
 export function DataTable<TData extends RowData = any>({
   data = [],
   displayMode = 'table',
+  cardMinWidth,
   getRowId = defaultGetRowId,
   selectionMode = 'none',
   selectedRows: selectedRowsProp,
@@ -260,6 +266,7 @@ export function DataTable<TData extends RowData = any>({
   const pagination = isPaginated && pageCount > 1 && (
     <div
       data-slot="data-table-pagination"
+      style={{ gridColumn: '1 / -1' }}
       className="flex w-full items-center justify-between gap-4 py-3 text-sm text-muted-foreground"
     >
       <span>
@@ -287,14 +294,28 @@ export function DataTable<TData extends RowData = any>({
   );
 
   const empty = (
-    <div data-slot="data-table-empty" className="py-10 text-center text-sm text-muted-foreground">
+    <div
+      data-slot="data-table-empty"
+      style={{ gridColumn: '1 / -1' }}
+      className="py-10 text-center text-sm text-muted-foreground"
+    >
       {emptyState}
     </div>
   );
 
   if (displayMode === 'cards') {
     return (
-      <Grid width="100%" gap="6" data-slot="data-table" data-display-mode="cards">
+      <Grid
+        width="100%"
+        gap="6"
+        // min() keeps a card from overflowing a container narrower than cardMinWidth.
+        columns={
+          cardMinWidth ? `repeat(auto-fill, minmax(min(${cardMinWidth}, 100%), 1fr))` : undefined
+        }
+        alignItems={cardMinWidth ? 'start' : undefined}
+        data-slot="data-table"
+        data-display-mode="cards"
+      >
         {rows.length === 0
           ? empty
           : rows.map(row => {

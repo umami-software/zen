@@ -255,6 +255,36 @@ There are no headers in this mode, so set the order with `sorting` or `defaultSo
   ```
 </Example>
 
+### In columns
+
+Cards stack in a single column by default. Set `cardMinWidth` to lay them out in as many columns
+as fit, each at least that wide. On a container narrower than `cardMinWidth`, the cards shrink to
+fit in one column.
+
+<Example>
+  <DataTable
+    data={[
+      { id: 1, name: 'Bob', title: 'CEO', email: 'bob@aol.com' },
+      { id: 2, name: 'Fred', title: 'VP Marketing', email: 'fred@aol.com' },
+      { id: 3, name: 'Ted', title: 'Engineer', email: 'ted@aol.com' },
+    ]}
+    displayMode="cards"
+    cardMinWidth="240px"
+  >
+    <DataColumn id="name" label="Name" />
+    <DataColumn id="title" label="Title" />
+    <DataColumn id="email" label="Email" />
+  </DataTable>
+
+  ```jsx
+  <DataTable data={data} displayMode="cards" cardMinWidth="240px">
+    <DataColumn id="name" label="Name" />
+    <DataColumn id="title" label="Title" />
+    <DataColumn id="email" label="Email" />
+  </DataTable>
+  ```
+</Example>
+
 ## Component props
 
 ### DataTable
@@ -265,6 +295,7 @@ Other shadcn `Table` props are passed through.
   <PropertiesTable.Row name="data" type="TData[]">Array of data objects to display</PropertiesTable.Row>
   <PropertiesTable.Row name="getRowId" type="(row, index) => string">Returns a row's unique id (default: the row's `id`, or its index)</PropertiesTable.Row>
   <PropertiesTable.Row name="displayMode" type="string">"table" | "cards" (default: "table")</PropertiesTable.Row>
+  <PropertiesTable.Row name="cardMinWidth" type="string">In card mode, the minimum width of a card; cards fill as many columns as fit (default: one column)</PropertiesTable.Row>
   <PropertiesTable.Row name="selectionMode" type="string">"none" | "single" | "multiple" (default: "none")</PropertiesTable.Row>
   <PropertiesTable.Row name="selectedRows" type="string[]">Selected row ids (controlled)</PropertiesTable.Row>
   <PropertiesTable.Row name="defaultSelectedRows" type="string[]">Initially selected row ids (uncontrolled)</PropertiesTable.Row>
