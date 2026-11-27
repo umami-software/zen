@@ -1,6 +1,19 @@
 'use client';
 
-import { Column, DataColumn, DataTable, SearchField } from '@umami/react-zen';
+import {
+  Avatar,
+  AvatarFallback,
+  Button,
+  Card,
+  CardContent,
+  Checkbox,
+  Column,
+  DataColumn,
+  DataTable,
+  Row,
+  SearchField,
+  Skeleton,
+} from '@umami/react-zen';
 import { useState } from 'react';
 
 interface Member {
@@ -69,5 +82,72 @@ export function DataTablePaginationExample() {
       <DataColumn id="title" label="Title" />
       <DataColumn id="email" label="Email" />
     </DataTable>
+  );
+}
+
+const initials = (name: string) => name.slice(0, 2).toUpperCase();
+
+export function DataTableCustomCardExample() {
+  const [loading, setLoading] = useState(false);
+
+  const reload = () => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 1500);
+  };
+
+  return (
+    <Column gap="4" width="100%" alignItems="start">
+      <Button variant="outline" size="sm" onClick={reload} disabled={loading}>
+        Reload
+      </Button>
+      <DataTable
+        data={members.slice(0, 4)}
+        displayMode="cards"
+        cardMinWidth="240px"
+        selectionMode="multiple"
+        loading={loading}
+        loadingRows={4}
+        renderCard={(member: Member, { isSelected, toggleSelected, cells }) => (
+          <Card size="sm" className={isSelected ? 'ring-2 ring-primary' : undefined}>
+            <CardContent>
+              <Row gap="3" alignItems="center">
+                <Avatar>
+                  <AvatarFallback>{initials(member.name)}</AvatarFallback>
+                </Avatar>
+                <Column flexGrow="1" minWidth="0">
+                  <span className="font-medium">{member.name}</span>
+                  <span className="text-muted-foreground">{member.title}</span>
+                </Column>
+                <Checkbox
+                  aria-label={`Select ${member.name}`}
+                  checked={isSelected}
+                  onCheckedChange={checked => toggleSelected(checked)}
+                />
+              </Row>
+              <div className="mt-3 truncate">{cells.email}</div>
+            </CardContent>
+          </Card>
+        )}
+        renderCardSkeleton={() => (
+          <Card size="sm">
+            <CardContent>
+              <Row gap="3" alignItems="center">
+                <Skeleton className="size-8 rounded-full" />
+                <Column gap="1" flexGrow="1">
+                  <Skeleton className="h-4 w-24" />
+                  <Skeleton className="h-4 w-16" />
+                </Column>
+              </Row>
+              <Skeleton className="mt-3 h-4 w-3/4" />
+            </CardContent>
+          </Card>
+        )}
+      >
+        <DataColumn id="name" label="Name" />
+        <DataColumn<Member> id="email" label="Email">
+          {row => <a href={`mailto:${row.email}`}>{row.email}</a>}
+        </DataColumn>
+      </DataTable>
+    </Column>
   );
 }

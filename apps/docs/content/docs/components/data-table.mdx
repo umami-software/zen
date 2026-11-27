@@ -3,7 +3,7 @@ title: Data Table
 description: "A declarative table component for displaying structured data with minimal configuration."
 ---
 
-import { Button, DataColumn, DataTable, DataTableFilterExample, DataTablePaginationExample, DataTableSortingExample, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Example, Lucide } from '../../../mdx-components';
+import { Button, DataColumn, DataTable, DataTableCustomCardExample, DataTableFilterExample, DataTablePaginationExample, DataTableSortingExample, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, Example, Lucide } from '../../../mdx-components';
 
 A declarative table component for displaying structured data with minimal configuration. Define columns and pass data to quickly render formatted tables. Ideal for admin panels, lists, and data-heavy interfaces. It is built on [TanStack Table](https://tanstack.com/table) and the shadcn `Table` parts, and supports sorting, filtering, pagination and row selection.
 
@@ -312,6 +312,105 @@ fit in one column.
   ```
 </Example>
 
+### With selection
+
+With `selectionMode`, each card gets a checkbox in its first row. Selection works as it does in the
+table: `"single"` keeps one card selected, and `selectedRows` or `defaultSelectedRows` set which.
+There's no header, so there's no select-all checkbox in this mode.
+
+<Example>
+  <DataTable
+    data={[
+      { id: 1, name: 'Bob', title: 'CEO', email: 'bob@aol.com' },
+      { id: 2, name: 'Fred', title: 'VP Marketing', email: 'fred@aol.com' },
+      { id: 3, name: 'Ted', title: 'Engineer', email: 'ted@aol.com' },
+    ]}
+    displayMode="cards"
+    cardMinWidth="240px"
+    selectionMode="multiple"
+    defaultSelectedRows={['2']}
+  >
+    <DataColumn id="name" label="Name" />
+    <DataColumn id="title" label="Title" />
+    <DataColumn id="email" label="Email" />
+  </DataTable>
+
+  ```jsx
+  <DataTable
+    data={data}
+    displayMode="cards"
+    cardMinWidth="240px"
+    selectionMode="multiple"
+    defaultSelectedRows={['2']}
+    onSelectedRowsChange={rows => console.log(rows)}
+  >
+    <DataColumn id="name" label="Name" />
+    <DataColumn id="title" label="Title" />
+    <DataColumn id="email" label="Email" />
+  </DataTable>
+  ```
+</Example>
+
+### Custom cards
+
+Pass `renderCard` to draw each card yourself. It gets the row and a context with the row's `id` and
+`index`, `isSelected`, `toggleSelected`, and `cells`: each visible column's rendered cell by column id,
+so custom cells defined on `DataColumn` can be reused. Sorting, filtering, pagination and selection
+still apply. No checkbox is added, so place your own with `isSelected` and `toggleSelected`.
+
+While `loading`, the default placeholder card doesn't match a custom card, so pass
+`renderCardSkeleton` to draw your own. Press Reload to see it.
+
+<Example>
+  <DataTableCustomCardExample />
+
+  ```jsx
+  <DataTable
+    data={data}
+    displayMode="cards"
+    cardMinWidth="240px"
+    selectionMode="multiple"
+    loading={isLoading}
+    renderCard={(member, { isSelected, toggleSelected, cells }) => (
+      <Card size="sm">
+        <CardContent>
+          <Row gap="3" alignItems="center">
+            <Avatar>
+              <AvatarFallback>{initials(member.name)}</AvatarFallback>
+            </Avatar>
+            <Column flexGrow="1">
+              <span className="font-medium">{member.name}</span>
+              <span className="text-muted-foreground">{member.title}</span>
+            </Column>
+            <Checkbox checked={isSelected} onCheckedChange={checked => toggleSelected(checked)} />
+          </Row>
+          <div className="mt-3">{cells.email}</div>
+        </CardContent>
+      </Card>
+    )}
+    renderCardSkeleton={() => (
+      <Card size="sm">
+        <CardContent>
+          <Row gap="3" alignItems="center">
+            <Skeleton className="size-8 rounded-full" />
+            <Column gap="1" flexGrow="1">
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-4 w-16" />
+            </Column>
+          </Row>
+          <Skeleton className="mt-3 h-4 w-3/4" />
+        </CardContent>
+      </Card>
+    )}
+  >
+    <DataColumn id="name" label="Name" />
+    <DataColumn id="email" label="Email">
+      {row => <a href={`mailto:${row.email}`}>{row.email}</a>}
+    </DataColumn>
+  </DataTable>
+  ```
+</Example>
+
 ## Component props
 
 ### DataTable
@@ -323,6 +422,8 @@ Other shadcn `Table` props are passed through.
   <PropertiesTable.Row name="getRowId" type="(row, index) => string">Returns a row's unique id (default: the row's `id`, or its index)</PropertiesTable.Row>
   <PropertiesTable.Row name="displayMode" type="string">"table" | "cards" (default: "table")</PropertiesTable.Row>
   <PropertiesTable.Row name="cardMinWidth" type="string">In card mode, the minimum width of a card; cards fill as many columns as fit (default: one column)</PropertiesTable.Row>
+  <PropertiesTable.Row name="renderCard" type="(row, context) => ReactNode">In card mode, renders each card in place of the default; `context` has `id`, `index`, `isSelected`, `toggleSelected` and `cells`</PropertiesTable.Row>
+  <PropertiesTable.Row name="renderCardSkeleton" type="(index: number) => ReactNode">In card mode, renders a placeholder card while `loading`</PropertiesTable.Row>
   <PropertiesTable.Row name="selectionMode" type="string">"none" | "single" | "multiple" (default: "none")</PropertiesTable.Row>
   <PropertiesTable.Row name="selectedRows" type="string[]">Selected row ids (controlled)</PropertiesTable.Row>
   <PropertiesTable.Row name="defaultSelectedRows" type="string[]">Initially selected row ids (uncontrolled)</PropertiesTable.Row>

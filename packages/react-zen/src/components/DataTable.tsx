@@ -87,6 +87,19 @@ export type DataTableSelectionMode = 'none' | 'single' | 'multiple';
 /** Sorted columns, in priority order. */
 export type DataTableSorting = { id: string; desc: boolean }[];
 
+/** What `renderCard` gets about the row besides its data. */
+export interface DataTableCardContext {
+  /** The row's id (see `getRowId`). */
+  id: string;
+  /** The row's index in `data`. */
+  index: number;
+  isSelected: boolean;
+  /** Selects or deselects the row; without an argument, flips it. */
+  toggleSelected: (selected?: boolean) => void;
+  /** Each visible column's rendered cell, by column id. */
+  cells: Record<string, ReactNode>;
+}
+
 export interface DataTableProps<TData extends RowData = any> extends ComponentProps<typeof Table> {
   data?: TData[];
   displayMode?: 'table' | 'cards';
@@ -95,6 +108,14 @@ export interface DataTableProps<TData extends RowData = any> extends ComponentPr
    * (e.g. `'360px'`). Without it, cards stack in a single column.
    */
   cardMinWidth?: string;
+  /**
+   * In card mode, renders each row's card in place of the default label/value card. Sorting,
+   * filtering, pagination and selection still apply; no checkbox is added, so use `isSelected` and
+   * `toggleSelected` from the context.
+   */
+  renderCard?: (row: TData, context: DataTableCardContext) => ReactNode;
+  /** In card mode, renders a placeholder card while `loading` (default: a placeholder label/value card). */
+  renderCardSkeleton?: (index: number) => ReactNode;
   /** Returns a row's unique id. Defaults to the row's `id` property, or its index without one. */
   getRowId?: (row: TData, index: number) => string;
   /** Adds a checkbox column for selecting rows. */
@@ -200,6 +221,8 @@ export function DataTable<TData extends RowData = any>({
   data = [],
   displayMode = 'table',
   cardMinWidth,
+  renderCard,
+  renderCardSkeleton,
   getRowId = defaultGetRowId,
   selectionMode = 'none',
   selectedRows: selectedRowsProp,
@@ -340,33 +363,73 @@ export function DataTable<TData extends RowData = any>({
         aria-busy={loading || undefined}
       >
         {loading
-          ? skeletonRows.map(rowIndex => (
-              <DataCard
-                key={rowIndex}
-                data-skeleton=""
-                aria-hidden="true"
-                data={[
-                  ...(isSelectable
-                    ? [{ label: '', value: <Skeleton className="size-4 rounded-[4px]" /> }]
-                    : []),
-                  ...visibleColumns.map((column, columnIndex) => ({
-                    label: column.label,
-                    value: (
-                      <Skeleton
-                        className="my-0.5 h-4"
-                        style={{ width: skeletonWidth(rowIndex, columnIndex) }}
-                      />
-                    ),
-                  })),
-                ]}
-              />
-            ))
+          ? skeletonRows.map(rowIndex =>
+              renderCardSkeleton ? (
+                <div
+                  key={rowIndex}
+                  data-slot="data-table-card"
+                  data-skeleton=""
+                  aria-hidden="true"
+                  className="min-w-0"
+                >
+                  {renderCardSkeleton(rowIndex)}
+                </div>
+              ) : (
+                <DataCard
+                  key={rowIndex}
+                  data-skeleton=""
+                  aria-hidden="true"
+                  data={[
+                    ...(isSelectable
+                      ? [{ label: '', value: <Skeleton className="size-4 rounded-[4px]" /> }]
+                      : []),
+                    ...visibleColumns.map((column, columnIndex) => ({
+                      label: column.label,
+                      value: (
+                        <Skeleton
+                          className="my-0.5 h-4"
+                          style={{ width: skeletonWidth(rowIndex, columnIndex) }}
+                        />
+                      ),
+                    })),
+                  ]}
+                />
+              ),
+            )
           : rows.length === 0
             ? empty
             : rows.map(row => {
+                const original = row.original as TData;
+                const isSelected = row.getIsSelected();
+
+                if (renderCard) {
+                  return (
+                    <div
+                      key={row.id}
+                      data-slot="data-table-card"
+                      data-row-id={row.id}
+                      data-state={isSelected ? 'selected' : undefined}
+                      className="min-w-0"
+                    >
+                      {renderCard(original, {
+                        id: row.id,
+                        index: row.index,
+                        isSelected,
+                        toggleSelected: selected => row.toggleSelected(selected),
+                        cells: Object.fromEntries(
+                          visibleColumns.map(column => [
+                            column.id,
+                            renderCell(column, original, row.index),
+                          ]),
+                        ),
+                      })}
+                    </div>
+                  );
+                }
+
                 const items = visibleColumns.map(column => ({
                   label: column.label,
-                  value: renderCell(column, row.original as TData, row.index),
+                  value: renderCell(column, original, row.index),
                 }));
 
                 if (isSelectable) {
@@ -375,7 +438,7 @@ export function DataTable<TData extends RowData = any>({
                     value: (
                       <Checkbox
                         aria-label="Select row"
-                        checked={row.getIsSelected()}
+                        checked={isSelected}
                         onCheckedChange={checked => row.toggleSelected(checked)}
                       />
                     ),
@@ -386,7 +449,7 @@ export function DataTable<TData extends RowData = any>({
                   <DataCard
                     key={row.id}
                     data-row-id={row.id}
-                    data-state={row.getIsSelected() ? 'selected' : undefined}
+                    data-state={isSelected ? 'selected' : undefined}
                     data={items}
                   />
                 );

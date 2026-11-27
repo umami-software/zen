@@ -499,7 +499,9 @@ DataTable is built on TanStack Table. Rows are keyed by their `id` (or index; ov
 `getRowId`). `sortable` columns sort on header click; `filter` matches text and number columns
 (`filterable={false}` opts out); `pageSize` adds Previous/Next paging; `value` gives a column with a
 custom cell a value to sort and filter by; `emptyState` replaces "No results."; `loading` shows
-placeholder rows that match the columns (`loadingRows` sets how many).
+placeholder rows that match the columns (`loadingRows` sets how many). In card mode, `renderCard={(row,
+{ isSelected, toggleSelected, cells }) => ...}` replaces the default card and `renderCardSkeleton` its
+loading placeholder.
 
 ## Sidebar
 
