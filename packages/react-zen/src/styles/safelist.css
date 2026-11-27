@@ -45,7 +45,7 @@
 /* fontWeightMap */
 @source inline("{,sm:,md:,lg:,xl:,2xl:}{font-thin,font-extralight,font-light,font-normal,font-medium,font-semibold,font-bold,font-extrabold,font-black}");
 /* borderRadiusMap */
-@source inline("{,sm:,md:,lg:,xl:,2xl:}{rounded-none,rounded-sm,rounded-md,rounded-lg,rounded-xl,rounded-2xl,rounded-3xl,rounded-full}");
+@source inline("{,sm:,md:,lg:,xl:,2xl:}{rounded-none,rounded-sm,rounded-md,rounded-lg,rounded-xl,rounded-2xl,rounded-3xl,rounded-4xl,rounded-full}");
 /* borderWidthMap */
 @source inline("{,sm:,md:,lg:,xl:,2xl:}{border,border-2,border-4,border-8}");
 /* shadowMap */

@@ -177,7 +177,17 @@ export type Cursor =
 
 export type Border = true | 'top' | 'right' | 'bottom' | 'left' | 'none';
 export type BorderWidth = 'sm' | 'md' | 'lg' | 'xl';
-export type BorderRadius = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full' | true;
+export type BorderRadius =
+  | 'none'
+  | 'sm'
+  | 'md'
+  | 'lg'
+  | 'xl'
+  | '2xl'
+  | '3xl'
+  | '4xl'
+  | 'full'
+  | true;
 
 export type BoxShadow = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'inner' | true;
 
