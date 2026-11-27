@@ -498,7 +498,8 @@ function MyComponent() {
 DataTable is built on TanStack Table. Rows are keyed by their `id` (or index; override with
 `getRowId`). `sortable` columns sort on header click; `filter` matches text and number columns
 (`filterable={false}` opts out); `pageSize` adds Previous/Next paging; `value` gives a column with a
-custom cell a value to sort and filter by; `emptyState` replaces "No results.".
+custom cell a value to sort and filter by; `emptyState` replaces "No results."; `loading` shows
+placeholder rows that match the columns (`loadingRows` sets how many).
 
 ## Sidebar
 

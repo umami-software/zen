@@ -32,6 +32,7 @@ import { Grid } from '@/components/Grid';
 import { ArrowDown, ArrowUp, ChevronsUpDown } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   Table,
   TableBody,
@@ -65,6 +66,15 @@ const SELECTION_COLUMN_WIDTH = '2.5rem';
 
 // Rows are grids. The first and last cells get extra padding so content sits clear of the border.
 const ROW_CLASS = 'grid [&>*:first-child]:pl-4 [&>*:last-child]:pr-4';
+
+// Placeholder bar widths (% of the cell), varied so loading rows don't look like a solid block.
+const SKELETON_WIDTHS = [70, 50, 85, 60, 40, 75];
+
+const DEFAULT_LOADING_ROWS = 5;
+
+function skeletonWidth(rowIndex: number, columnIndex: number) {
+  return `${SKELETON_WIDTHS[(rowIndex * 2 + columnIndex) % SKELETON_WIDTHS.length]}%`;
+}
 
 const alignClasses = {
   start: 'justify-start text-left',
@@ -113,6 +123,10 @@ export interface DataTableProps<TData extends RowData = any> extends ComponentPr
   onPageIndexChange?: (pageIndex: number) => void;
   /** Shown when there are no rows to display (default: "No results."). */
   emptyState?: ReactNode;
+  /** Shows placeholder rows in place of the data, keeping the headers and column layout. */
+  loading?: boolean;
+  /** Number of placeholder rows while `loading` (default: `pageSize`, or 5). */
+  loadingRows?: number;
 }
 
 export interface DataColumnProps<TData = any>
@@ -200,6 +214,8 @@ export function DataTable<TData extends RowData = any>({
   defaultPageIndex = 0,
   onPageIndexChange,
   emptyState = 'No results.',
+  loading = false,
+  loadingRows,
   className,
   children,
   ...props
@@ -263,7 +279,12 @@ export function DataTable<TData extends RowData = any>({
   const rows = (isPaginated ? table.getRowModel() : table.getPrePaginatedRowModel()).rows;
   const pageCount = isPaginated ? table.getPageCount() : 1;
 
-  const pagination = isPaginated && pageCount > 1 && (
+  const skeletonRows = Array.from(
+    { length: Math.max(loadingRows ?? (isPaginated ? pageSize : DEFAULT_LOADING_ROWS), 0) },
+    (_, index) => index,
+  );
+
+  const pagination = !loading && isPaginated && pageCount > 1 && (
     <div
       data-slot="data-table-pagination"
       style={{ gridColumn: '1 / -1' }}
@@ -315,37 +336,61 @@ export function DataTable<TData extends RowData = any>({
         alignItems={cardMinWidth ? 'start' : undefined}
         data-slot="data-table"
         data-display-mode="cards"
+        data-loading={loading || undefined}
+        aria-busy={loading || undefined}
       >
-        {rows.length === 0
-          ? empty
-          : rows.map(row => {
-              const items = visibleColumns.map(column => ({
-                label: column.label,
-                value: renderCell(column, row.original as TData, row.index),
-              }));
+        {loading
+          ? skeletonRows.map(rowIndex => (
+              <DataCard
+                key={rowIndex}
+                data-skeleton=""
+                aria-hidden="true"
+                data={[
+                  ...(isSelectable
+                    ? [{ label: '', value: <Skeleton className="size-4 rounded-[4px]" /> }]
+                    : []),
+                  ...visibleColumns.map((column, columnIndex) => ({
+                    label: column.label,
+                    value: (
+                      <Skeleton
+                        className="my-0.5 h-4"
+                        style={{ width: skeletonWidth(rowIndex, columnIndex) }}
+                      />
+                    ),
+                  })),
+                ]}
+              />
+            ))
+          : rows.length === 0
+            ? empty
+            : rows.map(row => {
+                const items = visibleColumns.map(column => ({
+                  label: column.label,
+                  value: renderCell(column, row.original as TData, row.index),
+                }));
 
-              if (isSelectable) {
-                items.unshift({
-                  label: '',
-                  value: (
-                    <Checkbox
-                      aria-label="Select row"
-                      checked={row.getIsSelected()}
-                      onCheckedChange={checked => row.toggleSelected(checked)}
-                    />
-                  ),
-                });
-              }
+                if (isSelectable) {
+                  items.unshift({
+                    label: '',
+                    value: (
+                      <Checkbox
+                        aria-label="Select row"
+                        checked={row.getIsSelected()}
+                        onCheckedChange={checked => row.toggleSelected(checked)}
+                      />
+                    ),
+                  });
+                }
 
-              return (
-                <DataCard
-                  key={row.id}
-                  data-row-id={row.id}
-                  data-state={row.getIsSelected() ? 'selected' : undefined}
-                  data={items}
-                />
-              );
-            })}
+                return (
+                  <DataCard
+                    key={row.id}
+                    data-row-id={row.id}
+                    data-state={row.getIsSelected() ? 'selected' : undefined}
+                    data={items}
+                  />
+                );
+              })}
         {pagination}
       </Grid>
     );
@@ -369,6 +414,8 @@ export function DataTable<TData extends RowData = any>({
       role="table"
       data-slot="data-table"
       data-selection-mode={isSelectable ? selectionMode : undefined}
+      data-loading={loading || undefined}
+      aria-busy={loading || undefined}
       // Preflight sets `table { border-color: inherit }`, so the border color is set explicitly.
       className={cn(
         'grid overflow-hidden rounded-lg border border-border bg-white dark:bg-black',
@@ -388,6 +435,7 @@ export function DataTable<TData extends RowData = any>({
                   aria-label="Select all rows"
                   checked={allSelected}
                   indeterminate={someSelected && !allSelected}
+                  disabled={loading}
                   onCheckedChange={checked => table.toggleAllRowsSelected(checked)}
                 />
               )}
@@ -436,7 +484,39 @@ export function DataTable<TData extends RowData = any>({
         </TableRow>
       </TableHeader>
       <TableBody role="rowgroup" className="contents">
-        {rows.length === 0 ? (
+        {loading ? (
+          skeletonRows.map(rowIndex => (
+            <TableRow
+              key={rowIndex}
+              role="row"
+              aria-hidden="true"
+              data-skeleton=""
+              className={cn(ROW_CLASS, 'hover:bg-transparent')}
+              style={rowStyle}
+            >
+              {isSelectable && (
+                <TableCell role="cell" className="flex items-center">
+                  <Skeleton className="size-4 rounded-[4px]" />
+                </TableCell>
+              )}
+              {visibleColumns.map((column, columnIndex) => (
+                <TableCell
+                  key={column.id}
+                  role="cell"
+                  className={cn(
+                    'flex min-w-0 items-center',
+                    column.align && alignClasses[column.align],
+                  )}
+                >
+                  <Skeleton
+                    className="my-0.5 h-4"
+                    style={{ width: skeletonWidth(rowIndex, columnIndex) }}
+                  />
+                </TableCell>
+              ))}
+            </TableRow>
+          ))
+        ) : rows.length === 0 ? (
           <TableRow role="row" className="grid hover:bg-transparent" style={rowStyle}>
             <TableCell role="cell" style={{ gridColumn: '1 / -1' }}>
               {empty}

@@ -224,6 +224,33 @@ something else.
   ```
 </Example>
 
+## Loading
+
+Set `loading` while the data is being fetched. The headers stay in place and the body shows
+placeholder rows that follow the column widths and alignment, so the layout doesn't shift when the
+data arrives. It shows `pageSize` rows, or 5 without paging; `loadingRows` sets the number. Pagination
+is hidden while loading, and card mode shows placeholder cards.
+
+<Example>
+  <DataTable data={[]} loading loadingRows={3} selectionMode="multiple">
+    <DataColumn id="id" label="ID" width="50px" />
+    <DataColumn id="name" label="Name" width="2fr" />
+    <DataColumn id="title" label="Title" />
+    <DataColumn id="email" label="Email" align="end" />
+  </DataTable>
+
+  ```jsx
+  const { data, isLoading } = useQuery(...);
+
+  <DataTable data={data} loading={isLoading} loadingRows={3}>
+    <DataColumn id="id" label="ID" width="50px" />
+    <DataColumn id="name" label="Name" width="2fr" />
+    <DataColumn id="title" label="Title" />
+    <DataColumn id="email" label="Email" align="end" />
+  </DataTable>
+  ```
+</Example>
+
 ## As cards
 
 Set `displayMode="cards"` to show each row as a card, for example on small screens. Sorting,
@@ -309,6 +336,8 @@ Other shadcn `Table` props are passed through.
   <PropertiesTable.Row name="defaultPageIndex" type="number">Initial page, starting at 0 (uncontrolled)</PropertiesTable.Row>
   <PropertiesTable.Row name="onPageIndexChange" type="(pageIndex: number) => void">Called when the page changes</PropertiesTable.Row>
   <PropertiesTable.Row name="emptyState" type="ReactNode">Shown when there are no rows (default: "No results.")</PropertiesTable.Row>
+  <PropertiesTable.Row name="loading" type="boolean">Shows placeholder rows in place of the data, keeping the headers and column layout</PropertiesTable.Row>
+  <PropertiesTable.Row name="loadingRows" type="number">Number of placeholder rows while `loading` (default: `pageSize`, or 5)</PropertiesTable.Row>
 </PropertiesTable>
 
 ### DataColumn
