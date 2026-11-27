@@ -360,7 +360,7 @@ export function DataTable<TData extends RowData = any>({
         data-slot="data-table"
         data-display-mode="cards"
         data-loading={loading || undefined}
-        aria-busy={loading || undefined}
+        aria-busy={loading || props['aria-busy']}
       >
         {loading
           ? skeletonRows.map(rowIndex =>
@@ -478,7 +478,9 @@ export function DataTable<TData extends RowData = any>({
       data-slot="data-table"
       data-selection-mode={isSelectable ? selectionMode : undefined}
       data-loading={loading || undefined}
-      aria-busy={loading || undefined}
+      // Busy while showing placeholders; otherwise keep the caller's aria-busy, e.g. for a table
+      // whose rows are shown while some of their values still load.
+      aria-busy={loading || props['aria-busy']}
       // Preflight sets `table { border-color: inherit }`, so the border color is set explicitly.
       className={cn(
         'grid overflow-hidden rounded-lg border border-border bg-white dark:bg-black',

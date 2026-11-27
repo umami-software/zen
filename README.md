@@ -28,17 +28,15 @@ pnpm add @umami/react-zen
 
 ### With Tailwind CSS
 
-For projects using Tailwind CSS v4, import Zen's stylesheet after Tailwind and add the package to
-Tailwind's sources:
+For projects using Tailwind CSS v4, import Zen's stylesheet after Tailwind:
 
 ```css
 @import "tailwindcss";
 @import "@umami/react-zen/styles.css";
-
-@source "../node_modules/@umami/react-zen/dist";
 ```
 
-There is no Tailwind config or preset to add.
+Zen's stylesheet adds its own components to Tailwind's sources, including the classes its style
+props build at runtime. There is no Tailwind config, preset or safelist to add.
 
 ### Without Tailwind CSS
 

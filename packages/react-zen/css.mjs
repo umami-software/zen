@@ -16,6 +16,7 @@ async function getCssFiles() {
     './src/styles/shadcn.css',
     './src/styles/zen.css',
     './src/styles/safelist.css',
+    './src/styles/props.css',
     ...componentCssFiles,
   ];
 }
@@ -67,7 +68,11 @@ async function buildMinimalCSS() {
     })
   );
 
-  const output = contents.join('\n\n');
+  // Point Tailwind at Zen's own components. @source resolves relative to this file, so apps
+  // only import styles.css and never need the package's install path.
+  const source = '/* Classes used by Zen\'s components. */\n@source "./dist";\n';
+
+  const output = [...contents, source].join('\n\n');
   await fs.writeFile('./styles.css', output, 'utf-8');
   console.log('CSS build complete: styles.css (minimal - for Tailwind users)');
 }

@@ -1465,6 +1465,22 @@
 @source inline("{,sm:,md:,lg:,xl:,2xl:}{max-h-0,max-h-px,max-h-0.5,max-h-1,max-h-1.5,max-h-2,max-h-2.5,max-h-3,max-h-3.5,max-h-4,max-h-5,max-h-6,max-h-7,max-h-8,max-h-9,max-h-10,max-h-11,max-h-12,max-h-14,max-h-16,max-h-20,max-h-24,max-h-28,max-h-32,max-h-36,max-h-40,max-h-44,max-h-48,max-h-52,max-h-56,max-h-60,max-h-64,max-h-72,max-h-80,max-h-96,max-h-none,max-h-full,max-h-screen,max-h-svh,max-h-lvh,max-h-dvh,max-h-min,max-h-max,max-h-fit}");
 
 
+/* ./src/styles/props.css */
+/*
+ * Color props (backgroundColor="amber-500" becomes bg-amber-500) and hover/focus/active state
+ * styles build their class names at runtime, so Tailwind never sees them in the source. Safelist
+ * every value they accept. Part of both styles.css and styles.full.css, so apps running Tailwind
+ * get them too.
+ */
+@source inline("{,hover:,focus:,active:}{bg,text,border}-{background,foreground,card,card-foreground,popover,popover-foreground,primary,primary-foreground,secondary,secondary-foreground,muted,muted-foreground,accent,accent-foreground,destructive,border,input,ring,success,warning,info}");
+@source inline("{,hover:,focus:,active:}{bg,text,border}-{slate,gray,zinc,neutral,stone,red,orange,amber,yellow,lime,green,emerald,teal,cyan,sky,blue,indigo,violet,purple,fuchsia,pink,rose}-{50,100,200,300,400,500,600,700,800,900,950}");
+@source inline("{hover:,focus:,active:}opacity-{0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100}");
+@source inline("{,hover:,focus:,active:}{bg,text,border}-transparent");
+@source inline("{,hover:,focus:,active:}bg-{page,sidebar}");
+@source inline("decoration-{foreground,muted-foreground,primary,primary-foreground,secondary-foreground,accent-foreground,background,card-foreground,popover-foreground,destructive,success,warning,info}");
+@source inline("decoration-{slate,gray,zinc,neutral,stone,red,orange,amber,yellow,lime,green,emerald,teal,cyan,sky,blue,indigo,violet,purple,fuchsia,pink,rose}-{50,100,200,300,400,500,600,700,800,900,950}");
+
+
 /* src/components/Dots.css */
 .zen-dot {
   border-radius: 100%;
@@ -1540,3 +1556,7 @@
     stroke-dashoffset: -124;
   }
 }
+
+
+/* Classes used by Zen's components. */
+@source "./dist";
